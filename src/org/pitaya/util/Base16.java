@@ -87,9 +87,7 @@ public final class Base16
 	{
 		String encoded = hex.toString();
 		int len = encoded.length();
-		if (len % 2 != 0) {
-			throw new IllegalArgumentException();
-		}
+		Parameters.checkCondition(len % 2 == 0);
 		byte[] data = new byte[len / 2];
 		for (int i = 0; i < len; i += 2) {
 			int val = intValue(encoded.charAt(i)) << 4;

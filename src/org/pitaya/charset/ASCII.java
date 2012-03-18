@@ -16,8 +16,6 @@
 
 package org.pitaya.charset;
 
-import java.nio.charset.Charset;
-
 /**
  * Utility class that only contains methods that operate on or returns ASCII
  * {@code char}s and {@code String}s.
@@ -26,8 +24,6 @@ import java.nio.charset.Charset;
  */
 public final class ASCII
 {
-	private static final Charset US_ASCII = Charset.forName("US-ASCII");
-
 	/**
 	 * Returns the ASCII encoding of the given character sequence.
 	 *
@@ -39,7 +35,7 @@ public final class ASCII
 	 */
 	public static byte[] encode(CharSequence sequence)
 	{
-		return sequence.toString().getBytes(US_ASCII);
+		return sequence.toString().getBytes(Charsets.US_ASCII);
 	}
 
 	/**
@@ -92,7 +88,7 @@ public final class ASCII
 	 */
 	public static String decode(byte[] input, int off, int len)
 	{
-		return new String(input, off, len, US_ASCII);
+		return new String(input, off, len, Charsets.US_ASCII);
 	}
 
 	/**

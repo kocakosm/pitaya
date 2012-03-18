@@ -50,9 +50,7 @@ public final class ByteBuffer implements Iterable<Byte>
 	 */
 	public ByteBuffer(int capacity)
 	{
-		if (capacity < 0) {
-			throw new IllegalArgumentException();
-		}
+		Parameters.checkCondition(capacity >= 0);
 		this.buf = new byte[capacity];
 		this.capacity = capacity;
 	}

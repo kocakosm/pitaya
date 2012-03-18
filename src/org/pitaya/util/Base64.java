@@ -114,9 +114,7 @@ public final class Base64
 	{
 		String encoded = sequence.toString();
 		int len = encoded.length();
-		if (len % 4 != 0) {
-			throw new IllegalArgumentException();
-		}
+		Parameters.checkCondition(len % 4 == 0);
 		ByteBuffer buf = new ByteBuffer((len * 3) / 4);
 		int accu = 0;
 		int count = 0;
@@ -125,9 +123,7 @@ public final class Base64
 			if (PADDING_CHAR.equals(c)) {
 				break;
 			}
-			if (!BASE64_VALUES.containsKey(c)) {
-				throw new IllegalArgumentException();
-			}
+			Parameters.checkCondition(BASE64_VALUES.containsKey(c));
 			accu = (accu << 6) | BASE64_VALUES.get(c).intValue();
 			count += 6;
 			while (count >= 8) {

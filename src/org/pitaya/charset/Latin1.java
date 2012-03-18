@@ -16,8 +16,6 @@
 
 package org.pitaya.charset;
 
-import java.nio.charset.Charset;
-
 /**
  * Utility class to encode and decode LATIN-1 {@code String}s.
  *
@@ -25,8 +23,6 @@ import java.nio.charset.Charset;
  */
 public final class Latin1
 {
-	private static final Charset LATIN_1 = Charset.forName("ISO-8859-1");
-
 	/**
 	 * Returns the LATIN-1 encoding of the given character sequence.
 	 *
@@ -38,7 +34,7 @@ public final class Latin1
 	 */
 	public static byte[] encode(CharSequence sequence)
 	{
-		return sequence.toString().getBytes(LATIN_1);
+		return sequence.toString().getBytes(Charsets.ISO_8859_1);
 	}
 
 	/**
@@ -91,7 +87,7 @@ public final class Latin1
 	 */
 	public static String decode(byte[] input, int off, int len)
 	{
-		return new String(input, off, len, LATIN_1);
+		return new String(input, off, len, Charsets.ISO_8859_1);
 	}
 
 	private Latin1()

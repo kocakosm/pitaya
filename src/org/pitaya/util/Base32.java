@@ -109,9 +109,7 @@ public final class Base32
 	{
 		String encoded = sequence.toString();
 		int len = encoded.length();
-		if (len % 8 != 0) {
-			throw new IllegalArgumentException();
-		}
+		Parameters.checkCondition(len % 8 == 0);
 		ByteBuffer buf = new ByteBuffer((len * 5) / 8);
 		int accu = 0;
 		int count = 0;
@@ -120,9 +118,7 @@ public final class Base32
 			if (PADDING_CHAR.equals(c)) {
 				break;
 			}
-			if (!BASE32_VALUES.containsKey(c)) {
-				throw new IllegalArgumentException();
-			}
+			Parameters.checkCondition(BASE32_VALUES.containsKey(c));
 			accu = (accu << 5) | BASE32_VALUES.get(c).intValue();
 			count += 5;
 			while (count >= 8) {

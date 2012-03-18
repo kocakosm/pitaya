@@ -16,8 +16,6 @@
 
 package org.pitaya.charset;
 
-import java.nio.charset.Charset;
-
 /**
  * Utility class to encode and decode UTF-8 {@code String}s.
  *
@@ -25,8 +23,6 @@ import java.nio.charset.Charset;
  */
 public final class UTF8
 {
-	private static final Charset UTF_8 = Charset.forName("UTF-8");
-
 	/**
 	 * Returns the UTF-8 encoding of the given character sequence.
 	 *
@@ -38,7 +34,7 @@ public final class UTF8
 	 */
 	public static byte[] encode(CharSequence sequence)
 	{
-		return sequence.toString().getBytes(UTF_8);
+		return sequence.toString().getBytes(Charsets.UTF_8);
 	}
 
 	/**
@@ -91,7 +87,7 @@ public final class UTF8
 	 */
 	public static String decode(byte[] input, int off, int len)
 	{
-		return new String(input, off, len, UTF_8);
+		return new String(input, off, len, Charsets.UTF_8);
 	}
 
 	private UTF8()
