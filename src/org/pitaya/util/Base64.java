@@ -119,7 +119,7 @@ public final class Base64
 		int accu = 0;
 		int count = 0;
 		for (int i = 0; i < len; i++) {
-			Character c = encoded.charAt(i);
+			Character c = Character.valueOf(encoded.charAt(i));
 			if (PADDING_CHAR.equals(c)) {
 				break;
 			}

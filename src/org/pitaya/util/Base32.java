@@ -129,9 +129,9 @@ public final class Base32
 		return buf.toByteArray();
 	}
 
-	private static char toUpperCase(char c)
+	private static Character toUpperCase(char c)
 	{
-		return c >= 'a' ? (char) (c - 32) : c;
+		return Character.valueOf(c >= 'a' ? (char) (c - 32) : c);
 	}
 
 	private Base32()

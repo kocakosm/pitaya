@@ -34,7 +34,7 @@ public final class Digests
 	 */
 	public static Digest md2()
 	{
-		return new CustomDigest("MD2");
+		return new DigestImpl("MD2");
 	}
 
 	/**
@@ -54,7 +54,7 @@ public final class Digests
 	 */
 	public static Digest md5()
 	{
-		return new CustomDigest("MD5");
+		return new DigestImpl("MD5");
 	}
 
 	/**
@@ -64,7 +64,7 @@ public final class Digests
 	 */
 	public static Digest sha1()
 	{
-		return new CustomDigest("SHA1");
+		return new DigestImpl("SHA1");
 	}
 
 	/**
@@ -74,7 +74,7 @@ public final class Digests
 	 */
 	public static Digest sha256()
 	{
-		return new CustomDigest("SHA-256");
+		return new DigestImpl("SHA-256");
 	}
 
 	/**
@@ -84,15 +84,15 @@ public final class Digests
 	 */
 	public static Digest sha512()
 	{
-		return new CustomDigest("SHA-512");
+		return new DigestImpl("SHA-512");
 	}
 
-	private static final class CustomDigest implements Digest
+	private static final class DigestImpl implements Digest
 	{
 		private final String algorithm;
 		private final MessageDigest md;
 
-		CustomDigest(String algorithm)
+		DigestImpl(String algorithm)
 		{
 			this.algorithm = algorithm;
 			try {
@@ -157,10 +157,10 @@ public final class Digests
 			if (o == this) {
 				return true;
 			}
-			if (!(o instanceof CustomDigest)) {
+			if (!(o instanceof DigestImpl)) {
 				return false;
 			}
-			final CustomDigest digest = (CustomDigest) o;
+			final DigestImpl digest = (DigestImpl) o;
 			return md.equals(digest.md);
 		}
 

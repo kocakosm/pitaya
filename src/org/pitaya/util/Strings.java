@@ -30,7 +30,7 @@ public final class Strings
 	 *
 	 * @return whether the given {@link String} is empty or {@code null}.
 	 */
-	public static boolean isEmptyOrNull(String str)
+	public static boolean isNullOrEmpty(String str)
 	{
 		return str == null || str.isEmpty();
 	}

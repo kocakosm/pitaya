@@ -16,6 +16,8 @@
 
 package org.pitaya.io;
 
+import org.pitaya.util.Parameters;
+
 import java.io.OutputStream;
 
 /**
@@ -41,9 +43,7 @@ public final class NullOutputStream extends OutputStream
 	@Override
 	public void write(byte... b)
 	{
-		if (b == null) {
-			throw new NullPointerException();
-		}
+		Parameters.checkNotNull(b);
 	}
 
 	@Override
