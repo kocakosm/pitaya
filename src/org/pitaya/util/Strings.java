@@ -205,6 +205,79 @@ public final class Strings
 		return new StringBuilder(str).reverse().toString();
 	}
 
+	/**
+	 * Returns a {@link String} of length at least {@code len} created by
+	 * prepending as many copies of {@code padChar} as necessary to reach
+	 * that length.
+	 *
+	 * @param str the {@link String} to pad.
+	 * @param len the result's minimum length.
+	 * @param padChar the padding character.
+	 *
+	 * @return the padded {@link String}.
+	 *
+	 * @throws IllegalArgumentException if {@code len} is negative.
+	 * @throws NullPointerException if {@code str} is {@code null}.
+	 */
+	public static String lpad(String str, int len, char padChar)
+	{
+		Parameters.checkCondition(len >= 0);
+		StringBuilder sb = new StringBuilder(len);
+		while (sb.length() < len - str.length()) {
+			sb.append(padChar);
+		}
+		sb.append(str);
+		return sb.toString();
+	}
+
+	/**
+	 * Returns a {@link String} of length at least {@code len} created by
+	 * appending as many copies of {@code padChar} as necessary to reach
+	 * that length.
+	 *
+	 * @param str the {@link String} to pad.
+	 * @param len the result's minimum length.
+	 * @param padChar the padding character.
+	 *
+	 * @return the padded {@link String}.
+	 *
+	 * @throws IllegalArgumentException if {@code len} is negative.
+	 * @throws NullPointerException if {@code str} is {@code null}.
+	 */
+	public static String rpad(String str, int len, char padChar)
+	{
+		Parameters.checkCondition(len >= 0);
+		Parameters.checkNotNull(str);
+		StringBuilder sb = new StringBuilder(len);
+		sb.append(str);
+		while (sb.length() < len) {
+			sb.append(padChar);
+		}
+		return sb.toString();
+	}
+
+	/**
+	 * Returns the {@link String} obtained by repeating {@code count} times
+	 * the given {@link String}.
+	 *
+	 * @param str the {@link String} to repeat.
+	 * @param count the number of times the {@code str} has to be repeared.
+	 *
+	 * @return the created {@link String}.
+	 *
+	 * @throws IllegalArgumentException if {@code count} is negative.
+	 * @throws NullPointerException if {@code str} is {@code null}.
+	 */
+	public static String repeat(String str, int count)
+	{
+		Parameters.checkCondition(count >= 0);
+		StringBuilder sb = new StringBuilder(str.length() * count);
+		for (int i = 0; i < count; i++) {
+			sb.append(str);
+		}
+		return sb.toString();
+	}
+
 	private Strings()
 	{
 		/* ... */
