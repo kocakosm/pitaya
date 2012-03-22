@@ -150,25 +150,6 @@ public final class Digests
 		{
 			return algorithm;
 		}
-
-		@Override
-		public boolean equals(Object o)
-		{
-			if (o == this) {
-				return true;
-			}
-			if (!(o instanceof DigestImpl)) {
-				return false;
-			}
-			final DigestImpl digest = (DigestImpl) o;
-			return md.equals(digest.md);
-		}
-
-		@Override
-		public int hashCode()
-		{
-			return md.hashCode();
-		}
 	}
 
 	private Digests()

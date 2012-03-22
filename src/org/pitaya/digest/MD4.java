@@ -16,8 +16,6 @@
 
 package org.pitaya.digest;
 
-import java.util.Arrays;
-
 /**
  * The MD4 digest algorithm. Instances of this class are not thread safe.
  *
@@ -293,32 +291,5 @@ final class MD4 implements Digest
 	public String toString()
 	{
 		return "MD4";
-	}
-
-	@Override
-	public boolean equals(Object o)
-	{
-		if (o == this) {
-			return true;
-		}
-		if (!(o instanceof MD4)) {
-			return false;
-		}
-		final MD4 md4 = (MD4) o;
-		if (counter != md4.counter || bufferLen != md4.bufferLen) {
-			return false;
-		}
-		for (int i = 0; i < bufferLen; i++) {
-			if (buffer[i] != md4.buffer[i]) {
-				return false;
-			}
-		}
-		return Arrays.equals(value, md4.value);
-	}
-
-	@Override
-	public int hashCode()
-	{
-		return Arrays.hashCode(value);
 	}
 }

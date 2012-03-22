@@ -180,6 +180,12 @@ public final class HMACs
 			reset();
 			return hmac;
 		}
+
+		@Override
+		public String toString()
+		{
+			return "HMAC-" + digest;
+		}
 	}
 
 	private HMACs()
