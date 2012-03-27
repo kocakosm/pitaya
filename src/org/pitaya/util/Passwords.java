@@ -47,29 +47,38 @@ public final class Passwords
 	}
 
 	/**
-	 * Generates a (16-bytes long) random password salt.
-	 *
-	 * @return a random password salt.
-	 */
-	public static byte[] salt()
-	{
-		byte[] salt = new byte[16];
-		PRNG.nextBytes(salt);
-		return salt;
-	}
-
-	/**
-	 * Hashes the given password with the given salt.
+	 * Hashes the given password (the salt is appended to the hash).
 	 *
 	 * @param password the password to hash.
-	 * @param salt the password hashing salt.
 	 *
 	 * @return the hashed password.
 	 *
-	 * @throws NullPointerException if one of the given parameters is
+	 * @throws NullPointerException if {@code password} is {@code null}.
+	 */
+	public static byte[] hash(String password)
+	{
+		return hash(password, salt());
+	}
+
+	/**
+	 * Verifies that the given password matches the hashed one.
+	 *
+	 * @param password the password to verify.
+	 * @param hash the hashed password.
+	 *
+	 * @return whether the given password matches the hashed one.
+	 *
+	 * @throws NullPointerException if {@code password} or {@code hash} is
 	 *	{@code null}.
 	 */
-	public static byte[] hash(String password, byte[] salt)
+	public static boolean verify(String password, byte[] hash)
+	{
+		byte[] salt = new byte[16];
+		System.arraycopy(hash, 32, salt, 0, salt.length);
+		return Arrays.equals(hash, hash(password, salt));
+	}
+
+	private static byte[] hash(String password, byte[] salt)
 	{
 		MessageDigest md;
 		try {
@@ -86,24 +95,17 @@ public final class Passwords
 			md.update(hash);
 			hash = md.digest();
 		}
-		return hash;
+		byte[] buf = new byte[48];
+		System.arraycopy(hash, 0, buf, 0, hash.length);
+		System.arraycopy(salt, 0, buf, hash.length, salt.length);
+		return buf;
 	}
 
-	/**
-	 * Verifies that the given password and salt matches the hashed one.
-	 *
-	 * @param hash the hashed password.
-	 * @param password the password to verify.
-	 * @param salt the salt that has been used when hashing the password.
-	 *
-	 * @return the hashed password.
-	 *
-	 * @throws NullPointerException if one of the given parameters is
-	 *	{@code null}.
-	 */
-	public static boolean verify(byte[] hash, String password, byte[] salt)
+	private static byte[] salt()
 	{
-		return Arrays.equals(hash, hash(password, salt));
+		byte[] salt = new byte[16];
+		PRNG.nextBytes(salt);
+		return salt;
 	}
 
 	private Passwords()
