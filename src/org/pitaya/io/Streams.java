@@ -31,10 +31,11 @@ public final class Streams
 	/**
 	 * Forwards the content of the given {@link InpuStream} into the given
 	 * {@link OutputStream}.
-	 * 
+	 *
 	 * @param in the stream to read.
 	 * @param out the stream to write on.
 	 *
+	 * @throws NullPointerException if one of the arguments is {@code null}.
 	 * @throws IOException if an I/O error occurs during the process.
 	 */
 	public static void pipe(InputStream in, OutputStream out)
@@ -51,7 +52,7 @@ public final class Streams
 
 	/**
 	 * Silently closes the given {@link InputStream}.
-	 * 
+	 *
 	 * @param in the stream to close, may be {@code null}.
 	 */
 	public static void close(InputStream in)
