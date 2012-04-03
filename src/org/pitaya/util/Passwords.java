@@ -17,10 +17,10 @@
 package org.pitaya.util;
 
 import org.pitaya.charset.UTF8;
+import org.pitaya.digest.Digest;
+import org.pitaya.digest.Digests;
 
 import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Random;
@@ -80,22 +80,18 @@ public final class Passwords
 
 	private static byte[] hash(String password, byte[] salt)
 	{
-		MessageDigest md;
-		try {
-			md = MessageDigest.getInstance("SHA-256");
-		} catch (NoSuchAlgorithmException ex) {
-			/* Cannot happen... */
-			throw new IllegalStateException(ex);
-		}
-		md.update(salt);
-		md.update(UTF8.encode(password));
-		byte[] hash = md.digest();
+		byte[] passwd = UTF8.encode(password);
+		Digest digest = Digests.sha256();
+		digest.update(salt);
+		digest.update(passwd);
+		byte[] hash = digest.digest();
 		for (int i = 0; i < 10; i++) {
-			md.update(salt);
-			md.update(hash);
-			hash = md.digest();
+			digest.update(salt);
+			digest.update(passwd);
+			digest.update(hash);
+			hash = digest.digest();
 		}
-		byte[] buf = new byte[48];
+		byte[] buf = new byte[hash.length + salt.length];
 		System.arraycopy(hash, 0, buf, 0, hash.length);
 		System.arraycopy(salt, 0, buf, hash.length, salt.length);
 		return buf;
