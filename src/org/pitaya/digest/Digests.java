@@ -34,7 +34,7 @@ public final class Digests
 	 */
 	public static Digest md2()
 	{
-		return new DigestImpl("MD2");
+		return new MD2();
 	}
 
 	/**
