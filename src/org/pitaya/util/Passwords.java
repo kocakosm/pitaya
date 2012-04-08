@@ -24,6 +24,7 @@ import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Random;
+import org.pitaya.charset.ASCII;
 
 /**
  * Password utility functions.
@@ -41,9 +42,16 @@ public final class Passwords
 	 */
 	public static String generate()
 	{
-		BigInteger n = new BigInteger(52, PRNG);
-		String ns = "0000000000" + n.toString(36).toUpperCase();
-		return ns.substring(ns.length() - 10);
+		String s = new BigInteger(52, PRNG).toString(36) + "0000000000";
+		StringBuilder password = new StringBuilder(10);
+		for (int i = 0; i < 10; i++) {
+			if (PRNG.nextBoolean()) {
+				password.append(ASCII.toUpperCase(s.charAt(i)));
+			} else {
+				password.append(s.charAt(i));
+			}
+		}
+		return password.toString();
 	}
 
 	/**
