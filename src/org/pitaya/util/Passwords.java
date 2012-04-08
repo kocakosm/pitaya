@@ -16,6 +16,7 @@
 
 package org.pitaya.util;
 
+import org.pitaya.charset.ASCII;
 import org.pitaya.charset.UTF8;
 import org.pitaya.digest.Digest;
 import org.pitaya.digest.Digests;
@@ -24,7 +25,6 @@ import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Random;
-import org.pitaya.charset.ASCII;
 
 /**
  * Password utility functions.
