@@ -64,6 +64,14 @@ public interface HMAC
 	void update(byte[] input, int off, int len);
 
 	/**
+	 * Completes the HMAC computation. Note that the engine is reset after
+	 * this call is made.
+	 *
+	 * @return the resulting HMAC.
+	 */
+	byte[] hmac();
+
+	/**
 	 * Performs a final update on the HMAC using the specified array of
 	 * bytes, then completes the HMAC computation. That is, this method
 	 * first calls {@link #update(byte...)}, passing the input array to the
@@ -79,10 +87,21 @@ public interface HMAC
 	byte[] hmac(byte... input);
 
 	/**
-	 * Completes the hash computation. Note that the engine is reset after
-	 * this call is made.
+	 * Performs a final update on the HMAC using the specified data bytes,
+	 * then completes the HMAC computation. That is, this method first
+	 * calls {@link #update(byte[], int, int)}, passing the input array to
+	 * the update method, then calls {@link #hmac()}. Note that the engine
+	 * is reset after this call is made.
+	 *
+	 * @param input the input array of bytes.
+	 * @param off the offset to start from in the array of bytes.
+	 * @param len the number of bytes to use, starting at {@code off}.
 	 *
 	 * @return the resulting HMAC.
+	 *
+	 * @throws NullPointerException if {@code input} is {@code null}.
+	 * @throws IndexOutOfBoundsException if {@code off} is negative or if
+	 *	{@code off + len} is greater than {@code input}'s length.
 	 */
-	byte[] hmac();
+	byte[] hmac(byte[] input, int off, int len);
 }

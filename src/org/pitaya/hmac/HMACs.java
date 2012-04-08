@@ -163,13 +163,6 @@ public final class HMACs
 		}
 
 		@Override
-		public byte[] hmac(byte... input)
-		{
-			update(input);
-			return hmac();
-		}
-
-		@Override
 		public byte[] hmac()
 		{
 			byte[] h = digest.digest();
@@ -179,6 +172,20 @@ public final class HMACs
 			byte[] hmac = digest.digest(h);
 			reset();
 			return hmac;
+		}
+
+		@Override
+		public byte[] hmac(byte... input)
+		{
+			update(input);
+			return hmac();
+		}
+
+		@Override
+		public byte[] hmac(byte[] input, int off, int len)
+		{
+			update(input, off, len);
+			return hmac();
 		}
 
 		@Override
