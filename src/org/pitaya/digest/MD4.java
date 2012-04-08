@@ -21,7 +21,7 @@ package org.pitaya.digest;
  *
  * @author Osman KOCAK
  */
-final class MD4 implements Digest
+final class MD4 extends AbstractDigest
 {
 	private static final int DIGEST_LENGTH = 16;
 	private static final int BLOCK_LENGTH = 64;
@@ -41,15 +41,10 @@ final class MD4 implements Digest
 	/** Creates a new ready to use {@code MD4}. */
 	MD4()
 	{
+		super("MD4", DIGEST_LENGTH);
 		this.value = new int[4];
 		this.buffer = new byte[BLOCK_LENGTH];
 		reset();
-	}
-
-	@Override
-	public int length()
-	{
-		return DIGEST_LENGTH * 8;
 	}
 
 	@Override
@@ -73,12 +68,6 @@ final class MD4 implements Digest
 	}
 
 	@Override
-	public void update(byte... input)
-	{
-		update(input, 0, input.length);
-	}
-
-	@Override
 	public void update(byte[] input, int off, int len)
 	{
 		while (len > 0) {
@@ -91,13 +80,6 @@ final class MD4 implements Digest
 				processBuffer();
 			}
 		}
-	}
-
-	@Override
-	public byte[] digest(byte... input)
-	{
-		update(input, 0, input.length);
-		return digest();
 	}
 
 	@Override
@@ -285,11 +267,5 @@ final class MD4 implements Digest
 	private int rotateLeft(int x, int n)
 	{
 		return (x << n) | (x >>> (32 - n));
-	}
-
-	@Override
-	public String toString()
-	{
-		return "MD4";
 	}
 }

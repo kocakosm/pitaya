@@ -21,7 +21,7 @@ package org.pitaya.digest;
  *
  * @author Osman KOCAK
  */
-final class MD2 implements Digest
+final class MD2 extends AbstractDigest
 {
 	private static final int DIGEST_LENGTH = 16;
 	private static final int BLOCK_LENGTH = 16;
@@ -97,14 +97,9 @@ final class MD2 implements Digest
 	/** Creates a new ready to use {@code MD2}. */
 	MD2()
 	{
+		super("MD2", DIGEST_LENGTH);
 		this.buffer = new byte[BLOCK_LENGTH];
 		reset();
-	}
-
-	@Override
-	public int length()
-	{
-		return DIGEST_LENGTH * 8;
 	}
 
 	@Override
@@ -126,12 +121,6 @@ final class MD2 implements Digest
 	}
 
 	@Override
-	public void update(byte... input)
-	{
-		update(input, 0, input.length);
-	}
-
-	@Override
 	public void update(byte[] input, int off, int len)
 	{
 		while (len > 0) {
@@ -145,13 +134,6 @@ final class MD2 implements Digest
 				processBuffer();
 			}
 		}
-	}
-
-	@Override
-	public byte[] digest(byte... input)
-	{
-		update(input, 0, input.length);
-		return digest();
 	}
 
 	@Override
@@ -211,11 +193,5 @@ final class MD2 implements Digest
 			}
 			t = (byte)(t + j);
 		}
-	}
-
-	@Override
-	public String toString()
-	{
-		return "MD2";
 	}
 }
