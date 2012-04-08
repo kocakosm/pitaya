@@ -140,7 +140,7 @@ public final class Strings
 	 *
 	 * @param str the {@link String} to trim.
 	 *
-	 * @return the trimmed {@link Strimg}.
+	 * @return the trimmed {@link String}.
 	 *
 	 * @throws NullPointerException if {@code str} is {@code null}.
 	 */
@@ -162,7 +162,7 @@ public final class Strings
 	 *
 	 * @param str the {@link String} to trim.
 	 *
-	 * @return the trimmed {@link Strimg}.
+	 * @return the trimmed {@link String}.
 	 *
 	 * @throws NullPointerException if {@code str} is {@code null}.
 	 */
@@ -184,7 +184,7 @@ public final class Strings
 	 *
 	 * @param str the {@link String} to trim.
 	 *
-	 * @return the trimmed {@link Strimg}.
+	 * @return the trimmed {@link String}.
 	 *
 	 * @throws NullPointerException if {@code str} is {@code null}.
 	 */
