@@ -55,13 +55,21 @@ public interface Digest
 	 *
 	 * @param input the array of bytes.
 	 * @param off the offset to start from in the array of bytes.
-	 * @param len the number of bytes to use, starting at offset.
+	 * @param len the number of bytes to use, starting at {@code off}.
 	 *
 	 * @throws NullPointerException if {@code input} is {@code null}.
 	 * @throws IndexOutOfBoundsException if {@code off} is negative or if
 	 *	{@code off + len} is greater than {@code input}'s length.
 	 */
 	void update(byte[] input, int off, int len);
+
+	/**
+	 * Completes the hash computation. Note that the engine is reset after
+	 * this call is made.
+	 *
+	 * @return the resulting digest.
+	 */
+	byte[] digest();
 
 	/**
 	 * Performs a final update on the digest using the specified array of
@@ -79,10 +87,21 @@ public interface Digest
 	byte[] digest(byte... input);
 
 	/**
-	 * Completes the hash computation. Note that the engine is reset after
-	 * this call is made.
+	 * Performs a final update on the digest using the specified data bytes,
+	 * then completes the digest computation. That is, this method first
+	 * calls {@link #update(byte[], int, int)}, passing the input array to
+	 * the update method, then calls {@link #digest()}. Note that the engine
+	 * is reset after this call is made.
+	 *
+	 * @param input the input array of bytes.
+	 * @param off the offset to start from in the array of bytes.
+	 * @param len the number of bytes to use, starting at {@code off}.
 	 *
 	 * @return the resulting digest.
+	 *
+	 * @throws NullPointerException if {@code input} is {@code null}.
+	 * @throws IndexOutOfBoundsException if {@code off} is negative or if
+	 *	{@code off + len} is greater than {@code input}'s length.
 	 */
-	byte[] digest();
+	byte[] digest(byte[] input, int off, int len);
 }

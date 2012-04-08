@@ -134,14 +134,21 @@ public final class Digests
 		}
 
 		@Override
+		public byte[] digest()
+		{
+			return md.digest();
+		}
+
+		@Override
 		public byte[] digest(byte... input)
 		{
 			return md.digest(input);
 		}
 
 		@Override
-		public byte[] digest()
+		public byte[] digest(byte[] input, int off, int len)
 		{
+			update(input, off, len);
 			return md.digest();
 		}
 

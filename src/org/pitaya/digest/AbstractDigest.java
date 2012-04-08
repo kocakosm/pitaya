@@ -58,6 +58,13 @@ abstract class AbstractDigest implements Digest
 	}
 
 	@Override
+	public byte[] digest(byte[] input, int off, int len)
+	{
+		update(input, off, len);
+		return digest();
+	}
+
+	@Override
 	public String toString()
 	{
 		return name;
