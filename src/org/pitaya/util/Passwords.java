@@ -27,12 +27,14 @@ import java.util.Arrays;
 import java.util.Random;
 
 /**
- * Password utility functions.
+ * Passwords related utility functions.
  *
  * @author Osman KOCAK
  */
 public final class Passwords
 {
+	private static final int SALT_LENGTH = 16;
+	private static final int HASH_LENGTH = 32;
 	private static final Random PRNG = new SecureRandom();
 
 	/**
@@ -81,8 +83,8 @@ public final class Passwords
 	 */
 	public static boolean verify(String password, byte[] hash)
 	{
-		byte[] salt = new byte[16];
-		System.arraycopy(hash, 32, salt, 0, salt.length);
+		byte[] salt = new byte[SALT_LENGTH];
+		System.arraycopy(hash, HASH_LENGTH, salt, 0, SALT_LENGTH);
 		return Arrays.equals(hash, hash(password, salt));
 	}
 
@@ -99,15 +101,15 @@ public final class Passwords
 			digest.update(hash);
 			hash = digest.digest();
 		}
-		byte[] buf = new byte[hash.length + salt.length];
-		System.arraycopy(hash, 0, buf, 0, hash.length);
-		System.arraycopy(salt, 0, buf, hash.length, salt.length);
+		byte[] buf = new byte[HASH_LENGTH + SALT_LENGTH];
+		System.arraycopy(hash, 0, buf, 0, HASH_LENGTH);
+		System.arraycopy(salt, 0, buf, HASH_LENGTH, SALT_LENGTH);
 		return buf;
 	}
 
 	private static byte[] salt()
 	{
-		byte[] salt = new byte[16];
+		byte[] salt = new byte[SALT_LENGTH];
 		PRNG.nextBytes(salt);
 		return salt;
 	}

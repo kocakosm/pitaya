@@ -26,7 +26,7 @@ final class MD2 extends AbstractDigest
 	private static final int DIGEST_LENGTH = 16;
 	private static final int BLOCK_LENGTH = 16;
 
-	/** 256-byte "random" permutation constructed from the digits of PI.. */
+	/** 256-byte "random" permutation constructed from the digits of PI. */
 	private static final byte[] S = {
 		(byte)0x29, (byte)0x2E, (byte)0x43, (byte)0xC9, (byte)0xA2, 
 		(byte)0xD8, (byte)0x7C, (byte)0x01, (byte)0x3D, (byte)0x36,
@@ -115,7 +115,6 @@ final class MD2 extends AbstractDigest
 	{
 		buffer[bufferLen] = input;
 		if (++bufferLen == BLOCK_LENGTH) {
-			updateChecksum();
 			processBuffer();
 		}
 	}
@@ -130,7 +129,6 @@ final class MD2 extends AbstractDigest
 			off += cpLen;
 			len -= cpLen;
 			if (bufferLen == BLOCK_LENGTH) {
-				updateChecksum();
 				processBuffer();
 			}
 		}
@@ -140,7 +138,6 @@ final class MD2 extends AbstractDigest
 	public byte[] digest()
 	{
 		addPadding();
-		updateChecksum();
 		processBuffer();
 		processChecksum();
 		byte[] hash = new byte[DIGEST_LENGTH];
@@ -149,7 +146,6 @@ final class MD2 extends AbstractDigest
 		return hash;
 	}
 
-	/** Adds the padding bits. */
 	private void addPadding()
 	{
 		int len = BLOCK_LENGTH - bufferLen;
@@ -169,6 +165,7 @@ final class MD2 extends AbstractDigest
 
 	private void processBuffer()
 	{
+		updateChecksum();
 		process(buffer);
 		bufferLen = 0;
 	}
