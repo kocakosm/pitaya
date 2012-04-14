@@ -38,6 +38,36 @@ public final class HMACsTest
 	}
 
 	@Test
+	public void testMD2()
+	{
+		HMAC hmac = HMACs.md2(ascii(EMPTY_STRING));
+		assertArrayEquals(
+			hex("6f6e031223b36cd2a997787a03d16bf5"),
+			hmac.hmac(ascii(EMPTY_STRING))
+		);
+		hmac = HMACs.md2(ascii("key"));
+		assertArrayEquals(
+			hex("13758b9534bfb38d850457814613b0c1"),
+			hmac.hmac(ascii(PANGRAM))
+		);
+	}
+
+	@Test
+	public void testMD4()
+	{
+		HMAC hmac = HMACs.md4(ascii(EMPTY_STRING));
+		assertArrayEquals(
+			hex("c8d444e3153b538850e7850fa84bb247"),
+			hmac.hmac(ascii(EMPTY_STRING))
+		);
+		hmac = HMACs.md4(ascii("key"));
+		assertArrayEquals(
+			hex("8d3366c440a9c65124ab0b5f4ca27338"),
+			hmac.hmac(ascii(PANGRAM))
+		);
+	}
+
+	@Test
 	public void testMD5()
 	{
 		HMAC hmac = HMACs.md5(ascii(EMPTY_STRING));
@@ -80,6 +110,25 @@ public final class HMACsTest
 		assertArrayEquals(
 			hex("f7bc83f430538424b13298e6aa6fb143ef4d59a14946175997"
 				+ "479dbc2d1a3cd8"),
+			hmac.hmac(ascii(PANGRAM))
+		);
+	}
+
+	@Test
+	public void testSHA512()
+	{
+		HMAC hmac = HMACs.sha512(ascii(EMPTY_STRING));
+		assertArrayEquals(
+			hex("b936cee86c9f87aa5d3c6f2e84cb5a4239a5fe50480a6ec66b"
+				+ "70ab5b1f4ac6730c6c515421b327ec1d69402e53dfb4"
+				+ "9ad7381eb067b338fd7b0cb22247225d47"),
+			hmac.hmac(ascii(EMPTY_STRING))
+		);
+		hmac = HMACs.sha512(ascii("key"));
+		assertArrayEquals(
+			hex("b42af09057bac1e2d41708e48a902e09b5ff7f12ab428a4fe8"
+				+ "6653c73dd248fb82f948a549f7b791a5b41915ee4d1e"
+				+ "c3935357e4e2317250d0372afa2ebeeb3a"),
 			hmac.hmac(ascii(PANGRAM))
 		);
 	}
