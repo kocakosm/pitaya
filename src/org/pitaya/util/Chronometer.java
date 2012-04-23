@@ -22,7 +22,7 @@ package org.pitaya.util;
  * relies on {@link System#currentTimeMillis()}. Instances of this class are not
  * thread-safe.
  *
- * @author	Osman KOCAK
+ * @author Osman KOCAK
  */
 public final class Chronometer
 {
@@ -79,9 +79,7 @@ public final class Chronometer
 		if (!isRunning) {
 			throw new IllegalStateException("Already idle...");
 		}
-		long now = now();
-		elapsedTime += now - referenceTime;
-		referenceTime = now;
+		elapsedTime += now() - referenceTime;
 		isRunning = false;
 		return this;
 	}

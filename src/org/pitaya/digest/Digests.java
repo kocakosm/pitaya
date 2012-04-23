@@ -148,7 +148,7 @@ public final class Digests
 		@Override
 		public byte[] digest(byte[] input, int off, int len)
 		{
-			update(input, off, len);
+			md.update(input, off, len);
 			return md.digest();
 		}
 

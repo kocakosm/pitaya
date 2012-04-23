@@ -23,7 +23,7 @@ import org.junit.Test;
 /**
  * {@link Chronometer}'s unit tests.
  *
- * @author	Osman KOCAK
+ * @author Osman KOCAK
  */
 public final class ChronometerTest
 {
