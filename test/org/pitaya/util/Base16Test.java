@@ -16,7 +16,10 @@
 
 package org.pitaya.util;
 
-import static org.junit.Assert.*;
+import static org.pitaya.util.Base16.decode;
+import static org.pitaya.util.Base16.encode;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertArrayEquals;
 
 import org.pitaya.charset.ASCII;
 
@@ -34,20 +37,21 @@ public final class Base16Test
 	@Test
 	public void testRFC4648TestVectors()
 	{
-		assertEquals("", Base16.encode(ASCII.encode("")));
-		assertEquals("66", Base16.encode(ASCII.encode("f")));
-		assertEquals("666F", Base16.encode(ASCII.encode("fo")));
-		assertEquals("666F6F", Base16.encode(ASCII.encode("foo")));
-		assertEquals("666F6F62", Base16.encode(ASCII.encode("foob")));
-		assertEquals("666F6F6261", Base16.encode(ASCII.encode("fooba")));
-		assertEquals("666F6F626172", Base16.encode(ASCII.encode("foobar")));
-		assertArrayEquals(ASCII.encode("foobar"), Base16.decode("666F6F626172"));
-		assertArrayEquals(ASCII.encode("fooba"), Base16.decode("666F6F6261"));
-		assertArrayEquals(ASCII.encode("foob"), Base16.decode("666F6F62"));
-		assertArrayEquals(ASCII.encode("foo"), Base16.decode("666F6F"));
-		assertArrayEquals(ASCII.encode("fo"), Base16.decode("666F"));
-		assertArrayEquals(ASCII.encode("f"), Base16.decode("66"));
-		assertArrayEquals(ASCII.encode(""), Base16.decode(""));
+		assertEquals("", encode(ascii("")));
+		assertEquals("66", encode(ascii("f")));
+		assertEquals("666F", encode(ascii("fo")));
+		assertEquals("666F6F", encode(ascii("foo")));
+		assertEquals("666F6F62", encode(ascii("foob")));
+		assertEquals("666F6F6261", encode(ascii("fooba")));
+		assertEquals("666F6F626172", encode(ascii("foobar")));
+
+		assertArrayEquals(ascii("foobar"), decode("666F6F626172"));
+		assertArrayEquals(ascii("fooba"), decode("666F6F6261"));
+		assertArrayEquals(ascii("foob"), decode("666F6F62"));
+		assertArrayEquals(ascii("foo"), decode("666F6F"));
+		assertArrayEquals(ascii("fo"), decode("666F"));
+		assertArrayEquals(ascii("f"), decode("66"));
+		assertArrayEquals(ascii(""), decode(""));
 	}
 
 	@Test
@@ -56,7 +60,12 @@ public final class Base16Test
 		Random rnd = new Random();
 		for (int i = 0; i < 100; i++) {
 			byte[] bytes = new byte[rnd.nextInt(2049)];
-			assertArrayEquals(bytes, Base16.decode(Base16.encode(bytes)));
+			assertArrayEquals(bytes, decode(encode(bytes)));
 		}
+	}
+
+	private byte[] ascii(String str)
+	{
+		return ASCII.encode(str);
 	}
 }

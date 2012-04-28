@@ -16,7 +16,10 @@
 
 package org.pitaya.util;
 
-import static org.junit.Assert.*;
+import static org.pitaya.util.Base64.decode;
+import static org.pitaya.util.Base64.encode;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertArrayEquals;
 
 import org.pitaya.charset.ASCII;
 
@@ -34,20 +37,21 @@ public final class Base64Test
 	@Test
 	public void testRFC4648TestVectors()
 	{
-		assertEquals("", Base64.encode(ASCII.encode("")));
-		assertEquals("Zg==", Base64.encode(ASCII.encode("f")));
-		assertEquals("Zm8=", Base64.encode(ASCII.encode("fo")));
-		assertEquals("Zm9v", Base64.encode(ASCII.encode("foo")));
-		assertEquals("Zm9vYg==", Base64.encode(ASCII.encode("foob")));
-		assertEquals("Zm9vYmE=", Base64.encode(ASCII.encode("fooba")));
-		assertEquals("Zm9vYmFy", Base64.encode(ASCII.encode("foobar")));
-		assertArrayEquals(ASCII.encode("foobar"), Base64.decode("Zm9vYmFy"));
-		assertArrayEquals(ASCII.encode("fooba"), Base64.decode("Zm9vYmE="));
-		assertArrayEquals(ASCII.encode("foob"), Base64.decode("Zm9vYg=="));
-		assertArrayEquals(ASCII.encode("foo"), Base64.decode("Zm9v"));
-		assertArrayEquals(ASCII.encode("fo"), Base64.decode("Zm8="));
-		assertArrayEquals(ASCII.encode("f"), Base64.decode("Zg=="));
-		assertArrayEquals(ASCII.encode(""), Base64.decode(""));
+		assertEquals("", encode(ascii("")));
+		assertEquals("Zg==", encode(ascii("f")));
+		assertEquals("Zm8=", encode(ascii("fo")));
+		assertEquals("Zm9v", encode(ascii("foo")));
+		assertEquals("Zm9vYg==", encode(ascii("foob")));
+		assertEquals("Zm9vYmE=", encode(ascii("fooba")));
+		assertEquals("Zm9vYmFy", encode(ascii("foobar")));
+
+		assertArrayEquals(ascii("foobar"), decode("Zm9vYmFy"));
+		assertArrayEquals(ascii("fooba"), decode("Zm9vYmE="));
+		assertArrayEquals(ascii("foob"), decode("Zm9vYg=="));
+		assertArrayEquals(ascii("foo"), decode("Zm9v"));
+		assertArrayEquals(ascii("fo"), decode("Zm8="));
+		assertArrayEquals(ascii("f"), decode("Zg=="));
+		assertArrayEquals(ascii(""), decode(""));
 	}
 
 	@Test
@@ -56,7 +60,12 @@ public final class Base64Test
 		Random rnd = new Random();
 		for (int i = 0; i < 100; i++) {
 			byte[] bytes = new byte[rnd.nextInt(2049)];
-			assertArrayEquals(bytes, Base64.decode(Base64.encode(bytes)));
+			assertArrayEquals(bytes, decode(encode(bytes)));
 		}
+	}
+
+	private byte[] ascii(String str)
+	{
+		return ASCII.encode(str);
 	}
 }

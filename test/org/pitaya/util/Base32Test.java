@@ -16,7 +16,10 @@
 
 package org.pitaya.util;
 
-import static org.junit.Assert.*;
+import static org.pitaya.util.Base32.decode;
+import static org.pitaya.util.Base32.encode;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertArrayEquals;
 
 import org.pitaya.charset.ASCII;
 
@@ -34,20 +37,21 @@ public final class Base32Test
 	@Test
 	public void testRFC4648TestVectors()
 	{
-		assertEquals("", Base32.encode(ASCII.encode("")));
-		assertEquals("MY======", Base32.encode(ASCII.encode("f")));
-		assertEquals("MZXQ====", Base32.encode(ASCII.encode("fo")));
-		assertEquals("MZXW6===", Base32.encode(ASCII.encode("foo")));
-		assertEquals("MZXW6YQ=", Base32.encode(ASCII.encode("foob")));
-		assertEquals("MZXW6YTB", Base32.encode(ASCII.encode("fooba")));
-		assertEquals("MZXW6YTBOI======", Base32.encode(ASCII.encode("foobar")));
-		assertArrayEquals(ASCII.encode("foobar"), Base32.decode("MZXW6YTBOI======"));
-		assertArrayEquals(ASCII.encode("fooba"), Base32.decode("MZXW6YTB"));
-		assertArrayEquals(ASCII.encode("foob"), Base32.decode("MZXW6YQ="));
-		assertArrayEquals(ASCII.encode("foo"), Base32.decode("MZXW6==="));
-		assertArrayEquals(ASCII.encode("fo"), Base32.decode("MZXQ===="));
-		assertArrayEquals(ASCII.encode("f"), Base32.decode("MY======"));
-		assertArrayEquals(ASCII.encode(""), Base32.decode(""));
+		assertEquals("", encode(ascii("")));
+		assertEquals("MY======", encode(ascii("f")));
+		assertEquals("MZXQ====", encode(ascii("fo")));
+		assertEquals("MZXW6===", encode(ascii("foo")));
+		assertEquals("MZXW6YQ=", encode(ascii("foob")));
+		assertEquals("MZXW6YTB", encode(ascii("fooba")));
+		assertEquals("MZXW6YTBOI======", encode(ascii("foobar")));
+
+		assertArrayEquals(ascii("foobar"), decode("MZXW6YTBOI======"));
+		assertArrayEquals(ascii("fooba"), decode("MZXW6YTB"));
+		assertArrayEquals(ascii("foob"), decode("MZXW6YQ="));
+		assertArrayEquals(ascii("foo"), decode("MZXW6==="));
+		assertArrayEquals(ascii("fo"), decode("MZXQ===="));
+		assertArrayEquals(ascii("f"), decode("MY======"));
+		assertArrayEquals(ascii(""), decode(""));
 	}
 
 	@Test
@@ -56,7 +60,12 @@ public final class Base32Test
 		Random rnd = new Random();
 		for (int i = 0; i < 100; i++) {
 			byte[] bytes = new byte[rnd.nextInt(2049)];
-			assertArrayEquals(bytes, Base32.decode(Base32.encode(bytes)));
+			assertArrayEquals(bytes, decode(encode(bytes)));
 		}
+	}
+
+	private byte[] ascii(String str)
+	{
+		return ASCII.encode(str);
 	}
 }

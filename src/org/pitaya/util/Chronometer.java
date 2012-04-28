@@ -52,7 +52,7 @@ public final class Chronometer
 
 	/**
 	 * Starts this chronometer.
-	 * 
+	 *
 	 * @return this object.
 	 *
 	 * @throws IllegalStateException if this chronometer is already running.
@@ -93,14 +93,14 @@ public final class Chronometer
 	 */
 	public Chronometer reset()
 	{
-		this.elapsedTime = 0;
-		this.referenceTime = now();
+		elapsedTime = 0;
+		referenceTime = now();
 		return this;
 	}
 
 	/**
 	 * Returns the current elapsed time, expressed in milliseconds
-	 * 
+	 *
 	 * @return the current elapsed time.
 	 */
 	public long elapsedTime()
