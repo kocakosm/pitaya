@@ -45,7 +45,7 @@ public final class Strings
 	 */
 	public static String emptyToNull(String str)
 	{
-		return str.isEmpty() ? null : str;
+		return str == null ? null : str.isEmpty() ? null : str;
 	}
 
 	/**
