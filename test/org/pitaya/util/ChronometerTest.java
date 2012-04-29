@@ -61,13 +61,10 @@ public final class ChronometerTest
 	@Test
 	public void testReset() throws Exception
 	{
-		Chronometer chronometer = new Chronometer();
-		chronometer.start();
+		Chronometer chronometer = new Chronometer().start();
 		Thread.sleep(50);
-		chronometer.stop();
-		chronometer.reset();
+		chronometer.stop().reset();
 		assertEquals(0, chronometer.elapsedTime());
-
 		chronometer.start();
 		Thread.sleep(50);
 		chronometer.reset();
