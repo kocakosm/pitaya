@@ -16,6 +16,8 @@
 
 package org.pitaya.util;
 
+import static java.util.concurrent.TimeUnit.*;
+
 /**
  * Utility class to measure elapsed time between specific instants. Precision is
  * the millisecond (modulo the overhead of measurement). This class heavily
@@ -114,7 +116,35 @@ public final class Chronometer
 	@Override
 	public String toString()
 	{
-		return elapsedTime + " ms";
+		StringBuilder sb = new StringBuilder();
+		long time = elapsedTime();
+		long days = MILLISECONDS.toDays(time);
+		time -= DAYS.toMillis(days);
+		append(sb, days, "day");
+		long hours = MILLISECONDS.toHours(time);
+		time -= HOURS.toMillis(hours);
+		append(sb, hours, "hour");
+		long minutes = MILLISECONDS.toMinutes(time);
+		time -= MINUTES.toMillis(minutes);
+		append(sb, minutes, "minute");
+		long seconds = MILLISECONDS.toSeconds(time);
+		time -= SECONDS.toMillis(seconds);
+		append(sb, seconds, "second");
+		append(sb, time, "millisecond");
+		return sb.toString();
+	}
+
+	private void append(StringBuilder sb, long value, String unit)
+	{
+		if (value > 0) {
+			if (sb.length() > 0) {
+				sb.append(", ");
+			}
+			sb.append(value).append(' ').append(unit);
+			if (value > 1) {
+				sb.append('s');
+			}
+		}
 	}
 
 	private long now()
