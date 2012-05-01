@@ -19,12 +19,46 @@ package org.pitaya.util;
 import java.util.Arrays;
 
 /**
- * Utility class for methods common to all {@code Object}s.
+ * Various utility methods for {@code Object}s.
  *
  * @author Osman KOCAK
  */
 public final class Objects
 {
+	/**
+	 * Returns a default value if the given reference is {@code null}, or
+	 * the reference itself if it is not {@code null}.
+	 * 
+	 * @param <T> the type of the given reference.
+	 * @param ref the reference to test for {@code null}ity.
+	 * @param defaultValue the default value.
+	 *
+	 * @return {@code ref} if non-{@code null}, the default value otherwise.
+	 */
+	public static <T> T defaultIfNull(T ref, T defaultValue)
+	{
+		return ref == null ? defaultValue : ref;
+	}
+
+	/**
+	 * Returns the first of the given references that is not {@code null}.
+	 * If all are {@code null}, {@code null} is returned.
+	 * 
+	 * @param <T> the type of the given references.
+	 * @param refs the references to test for {@code null}ity.
+	 *
+	 * @return the first non-{@code null} reference.
+	 */
+	public static <T> T firstNonNull(T... refs)
+	{
+		for (T ref : refs) {
+			if (ref != null) {
+				return ref;
+			}
+		}
+		return null;
+	}
+
 	/**
 	 * Returns {@code true} if the given objects are both {@code null} or if
 	 * they are equal, {@code false} in all other cases.
@@ -54,6 +88,19 @@ public final class Objects
 	public static int hashCode(Object... objects)
 	{
 		return Arrays.hashCode(objects);
+	}
+
+	/**
+	 * Returns the result of the given object's {@code toString()} method if
+	 * it is non-{@code null}, and {@code ""} if it is {@code null}.
+	 * 
+	 * @param o the object to translate into a {@link String}.
+	 *
+	 * @return a {@link String} representation of the given {@link Object}.
+	 */
+	public static String toString(Object o)
+	{
+		return o == null ? "" : o.toString();
 	}
 
 	/**
