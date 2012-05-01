@@ -104,6 +104,79 @@ public final class ASCII
 	}
 
 	/**
+	 * Returns whether the given character is a letter.
+	 *
+	 * @param c the character to test.
+	 *
+	 * @return whether the given character is a letter.
+	 */
+	public static boolean isLetter(char c)
+	{
+		return isLowerCase(c) || isUpperCase(c);
+	}
+
+	/**
+	 * Returns whether the given {@link CharSequence} is an alphabetic
+	 * sequence, that is, a sequence which only contains letters.
+	 *
+	 * @param sequence the {@link CharSequence} to test.
+	 *
+	 * @return whether the given sequence is an alphabetic sequence.
+	 *
+	 * @throws NullPointerException if {@code sequence} is {@code null}.
+	 */
+	public static boolean isAlphabetic(CharSequence sequence)
+	{
+		for (int i = 0; i < sequence.length(); i++) {
+			if (!isLetter(sequence.charAt(i))) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Returns whether the given {@link CharSequence} is a numeric sequence,
+	 * that is, a sequence which only contains digits.
+	 *
+	 * @param sequence the {@link CharSequence} to test.
+	 *
+	 * @return whether the given sequence is a numeric sequence.
+	 *
+	 * @throws NullPointerException if {@code sequence} is {@code null}.
+	 */
+	public static boolean isNumeric(CharSequence sequence)
+	{
+		for (int i = 0; i < sequence.length(); i++) {
+			if (!isDigit(sequence.charAt(i))) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Returns whether the given {@link CharSequence} is an alphanumeric
+	 * sequence, that is, a sequence which only contains letters and digits.
+	 *
+	 * @param sequence the {@link CharSequence} to test.
+	 *
+	 * @return whether the given sequence is an alphanumeric sequence.
+	 *
+	 * @throws NullPointerException if {@code sequence} is {@code null}.
+	 */
+	public static boolean isAlphaNumeric(CharSequence sequence)
+	{
+		for (int i = 0; i < sequence.length(); i++) {
+			char c = sequence.charAt(i);
+			if (!isDigit(c) && !isLetter(c)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
 	 * Returns whether the given character is one of the lowercase ASCII
 	 * characters between 'a' and 'z' (inclusive). All others return false.
 	 *
