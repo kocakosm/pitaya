@@ -29,6 +29,45 @@ import org.junit.Test;
 public final class StringsTest
 {
 	@Test
+	public void testAbbreviate()
+	{
+		assertEquals("", abbreviate("", 4));
+		assertEquals("ab", abbreviate("ab", 4));
+		assertEquals("abcd", abbreviate("abcd", 4));
+		assertEquals("a...", abbreviate("abcde", 4));
+		assertEquals("Hello...", abbreviate("Hello world!", 8));
+	}
+
+	@Test
+	public void testIsBlank()
+	{
+		assertTrue(isBlank(""));
+		assertTrue(isBlank(" "));
+		assertTrue(isBlank("\t"));
+		assertTrue(isBlank("\r"));
+		assertTrue(isBlank("\n"));
+		assertTrue(isBlank(" \n\r  \t"));
+		assertFalse(isBlank("\tHello world!\r\n"));
+	}
+
+	@Test
+	public void testIsWhitespace()
+	{
+		assertTrue(isWhiteSpace(""));
+		assertTrue(isWhiteSpace(" "));
+		assertFalse(isWhiteSpace("\t"));
+		assertFalse(isWhiteSpace("Hello world!"));
+	}
+
+	@Test
+	public void testIsEmpty()
+	{
+		assertTrue(isEmpty(""));
+		assertFalse(isEmpty(" "));
+		assertFalse(isEmpty("Hello world!"));
+	}
+
+	@Test
 	public void testIsNullOrEmpty()
 	{
 		assertTrue(isNullOrEmpty(null));

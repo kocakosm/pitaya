@@ -24,15 +24,93 @@ package org.pitaya.util;
 public final class Strings
 {
 	/**
-	 * Returns whether the given {@link String} is empty or {@code null}.
+	 * Abbreviates the given {@link String} using "..." so that the returned
+	 * {@code String}'s length equals to {@code length}.
 	 *
-	 * @param str the {@link String} to test.
+	 * @param str the {@code String} to abbreviate.
+	 * @param length the desired length for the abbreviated {@code String}.
 	 *
-	 * @return whether the given {@link String} is empty or {@code null}.
+	 * @return the abbreviated {@code String}.
+	 *
+	 * @throws NullPointerException if {@code str} is {@code null}.
+	 * @throws IllegalArgumentException if {@code length} is too small.
 	 */
-	public static boolean isNullOrEmpty(String str)
+	public static String abbreviate(String str, int length)
 	{
-		return str == null || str.isEmpty();
+		Parameters.checkCondition(length > 3);
+		if (str.length() <= length) {
+			return str;
+		}
+		return str.substring(0, length - 3) + "...";
+	}
+
+	/**
+	 * Returns whether the given {@link CharSequence} only contains space,
+	 * '\n', '\r' or '\t' characters.
+	 *
+	 * @param sequence the {@code CharSequence} to test.
+	 *
+	 * @return whether the given {@link CharSequence} is blank.
+	 *
+	 * @throws NullPointerException if {@code sequence} is {@code null}.
+	 */
+	public static boolean isBlank(CharSequence sequence)
+	{
+		for (int i = 0; i < sequence.length(); i++) {
+			char c = sequence.charAt(i);
+			if (c != ' ' && c != '\r' && c != '\n' && c != '\t') {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Returns whether the given {@link CharSequence} only contains space
+	 * characters.
+	 *
+	 * @param sequence the {@code CharSequence} to test.
+	 *
+	 * @return whether the given {@link CharSequence} containes only spaces.
+	 *
+	 * @throws NullPointerException if {@code sequence} is {@code null}.
+	 */
+	public static boolean isWhiteSpace(CharSequence sequence)
+	{
+		for (int i = 0; i < sequence.length(); i++) {
+			if (sequence.charAt(i) != ' ') {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Returns whether the given {@link CharSequence} is empty.
+	 *
+	 * @param sequence the {@link CharSequence} to test.
+	 *
+	 * @return whether the given {@link CharSequence} is empty.
+	 *
+	 * @throws NullPointerException if {@code sequence} is {@code null}.
+	 */
+	public static boolean isEmpty(CharSequence sequence)
+	{
+		return sequence.length() == 0;
+	}
+
+	/**
+	 * Returns whether the given {@link CharSequence} is {@code null} or
+	 * empty.
+	 *
+	 * @param sequence the {@link CharSequence} to test.
+	 *
+	 * @return {@code true} if {@code sequence} is {@code null} or empty,
+	 *	{@code false} otherwise.
+	 */
+	public static boolean isNullOrEmpty(CharSequence sequence)
+	{
+		return sequence == null || isEmpty(sequence);
 	}
 
 	/**
