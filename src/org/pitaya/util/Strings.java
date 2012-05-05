@@ -24,27 +24,6 @@ package org.pitaya.util;
 public final class Strings
 {
 	/**
-	 * Abbreviates the given {@link String} using "..." so that the returned
-	 * {@code String}'s length equals to {@code length}.
-	 *
-	 * @param str the {@code String} to abbreviate.
-	 * @param length the desired length for the abbreviated {@code String}.
-	 *
-	 * @return the abbreviated {@code String}.
-	 *
-	 * @throws NullPointerException if {@code str} is {@code null}.
-	 * @throws IllegalArgumentException if {@code length} is too small.
-	 */
-	public static String abbreviate(String str, int length)
-	{
-		Parameters.checkCondition(length > 3);
-		if (str.length() <= length) {
-			return str;
-		}
-		return str.substring(0, length - 3) + "...";
-	}
-
-	/**
 	 * Returns whether the given {@link CharSequence} only contains space,
 	 * '\n', '\r' or '\t' characters.
 	 *
@@ -114,29 +93,24 @@ public final class Strings
 	}
 
 	/**
-	 * Returns {@code null} if the given {@link String} is empty, returns
-	 * the (unmodified) parameter otherwise.
+	 * Abbreviates the given {@link String} using "..." so that the returned
+	 * {@code String}'s length equals to {@code length}.
 	 *
-	 * @param str the {@link String} to test.
+	 * @param str the {@code String} to abbreviate.
+	 * @param length the desired length for the abbreviated {@code String}.
 	 *
-	 * @return {@code null} if the given {@link String} is empty.
+	 * @return the abbreviated {@code String}.
+	 *
+	 * @throws NullPointerException if {@code str} is {@code null}.
+	 * @throws IllegalArgumentException if {@code length} is too small.
 	 */
-	public static String emptyToNull(String str)
+	public static String abbreviate(String str, int length)
 	{
-		return str == null ? null : str.isEmpty() ? null : str;
-	}
-
-	/**
-	 * Returns an empty {@link String} if the given one is {@code null},
-	 * returns (unmodified) parameter otherwise.
-	 *
-	 * @param str the {@link String} to test.
-	 *
-	 * @return an empty {@link String} if the given one is {@code null}.
-	 */
-	public static String nullToEmpty(String str)
-	{
-		return str == null ? "" : str;
+		Parameters.checkCondition(length > 3);
+		if (str.length() <= length) {
+			return str;
+		}
+		return str.substring(0, length - 3) + "...";
 	}
 
 	/**
@@ -155,6 +129,83 @@ public final class Strings
 			sb.append(string);
 		}
 		return sb.toString();
+	}
+
+	/**
+	 * Returns {@code null} if the given {@link String} is empty, returns
+	 * the (unmodified) parameter otherwise.
+	 *
+	 * @param str the {@link String} to test.
+	 *
+	 * @return {@code null} if the given {@link String} is empty.
+	 */
+	public static String emptyToNull(String str)
+	{
+		return str == null ? null : str.isEmpty() ? null : str;
+	}
+
+	/**
+	 * Returns an empty {@link String} if the given one is {@code null}, or
+	 * returns the (unmodified) parameter otherwise.
+	 *
+	 * @param str the {@link String} to test.
+	 *
+	 * @return an empty {@link String} if the given one is {@code null}.
+	 */
+	public static String nullToEmpty(String str)
+	{
+		return str == null ? "" : str;
+	}
+
+	/**
+	 * Returns the {@link String} obtained by repeating {@code count} times
+	 * the given {@link String}.
+	 *
+	 * @param str the {@link String} to repeat.
+	 * @param count the number of times the {@code str} has to be repeared.
+	 *
+	 * @return the created {@link String}.
+	 *
+	 * @throws IllegalArgumentException if {@code count} is negative.
+	 * @throws NullPointerException if {@code str} is {@code null}.
+	 */
+	public static String repeat(String str, int count)
+	{
+		Parameters.checkCondition(count >= 0);
+		StringBuilder sb = new StringBuilder(str.length() * count);
+		for (int i = 0; i < count; i++) {
+			sb.append(str);
+		}
+		return sb.toString();
+	}
+
+	/**
+	 * Reverses the given {@link String}.
+	 *
+	 * @param str the {@link String} to reverse.
+	 *
+	 * @return the reversed {@link String}.
+	 */
+	public static String reverse(String str)
+	{
+		return new StringBuilder(str).reverse().toString();
+	}
+
+	/**
+	 * Returns the new {@link String} obtained by stripping the first and
+	 * last {@code n} characters from the given one.
+	 *
+	 * @param str the {@link String} to be stripped.
+	 * @param n the number of characters to strip.
+	 *
+	 * @return the stripped {@link String}.
+	 *
+	 * @throws NullPointerException if {@code str} is {@code null}.
+	 * @throws IllegalArgumentException if {@code n} is negative.
+	 */
+	public static String strip(String str, int n)
+	{
+		return stripRight(stripLeft(str, n), n);
 	}
 
 	/**
@@ -196,20 +247,18 @@ public final class Strings
 	}
 
 	/**
-	 * Returns the new {@link String} obtained by stripping the first and
-	 * last {@code n} characters from the given one.
+	 * Returns a copy of the given {@link String} with leading and trailing
+	 * whitespaces omitted.
 	 *
-	 * @param str the {@link String} to be stripped.
-	 * @param n the number of characters to strip.
+	 * @param str the {@link String} to trim.
 	 *
-	 * @return the stripped {@link String}.
+	 * @return the trimmed {@link String}.
 	 *
 	 * @throws NullPointerException if {@code str} is {@code null}.
-	 * @throws IllegalArgumentException if {@code n} is negative.
 	 */
-	public static String strip(String str, int n)
+	public static String trim(String str)
 	{
-		return stripRight(stripLeft(str, n), n);
+		return str.trim();
 	}
 
 	/**
@@ -254,33 +303,6 @@ public final class Strings
 			end--;
 		}
 		return str.substring(0, end);
-	}
-
-	/**
-	 * Returns a copy of the given {@link String} with leading and trailing
-	 * whitespaces omitted.
-	 *
-	 * @param str the {@link String} to trim.
-	 *
-	 * @return the trimmed {@link String}.
-	 *
-	 * @throws NullPointerException if {@code str} is {@code null}.
-	 */
-	public static String trim(String str)
-	{
-		return str.trim();
-	}
-
-	/**
-	 * Reverses the given {@link String}.
-	 *
-	 * @param str the {@link String} to reverse.
-	 *
-	 * @return the reversed {@link String}.
-	 */
-	public static String reverse(String str)
-	{
-		return new StringBuilder(str).reverse().toString();
 	}
 
 	/**
@@ -330,28 +352,6 @@ public final class Strings
 		sb.append(str);
 		while (sb.length() < len) {
 			sb.append(padChar);
-		}
-		return sb.toString();
-	}
-
-	/**
-	 * Returns the {@link String} obtained by repeating {@code count} times
-	 * the given {@link String}.
-	 *
-	 * @param str the {@link String} to repeat.
-	 * @param count the number of times the {@code str} has to be repeared.
-	 *
-	 * @return the created {@link String}.
-	 *
-	 * @throws IllegalArgumentException if {@code count} is negative.
-	 * @throws NullPointerException if {@code str} is {@code null}.
-	 */
-	public static String repeat(String str, int count)
-	{
-		Parameters.checkCondition(count >= 0);
-		StringBuilder sb = new StringBuilder(str.length() * count);
-		for (int i = 0; i < count; i++) {
-			sb.append(str);
 		}
 		return sb.toString();
 	}

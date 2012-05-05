@@ -29,16 +29,6 @@ import org.junit.Test;
 public final class StringsTest
 {
 	@Test
-	public void testAbbreviate()
-	{
-		assertEquals("", abbreviate("", 4));
-		assertEquals("ab", abbreviate("ab", 4));
-		assertEquals("abcd", abbreviate("abcd", 4));
-		assertEquals("a...", abbreviate("abcde", 4));
-		assertEquals("Hello...", abbreviate("Hello world!", 8));
-	}
-
-	@Test
 	public void testIsBlank()
 	{
 		assertTrue(isBlank(""));
@@ -76,6 +66,23 @@ public final class StringsTest
 	}
 
 	@Test
+	public void testAbbreviate()
+	{
+		assertEquals("", abbreviate("", 4));
+		assertEquals("ab", abbreviate("ab", 4));
+		assertEquals("abcd", abbreviate("abcd", 4));
+		assertEquals("a...", abbreviate("abcde", 4));
+		assertEquals("Hello...", abbreviate("Hello world!", 8));
+	}
+
+	@Test
+	public void testConcat()
+	{
+		assertEquals("", concat());
+		assertEquals("Hello world !", concat("Hello ", "world ", "!"));
+	}
+
+	@Test
 	public void testEmptyToNull()
 	{
 		assertNull(emptyToNull(""));
@@ -92,10 +99,27 @@ public final class StringsTest
 	}
 
 	@Test
-	public void testConcat()
+	public void testRepeat()
 	{
-		assertEquals("", concat());
-		assertEquals("Hello world !", concat("Hello ", "world ", "!"));
+		assertEquals("", repeat("Hello", 0));
+		assertEquals("Hello", repeat("Hello", 1));
+		assertEquals("HelloHelloHello", repeat("Hello", 3));
+	}
+
+	@Test
+	public void testReverse()
+	{
+		assertEquals("enirambus wolleY", reverse("Yellow submarine"));
+		String palindrome = "rats live on no evil star";
+		assertEquals(palindrome, reverse(palindrome));
+	}
+
+	@Test
+	public void testStrip()
+	{
+		assertEquals(" ", strip("Hello world", 5));
+		assertEquals("Hello world", strip("Hello world", 0));
+		assertEquals("", strip("Hello world", 30));
 	}
 
 	@Test
@@ -115,11 +139,10 @@ public final class StringsTest
 	}
 
 	@Test
-	public void testStrip()
+	public void testTrim()
 	{
-		assertEquals(" ", strip("Hello world", 5));
-		assertEquals("Hello world", strip("Hello world", 0));
-		assertEquals("", strip("Hello world", 30));
+		assertEquals("Hello", trim("Hello"));
+		assertEquals("Hello", trim("    Hello      "));
 	}
 
 	@Test
@@ -137,21 +160,6 @@ public final class StringsTest
 	}
 
 	@Test
-	public void testTrim()
-	{
-		assertEquals("Hello", trim("Hello"));
-		assertEquals("Hello", trim("    Hello      "));
-	}
-
-	@Test
-	public void testReverse()
-	{
-		assertEquals("enirambus wolleY", reverse("Yellow submarine"));
-		String palindrome = "rats live on no evil star";
-		assertEquals(palindrome, reverse(palindrome));
-	}
-
-	@Test
 	public void testPadLeft()
 	{
 		assertEquals("Hello", padLeft("Hello", 5, '.'));
@@ -163,13 +171,5 @@ public final class StringsTest
 	{
 		assertEquals("Hello", padRight("Hello", 5, '.'));
 		assertEquals("Hello.....", padRight("Hello", 10, '.'));
-	}
-
-	@Test
-	public void testRepeat()
-	{
-		assertEquals("", repeat("Hello", 0));
-		assertEquals("Hello", repeat("Hello", 1));
-		assertEquals("HelloHelloHello", repeat("Hello", 3));
 	}
 }
