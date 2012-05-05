@@ -169,7 +169,7 @@ public final class Strings
 	 * @throws NullPointerException if {@code str} is {@code null}.
 	 * @throws IllegalArgumentException if {@code n} is negative.
 	 */
-	public static String lstrip(String str, int n)
+	public static String stripLeft(String str, int n)
 	{
 		Parameters.checkCondition(n >= 0);
 		int start = Math.min(str.length(), n);
@@ -188,7 +188,7 @@ public final class Strings
 	 * @throws NullPointerException if {@code str} is {@code null}.
 	 * @throws IllegalArgumentException if {@code n} is negative.
 	 */
-	public static String rstrip(String str, int n)
+	public static String stripRight(String str, int n)
 	{
 		Parameters.checkCondition(n >= 0);
 		int end = Math.max(0, str.length() - n);
@@ -209,7 +209,7 @@ public final class Strings
 	 */
 	public static String strip(String str, int n)
 	{
-		return rstrip(lstrip(str, n), n);
+		return stripRight(stripLeft(str, n), n);
 	}
 
 	/**
@@ -222,7 +222,7 @@ public final class Strings
 	 *
 	 * @throws NullPointerException if {@code str} is {@code null}.
 	 */
-	public static String ltrim(String str)
+	public static String trimLeft(String str)
 	{
 		int start = 0;
 		for (char c : str.toCharArray()) {
@@ -244,7 +244,7 @@ public final class Strings
 	 *
 	 * @throws NullPointerException if {@code str} is {@code null}.
 	 */
-	public static String rtrim(String str)
+	public static String trimRight(String str)
 	{
 		int end = str.length();
 		for (int i = str.length() - 1; i >= 0; i--) {
@@ -297,7 +297,7 @@ public final class Strings
 	 * @throws IllegalArgumentException if {@code len} is negative.
 	 * @throws NullPointerException if {@code str} is {@code null}.
 	 */
-	public static String lpad(String str, int len, char padChar)
+	public static String padLeft(String str, int len, char padChar)
 	{
 		Parameters.checkCondition(len >= 0);
 		StringBuilder sb = new StringBuilder(len);
@@ -322,7 +322,7 @@ public final class Strings
 	 * @throws IllegalArgumentException if {@code len} is negative.
 	 * @throws NullPointerException if {@code str} is {@code null}.
 	 */
-	public static String rpad(String str, int len, char padChar)
+	public static String padRight(String str, int len, char padChar)
 	{
 		Parameters.checkCondition(len >= 0);
 		Parameters.checkNotNull(str);

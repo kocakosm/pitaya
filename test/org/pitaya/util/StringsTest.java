@@ -99,19 +99,19 @@ public final class StringsTest
 	}
 
 	@Test
-	public void testLStrip()
+	public void testStripLeft()
 	{
-		assertEquals("world", lstrip("Hello world", 6));
-		assertEquals("Hello world", lstrip("Hello world", 0));
-		assertEquals("", lstrip("Hello world", 30));
+		assertEquals("world", stripLeft("Hello world", 6));
+		assertEquals("Hello world", stripLeft("Hello world", 0));
+		assertEquals("", stripLeft("Hello world", 30));
 	}
 
 	@Test
-	public void testRStrip()
+	public void testStripRight()
 	{
-		assertEquals("Hello", rstrip("Hello world", 6));
-		assertEquals("Hello world", rstrip("Hello world", 0));
-		assertEquals("", rstrip("Hello world", 30));
+		assertEquals("Hello", stripRight("Hello world", 6));
+		assertEquals("Hello world", stripRight("Hello world", 0));
+		assertEquals("", stripRight("Hello world", 30));
 	}
 
 	@Test
@@ -123,17 +123,17 @@ public final class StringsTest
 	}
 
 	@Test
-	public void testLTrim()
+	public void testTrimLeft()
 	{
-		assertEquals("Hello", ltrim("Hello"));
-		assertEquals("Hello ", ltrim("    Hello "));
+		assertEquals("Hello", trimLeft("Hello"));
+		assertEquals("Hello ", trimLeft("    Hello "));
 	}
 
 	@Test
-	public void testRTrim()
+	public void testTrimRight()
 	{
-		assertEquals("Hello", rtrim("Hello"));
-		assertEquals(" Hello", rtrim(" Hello      "));
+		assertEquals("Hello", trimRight("Hello"));
+		assertEquals(" Hello", trimRight(" Hello      "));
 	}
 
 	@Test
@@ -152,17 +152,17 @@ public final class StringsTest
 	}
 
 	@Test
-	public void testLPad()
+	public void testPadLeft()
 	{
-		assertEquals("Hello", lpad("Hello", 5, '.'));
-		assertEquals(".....Hello", lpad("Hello", 10, '.'));
+		assertEquals("Hello", padLeft("Hello", 5, '.'));
+		assertEquals(".....Hello", padLeft("Hello", 10, '.'));
 	}
 
 	@Test
-	public void testRPad()
+	public void testPadRight()
 	{
-		assertEquals("Hello", rpad("Hello", 5, '.'));
-		assertEquals("Hello.....", rpad("Hello", 10, '.'));
+		assertEquals("Hello", padRight("Hello", 5, '.'));
+		assertEquals("Hello.....", padRight("Hello", 10, '.'));
 	}
 
 	@Test
