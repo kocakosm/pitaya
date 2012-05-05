@@ -16,6 +16,8 @@
 
 package org.pitaya.util;
 
+import java.util.Random;
+
 /**
  * {@code String} utilities.
  *
@@ -23,6 +25,8 @@ package org.pitaya.util;
  */
 public final class Strings
 {
+	private static final Random PRNG = new Random();
+
 	/**
 	 * Returns whether the given {@link CharSequence} only contains space,
 	 * '\n', '\r' or '\t' characters.
@@ -158,6 +162,47 @@ public final class Strings
 	}
 
 	/**
+	 * Returns a pseudo-random {@link String} of the specified size using
+	 * characters from the given array.
+	 *
+	 * @param length the length of the {@link String} to produce.
+	 * @param chars the characters to use to build the {@link String}.
+	 *
+	 * @return a pseudo-random {@link String}.
+	 */
+	public static String random(int length, char... chars)
+	{
+		return random(length, PRNG, chars);
+	}
+
+	/**
+	 * Returns a random {@link String} using the given characters and the
+	 * specified source of randomness. All characters have equal likelihood
+	 * to appear in the resulting {@link String} assuming that the source of
+	 * randomness is fair.
+	 *
+	 * @param length the length of the {@link String} to produce.
+	 * @param rnd the source of randomness to use
+	 * @param chars the characters to use to build the {@link String}.
+	 *
+	 * @return a random {@link String}.
+	 *
+	 * @throws NullPointerException if one of the arguments is {@code null}.
+	 * @throws IllegalArgumentException if {@code length} is negative or if
+	 *	{@code chars} is empty.
+	 */
+	public static String random(int length, Random rnd, char... chars)
+	{
+		Parameters.checkCondition(length >= 0);
+		Parameters.checkCondition(chars.length > 0);
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < length; i++) {
+			sb.append(chars[rnd.nextInt(chars.length)]);
+		}
+		return sb.toString();
+	}
+
+	/**
 	 * Returns the {@link String} obtained by repeating {@code count} times
 	 * the given {@link String}.
 	 *
@@ -189,6 +234,54 @@ public final class Strings
 	public static String reverse(String str)
 	{
 		return new StringBuilder(str).reverse().toString();
+	}
+
+	/**
+	 * Randomly permutes the characters from the given {@link String}. This
+	 * implementation uses the optimized version of the Fisher-Yates shuffle
+	 * algorithm (Fisher, Yates, Durstenfeld, Knuth) and thus runs in linear
+	 * time.
+	 *
+	 * @param str the {@link String} to be shuffled.
+	 *
+	 * @return the shuffled {@link String}.
+	 *
+	 * @throws NullPointerException if {@code str} is {@code null}.
+	 */
+	public static String shuffle(String str)
+	{
+		return shuffle(str, PRNG);
+	}
+
+	/**
+	 * Randomly permutes the characters from the given {@link String} using
+	 * the specified source of randomness. All permutations occur with equal
+	 * likelihood assuming that the source of randomness is fair. This
+	 * implementation uses the optimized version of the Fisher-Yates shuffle
+	 * algorithm (Fisher, Yates, Durstenfeld, Knuth) and thus runs in linear
+	 * time.
+	 *
+	 * @param str the {@link String} to be shuffled.
+	 * @param rnd the source of randomness to use.
+	 *
+	 * @return the shuffled {@link String}.
+	 *
+	 * @throws NullPointerException if one of the arguments is {@code null}.
+	 */
+	public static String shuffle(String str, Random rnd)
+	{
+		char[] chars = str.toCharArray();
+		for (int i = chars.length; i > 1; i--) {
+			swap(chars, i - 1, rnd.nextInt(i));
+		}
+		return new String(chars);
+	}
+
+	private static void swap(char[] chars, int i, int j)
+	{
+		char c = chars[i];
+		chars[i] = chars[j];
+		chars[j] = c;
 	}
 
 	/**

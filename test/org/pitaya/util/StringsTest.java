@@ -19,6 +19,8 @@ package org.pitaya.util;
 import static org.pitaya.util.Strings.*;
 import static org.junit.Assert.*;
 
+import java.util.Arrays;
+
 import org.junit.Test;
 
 /**
@@ -99,6 +101,15 @@ public final class StringsTest
 	}
 
 	@Test
+	public void testRandom()
+	{
+		char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+		assertEquals("", random(0, chars));
+		assertEquals(10, random(10, chars).length());
+		assertEquals("aaaaaaaa", random(8, 'a'));
+	}
+
+	@Test
 	public void testRepeat()
 	{
 		assertEquals("", repeat("Hello", 0));
@@ -112,6 +123,19 @@ public final class StringsTest
 		assertEquals("enirambus wolleY", reverse("Yellow submarine"));
 		String palindrome = "rats live on no evil star";
 		assertEquals(palindrome, reverse(palindrome));
+	}
+
+	@Test
+	public void testShuffle()
+	{
+		assertEquals("", shuffle(""));
+		assertEquals("aaaaaaaa", shuffle("aaaaaaaa"));
+		assertFalse("Hello world!!".equals(shuffle("Hello world!!")));
+		char[] source = "Hello world!!".toCharArray();
+		Arrays.sort(source);
+		char[] shuffled = shuffle("Hello world!!").toCharArray();
+		Arrays.sort(shuffled);
+		assertArrayEquals(source, shuffled);
 	}
 
 	@Test
