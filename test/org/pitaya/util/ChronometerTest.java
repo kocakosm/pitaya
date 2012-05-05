@@ -49,13 +49,13 @@ public final class ChronometerTest
 		Chronometer chronometer = new Chronometer();
 		assertEquals(0, chronometer.elapsedTime());
 		chronometer.start();
-		Thread.sleep(100);
+		Thread.sleep(50);
 		chronometer.stop();
-		assertTrue(Math.abs(chronometer.elapsedTime() - 100) < 10);
+		assertTrue(Math.abs(chronometer.elapsedTime() - 50) < 5);
 		Thread.sleep(50);
 		chronometer.start();
-		Thread.sleep(100);
-		assertTrue(Math.abs(chronometer.elapsedTime() - 200) < 10);
+		Thread.sleep(50);
+		assertTrue(Math.abs(chronometer.elapsedTime() - 100) < 10);
 	}
 
 	@Test
@@ -68,8 +68,8 @@ public final class ChronometerTest
 		chronometer.start();
 		Thread.sleep(50);
 		chronometer.reset();
-		Thread.sleep(100);
+		Thread.sleep(50);
 		chronometer.stop();
-		assertTrue(Math.abs(chronometer.elapsedTime() - 100) < 10);
+		assertTrue(Math.abs(chronometer.elapsedTime() - 50) < 5);
 	}
 }
