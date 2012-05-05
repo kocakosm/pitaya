@@ -169,6 +169,10 @@ public final class Strings
 	 * @param chars the characters to use to build the {@link String}.
 	 *
 	 * @return a pseudo-random {@link String}.
+	 *
+	 * @throws NullPointerException if {@code chars} is {@code null}.
+	 * @throws IllegalArgumentException if {@code length} is negative or if
+	 *	{@code chars} is empty.
 	 */
 	public static String random(int length, char... chars)
 	{
