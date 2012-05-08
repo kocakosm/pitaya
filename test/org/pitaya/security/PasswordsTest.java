@@ -14,10 +14,11 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.       *
  *----------------------------------------------------------------------------*/
 
-package org.pitaya.util;
+package org.pitaya.security;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
+
+import org.pitaya.charset.ASCII;
 
 import java.util.Arrays;
 
@@ -30,6 +31,13 @@ import org.junit.Test;
  */
 public final class PasswordsTest
 {
+	@Test
+	public void testGenerate()
+	{
+		assertTrue(ASCII.isAlphaNumeric(Passwords.generate()));
+		assertEquals(10, Passwords.generate().length());
+	}
+
 	@Test
 	public void testHashAndVerify()
 	{

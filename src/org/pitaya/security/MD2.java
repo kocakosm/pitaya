@@ -14,7 +14,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.       *
  *----------------------------------------------------------------------------*/
 
-package org.pitaya.digest;
+package org.pitaya.security;
 
 /**
  * The MD2 digest algorithm. Instances of this class are not thread safe.

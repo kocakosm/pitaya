@@ -14,14 +14,14 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.       *
  *----------------------------------------------------------------------------*/
 
-package org.pitaya.digest;
+package org.pitaya.security;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Somme commonly used digest algorithms. Careful: some of these algorithms are
- * not suitable for security related applications.
+ * Somme commonly used digest algorithms. Careful: some of these algorithms may
+ * not be suitable for security related applications.
  *
  * @author Osman KOCAK
  */

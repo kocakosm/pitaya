@@ -14,12 +14,10 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.       *
  *----------------------------------------------------------------------------*/
 
-package org.pitaya.util;
+package org.pitaya.security;
 
 import org.pitaya.charset.ASCII;
 import org.pitaya.charset.UTF8;
-import org.pitaya.digest.Digest;
-import org.pitaya.digest.Digests;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;

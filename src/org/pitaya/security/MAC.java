@@ -14,19 +14,23 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.       *
  *----------------------------------------------------------------------------*/
 
-package org.pitaya.digest;
+package org.pitaya.security;
 
 /**
- * A digest alorithm.
+ * MAC (Message Authentication Code) engine. A MAC provides a way to check the
+ * integrity of information transmitted over or stored in an unreliable medium,
+ * based on a secret key. Typically, message authentication codes are used
+ * between two parties that share a secret key in order to validate information
+ * transmitted between these parties.
  *
  * @author Osman KOCAK
  */
-public interface Digest
+public interface MAC
 {
 	/**
-	 * Returns the digest's length (in bits).
+	 * Returns the MAC's length (in bits).
 	 *
-	 * @return the digest's length (in bits).
+	 * @return the MAC's length (in bits).
 	 */
 	int length();
 
@@ -34,28 +38,28 @@ public interface Digest
 	void reset();
 
 	/**
-	 * Updates the digest using the given byte.
+	 * Updates the MAC using the given byte.
 	 *
-	 * @param input the byte with which to update the digest.
+	 * @param input the byte with which to update the MAC.
 	 */
 	void update(byte input);
 
 	/**
-	 * Updates the digest using the specified array of bytes.
+	 * Updates the MAC using the specified array of bytes.
 	 *
-	 * @param input the array of bytes with which to update the digest.
+	 * @param input the array of bytes with which to update the MAC.
 	 *
 	 * @throws NullPointerException if {@code input} is {@code null}.
 	 */
 	void update(byte... input);
 
 	/**
-	 * Updates the digest using the specified number of bytes from the given
+	 * Updates the MAC using the specified number of bytes from the given
 	 * array of bytes, starting at the specified offset.
 	 *
 	 * @param input the array of bytes.
 	 * @param off the offset to start from in the array of bytes.
-	 * @param len the number of bytes to use, starting at {@code off}.
+	 * @param len the number of bytes to use, starting at offset.
 	 *
 	 * @throws NullPointerException if {@code input} is {@code null}.
 	 * @throws IndexOutOfBoundsException if {@code off} is negative or if
@@ -64,44 +68,44 @@ public interface Digest
 	void update(byte[] input, int off, int len);
 
 	/**
-	 * Completes the hash computation. Note that the engine is reset after
+	 * Completes the MAC computation. Note that the engine is reset after
 	 * this call is made.
 	 *
-	 * @return the resulting digest.
+	 * @return the resulting MAC.
 	 */
-	byte[] digest();
+	byte[] mac();
 
 	/**
-	 * Performs a final update on the digest using the specified array of
-	 * bytes, then completes the digest computation. That is, this method
-	 * first calls {@link #update(byte...)}, passing the input array to the
-	 * update method, then calls {@link #digest()}. Note that the engine is
-	 * reset after this call is made.
+	 * Performs a final update on the MAC using the specified array of
+	 * bytes, then completes the MAC computation. That is, this method first
+	 * calls {@link #update(byte...)}, passing the input array to the update
+	 * method, then calls {@link #mac()}. Note that the engine is reset
+	 * after this call is made.
 	 *
-	 * @param input the input to be updated before the digest is completed.
+	 * @param input the input to be updated before the MAC is completed.
 	 *
-	 * @return the resulting digest.
+	 * @return the resulting MAC.
 	 *
 	 * @throws NullPointerException if {@code input} is {@code null}.
 	 */
-	byte[] digest(byte... input);
+	byte[] mac(byte... input);
 
 	/**
-	 * Performs a final update on the digest using the specified data bytes,
-	 * then completes the digest computation. That is, this method first
-	 * calls {@link #update(byte[], int, int)}, passing the input array to
-	 * the update method, then calls {@link #digest()}. Note that the engine
-	 * is reset after this call is made.
+	 * Performs a final update on the MAC using the specified data bytes,
+	 * then completes the MAC computation. That is, this method first calls
+	 * {@link #update(byte[], int, int)}, passing the input array to the
+	 * update method, then calls {@link #mac()}. Note that the engine is
+	 * reset after this call is made.
 	 *
 	 * @param input the input array of bytes.
 	 * @param off the offset to start from in the array of bytes.
 	 * @param len the number of bytes to use, starting at {@code off}.
 	 *
-	 * @return the resulting digest.
+	 * @return the resulting MAC.
 	 *
 	 * @throws NullPointerException if {@code input} is {@code null}.
 	 * @throws IndexOutOfBoundsException if {@code off} is negative or if
 	 *	{@code off + len} is greater than {@code input}'s length.
 	 */
-	byte[] digest(byte[] input, int off, int len);
+	byte[] mac(byte[] input, int off, int len);
 }

@@ -14,10 +14,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.       *
  *----------------------------------------------------------------------------*/
 
-package org.pitaya.mac;
-
-import org.pitaya.digest.Digest;
-import org.pitaya.digest.Digests;
+package org.pitaya.security;
 
 import java.util.Arrays;
 
