@@ -34,168 +34,176 @@ import java.util.Arrays;
  *
  * @author Osman KOCAK
  */
-public final class HMAC implements MAC
+public final class HMACs
 {
 	/**
-	 * Returns a new MD2 {@code HMAC} engine.
+	 * Returns a new MD2 HMAC engine.
 	 *
 	 * @param key the HMAC's secret key.
 	 *
-	 * @return a new MD2 {@code HMAC} engine.
+	 * @return a new MD2 HMAC engine.
 	 *
 	 * @throws NullPointerException if {@code key} is {@code null}.
 	 */
-	public static HMAC md2(byte[] key)
+	public static MAC md2(byte... key)
 	{
 		return new HMAC(key, Digests.md2(), 16);
 	}
 
 	/**
-	 * Returns a new MD4 {@code HMAC} engine.
+	 * Returns a new MD4 HMAC engine.
 	 *
 	 * @param key the HMAC's secret key.
 	 *
-	 * @return a new MD4 {@code HMAC} engine.
+	 * @return a new MD4 HMAC engine.
 	 *
 	 * @throws NullPointerException if {@code key} is {@code null}.
 	 */
-	public static HMAC md4(byte[] key)
+	public static MAC md4(byte... key)
 	{
 		return new HMAC(key, Digests.md4(), 64);
 	}
 
 	/**
-	 * Returns a new MD5 {@code HMAC} engine.
+	 * Returns a new MD5 HMAC engine.
 	 *
 	 * @param key the HMAC's secret key.
 	 *
-	 * @return a new MD5 {@code HMAC} engine.
+	 * @return a new MD5 HMAC engine.
 	 *
 	 * @throws NullPointerException if {@code key} is {@code null}.
 	 */
-	public static HMAC md5(byte[] key)
+	public static MAC md5(byte... key)
 	{
 		return new HMAC(key, Digests.md5(), 64);
 	}
 
 	/**
-	 * Returns a new SHA1 {@code HMAC} engine.
+	 * Returns a new SHA1 HMAC engine.
 	 *
 	 * @param key the HMAC's secret key.
 	 *
-	 * @return a new SHA1 {@code HMAC} engine.
+	 * @return a new SHA1 HMAC engine.
 	 *
 	 * @throws NullPointerException if {@code key} is {@code null}.
 	 */
-	public static HMAC sha1(byte[] key)
+	public static MAC sha1(byte... key)
 	{
 		return new HMAC(key, Digests.sha1(), 64);
 	}
 
 	/**
-	 * Returns a new SHA-256 {@code HMAC} engine.
+	 * Returns a new SHA-256 HMAC engine.
 	 *
 	 * @param key the HMAC's secret key.
 	 *
-	 * @return a new SHA-256 {@code HMAC} engine.
+	 * @return a new SHA-256 HMAC engine.
 	 *
 	 * @throws NullPointerException if {@code key} is {@code null}.
 	 */
-	public static HMAC sha256(byte[] key)
+	public static MAC sha256(byte... key)
 	{
 		return new HMAC(key, Digests.sha256(), 64);
 	}
 
 	/**
-	 * Returns a new SHA-512 {@code HMAC} engine.
+	 * Returns a new SHA-512 HMAC engine.
 	 *
 	 * @param key the HMAC's secret key.
 	 *
-	 * @return a new SHA-512 {@code HMAC} engine.
+	 * @return a new SHA-512 HMAC engine.
 	 *
 	 * @throws NullPointerException if {@code key} is {@code null}.
 	 */
-	public static HMAC sha512(byte[] key)
+	public static MAC sha512(byte... key)
 	{
 		return new HMAC(key, Digests.sha512(), 128);
 	}
 
-	private final byte[] key;
-	private final Digest digest;
-
-	private HMAC(byte[] key, Digest digest, int blockSize)
+	private static final class HMAC implements MAC
 	{
-		if (key.length > blockSize) {
-			this.key = digest.digest(key);
-		} else {
-			this.key = Arrays.copyOf(key, blockSize);
+		private final byte[] key;
+		private final Digest digest;
+
+		HMAC(byte[] key, Digest digest, int blockSize)
+		{
+			if (key.length > blockSize) {
+				this.key = digest.digest(key);
+			} else {
+				this.key = Arrays.copyOf(key, blockSize);
+			}
+			this.digest = digest;
+			reset();
 		}
-		this.digest = digest;
-		reset();
-	}
 
-	@Override
-	public int length()
-	{
-		return digest.length();
-	}
+		@Override
+		public int length()
+		{
+			return digest.length();
+		}
 
-	@Override
-	public void reset()
-	{
-		digest.reset();
-		for (byte b : key) {
-			digest.update((byte) ((b & 0xFF) ^ 0x36));
+		@Override
+		public void reset()
+		{
+			digest.reset();
+			for (byte b : key) {
+				digest.update((byte) ((b & 0xFF) ^ 0x36));
+			}
+		}
+
+		@Override
+		public void update(byte input)
+		{
+			digest.update(input);
+		}
+
+		@Override
+		public void update(byte... input)
+		{
+			digest.update(input);
+		}
+
+		@Override
+		public void update(byte[] input, int off, int len)
+		{
+			digest.update(input, off, len);
+		}
+
+		@Override
+		public byte[] mac()
+		{
+			byte[] hash = digest.digest();
+			for (byte b : key) {
+				digest.update((byte) ((b & 0xFF) ^ 0x5c));
+			}
+			byte[] hmac = digest.digest(hash);
+			reset();
+			return hmac;
+		}
+
+		@Override
+		public byte[] mac(byte... input)
+		{
+			update(input);
+			return mac();
+		}
+
+		@Override
+		public byte[] mac(byte[] input, int off, int len)
+		{
+			update(input, off, len);
+			return mac();
+		}
+
+		@Override
+		public String toString()
+		{
+			return "HMAC-" + digest;
 		}
 	}
 
-	@Override
-	public void update(byte input)
+	private HMACs()
 	{
-		digest.update(input);
-	}
-
-	@Override
-	public void update(byte... input)
-	{
-		digest.update(input);
-	}
-
-	@Override
-	public void update(byte[] input, int off, int len)
-	{
-		digest.update(input, off, len);
-	}
-
-	@Override
-	public byte[] mac()
-	{
-		byte[] hash = digest.digest();
-		for (byte b : key) {
-			digest.update((byte) ((b & 0xFF) ^ 0x5c));
-		}
-		byte[] hmac = digest.digest(hash);
-		reset();
-		return hmac;
-	}
-
-	@Override
-	public byte[] mac(byte... input)
-	{
-		update(input);
-		return mac();
-	}
-
-	@Override
-	public byte[] mac(byte[] input, int off, int len)
-	{
-		update(input, off, len);
-		return mac();
-	}
-
-	@Override
-	public String toString()
-	{
-		return "HMAC-" + digest;
+		/* ... */
 	}
 }
