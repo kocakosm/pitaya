@@ -29,7 +29,7 @@ import java.io.OutputStream;
 public final class Streams
 {
 	/**
-	 * Forwards the content of the given {@link InpuStream} into the given
+	 * Forwards the content of the given {@link InputStream} into the given
 	 * {@link OutputStream}.
 	 *
 	 * @param in the stream to read.

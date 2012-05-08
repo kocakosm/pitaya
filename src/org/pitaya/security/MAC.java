@@ -23,6 +23,8 @@ package org.pitaya.security;
  * between two parties that share a secret key in order to validate information
  * transmitted between these parties.
  *
+ * @see HMACs
+ *
  * @author Osman KOCAK
  */
 public interface MAC
