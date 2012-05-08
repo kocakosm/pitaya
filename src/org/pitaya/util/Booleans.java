@@ -191,8 +191,8 @@ public final class Booleans
 
 	/**
 	 * Parses the given {@code String} into a {@link Boolean}. This method
-	 * returns {@code true} if the given {@link String} contains "true", "1"
-	 * or "on".
+	 * returns {@code true} if the given {@link String} contains "true",
+	 * "yes", "1" or "on".
 	 *
 	 * @param bool the {@code String} to parse.
 	 *
@@ -204,8 +204,9 @@ public final class Booleans
 	{
 		String s = bool.replaceAll("\\s", "");
 		boolean b = s.equalsIgnoreCase("true")
-			|| s.equalsIgnoreCase("1")
-			|| s.equalsIgnoreCase("on");
+			|| s.equalsIgnoreCase("yes")
+			|| s.equalsIgnoreCase("on")
+			|| s.equalsIgnoreCase("1");
 		return b ? TRUE : FALSE;
 	}
 

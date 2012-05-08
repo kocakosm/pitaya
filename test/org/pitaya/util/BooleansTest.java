@@ -96,6 +96,7 @@ public final class BooleansTest
 		assertTrue(valueOf("   T r Ue  "));
 		assertTrue(valueOf("   1  "));
 		assertTrue(valueOf("   O n  "));
+		assertTrue(valueOf("  Y eS  "));
 		assertFalse(valueOf(""));
 	}
 
