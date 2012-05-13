@@ -205,9 +205,9 @@ public final class ByteBuffer implements Iterable<Byte>
 		if (count == 0) {
 			return hash;
 		}
-		hash = 17 * hash + Integer.valueOf(count).hashCode();
-		hash = 17 * hash + Byte.valueOf(buf[0]).hashCode();
-		hash = 17 * hash + Byte.valueOf(buf[count]).hashCode();
+		hash = 17 * hash + count;
+		hash = 17 * hash + buf[0];
+		hash = 17 * hash + buf[count];
 		return hash;
 	}
 

@@ -66,6 +66,7 @@ public final class RomanNumbers
 	 *
 	 * @return the {@code int} value of the given roman number.
 	 *
+	 * @throws NullPointerException if {@code str} is {@code null}.
 	 * @throws IllegalArgumentException if the given {@code String} does not
 	 *	represent a valid roman number.
 	 */

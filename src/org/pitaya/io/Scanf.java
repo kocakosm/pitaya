@@ -54,6 +54,7 @@ public final class Scanf
 	 *
 	 * @return the next line read from the standard input.
 	 *
+	 * @throws NullPointerException if {@code charset} is {@code null}.
 	 * @throws IOException if the standard input cannot be read.
 	 */
 	public static String readString(Charset charset) throws IOException
