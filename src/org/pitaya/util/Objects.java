@@ -136,7 +136,7 @@ public final class Objects
 	public static final class ToStringBuilder
 	{
 		private final StringBuilder sb;
-		private boolean first;
+		private boolean first = true;
 
 		private ToStringBuilder(String name)
 		{
@@ -156,7 +156,8 @@ public final class Objects
 		public ToStringBuilder append(String name, Object value)
 		{
 			Parameters.checkNotNull(name);
-			appendSeparator().append(name).append(value);
+			appendSeparator().append(name)
+				.append('=').append(value);
 			return this;
 		}
 
@@ -174,7 +175,7 @@ public final class Objects
 		{
 			Parameters.checkNotNull(name);
 			appendSeparator().append(name)
-				.append(Arrays.toString(values));
+				.append('=').append(Arrays.toString(values));
 			return this;
 		}
 
@@ -191,7 +192,8 @@ public final class Objects
 		public ToStringBuilder append(String name, boolean value)
 		{
 			Parameters.checkNotNull(name);
-			appendSeparator().append(name).append(value);
+			appendSeparator().append(name)
+				.append('=').append(value);
 			return this;
 		}
 
@@ -209,7 +211,7 @@ public final class Objects
 		{
 			Parameters.checkNotNull(name);
 			appendSeparator().append(name)
-				.append(Arrays.toString(values));
+				.append('=').append(Arrays.toString(values));
 			return this;
 		}
 
@@ -226,7 +228,8 @@ public final class Objects
 		public ToStringBuilder append(String name, byte value)
 		{
 			Parameters.checkNotNull(name);
-			appendSeparator().append(name).append(value);
+			appendSeparator().append(name)
+				.append('=').append(value);
 			return this;
 		}
 
@@ -244,7 +247,7 @@ public final class Objects
 		{
 			Parameters.checkNotNull(name);
 			appendSeparator().append(name)
-				.append(Arrays.toString(values));
+				.append('=').append(Arrays.toString(values));
 			return this;
 		}
 
@@ -261,7 +264,8 @@ public final class Objects
 		public ToStringBuilder append(String name, int value)
 		{
 			Parameters.checkNotNull(name);
-			appendSeparator().append(name).append(value);
+			appendSeparator().append(name)
+				.append('=').append(value);
 			return this;
 		}
 
@@ -279,7 +283,7 @@ public final class Objects
 		{
 			Parameters.checkNotNull(name);
 			appendSeparator().append(name)
-				.append(Arrays.toString(values));
+				.append('=').append(Arrays.toString(values));
 			return this;
 		}
 
@@ -296,7 +300,8 @@ public final class Objects
 		public ToStringBuilder append(String name, long value)
 		{
 			Parameters.checkNotNull(name);
-			appendSeparator().append(name).append(value);
+			appendSeparator().append(name)
+				.append('=').append(value);
 			return this;
 		}
 
@@ -314,7 +319,7 @@ public final class Objects
 		{
 			Parameters.checkNotNull(name);
 			appendSeparator().append(name)
-				.append(Arrays.toString(values));
+				.append('=').append(Arrays.toString(values));
 			return this;
 		}
 
@@ -331,7 +336,8 @@ public final class Objects
 		public ToStringBuilder append(String name, float value)
 		{
 			Parameters.checkNotNull(name);
-			appendSeparator().append(name).append(value);
+			appendSeparator().append(name)
+				.append('=').append(value);
 			return this;
 		}
 
@@ -349,7 +355,7 @@ public final class Objects
 		{
 			Parameters.checkNotNull(name);
 			appendSeparator().append(name)
-				.append(Arrays.toString(values));
+				.append('=').append(Arrays.toString(values));
 			return this;
 		}
 
@@ -366,7 +372,8 @@ public final class Objects
 		public ToStringBuilder append(String name, double value)
 		{
 			Parameters.checkNotNull(name);
-			appendSeparator().append(name).append(value);
+			appendSeparator().append(name)
+				.append('=').append(value);
 			return this;
 		}
 
@@ -384,7 +391,7 @@ public final class Objects
 		{
 			Parameters.checkNotNull(name);
 			appendSeparator().append(name)
-				.append(Arrays.toString(values));
+				.append('=').append(Arrays.toString(values));
 			return this;
 		}
 
@@ -401,7 +408,8 @@ public final class Objects
 		public ToStringBuilder append(String name, char value)
 		{
 			Parameters.checkNotNull(name);
-			appendSeparator().append(name).append(value);
+			appendSeparator().append(name)
+				.append('=').append(value);
 			return this;
 		}
 
@@ -419,7 +427,7 @@ public final class Objects
 		{
 			Parameters.checkNotNull(name);
 			appendSeparator().append(name)
-				.append(Arrays.toString(values));
+				.append('=').append(Arrays.toString(values));
 			return this;
 		}
 
