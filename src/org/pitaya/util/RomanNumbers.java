@@ -60,7 +60,7 @@ public final class RomanNumbers
 
 	/**
 	 * Returns the {@code int} value of the given roman number. This method
-	 * only accepts representations of values between 1 and 5000 inlusive.
+	 * only accepts representations of values between 1 and 4999 inlusive.
 	 *
 	 * @param str the roman number to interpret.
 	 *
@@ -72,7 +72,7 @@ public final class RomanNumbers
 	 */
 	public static int valueOf(String str)
 	{
-		String r = ASCII.toUpperCase(str.replace("\\s", ""));
+		String r = ASCII.toUpperCase(str.replaceAll("\\s", ""));
 		Parameters.checkCondition(r.length() > 0);
 		int index = 0;
 		int value = 0;
