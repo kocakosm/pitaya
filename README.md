@@ -1,11 +1,17 @@
+Pitaya
+======
+
+[![Build Status](https://secure.travis-ci.org/kocakosm/pitaya.png?branch=master)](http://travis-ci.org/kocakosm/pitaya)
+
+
 Overview
-========
+--------
 
 Pitaya is a simple Java utility library.
 
 
 Requirements
-============
+------------
 
 In order to build Pitaya you will need a JDK 6 (or newer) and Apache Maven 2
 (or newer).
@@ -13,7 +19,7 @@ To use the library you will need a JRE 6 (or newer).
 
 
 Building Pitaya
-===============
+---------------
 
 Run the following command to compile the library and package it as a jar:
 
@@ -26,7 +32,7 @@ the following command:
 
 
 License
-=======
+-------
 
 This program is free software: you can redistribute it and/or modify it under
 the terms of the GNU Lesser General Public License as published by the Free
@@ -38,5 +44,6 @@ PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
 
 
 Contact
-=======
+-------
+
 For any question, feel free to contact me at kocakosm[@]gmail.com
