@@ -20,19 +20,19 @@ import org.pitaya.util.Parameters;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * A decorating {@link InputStream} that counts the number of bytes that have
- * been read from the underlying stream. Bytes read multiple times are  counted
+ * been read from the underlying stream. Bytes read multiple times are counted
  * as many times they have been read. Also, skipped bytes are not counted.
  *
  * @author Osman KOCAK
  */
 public class CountingInputStream extends InputStream
 {
-	private long count = 0;
 	private final InputStream in;
-	private final Object lock = new Object();
+	private final AtomicLong counter;
 
 	/**
 	 * Creates a new {@code CountingInputStream}.
@@ -45,6 +45,7 @@ public class CountingInputStream extends InputStream
 	{
 		Parameters.checkNotNull(in);
 		this.in = in;
+		this.counter = new AtomicLong();
 	}
 
 	/**
@@ -55,9 +56,7 @@ public class CountingInputStream extends InputStream
 	 */
 	public long getCount()
 	{
-		synchronized (lock) {
-			return count;
-		}
+		return counter.get();
 	}
 
 	/**
@@ -67,11 +66,7 @@ public class CountingInputStream extends InputStream
 	 */
 	public long resetCount()
 	{
-		synchronized (lock) {
-			long tmp = count;
-			count = 0L;
-			return tmp;
-		}
+		return counter.getAndSet(0);
 	}
 
 	@Override
@@ -102,7 +97,7 @@ public class CountingInputStream extends InputStream
 	public int read() throws IOException
 	{
 		int b = in.read();
-		count(b != -1 ? 1 : -1);
+		count(b != -1 ? 1 : 0);
 		return b;
 	}
 
@@ -137,9 +132,7 @@ public class CountingInputStream extends InputStream
 	private void count(int n)
 	{
 		if (n != -1) {
-			synchronized (lock) {
-				count += n;
-			}
+			counter.addAndGet(n);
 		}
 	}
 }

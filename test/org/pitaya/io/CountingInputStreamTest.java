@@ -17,6 +17,9 @@
 package org.pitaya.io;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertArrayEquals;
+
+import org.pitaya.util.ByteBuffer;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -59,7 +62,7 @@ public final class CountingInputStreamTest
 		CountingInputStream in = new CountingInputStream(data);
 		in.read(new byte[8]);
 		assertEquals(8, in.getCount());
-		in.resetCount();
+		assertEquals(8, in.resetCount());
 		assertEquals(0, in.getCount());
 		in.read(new byte[8]);
 		assertEquals(8, in.getCount());
@@ -88,5 +91,22 @@ public final class CountingInputStreamTest
 		in.reset();
 		in.read(new byte[20]);
 		assertEquals(32, in.getCount());
+	}
+
+	@Test
+	public void testRead() throws IOException
+	{
+		InputStream data = new ByteArrayInputStream(DATA);
+		CountingInputStream in = new CountingInputStream(data);
+		ByteBuffer buf = new ByteBuffer();
+		buf.append((byte) in.read());
+		byte[] b = new byte[5];
+		in.read(b);
+		buf.append(b);
+		b = new byte[20];
+		int len = in.read(b, 0, 15);
+		buf.append(b, 0, len);
+		assertEquals(16, in.getCount());
+		assertArrayEquals(DATA, buf.toByteArray());
 	}
 }
