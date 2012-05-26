@@ -16,10 +16,8 @@
 
 package org.pitaya.util;
 
-import static org.pitaya.util.Base64.decode;
-import static org.pitaya.util.Base64.encode;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertArrayEquals;
+import static org.pitaya.util.Base64.*;
+import static org.junit.Assert.*;
 
 import org.pitaya.charset.ASCII;
 
