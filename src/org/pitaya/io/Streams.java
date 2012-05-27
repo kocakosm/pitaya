@@ -45,7 +45,7 @@ public final class Streams
 		int len = in.read(buf);
 		while (len >= 0) {
 			out.write(buf, 0, len);
-			in.read(buf);
+			len = in.read(buf);
 		}
 		out.flush();
 	}
