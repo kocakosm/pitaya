@@ -28,7 +28,7 @@ import java.util.concurrent.atomic.AtomicLong;
  *
  * @author Osman KOCAK
  */
-public class CountingOutputStream extends OutputStream
+public final class CountingOutputStream extends OutputStream
 {
 	private final OutputStream out;
 	private final AtomicLong counter;

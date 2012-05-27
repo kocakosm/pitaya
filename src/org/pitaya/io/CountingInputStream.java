@@ -29,7 +29,7 @@ import java.util.concurrent.atomic.AtomicLong;
  *
  * @author Osman KOCAK
  */
-public class CountingInputStream extends InputStream
+public final class CountingInputStream extends InputStream
 {
 	private final InputStream in;
 	private final AtomicLong counter;
@@ -97,7 +97,7 @@ public class CountingInputStream extends InputStream
 	public int read() throws IOException
 	{
 		int b = in.read();
-		count(b != -1 ? 1 : 0);
+		count(b != -1 ? 1 : -1);
 		return b;
 	}
 
