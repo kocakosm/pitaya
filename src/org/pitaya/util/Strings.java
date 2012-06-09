@@ -199,7 +199,7 @@ public final class Strings
 	{
 		Parameters.checkCondition(length >= 0);
 		Parameters.checkCondition(chars.length > 0);
-		StringBuilder sb = new StringBuilder();
+		StringBuilder sb = new StringBuilder(length);
 		for (int i = 0; i < length; i++) {
 			sb.append(chars[rnd.nextInt(chars.length)]);
 		}

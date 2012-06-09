@@ -90,6 +90,7 @@ public final class Streams
 	 *
 	 * @return the stream's content.
 	 *
+	 * @throws NullPointerException if {@code in} is {@code null}.
 	 * @throws IOException if the data cannot be read.
 	 */
 	public static byte[] read(InputStream in) throws IOException
