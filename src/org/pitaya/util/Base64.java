@@ -56,7 +56,6 @@ public final class Base64
 		return encode(bytes, 0, bytes.length);
 	}
 
-
 	/**
 	 * Encodes the given data bytes into a Base64 {@code String}.
 	 *
