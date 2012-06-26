@@ -29,6 +29,8 @@ import java.math.BigInteger;
  */
 public final class Fraction extends Number implements Comparable<Fraction>
 {
+	private static final long serialVersionUID = 2433311932359200182L;
+
 	/** {@code Fraction} representation of 0. */
 	public static final Fraction ZERO = valueOf(0);
 
