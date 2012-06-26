@@ -74,13 +74,16 @@ public final class ByteBuffer implements Iterable<Byte>
 	 * Writes the given byte to this buffer.
 	 *
 	 * @param b the byte to write.
+	 *
+	 * @return this object.
 	 */
-	public void append(byte b)
+	public ByteBuffer append(byte b)
 	{
 		int newCount = count + 1;
 		ensureCapacity(newCount);
 		buf[count] = b;
 		count = newCount;
+		return this;
 	}
 
 	/**
@@ -88,11 +91,14 @@ public final class ByteBuffer implements Iterable<Byte>
 	 *
 	 * @param bytes the bytes to write.
 	 *
+	 * @return this object.
+	 *
 	 * @throws NullPointerException if {@code bytes} is {@code null}.
 	 */
-	public void append(byte... bytes)
+	public ByteBuffer append(byte... bytes)
 	{
 		append(bytes, 0, bytes.length);
+		return this;
 	}
 
 	/**
@@ -102,24 +108,42 @@ public final class ByteBuffer implements Iterable<Byte>
 	 * @param off the offset.
 	 * @param len the number of bytes to write.
 	 *
+	 * @return this object.
+	 *
 	 * @throws NullPointerException if {@code bytes} is {@code null}.
 	 * @throws IndexOutOfBoundsException if {@code off} or {@code len} is
 	 *	negative or if {@code off + len} is greater than the length of
 	 *	the {@code bytes} array.
 	 */
-	public void append(byte[] bytes, int off, int len)
+	public ByteBuffer append(byte[] bytes, int off, int len)
 	{
 		int newCount = count + len;
 		ensureCapacity(newCount);
 		System.arraycopy(bytes, off, buf, count, len);
 		count = newCount;
+		return this;
 	}
 
-	/** Resets this buffer. */
-	public void reset()
+	/** 
+	 * Resets this buffer.
+	 *
+	 * @return this object.
+	 */
+	public ByteBuffer reset()
 	{
 		count = 0;
 		buf = new byte[capacity];
+		return this;
+	}
+
+	/**
+	 * Returns the number of bytes contained in this buffer.
+	 *
+	 * @return the number of bytes contained in this buffer.
+	 */
+	public int size()
+	{
+		return count;
 	}
 
 	/**
@@ -168,16 +192,6 @@ public final class ByteBuffer implements Iterable<Byte>
 		byte[] data = new byte[len];
 		System.arraycopy(buf, off, data, 0, len);
 		return data;
-	}
-
-	/**
-	 * Returns the number of bytes contained in this buffer.
-	 *
-	 * @return the number of bytes contained in this buffer.
-	 */
-	public int size()
-	{
-		return count;
 	}
 
 	@Override

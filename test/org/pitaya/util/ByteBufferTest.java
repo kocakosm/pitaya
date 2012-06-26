@@ -50,8 +50,7 @@ public final class ByteBufferTest
 			(byte)0xC8, (byte)0xFF, (byte)0x5E, (byte)0x56
 		};
 		ByteBuffer buf = new ByteBuffer();
-		buf.append((byte) 0x00);
-		buf.append((byte) 0x09, (byte)0xD4);
+		buf.append((byte) 0x00).append((byte) 0x09, (byte)0xD4);
 		buf.append(bytes, 1, 2);
 		byte[] expected = new byte[] {
 			(byte)0x00, (byte)0x09, (byte)0xD4, (byte)0xFF,
@@ -86,8 +85,7 @@ public final class ByteBufferTest
 	public void testContainsNoDataAfterReset()
 	{
 		ByteBuffer buf = new ByteBuffer((byte)0xFF, (byte)0x45);
-		buf.append((byte)0xD1, (byte)0xE7);
-		buf.reset();
+		buf.append((byte)0xD1, (byte)0xE7).reset();
 		assertEquals(0, buf.size());
 		assertArrayEquals(new byte[0], buf.toByteArray());
 	}
