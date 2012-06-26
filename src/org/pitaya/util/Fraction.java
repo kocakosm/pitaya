@@ -109,7 +109,9 @@ public final class Fraction extends Number implements Comparable<Fraction>
 	{
 		String fraction = str.replaceAll("\\s", "");
 		int index = fraction.indexOf('/');
-		Parameters.checkCondition(index >= 0);
+		if (index < 0) {
+			return valueOf(new BigInteger(fraction));
+		}
 		BigInteger n = new BigInteger(fraction.substring(0, index));
 		BigInteger d = new BigInteger(fraction.substring(index + 1));
 		return new Fraction(n, d);

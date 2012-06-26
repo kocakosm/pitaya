@@ -56,6 +56,7 @@ public final class FractionTest
 	@Test
 	public void testValueOfString()
 	{
+		assertEquals(ONE, valueOf("   1 "));
 		assertEquals(ONE_THIRD, valueOf("1/3"));
 		assertEquals(ONE_THIRD, valueOf("  -1   /   -3"));
 		assertEquals(ONE_THIRD.negate(), valueOf("1/-3"));
