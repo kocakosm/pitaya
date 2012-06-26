@@ -62,6 +62,10 @@ public final class ByteBufferTest
 			(byte)0x00, (byte)0x09
 		};
 		assertArrayEquals(expected, buf.toByteArray(0, 2));
+		expected = new byte[] {
+			(byte)0xD4, (byte)0xFF, (byte)0x5E
+		};
+		assertArrayEquals(expected, buf.toByteArray(2));
 	}
 
 	@Test

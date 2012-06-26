@@ -135,6 +135,21 @@ public final class ByteBuffer implements Iterable<Byte>
 	}
 
 	/**
+	 * Returns the bytes contained in this buffer, starting at {@code off}.
+	 *
+	 * @param off the starting offset.
+	 *
+	 * @return the requested data bytes.
+	 *
+	 * @throws IndexOutOfBoundsException if {@code off} is negative or
+	 *	if {@code off} is greater than {@code size()}.
+	 */
+	public byte[] toByteArray(int off)
+	{
+		return toByteArray(off, count - off);
+	}
+
+	/**
 	 * Returns {@code len} bytes from this buffer, starting at {@code off}.
 	 *
 	 * @param off the starting offset.
