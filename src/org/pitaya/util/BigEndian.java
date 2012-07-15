@@ -132,7 +132,7 @@ public final class BigEndian
 		return ((in[off] & 0xFF) << 24)
 			| ((in[off + 1] & 0xFF) << 16)
 			| ((in[off + 2] & 0xFF) << 8)
-			| (in[off + 3] & 0xFF);
+			| ((in[off + 3] & 0xFF));
 	}
 
 	/**

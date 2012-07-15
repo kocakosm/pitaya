@@ -16,6 +16,9 @@
 
 package org.pitaya.security;
 
+import org.pitaya.util.Bits;
+import org.pitaya.util.LittleEndian;
+
 /**
  * The MD4 digest algorithm. Instances of this class are not thread safe.
  *
@@ -87,10 +90,10 @@ final class MD4 extends AbstractDigest
 	{
 		addPadding();
 		byte[] res = new byte[DIGEST_LENGTH];
-		encodeLittleEndian(value[0], res, 0);
-		encodeLittleEndian(value[1], res, 4);
-		encodeLittleEndian(value[2], res, 8);
-		encodeLittleEndian(value[3], res, 12);
+		LittleEndian.encode(value[0], res, 0);
+		LittleEndian.encode(value[1], res, 4);
+		LittleEndian.encode(value[2], res, 8);
+		LittleEndian.encode(value[3], res, 12);
 		reset();
 		return res;
 	}
@@ -108,55 +111,8 @@ final class MD4 extends AbstractDigest
 			buf[i] = (byte) 0x00;
 		}
 		counter = (counter + (long) bufferLen) * 8L;
-		encodeLittleEndian(counter, buf, len - 8);
+		LittleEndian.encode(counter, buf, len - 8);
 		update(buf);
-	}
-
-	/**
-	 * Encodes in little-endian the two 32-bit words value {@code val} into
-	 * the array {@code buf} starting at offset {@code off}.
-	 *
-	 * @param val the value to encode.
-	 * @param buf the destination buffer.
-	 * @param off the offset.
-	 */
-	private void encodeLittleEndian(long val, byte[] buf, int off)
-	{
-		encodeLittleEndian((int) val, buf, off);
-		encodeLittleEndian((int) (val >>> 32), buf, off + 4);
-	}
-
-	/**
-	 * Encodes in little-endian the 32-bit word {@code val} into the array
-	 * {@code buf} starting at offset {@code off}.
-	 *
-	 * @param val the value to encode.
-	 * @param buf the destination buffer.
-	 * @param off the offset.
-	 */
-	private void encodeLittleEndian(int val, byte[] buf, int off)
-	{
-		buf[off] = (byte) val;
-		buf[off + 1] = (byte) (val >>> 8);
-		buf[off + 2] = (byte) (val >>> 16);
-		buf[off + 3] = (byte) (val >>> 24);
-	}
-
-	/**
-	 * Decodes a 32-bit little-endian word from the given array starting at
-	 * the given offset.
-	 *
-	 * @param buf the buffer to read from.
-	 * @param off the starting offset.
-	 *
-	 * @return the decoded {@code int} value.
-	 */
-	private int decodeLittleEndian(byte[] buf, int off)
-	{
-		return (buf[off] & 0xFF)
-			| ((buf[off + 1] & 0xFF) << 8)
-			| ((buf[off + 2] & 0xFF) << 16)
-			| ((buf[off + 3] & 0xFF) << 24);
 	}
 
 	private void processBuffer()
@@ -168,7 +124,7 @@ final class MD4 extends AbstractDigest
 
 		int[] X = new int[16];
 		for (int i = 0; i < 16; i++) {
-			X[i] = decodeLittleEndian(buffer, 4 * i);
+			X[i] = LittleEndian.decodeInt(buffer, 4 * i);
 		}
 
 		/* Round 1 */
@@ -236,17 +192,17 @@ final class MD4 extends AbstractDigest
 
 	private int FF(int a, int b, int c, int d, int x, int s)
 	{
-		return rotateLeft(a + F(b, c, d) + x, s);
+		return Bits.rotateLeft(a + F(b, c, d) + x, s);
 	}
 
 	private int GG(int a, int b, int c, int d, int x, int s)
 	{
-		return rotateLeft(a + G(b, c, d) + x + 0x5A827999, s);
+		return Bits.rotateLeft(a + G(b, c, d) + x + 0x5A827999, s);
 	}
 
 	private int HH(int a, int b, int c, int d, int x, int s)
 	{
-		return rotateLeft(a + H(b, c, d) + x + 0x6ED9EBA1, s);
+		return Bits.rotateLeft(a + H(b, c, d) + x + 0x6ED9EBA1, s);
 	}
 
 	private int F(int x, int y, int z)
@@ -262,10 +218,5 @@ final class MD4 extends AbstractDigest
 	private int H(int x, int y, int z)
 	{
 		return x ^ y ^ z;
-	}
-
-	private int rotateLeft(int x, int n)
-	{
-		return (x << n) | (x >>> (32 - n));
 	}
 }
