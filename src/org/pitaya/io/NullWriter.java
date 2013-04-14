@@ -76,7 +76,7 @@ public final class NullWriter extends Writer
 	@Override
 	public void write(String str, int off, int len)
 	{
-		str.substring(len, off + len);
+		str.substring(off, off + len);
 	}
 
 	@Override
