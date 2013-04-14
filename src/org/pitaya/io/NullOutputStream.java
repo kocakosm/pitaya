@@ -41,7 +41,7 @@ public final class NullOutputStream extends OutputStream
 	}
 
 	@Override
-	public void write(byte... b)
+	public void write(byte[] b)
 	{
 		Parameters.checkNotNull(b);
 	}
