@@ -80,9 +80,9 @@ public final class StringReader extends Reader
 			return -1;
 		}
 		int n = 0;
-		int end = Math.min(index + len, in.length());
-		for (int i = off; i < end; i++, n++) {
+		for (int i = off; i < off + len && index < in.length(); i++) {
 			buf[i] = in.charAt(index++);
+			n++;
 		}
 		return n;
 	}

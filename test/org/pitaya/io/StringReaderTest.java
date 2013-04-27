@@ -58,6 +58,21 @@ public final class StringReaderTest
 		for (int i = 0; i < "Hello".length(); i++) {
 			assertEquals("Hello".charAt(i), buf[i]);
 		}
+
+		reader = new StringReader("Hello", " ", "world !");
+		buf = new char[5];
+		assertEquals(5, reader.read(buf));
+		assertArrayEquals("Hello".toCharArray(), buf);
+		
+		buf = new char[1];
+		assertEquals(1, reader.read(buf, 0, 1));
+		assertArrayEquals(" ".toCharArray(), buf);
+		
+		buf = new char[10];
+		assertEquals(7, reader.read(buf, 1, 9));
+		for (int i = 0; i < 7; i++) {
+			assertEquals("world !".charAt(i), buf[i + 1]);
+		}
 	}
 
 	@Test
