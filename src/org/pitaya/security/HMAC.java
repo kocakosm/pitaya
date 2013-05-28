@@ -31,7 +31,7 @@ import java.util.Arrays;
  *
  * @author Osman KOCAK
  */
-public final class HMACs
+public final class HMAC
 {
 	/**
 	 * Returns a new MD2 HMAC engine.
@@ -44,7 +44,7 @@ public final class HMACs
 	 */
 	public static MAC md2(byte... key)
 	{
-		return new HMAC(key, Digests.md2(), 16);
+		return new Engine(key, Digests.md2(), 16);
 	}
 
 	/**
@@ -58,7 +58,7 @@ public final class HMACs
 	 */
 	public static MAC md4(byte... key)
 	{
-		return new HMAC(key, Digests.md4(), 64);
+		return new Engine(key, Digests.md4(), 64);
 	}
 
 	/**
@@ -72,7 +72,7 @@ public final class HMACs
 	 */
 	public static MAC md5(byte... key)
 	{
-		return new HMAC(key, Digests.md5(), 64);
+		return new Engine(key, Digests.md5(), 64);
 	}
 
 	/**
@@ -86,7 +86,7 @@ public final class HMACs
 	 */
 	public static MAC sha1(byte... key)
 	{
-		return new HMAC(key, Digests.sha1(), 64);
+		return new Engine(key, Digests.sha1(), 64);
 	}
 
 	/**
@@ -100,7 +100,7 @@ public final class HMACs
 	 */
 	public static MAC sha256(byte... key)
 	{
-		return new HMAC(key, Digests.sha256(), 64);
+		return new Engine(key, Digests.sha256(), 64);
 	}
 
 	/**
@@ -114,18 +114,18 @@ public final class HMACs
 	 */
 	public static MAC sha512(byte... key)
 	{
-		return new HMAC(key, Digests.sha512(), 128);
+		return new Engine(key, Digests.sha512(), 128);
 	}
 
-	private static final class HMAC implements MAC
+	private static final class Engine implements MAC
 	{
 		private final byte[] key;
 		private final Digest digest;
 
-		HMAC(byte[] key, Digest digest, int blockSize)
+		Engine(byte[] key, Digest digest, int blockSize)
 		{
 			if (key.length > blockSize) {
-				this.key = digest.digest(key);
+				this.key = Arrays.copyOf(digest.digest(key), blockSize);
 			} else {
 				this.key = Arrays.copyOf(key, blockSize);
 			}
@@ -199,7 +199,7 @@ public final class HMACs
 		}
 	}
 
-	private HMACs()
+	private HMAC()
 	{
 		/* ... */
 	}

@@ -22,8 +22,9 @@ package org.pitaya.security;
  * based on a secret key. Typically, message authentication codes are used
  * between two parties that share a secret key in order to validate information
  * transmitted between these parties.
+ * Implementations of this interface are not meant to be thread-safe.
  *
- * @see HMACs
+ * @see HMAC
  *
  * @author Osman KOCAK
  */

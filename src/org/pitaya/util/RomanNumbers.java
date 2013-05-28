@@ -60,7 +60,7 @@ public final class RomanNumbers
 
 	/**
 	 * Returns the {@code int} value of the given roman number. This method
-	 * only accepts representations of values between 1 and 4999 inlusive.
+	 * only accepts representations of values between 1 and 4999 inclusive.
 	 *
 	 * @param str the roman number to interpret.
 	 *

@@ -17,7 +17,10 @@
 package org.pitaya.security;
 
 /**
- * A digest engine.
+ * A digest engine. Implementations of this interface are not meant to be
+ * thread-safe.
+ *
+ * @see Digests
  *
  * @author Osman KOCAK
  */

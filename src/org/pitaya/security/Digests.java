@@ -16,12 +16,15 @@
 
 package org.pitaya.security;
 
+import org.pitaya.util.CannotHappenException;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Somme commonly used digest algorithms. Careful: some of these algorithms may
- * not be suitable for security related applications.
+ * Somme commonly used digest algorithms. None of the {@link Digest} instances 
+ * returned by this class is thread-safe. Also, be careful: some of these 
+ * algorithms may not be suitable for security related applications.
  *
  * @author Osman KOCAK
  */
@@ -54,7 +57,7 @@ public final class Digests
 	 */
 	public static Digest md5()
 	{
-		return new DigestImpl("MD5");
+		return new BuiltInDigest("MD5");
 	}
 
 	/**
@@ -64,7 +67,7 @@ public final class Digests
 	 */
 	public static Digest sha1()
 	{
-		return new DigestImpl("SHA1");
+		return new BuiltInDigest("SHA1");
 	}
 
 	/**
@@ -74,7 +77,7 @@ public final class Digests
 	 */
 	public static Digest sha256()
 	{
-		return new DigestImpl("SHA-256");
+		return new BuiltInDigest("SHA-256");
 	}
 
 	/**
@@ -84,22 +87,21 @@ public final class Digests
 	 */
 	public static Digest sha512()
 	{
-		return new DigestImpl("SHA-512");
+		return new BuiltInDigest("SHA-512");
 	}
 
-	private static final class DigestImpl implements Digest
+	private static final class BuiltInDigest implements Digest
 	{
 		private final String algorithm;
 		private final MessageDigest md;
 
-		DigestImpl(String algorithm)
+		BuiltInDigest(String algorithm)
 		{
 			this.algorithm = algorithm;
 			try {
 				this.md = MessageDigest.getInstance(algorithm);
 			} catch (NoSuchAlgorithmException ex) {
-				/* Cannot happen... */
-				throw new IllegalStateException();
+				throw new CannotHappenException(ex);
 			}
 		}
 
