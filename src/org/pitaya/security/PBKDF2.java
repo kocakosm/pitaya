@@ -21,7 +21,7 @@ import org.pitaya.util.ByteBuffer;
 import org.pitaya.util.Parameters;
 
 /**
- * PBKDF2 Key Derivation Function as specified (RFC 2898). Thread-safe.
+ * PBKDF2 Key Derivation Function (RFC 2898). Thread-safe.
  *
  * @author Osman KOCAK
  */
@@ -55,9 +55,9 @@ final class PBKDF2 implements KDF
 	@Override
 	public byte[] deriveKey(byte[] secret, byte[] salt)
 	{
-		ByteBuffer t = new ByteBuffer();
 		MAC mac = Factory.getMAC(algorithm, secret);
 		int d = (int) Math.ceil((double) dkLen / mac.length());
+		ByteBuffer t = new ByteBuffer(d * mac.length());
 		for (int i = 1; i <= d; i++) {
 			mac.update(salt);
 			byte[] f = mac.mac(BigEndian.encode(i));

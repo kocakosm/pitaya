@@ -21,7 +21,7 @@ import org.pitaya.util.Parameters;
 import java.util.Arrays;
 
 /**
- * PBKDF1 Key Derivation Function as specified (RFC 2898). Thread-safe.
+ * PBKDF1 Key Derivation Function (RFC 2898). Thread-safe.
  *
  * @author Osman KOCAK
  */
@@ -58,7 +58,7 @@ final class PBKDF1 implements KDF
 	@Override
 	public byte[] deriveKey(byte[] secret, byte[] salt)
 	{
-		Digest digest =  Factory.getDigest(algorithm);
+		Digest digest = Factory.getDigest(algorithm);
 		digest.update(secret);
 		byte[] hash = digest.digest(salt);
 		for (int i = 1; i < iterationCount; i++) {

@@ -19,6 +19,8 @@ package org.pitaya.security;
 import org.pitaya.util.ByteBuffer;
 import org.pitaya.util.Parameters;
 
+import java.util.Arrays;
+
 /**
  * HMAC-based Key Derivation Function (RFC 5869). Thread-safe.
  *
@@ -50,7 +52,8 @@ final class HKDF implements KDF
 		Parameters.checkCondition(dkLen <= 255 * mac.length());
 		this.algorithm = algorithm;
 		this.dkLen = dkLen;
-		this.info = info == null ? new byte[0] : info;
+		this.info = info == null ? 
+			new byte[0] : Arrays.copyOf(info, info.length);
 	}
 
 	@Override
