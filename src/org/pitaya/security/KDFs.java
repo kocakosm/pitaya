@@ -88,6 +88,29 @@ public final class KDFs
 		return new HKDF(mac, info, dkLen);
 	}
 
+	/**
+	 * Creates and returns a new {@link KDF} instance implementing the
+	 * SCrypt algorithm as specified by the Internet Engineering Task Force.
+	 * See http://tools.ietf.org/html/draft-josefsson-scrypt-kdf-01 for more
+	 * information.
+	 * 
+	 * @param r the block size parameter.
+	 * @param n the CPU/Memory cost parameter.
+	 * @param p the parallelization parameter.
+	 * @param dkLen the desired length for derived keys.
+	 * 
+	 * @return the created {@link KDF} instance.
+	 * 
+	 * @throws IllegalArgumentException if {@code r, dkLen} or {@code p} is
+	 *	negative, or if {@code n} is not greater than 1 or if it is not
+	 *	a power of 2 or if it is not less than 2 ^ (128 * r / 8), or if
+	 *	{@code p} is greater than ((2 ^ 32 - 1) * 32) / (128 * r).
+	 */
+	public static KDF scrypt(int r, int n, int p, int dkLen)
+	{
+		return new SCrypt(r, n, p, dkLen);
+	}
+
 	private KDFs()
 	{
 		/* ... */
