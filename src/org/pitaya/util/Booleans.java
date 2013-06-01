@@ -282,7 +282,7 @@ public final class Booleans
 	/**
 	 * Returns the given {@code boolean}'s {@link String} representation.
 	 *
-	 * @param bool the {@link boolean} value to convert.
+	 * @param bool the {@code boolean} value to convert.
 	 *
 	 * @return {@code bool}'s {@link String} representation.
 	 */

@@ -17,8 +17,8 @@
 package org.pitaya.util;
 
 /**
- * This exception is meant to be thrown in situation that cannot happen in 
- * practice. Use with with parcimony.
+ * This exception is meant to be thrown in situations that cannot happen in 
+ * practice. Use with parcimony.
  *
  * @author Osman KOCAK
  */
