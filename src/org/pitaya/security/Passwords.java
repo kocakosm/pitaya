@@ -16,12 +16,12 @@
 
 package org.pitaya.security;
 
-import org.pitaya.charset.ASCII;
 import org.pitaya.charset.UTF8;
+import org.pitaya.util.ByteBuffer;
+import org.pitaya.util.Parameters;
+import org.pitaya.util.Strings;
 
-import java.math.BigInteger;
 import java.security.SecureRandom;
-import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -31,9 +31,19 @@ import java.util.Random;
  */
 public final class Passwords
 {
+	private static final int R = 8;
+	private static final int P = 1;
+	private static final int N = 1 << 14;
 	private static final int SALT_LENGTH = 16;
 	private static final int HASH_LENGTH = 32;
 	private static final Random PRNG = new SecureRandom();
+	private static final char[] ALPHABET = new char[] {
+		'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+		'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+		'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+		'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+		'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
+	};
 
 	/**
 	 * Generates a pseudo-random password (10 alphanumeric characters).
@@ -42,20 +52,12 @@ public final class Passwords
 	 */
 	public static String generate()
 	{
-		String s = new BigInteger(52, PRNG).toString(36) + "0000000000";
-		StringBuilder password = new StringBuilder(10);
-		for (int i = 0; i < 10; i++) {
-			if (PRNG.nextBoolean()) {
-				password.append(ASCII.toUpperCase(s.charAt(i)));
-			} else {
-				password.append(s.charAt(i));
-			}
-		}
-		return password.toString();
+		return Strings.random(10, PRNG, ALPHABET);
 	}
 
 	/**
-	 * Hashes the given password (the salt is appended to the hash).
+	 * Hashes the given password (using {@link SCrypt}). Hashing parameters
+	 * are appended to the result before being returned.
 	 *
 	 * @param password the password to hash.
 	 *
@@ -65,7 +67,7 @@ public final class Passwords
 	 */
 	public static byte[] hash(String password)
 	{
-		return hash(password, salt());
+		return hash(password, salt(), R, N, P);
 	}
 
 	/**
@@ -76,33 +78,35 @@ public final class Passwords
 	 *
 	 * @return whether the given password matches the hashed one.
 	 *
-	 * @throws NullPointerException if {@code password} or {@code hash} is
-	 *	{@code null}.
+	 * @throws NullPointerException if one of the arguments is {@code null}.
 	 */
 	public static boolean verify(String password, byte[] hash)
 	{
+		int len = hash.length;
+		Parameters.checkCondition(len == HASH_LENGTH + SALT_LENGTH + 3);
 		byte[] salt = new byte[SALT_LENGTH];
 		System.arraycopy(hash, HASH_LENGTH, salt, 0, SALT_LENGTH);
-		return Arrays.equals(hash, hash(password, salt));
+		int n = 1 << (hash[HASH_LENGTH + SALT_LENGTH] & 0xFF);
+		int r = hash[HASH_LENGTH + SALT_LENGTH + 1] & 0xFF;
+		int p = hash[HASH_LENGTH + SALT_LENGTH + 2] & 0xFF;
+		byte[] expected = hash(password, salt, r, n, p);
+		int result = 0;
+		for (int i = 0; i < hash.length; i++) {
+			result |= hash[i] ^ expected[i];
+		}
+		return result == 0;
 	}
 
-	private static byte[] hash(String password, byte[] salt)
+	private static byte[] hash(String password, byte[] salt, int r, int n, 
+		int p)
 	{
-		byte[] passwd = UTF8.encode(password);
-		Digest digest = Digests.sha256();
-		digest.update(salt);
-		digest.update(passwd);
-		byte[] hash = digest.digest();
-		for (int i = 0; i < 10; i++) {
-			digest.update(salt);
-			digest.update(passwd);
-			digest.update(hash);
-			hash = digest.digest();
-		}
-		byte[] buf = new byte[HASH_LENGTH + SALT_LENGTH];
-		System.arraycopy(hash, 0, buf, 0, HASH_LENGTH);
-		System.arraycopy(salt, 0, buf, HASH_LENGTH, SALT_LENGTH);
-		return buf;
+		KDF scrypt = KDFs.scrypt(r, n, p, HASH_LENGTH);
+		ByteBuffer buf = new ByteBuffer();
+		buf.append(scrypt.deriveKey(UTF8.encode(password), salt));
+		buf.append(salt);
+		buf.append((byte) Math.round(Math.log(n) / Math.log(2)));
+		buf.append((byte) r, (byte) p);
+		return buf.toByteArray();
 	}
 
 	private static byte[] salt()
