@@ -31,7 +31,7 @@ public final class KDFs
 	 * 
 	 * @param digest the digest algorithm to use.
 	 * @param iterationCount the desired number of iterations.
-	 * @param dkLen the desired length for derived keys.
+	 * @param dkLen the desired length for derived keys, in bytes.
 	 * 
 	 * @return the created {@link KDF} instance.
 	 * 
@@ -53,7 +53,7 @@ public final class KDFs
 	 * 
 	 * @param mac the MAC algorithm to use.
 	 * @param iterationCount the desired number of iterations.
-	 * @param dkLen the desired length for derived keys.
+	 * @param dkLen the desired length for derived keys, in bytes.
 	 * 
 	 * @return the created {@link KDF} instance.
 	 * 
@@ -74,7 +74,7 @@ public final class KDFs
 	 * @param mac the MAC algorithm to use.
 	 * @param info optional context and application specific information, 
 	 *	may be {@code null} or empty.
-	 * @param dkLen the desired length for derived keys.
+	 * @param dkLen the desired length for derived keys, in bytes.
 	 * 
 	 * @return the created {@link KDF} instance.
 	 * 
@@ -97,7 +97,7 @@ public final class KDFs
 	 * @param r the block size parameter.
 	 * @param n the CPU/Memory cost parameter.
 	 * @param p the parallelization parameter.
-	 * @param dkLen the desired length for derived keys.
+	 * @param dkLen the desired length for derived keys, in bytes.
 	 * 
 	 * @return the created {@link KDF} instance.
 	 * 

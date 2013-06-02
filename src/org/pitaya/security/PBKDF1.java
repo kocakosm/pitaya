@@ -36,7 +36,7 @@ final class PBKDF1 implements KDF
 	 * 
 	 * @param algorithm the digest algorithm to use.
 	 * @param iterationCount the desired number of iterations.
-	 * @param dkLen the desired length for derived keys.
+	 * @param dkLen the desired length for derived keys, in bytes.
 	 * 
 	 * @throws NullPointerException if {@code algorithm} is {@code null}.
 	 * @throws IllegalArgumentException if {@code iterationCount} or 

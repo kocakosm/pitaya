@@ -25,7 +25,8 @@ import java.util.Arrays;
 
 /**
  * SCrypt Key Derivation Function as specified by the Internet Engineering Task
- * Force (http://tools.ietf.org/html/draft-josefsson-scrypt-kdf-01).
+ * Force (http://tools.ietf.org/html/draft-josefsson-scrypt-kdf-01). 
+ * Thread-safe.
  *
  * @author Osman KOCAK
  */
@@ -42,7 +43,7 @@ final class SCrypt implements KDF
 	 * @param r the block size parameter.
 	 * @param n the CPU/Memory cost parameter.
 	 * @param p the parallelization parameter.
-	 * @param dkLen the desired length for derived keys.
+	 * @param dkLen the desired length for derived keys, in bytes.
 	 * 
 	 * @throws IllegalArgumentException if {@code r, dkLen} or {@code p} is
 	 *	negative, or if {@code n} is not greater than 1 or if it is not
@@ -54,7 +55,7 @@ final class SCrypt implements KDF
 		Parameters.checkCondition(r > 0 && p > 0 && dkLen > 0);
 		Parameters.checkCondition(n > 1 && (n & (n - 1)) == 0);
 		Parameters.checkCondition(r == 1 ? n < (1 << 16) : true);
-		Parameters.checkCondition(p * r <= (1 << 30) - 1);
+		Parameters.checkCondition(p * r < (1 << 30));
 		this.r = r;
 		this.n = n;
 		this.p = p;
@@ -76,16 +77,16 @@ final class SCrypt implements KDF
 
 	private byte[] roMix(byte[] in)
 	{
-		byte[] x = Arrays.copyOf(in, in.length);
-		ByteBuffer buffer = new ByteBuffer(n * in.length);
+		int len = in.length;
+		byte[] x = Arrays.copyOf(in, len);
+		ByteBuffer v = new ByteBuffer(n * len);
 		for (int i = 0; i < n; i++) {
-			buffer.append(x);
+			v.append(x);
 			x = blockMix(x);
 		}
-		byte[] v = buffer.toByteArray();
 		for (int i = 0; i < n; i++) {
 			int j = LittleEndian.decodeInt(x, (2 * r - 1) * 64) & (n - 1);
-			x = blockMix(xor(x, slice(v, j * in.length, in.length)));
+			x = blockMix(xor(x, v.toByteArray(j * len, len)));
 		}
 		return x;
 	}

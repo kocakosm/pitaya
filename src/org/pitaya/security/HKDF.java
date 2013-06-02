@@ -38,7 +38,7 @@ final class HKDF implements KDF
 	 * @param algorithm the MAC algorithm to use.
 	 * @param info optional context and application specific information, 
 	 *	may be {@code null} or empty.
-	 * @param dkLen the desired length for derived keys.
+	 * @param dkLen the desired length for derived keys, in bytes.
 	 * 
 	 * @throws NullPointerException if {@code algorithm} is {@code null}.
 	 * @throws IllegalArgumentException if {@code dkLen} is negative, or if
