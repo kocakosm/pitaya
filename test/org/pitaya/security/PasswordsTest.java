@@ -41,7 +41,7 @@ public final class PasswordsTest
 	@Test
 	public void testHashAndVerify()
 	{
-		String password = "password";
+		String password = Passwords.generate();
 		byte[] hash = Passwords.hash(password);
 		assertTrue(Passwords.verify(password, hash));
 	}
@@ -56,7 +56,7 @@ public final class PasswordsTest
 	@Test
 	public void testHashSalted()
 	{
-		String password = "password";
+		String password = Passwords.generate();
 		byte[] hash1 = Passwords.hash(password);
 		byte[] hash2 = Passwords.hash(password);
 		assertFalse(Arrays.equals(hash1, hash2));

@@ -18,7 +18,6 @@ package org.pitaya.security;
 
 import org.pitaya.charset.UTF8;
 import org.pitaya.util.ByteBuffer;
-import org.pitaya.util.Parameters;
 import org.pitaya.util.Strings;
 
 import java.security.SecureRandom;
@@ -82,8 +81,9 @@ public final class Passwords
 	 */
 	public static boolean verify(String password, byte[] hash)
 	{
-		int len = hash.length;
-		Parameters.checkCondition(len == HASH_LENGTH + SALT_LENGTH + 3);
+		if (hash.length != HASH_LENGTH + SALT_LENGTH + 3) {
+			return false;
+		}
 		byte[] salt = new byte[SALT_LENGTH];
 		System.arraycopy(hash, HASH_LENGTH, salt, 0, SALT_LENGTH);
 		int n = 1 << (hash[HASH_LENGTH + SALT_LENGTH] & 0xFF);
