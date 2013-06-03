@@ -84,11 +84,14 @@ public final class Passwords
 		if (hash.length != HASH_LENGTH + SALT_LENGTH + 3) {
 			return false;
 		}
-		byte[] salt = new byte[SALT_LENGTH];
-		System.arraycopy(hash, HASH_LENGTH, salt, 0, SALT_LENGTH);
 		int n = 1 << (hash[HASH_LENGTH + SALT_LENGTH] & 0xFF);
 		int r = hash[HASH_LENGTH + SALT_LENGTH + 1] & 0xFF;
 		int p = hash[HASH_LENGTH + SALT_LENGTH + 2] & 0xFF;
+		if (n > N || r > R || p > P) {
+			return false;
+		}
+		byte[] salt = new byte[SALT_LENGTH];
+		System.arraycopy(hash, HASH_LENGTH, salt, 0, SALT_LENGTH);
 		byte[] expected = hash(password, salt, r, n, p);
 		int result = 0;
 		for (int i = 0; i < hash.length; i++) {
