@@ -18,6 +18,7 @@ package org.pitaya.security;
 
 import org.pitaya.util.BigEndian;
 import org.pitaya.util.ByteBuffer;
+import org.pitaya.util.Objects;
 import org.pitaya.util.Parameters;
 
 /**
@@ -71,5 +72,14 @@ final class PBKDF2 implements KDF
 			t.append(f);
 		}
 		return t.toByteArray(0, dkLen);
+	}
+
+	@Override
+	public String toString()
+	{
+		return Objects.toStringBuilder("PBKDF2")
+			.append("MAC", algorithm)
+			.append("iterationCount", iterationCount)
+			.append("dkLen", dkLen).toString();
 	}
 }

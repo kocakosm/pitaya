@@ -19,6 +19,7 @@ package org.pitaya.security;
 import org.pitaya.util.Bits;
 import org.pitaya.util.ByteBuffer;
 import org.pitaya.util.LittleEndian;
+import org.pitaya.util.Objects;
 import org.pitaya.util.Parameters;
 
 import java.util.Arrays;
@@ -73,6 +74,14 @@ final class SCrypt implements KDF
 		}
 		pbkdf = KDFs.pbkdf2(Algorithm.HMAC_SHA256, 1, dkLen);
 		return pbkdf.deriveKey(secret, buffer.toByteArray());
+	}
+
+	@Override
+	public String toString()
+	{
+		return Objects.toStringBuilder("SCrypt").append("r", r)
+			.append("n", n).append("p", p).append("dkLen", dkLen)
+			.toString();
 	}
 
 	private byte[] roMix(byte[] in)

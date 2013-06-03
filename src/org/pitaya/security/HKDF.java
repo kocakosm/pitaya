@@ -16,7 +16,9 @@
 
 package org.pitaya.security;
 
+import org.pitaya.util.Base16;
 import org.pitaya.util.ByteBuffer;
+import org.pitaya.util.Objects;
 import org.pitaya.util.Parameters;
 
 import java.util.Arrays;
@@ -60,6 +62,14 @@ final class HKDF implements KDF
 	public byte[] deriveKey(byte[] secret, byte[] salt)
 	{
 		return expand(extract(secret, salt));
+	}
+
+	@Override
+	public String toString()
+	{
+		return Objects.toStringBuilder("HKDF").append("MAC", algorithm)
+			.append("info", "0x" + Base16.encode(info))
+			.append("dkLen", dkLen).toString();
 	}
 
 	private byte[] extract(byte[] key, byte[] salt)

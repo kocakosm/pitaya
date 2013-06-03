@@ -26,43 +26,51 @@ package org.pitaya.security;
 public final class Algorithm<T>
 {
 	/** The MD2 digest algorithm. */
-	public static final Algorithm<Digest> MD2 = new Algorithm<Digest>();
+	public static final Algorithm<Digest> MD2 = new Algorithm<Digest>("MD2");
 
 	/** The MD4 digest algorithm. */
-	public static final Algorithm<Digest> MD4 = new Algorithm<Digest>();
+	public static final Algorithm<Digest> MD4 = new Algorithm<Digest>("MD4");
 
 	/** The MD5 digest algorithm. */
-	public static final Algorithm<Digest> MD5 = new Algorithm<Digest>();
+	public static final Algorithm<Digest> MD5 = new Algorithm<Digest>("MD5");
 
 	/** The SHA1 digest algorithm. */
-	public static final Algorithm<Digest> SHA1 = new Algorithm<Digest>();
+	public static final Algorithm<Digest> SHA1 = new Algorithm<Digest>("SHA1");
 
 	/** The SHA-256 digest algorithm. */
-	public static final Algorithm<Digest> SHA256 = new Algorithm<Digest>();
+	public static final Algorithm<Digest> SHA256 = new Algorithm<Digest>("SHA256");
 
 	/** The SHA-512 digest algorithm. */
-	public static final Algorithm<Digest> SHA512 = new Algorithm<Digest>();
+	public static final Algorithm<Digest> SHA512 = new Algorithm<Digest>("SHA512");
 
 	/** The HMAC-MD2 MAC algorithm. */
-	public static final Algorithm<MAC> HMAC_MD2 = new Algorithm<MAC>();
+	public static final Algorithm<MAC> HMAC_MD2 = new Algorithm<MAC>("HMAC-MD2");
 
 	/** The HMAC-MD4 MAC algorithm. */
-	public static final Algorithm<MAC> HMAC_MD4 = new Algorithm<MAC>();
+	public static final Algorithm<MAC> HMAC_MD4 = new Algorithm<MAC>("HMAC-MD4");
 
 	/** The HMAC-MD5 MAC algorithm. */
-	public static final Algorithm<MAC> HMAC_MD5 = new Algorithm<MAC>();
+	public static final Algorithm<MAC> HMAC_MD5 = new Algorithm<MAC>("HMAC-MD5");
 
 	/** The HMAC-SHA1 MAC algorithm. */
-	public static final Algorithm<MAC> HMAC_SHA1 = new Algorithm<MAC>();
+	public static final Algorithm<MAC> HMAC_SHA1 = new Algorithm<MAC>("HMAC-SHA1");
 
 	/** The HMAC-SHA-256 MAC algorithm. */
-	public static final Algorithm<MAC> HMAC_SHA256 = new Algorithm<MAC>();
+	public static final Algorithm<MAC> HMAC_SHA256 = new Algorithm<MAC>("HMAC-SHA256");
 
 	/** The HMAC-SHA-512 MAC algorithm. */
-	public static final Algorithm<MAC> HMAC_SHA512 = new Algorithm<MAC>();
+	public static final Algorithm<MAC> HMAC_SHA512 = new Algorithm<MAC>("HMAC-SHA512");
 
-	private Algorithm()
+	private final String name;
+
+	private Algorithm(String name)
 	{
-		/* ... */
+		this.name = name;
+	}
+
+	@Override
+	public String toString()
+	{
+		return name;
 	}
 }

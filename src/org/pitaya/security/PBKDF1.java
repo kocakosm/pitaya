@@ -16,6 +16,7 @@
 
 package org.pitaya.security;
 
+import org.pitaya.util.Objects;
 import org.pitaya.util.Parameters;
 
 import java.util.Arrays;
@@ -65,5 +66,14 @@ final class PBKDF1 implements KDF
 			hash = digest.digest(hash);
 		}
 		return Arrays.copyOf(hash, dkLen);
+	}
+	
+	@Override
+	public String toString()
+	{
+		return Objects.toStringBuilder("PBKDF1")
+			.append("digest", algorithm)
+			.append("iterationCount", iterationCount)
+			.append("dkLen", dkLen).toString();
 	}
 }
