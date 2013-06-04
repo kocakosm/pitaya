@@ -62,6 +62,13 @@ public final class Base64Test
 		}
 	}
 
+	@Test
+	public void testDecodeWithWhitespaces()
+	{
+		assertArrayEquals(ascii(""), decode(" \t  \r\n"));
+		assertArrayEquals(ascii("hello"), decode("  a\nGV\ts \rbG8= "));
+	}
+
 	private byte[] ascii(String str)
 	{
 		return ASCII.encode(str);

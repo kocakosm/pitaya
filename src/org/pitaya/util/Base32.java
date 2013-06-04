@@ -95,7 +95,8 @@ public final class Base32
 
 	/**
 	 * Decodes a Base32-encoded {@code String}. Decoding is stopped at the
-	 * first {@code =} character found.
+	 * first {@code '='} character found. Whitespace characters, namely 
+	 * {@code '\t', ' ', '\n'} and {@code '\r'}, are ignored.
 	 *
 	 * @param sequence the Base32 characters to decode.
 	 *
@@ -107,7 +108,7 @@ public final class Base32
 	 */
 	public static byte[] decode(CharSequence sequence)
 	{
-		String encoded = sequence.toString();
+		String encoded = sequence.toString().replaceAll("[\\s\n\t\r]", "");
 		int len = encoded.length();
 		Parameters.checkCondition(len % 8 == 0);
 		ByteBuffer buf = new ByteBuffer((len * 5) / 8);

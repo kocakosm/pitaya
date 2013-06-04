@@ -73,7 +73,9 @@ public final class Base16
 	}
 
 	/**
-	 * Decodes the given hexadecimal encoded character sequence.
+	 * Decodes the given hexadecimal encoded character sequence. Whitespace
+	 * characters, namely {@code '\t', ' ', '\n'} and {@code '\r'}, are 
+	 * ignored.
 	 *
 	 * @param hex the character sequence to decode.
 	 *
@@ -85,7 +87,7 @@ public final class Base16
 	 */
 	public static byte[] decode(CharSequence hex)
 	{
-		String encoded = hex.toString();
+		String encoded = hex.toString().replaceAll("[\\s\n\t\r]", "");
 		int len = encoded.length();
 		Parameters.checkCondition(len % 2 == 0);
 		byte[] data = new byte[len / 2];

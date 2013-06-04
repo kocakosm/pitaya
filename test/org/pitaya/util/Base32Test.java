@@ -62,6 +62,13 @@ public final class Base32Test
 		}
 	}
 
+	@Test
+	public void testDecodeWithWhitespaces()
+	{
+		assertArrayEquals(ascii(""), decode(" \t  \r\n"));
+		assertArrayEquals(ascii("hello"), decode("\nNB\t  SWY3DP\r"));
+	}
+
 	private byte[] ascii(String str)
 	{
 		return ASCII.encode(str);

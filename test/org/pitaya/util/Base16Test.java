@@ -62,6 +62,13 @@ public final class Base16Test
 		}
 	}
 
+	@Test
+	public void testDecodeWithWhitespaces()
+	{
+		assertArrayEquals(ascii(""), decode(" \t  \r\n"));
+		assertArrayEquals(ascii("hello"), decode("\t68 656C 6C\n6F\r"));
+	}
+
 	private byte[] ascii(String str)
 	{
 		return ASCII.encode(str);
