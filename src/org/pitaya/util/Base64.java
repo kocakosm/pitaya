@@ -99,7 +99,7 @@ public final class Base64
 
 	/**
 	 * Decodes a Base64-encoded {@code String}. Decoding is stopped at the
-	 * first {@code '='} character found.  Whitespace characters, namely
+	 * first {@code '='} character found. Whitespace characters, namely
 	 * {@code '\t', ' ', '\n'} and {@code '\r'}, are ignored.
 	 *
 	 * @param sequence the Base64 characters to decode.

@@ -49,7 +49,7 @@ public final class ConcatReader extends Reader
 			Parameters.checkNotNull(reader);
 		}
 	}
-	
+
 	@Override
 	public boolean ready() throws IOException
 	{
@@ -110,7 +110,7 @@ public final class ConcatReader extends Reader
 			reader.close();
 		}
 	}
-	
+
 	private Reader current()
 	{
 		return readers[index];

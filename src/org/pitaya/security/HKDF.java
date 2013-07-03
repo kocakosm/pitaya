@@ -69,7 +69,8 @@ final class HKDF implements KDF
 	{
 		return Objects.toStringBuilder("HKDF").append("MAC", algorithm)
 			.append("info", "0x" + Base16.encode(info))
-			.append("dkLen", dkLen).toString();
+			.append("dkLen", dkLen)
+			.toString();
 	}
 
 	private byte[] extract(byte[] key, byte[] salt)

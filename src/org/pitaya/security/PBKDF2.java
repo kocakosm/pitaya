@@ -31,7 +31,7 @@ final class PBKDF2 implements KDF
 	private final int dkLen;
 	private final int iterationCount;
 	private final Algorithm<MAC> algorithm;
-	
+
 	/**
 	 * Creates a new {@code PBKDF2} instance.
 	 * 
@@ -67,7 +67,7 @@ final class PBKDF2 implements KDF
 				u = mac.mac(u);
 				for (int k = 0; k < f.length; k++) {
 					f[k] ^= u[k];
-				}				
+				}
 			}
 			t.append(f);
 		}

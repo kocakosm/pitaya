@@ -70,10 +70,7 @@ public final class Objects
 	 */
 	public static boolean equals(Object a, Object b)
 	{
-		if (a == null) {
-			return b == null;
-		}
-		return a.equals(b);
+		return a == null ? b == null : a.equals(b);
 	}
 
 	/**

@@ -39,8 +39,7 @@ public final class Strings
 	 */
 	public static boolean isBlank(CharSequence sequence)
 	{
-		for (int i = 0; i < sequence.length(); i++) {
-			char c = sequence.charAt(i);
+		for (char c : sequence.toString().toCharArray()) {
 			if (c != ' ' && c != '\r' && c != '\n' && c != '\t') {
 				return false;
 			}
@@ -60,8 +59,8 @@ public final class Strings
 	 */
 	public static boolean isWhiteSpace(CharSequence sequence)
 	{
-		for (int i = 0; i < sequence.length(); i++) {
-			if (sequence.charAt(i) != ' ') {
+		for (char c : sequence.toString().toCharArray()) {
+			if (c != ' ') {
 				return false;
 			}
 		}

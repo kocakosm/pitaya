@@ -103,7 +103,7 @@ public final class Fraction extends Number implements Comparable<Fraction>
 	 * @return the created {@code Fraction}.
 	 *
 	 * @throws IllegalArgumentException if {@code str} doesn't represent a
-	 *	{@code Fraction}.
+	 *	{@code Fraction} or if its denominator equals zero.
 	 */
 	public static Fraction valueOf(String str)
 	{

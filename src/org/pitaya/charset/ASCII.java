@@ -127,8 +127,8 @@ public final class ASCII
 	 */
 	public static boolean isAlphabetic(CharSequence sequence)
 	{
-		for (int i = 0; i < sequence.length(); i++) {
-			if (!isLetter(sequence.charAt(i))) {
+		for (char c : sequence.toString().toCharArray()) {
+			if (!isLetter(c)) {
 				return false;
 			}
 		}
@@ -147,8 +147,8 @@ public final class ASCII
 	 */
 	public static boolean isNumeric(CharSequence sequence)
 	{
-		for (int i = 0; i < sequence.length(); i++) {
-			if (!isDigit(sequence.charAt(i))) {
+		for (char c : sequence.toString().toCharArray()) {
+			if (!isDigit(c)) {
 				return false;
 			}
 		}
@@ -167,8 +167,7 @@ public final class ASCII
 	 */
 	public static boolean isAlphaNumeric(CharSequence sequence)
 	{
-		for (int i = 0; i < sequence.length(); i++) {
-			char c = sequence.charAt(i);
+		for (char c : sequence.toString().toCharArray()) {
 			if (!isDigit(c) && !isLetter(c)) {
 				return false;
 			}

@@ -52,7 +52,7 @@ public final class ConcatInputStream extends InputStream
 	@Override
 	public int available() throws IOException
 	{
-		return end() ? 0 : streams[index].available();
+		return finished() ? 0 : current().available();
 	}
 
 	@Override
@@ -66,32 +66,36 @@ public final class ConcatInputStream extends InputStream
 	@Override
 	public int read() throws IOException
 	{
-		int b = end() ? -1 : streams[index].read();
+		int b = finished() ? -1 : current().read();
 		return b != -1 ? b : next() ? read() : -1;
-
 	}
 
 	@Override
 	public int read(byte[] b) throws IOException
 	{
-		int n = end() ? -1 : streams[index].read(b);
+		int n = finished() ? -1 : current().read(b);
 		return n != -1 ? n : next() ? read(b) : -1;
 	}
 
 	@Override
 	public int read(byte[] b, int off, int len) throws IOException
 	{
-		int n = end() ? -1 : streams[index].read(b, off, len);
+		int n = finished() ? -1 : current().read(b, off, len);
 		return n != -1 ? n : next() ? read(b, off, len) : -1;
 	}
 
 	@Override
 	public long skip(long n) throws IOException
 	{
-		return end() ? 0 : streams[index].read(new byte[(int) n]);
+		return finished() ? 0 : current().read(new byte[(int) n]);
 	}
 
-	private boolean end()
+	private InputStream current()
+	{
+		return streams[index];
+	}
+
+	private boolean finished()
 	{
 		return index >= streams.length;
 	}
@@ -99,6 +103,6 @@ public final class ConcatInputStream extends InputStream
 	private boolean next()
 	{
 		index++;
-		return !end();
+		return !finished();
 	}
 }

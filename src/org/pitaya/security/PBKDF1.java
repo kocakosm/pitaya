@@ -31,7 +31,7 @@ final class PBKDF1 implements KDF
 	private final int dkLen;
 	private final int iterationCount;
 	private final Algorithm<Digest> algorithm;
-	
+
 	/**
 	 * Creates a new {@code PBKDF1} instance.
 	 * 
@@ -67,7 +67,7 @@ final class PBKDF1 implements KDF
 		}
 		return Arrays.copyOf(hash, dkLen);
 	}
-	
+
 	@Override
 	public String toString()
 	{
