@@ -233,6 +233,8 @@ public final class Strings
 	 * @param str the {@link String} to reverse.
 	 *
 	 * @return the reversed {@link String}.
+	 * 
+	 * @throws NullPointerException if {@code str} is {@code null}.
 	 */
 	public static String reverse(String str)
 	{
