@@ -19,10 +19,10 @@ package org.pitaya.util;
 import static java.util.concurrent.TimeUnit.*;
 
 /**
- * Utility class to measure elapsed time between specific instants. Precision is
- * the millisecond (modulo the overhead of measurement). This class heavily
- * relies on {@link System#currentTimeMillis()}. Instances of this class are not
- * thread-safe.
+ * Utility class to measure elapsed time between specific instants. Note that 
+ * while this class provides millisecond precision, it does not necessarily 
+ * provide millisecond accuracy (depends, among many things, on the accuracy of 
+ * the underlying system clock). Instances of this class are not thread-safe.
  *
  * @author Osman KOCAK
  */
@@ -36,7 +36,7 @@ public final class Chronometer
 	public Chronometer()
 	{
 		this.referenceTime = now();
-		this.elapsedTime = 0;
+		this.elapsedTime = 0L;
 		this.isRunning = false;
 	}
 
@@ -95,22 +95,22 @@ public final class Chronometer
 	 */
 	public Chronometer reset()
 	{
-		elapsedTime = 0;
+		elapsedTime = 0L;
 		referenceTime = now();
 		return this;
 	}
 
 	/**
-	 * Returns the current elapsed time, expressed in milliseconds
+	 * Returns the current elapsed time, expressed in milliseconds.
 	 *
 	 * @return the current elapsed time.
 	 */
 	public long elapsedTime()
 	{
 		if (isRunning) {
-			return elapsedTime + now() - referenceTime;
+			return (elapsedTime + now() - referenceTime) / 1000000L;
 		}
-		return elapsedTime;
+		return elapsedTime / 1000000L;
 	}
 
 	@Override
@@ -136,12 +136,12 @@ public final class Chronometer
 
 	private void append(StringBuilder sb, long value, String unit)
 	{
-		if (value > 0) {
+		if (value > 0L) {
 			if (sb.length() > 0) {
 				sb.append(", ");
 			}
 			sb.append(value).append(' ').append(unit);
-			if (value > 1) {
+			if (value > 1L) {
 				sb.append('s');
 			}
 		}
@@ -149,6 +149,6 @@ public final class Chronometer
 
 	private long now()
 	{
-		return System.currentTimeMillis();
+		return System.nanoTime();
 	}
 }
