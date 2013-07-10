@@ -104,7 +104,7 @@ public final class Passwords
 		int p)
 	{
 		KDF scrypt = KDFs.scrypt(r, n, p, HASH_LENGTH);
-		ByteBuffer buf = new ByteBuffer();
+		ByteBuffer buf = new ByteBuffer(HASH_LENGTH + SALT_LENGTH + 3);
 		buf.append(scrypt.deriveKey(UTF8.encode(password), salt));
 		buf.append(salt);
 		buf.append((byte) Math.round(Math.log(n) / Math.log(2)));
