@@ -41,10 +41,12 @@ public final class ConcatReader extends Reader
 	 *
 	 * @throws NullPointerException if {@code readers} is {@code null} or
 	 *	if it contains a {@code null} reference.
+	 * @throws IllegalArgumentException if {@code readers} is empty.
 	 */
 	public ConcatReader(Reader... readers)
 	{
 		this.readers = Arrays.copyOf(readers, readers.length);
+		Parameters.checkCondition(this.readers.length > 0);
 		for (Reader reader : this.readers) {
 			Parameters.checkNotNull(reader);
 		}

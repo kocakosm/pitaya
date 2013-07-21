@@ -40,10 +40,12 @@ public final class ConcatInputStream extends InputStream
 	 *
 	 * @throws NullPointerException if {@code streams} is {@code null} or
 	 *	if it contains a {@code null} reference.
+	 * @throws IllegalArgumentException if {@code streams} is empty.
 	 */
 	public ConcatInputStream(InputStream... streams)
 	{
 		this.streams = Arrays.copyOf(streams, streams.length);
+		Parameters.checkCondition(this.streams.length > 0);
 		for (InputStream stream : this.streams) {
 			Parameters.checkNotNull(stream);
 		}
