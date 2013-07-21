@@ -38,10 +38,10 @@ public final class Algorithm<T>
 	public static final Algorithm<Digest> SHA1 = new Algorithm<Digest>("SHA1");
 
 	/** The SHA-256 digest algorithm. */
-	public static final Algorithm<Digest> SHA256 = new Algorithm<Digest>("SHA256");
+	public static final Algorithm<Digest> SHA256 = new Algorithm<Digest>("SHA-256");
 
 	/** The SHA-512 digest algorithm. */
-	public static final Algorithm<Digest> SHA512 = new Algorithm<Digest>("SHA512");
+	public static final Algorithm<Digest> SHA512 = new Algorithm<Digest>("SHA-512");
 
 	/** The HMAC-MD2 MAC algorithm. */
 	public static final Algorithm<MAC> HMAC_MD2 = new Algorithm<MAC>("HMAC-MD2");
@@ -56,10 +56,10 @@ public final class Algorithm<T>
 	public static final Algorithm<MAC> HMAC_SHA1 = new Algorithm<MAC>("HMAC-SHA1");
 
 	/** The HMAC-SHA-256 MAC algorithm. */
-	public static final Algorithm<MAC> HMAC_SHA256 = new Algorithm<MAC>("HMAC-SHA256");
+	public static final Algorithm<MAC> HMAC_SHA256 = new Algorithm<MAC>("HMAC-SHA-256");
 
 	/** The HMAC-SHA-512 MAC algorithm. */
-	public static final Algorithm<MAC> HMAC_SHA512 = new Algorithm<MAC>("HMAC-SHA512");
+	public static final Algorithm<MAC> HMAC_SHA512 = new Algorithm<MAC>("HMAC-SHA-512");
 
 	private final String name;
 
