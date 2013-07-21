@@ -27,9 +27,9 @@ package org.pitaya.security;
 public interface Digest
 {
 	/**
-	 * Returns the digest's length (in bits).
+	 * Returns the digest's length (in bytes).
 	 *
-	 * @return the digest's length (in bits).
+	 * @return the digest's length (in bytes).
 	 */
 	int length();
 

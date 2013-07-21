@@ -31,9 +31,9 @@ package org.pitaya.security;
 public interface MAC
 {
 	/**
-	 * Returns the MAC's length (in bits).
+	 * Returns the MAC's length (in bytes).
 	 *
-	 * @return the MAC's length (in bits).
+	 * @return the MAC's length (in bytes).
 	 */
 	int length();
 

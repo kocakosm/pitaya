@@ -35,7 +35,7 @@ abstract class AbstractDigest implements Digest
 	AbstractDigest(String name, int length)
 	{
 		this.name = name;
-		this.length = length * 8;
+		this.length = length;
 	}
 
 	@Override
