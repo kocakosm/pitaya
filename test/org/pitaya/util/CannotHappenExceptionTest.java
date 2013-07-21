@@ -14,40 +14,50 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.       *
  *----------------------------------------------------------------------------*/
 
-package org.pitaya.security;
+package org.pitaya.util;
 
 import static org.junit.Assert.*;
-
-import org.pitaya.charset.ASCII;
 
 import org.junit.Test;
 
 /**
- * {@link Passwords}' unit tests.
+ * {@link CannotHappenException}'s unit tests.
  *
  * @author Osman KOCAK
  */
-public final class PasswordsTest
+public final class CannotHappenExceptionTest
 {
 	@Test
-	public void testGenerate()
+	public void testEmptyException()
 	{
-		assertTrue(ASCII.isAlphaNumeric(Passwords.generate()));
-		assertEquals(10, Passwords.generate().length());
+		Exception e = new CannotHappenException();
+		assertNull(e.getCause());
+		assertNull(e.getMessage());
 	}
 
 	@Test
-	public void testValidPassword()
+	public void testMessage()
 	{
-		String password = Passwords.generate();
-		byte[] hash = Passwords.hash(password);
-		assertTrue(Passwords.verify(password, hash));
+		String message = "Error!";
+		Exception e = new CannotHappenException(message);
+		assertEquals(message, e.getMessage());
 	}
 
 	@Test
-	public void testInvalidPassword()
+	public void testCause()
 	{
-		byte[] hash = Passwords.hash("password");
-		assertFalse(Passwords.verify("Password", hash));
+		Exception cause = new Exception("Error!");
+		Exception e = new CannotHappenException(cause);
+		assertSame(cause, e.getCause());
+	}
+
+	@Test
+	public void testMessageAndCause()
+	{
+		String message = "Error!";
+		Exception cause = new Exception();
+		Exception e = new CannotHappenException(message, cause);
+		assertEquals(message, e.getMessage());
+		assertSame(cause, e.getCause());
 	}
 }

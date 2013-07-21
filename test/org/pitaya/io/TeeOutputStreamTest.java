@@ -17,9 +17,11 @@
 package org.pitaya.io;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 
 import org.junit.Test;
 
@@ -41,14 +43,13 @@ public final class TeeOutputStreamTest
 	{
 		ByteArrayOutputStream out1 = new ByteArrayOutputStream();
 		ByteArrayOutputStream out2 = new ByteArrayOutputStream();
-		TeeOutputStream tee = new TeeOutputStream(out1, out2);
+		OutputStream tee = new TeeOutputStream(out1, out2);
 		for (byte b : DATA) {
 			tee.write(b);
 		}
 		tee.flush();
 		assertArrayEquals(DATA, out1.toByteArray());
 		assertArrayEquals(DATA, out2.toByteArray());
-		tee.close();
 	}
 
 	@Test
@@ -56,12 +57,11 @@ public final class TeeOutputStreamTest
 	{
 		ByteArrayOutputStream out1 = new ByteArrayOutputStream();
 		ByteArrayOutputStream out2 = new ByteArrayOutputStream();
-		TeeOutputStream tee = new TeeOutputStream(out1, out2);
+		OutputStream tee = new TeeOutputStream(out1, out2);
 		tee.write(DATA);
 		tee.flush();
 		assertArrayEquals(DATA, out1.toByteArray());
 		assertArrayEquals(DATA, out2.toByteArray());
-		tee.close();
 
 		out1 = new ByteArrayOutputStream();
 		out2 = new ByteArrayOutputStream();
@@ -71,6 +71,27 @@ public final class TeeOutputStreamTest
 		tee.flush();
 		assertArrayEquals(DATA, out1.toByteArray());
 		assertArrayEquals(DATA, out2.toByteArray());
-		tee.close();
+	}
+
+	@Test
+	public void testFlush() throws IOException
+	{
+		OutputStream out1 = mock(OutputStream.class);
+		OutputStream out2 = mock(OutputStream.class);
+		OutputStream out = new TeeOutputStream(out1, out2);
+		out.flush();
+		verify(out1).flush();
+		verify(out2).flush();
+	}
+
+	@Test
+	public void testClose() throws IOException
+	{
+		OutputStream out1 = mock(OutputStream.class);
+		OutputStream out2 = mock(OutputStream.class);
+		OutputStream out = new TeeOutputStream(out1, out2);
+		out.close();
+		verify(out1).close();
+		verify(out2).close();
 	}
 }

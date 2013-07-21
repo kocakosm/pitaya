@@ -24,7 +24,7 @@ import org.pitaya.util.Base16;
 import org.junit.Test;
 
 /**
- * KDFs unit tests.
+ * {@link KDFs}' unit tests.
  *
  * @author Osman KOCAK
  */

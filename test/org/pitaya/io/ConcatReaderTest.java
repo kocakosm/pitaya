@@ -17,6 +17,7 @@
 package org.pitaya.io;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -31,6 +32,16 @@ import org.junit.Test;
 public final class ConcatReaderTest
 {
 	@Test
+	public void testReady() throws IOException
+	{
+		Reader data = new StringReader("Abbey road");
+		Reader reader = new ConcatReader(data);
+		assertEquals(data.ready(), reader.ready());
+		reader.read(new char[8]);
+		assertEquals(data.ready(), reader.ready());
+	}
+
+	@Test
 	public void testRead() throws IOException
 	{
 		Reader r1 = new StringReader("Hello");
@@ -41,7 +52,6 @@ public final class ConcatReaderTest
 			assertEquals(c & 0xFF, reader.read());
 		}
 		assertEquals(-1, reader.read());
-		reader.close();
 	}
 
 	@Test
@@ -65,7 +75,47 @@ public final class ConcatReaderTest
 		for (int i = 0; i < 5; i++) {
 			assertEquals("World".charAt(i), buf[i]);
 		}
-		
+	}
+
+	@Test
+	public void testMarkSupported() throws IOException
+	{
+		Reader reader = new ConcatReader(mock(Reader.class));
+		assertFalse(reader.markSupported());
+	}
+
+	@Test(expected = IOException.class)
+	public void testMark() throws IOException
+	{
+		new ConcatReader(mock(Reader.class)).mark(0);
+	}
+
+	@Test(expected = IOException.class)
+	public void testReset() throws IOException
+	{
+		new ConcatReader(mock(Reader.class)).reset();
+	}
+
+	@Test
+	public void testSkip() throws IOException
+	{
+		Reader r1 = new StringReader("Yellow");
+		Reader r2 = new StringReader("Submarine");
+		Reader reader = new ConcatReader(r1, r2);
+		assertEquals("Yellow".length(), reader.skip("Yellow".length()));
+		for (char c : "Submarine".toCharArray()) {
+			assertEquals(c & 0xFF, reader.read());
+		}
+	}
+
+	@Test
+	public void testClose() throws IOException
+	{
+		Reader r1 = mock(Reader.class);
+		Reader r2 = mock(Reader.class);
+		Reader reader = new ConcatReader(r1, r2);
 		reader.close();
+		verify(r1).close();
+		verify(r2).close();
 	}
 }

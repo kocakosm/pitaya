@@ -17,6 +17,7 @@
 package org.pitaya.io;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -39,32 +40,6 @@ public final class CountingOutputStreamTest
 	};
 
 	@Test
-	public void testCount() throws IOException
-	{
-		OutputStream data = new ByteArrayOutputStream();
-		CountingOutputStream out = new CountingOutputStream(data);
-		out.write(0x00);
-		assertEquals(1, out.getCount());
-		out.write(DATA);
-		assertEquals(17, out.getCount());
-		out.write(DATA, 5, 3);
-		assertEquals(20, out.getCount());
-	}
-
-	@Test
-	public void testReset() throws IOException
-	{
-		OutputStream data = new ByteArrayOutputStream();
-		CountingOutputStream out = new CountingOutputStream(data);
-		out.write(DATA);
-		assertEquals(16, out.getCount());
-		assertEquals(16, out.resetCount());
-		assertEquals(0, out.getCount());
-		out.write(DATA);
-		assertEquals(16, out.resetCount());
-	}
-
-	@Test
 	public void testWrite() throws IOException
 	{
 		ByteArrayOutputStream data = new ByteArrayOutputStream();
@@ -78,5 +53,49 @@ public final class CountingOutputStreamTest
 		out = new CountingOutputStream(data);
 		out.write(DATA);
 		assertArrayEquals(DATA, data.toByteArray());
+	}
+
+	@Test
+	public void testCount() throws IOException
+	{
+		OutputStream data = new ByteArrayOutputStream();
+		CountingOutputStream out = new CountingOutputStream(data);
+		out.write(0x00);
+		assertEquals(1, out.getCount());
+		out.write(DATA);
+		assertEquals(17, out.getCount());
+		out.write(DATA, 5, 3);
+		assertEquals(20, out.getCount());
+	}
+
+	@Test
+	public void testResetCount() throws IOException
+	{
+		OutputStream data = new ByteArrayOutputStream();
+		CountingOutputStream out = new CountingOutputStream(data);
+		out.write(DATA);
+		assertEquals(16, out.getCount());
+		assertEquals(16, out.resetCount());
+		assertEquals(0, out.getCount());
+		out.write(DATA);
+		assertEquals(16, out.resetCount());
+	}
+
+	@Test
+	public void testFlush() throws IOException
+	{
+		OutputStream data = mock(OutputStream.class);
+		OutputStream out = new CountingOutputStream(data);
+		out.flush();
+		verify(data).flush();
+	}
+
+	@Test
+	public void testClose() throws IOException
+	{
+		OutputStream data = mock(OutputStream.class);
+		OutputStream out = new CountingOutputStream(data);
+		out.close();
+		verify(data).close();
 	}
 }

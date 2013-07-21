@@ -106,6 +106,12 @@ public final class FractionTest
 		assertEquals(valueOf(-2), ONE.over(ONE_HALF.negate()));
 	}
 
+	@Test(expected = ArithmeticException.class)
+	public void testDivisionByZero()
+	{
+		ONE.over(ZERO);
+	}
+
 	@Test
 	public void testPower()
 	{

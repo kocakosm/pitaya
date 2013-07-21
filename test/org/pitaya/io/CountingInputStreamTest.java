@@ -17,6 +17,7 @@
 package org.pitaya.io;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 import org.pitaya.util.ByteBuffer;
 
@@ -41,55 +42,13 @@ public final class CountingInputStreamTest
 	};
 
 	@Test
-	public void testCount() throws IOException
+	public void testAvailable() throws IOException
 	{
 		InputStream data = new ByteArrayInputStream(DATA);
 		CountingInputStream in = new CountingInputStream(data);
-		assertEquals(0, in.getCount());
-		in.read();
-		assertEquals(1, in.getCount());
-		in.read(new byte[9]);
-		assertEquals(10, in.getCount());
-		in.read(new byte[20], 0, 10);
-		assertEquals(16, in.getCount());
-	}
-
-	@Test
-	public void testReset() throws IOException
-	{
-		InputStream data = new ByteArrayInputStream(DATA);
-		CountingInputStream in = new CountingInputStream(data);
-		in.read(new byte[8]);
-		assertEquals(8, in.getCount());
-		assertEquals(8, in.resetCount());
-		assertEquals(0, in.getCount());
-		in.read(new byte[8]);
-		assertEquals(8, in.getCount());
-	}
-
-	@Test
-	public void testSkip() throws IOException
-	{
-		InputStream data = new ByteArrayInputStream(DATA);
-		CountingInputStream in = new CountingInputStream(data);
-		in.read();
-		assertEquals(1, in.getCount());
-		in.skip(20);
-		in.read(new byte[8]);
-		assertEquals(1, in.getCount());
-	}
-
-	@Test
-	public void testMark() throws IOException
-	{
-		InputStream data = new ByteArrayInputStream(DATA);
-		CountingInputStream in = new CountingInputStream(data);
-		in.mark(100);
-		in.read(new byte[20]);
-		assertEquals(16, in.getCount());
-		in.reset();
-		in.read(new byte[20]);
-		assertEquals(32, in.getCount());
+		assertTrue(in.available() > 0);
+		Streams.read(in);
+		assertTrue(in.available() == 0);
 	}
 
 	@Test
@@ -107,5 +66,74 @@ public final class CountingInputStreamTest
 		buf.append(b, 0, len);
 		assertEquals(16, in.getCount());
 		assertArrayEquals(DATA, buf.toByteArray());
+	}
+
+	@Test
+	public void testCount() throws IOException
+	{
+		InputStream data = new ByteArrayInputStream(DATA);
+		CountingInputStream in = new CountingInputStream(data);
+		assertEquals(0, in.getCount());
+		in.read();
+		assertEquals(1, in.getCount());
+		in.read(new byte[9]);
+		assertEquals(10, in.getCount());
+		in.read(new byte[20], 0, 10);
+		assertEquals(16, in.getCount());
+	}
+
+	@Test
+	public void testResetCount() throws IOException
+	{
+		InputStream data = new ByteArrayInputStream(DATA);
+		CountingInputStream in = new CountingInputStream(data);
+		in.read(new byte[8]);
+		assertEquals(8, in.getCount());
+		assertEquals(8, in.resetCount());
+		assertEquals(0, in.getCount());
+		in.read(new byte[8]);
+		assertEquals(8, in.getCount());
+	}
+
+	@Test
+	public void testMarkSupported() throws IOException
+	{
+		InputStream data = new ByteArrayInputStream(DATA);
+		CountingInputStream in = new CountingInputStream(data);
+		assertEquals(data.markSupported(), in.markSupported());
+	}
+
+	@Test
+	public void testMarkAndReset() throws IOException
+	{
+		InputStream data = new ByteArrayInputStream(DATA);
+		CountingInputStream in = new CountingInputStream(data);
+		in.mark(100);
+		in.read(new byte[20]);
+		assertEquals(16, in.getCount());
+		in.reset();
+		in.read(new byte[20]);
+		assertEquals(32, in.getCount());
+	}
+
+	@Test
+	public void testSkip() throws IOException
+	{
+		InputStream data = new ByteArrayInputStream(DATA);
+		CountingInputStream in = new CountingInputStream(data);
+		in.read();
+		assertEquals(1, in.getCount());
+		in.skip(20);
+		in.read(new byte[8]);
+		assertEquals(1, in.getCount());
+	}
+
+	@Test
+	public void testClose() throws IOException
+	{
+		InputStream data = mock(InputStream.class);
+		InputStream in = new CountingInputStream(data);
+		in.close();
+		verify(data).close();
 	}
 }

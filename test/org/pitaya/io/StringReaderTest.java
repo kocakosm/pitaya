@@ -30,8 +30,7 @@ public final class StringReaderTest
 	@Test
 	public void testReady()
 	{
-		StringReader reader = new StringReader("");
-		assertTrue(reader.ready());
+		assertTrue(new StringReader("").ready());
 	}
 
 	@Test
@@ -76,6 +75,20 @@ public final class StringReaderTest
 	}
 
 	@Test
+	public void testMarkAndReset()
+	{
+		StringReader reader = new StringReader("Hello", " ", "world !");
+		assertTrue(reader.markSupported());
+		reader.mark(5);
+		char[] buf = new char[5];
+		reader.read(buf);
+		assertArrayEquals("Hello".toCharArray(), buf);
+		reader.reset();
+		reader.read(buf);
+		assertArrayEquals("Hello".toCharArray(), buf);
+	}
+
+	@Test
 	public void testSkip()
 	{
 		StringReader reader = new StringReader("Hello", " ", "world !");
@@ -90,19 +103,5 @@ public final class StringReaderTest
 		assertEquals(5, reader.skip(6));
 		assertEquals(-1, reader.read());
 		assertEquals(0, reader.skip(1));
-	}
-
-	@Test
-	public void testMarkAndReset()
-	{
-		StringReader reader = new StringReader("Hello", " ", "world !");
-		assertTrue(reader.markSupported());
-		reader.mark(5);
-		char[] buf = new char[5];
-		reader.read(buf);
-		assertArrayEquals("Hello".toCharArray(), buf);
-		reader.reset();
-		reader.read(buf);
-		assertArrayEquals("Hello".toCharArray(), buf);
 	}
 }

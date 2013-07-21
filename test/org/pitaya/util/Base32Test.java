@@ -69,6 +69,18 @@ public final class Base32Test
 		assertArrayEquals(ascii("hello"), decode("\nNB\t  SWY3DP\r"));
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void testInvalidLength()
+	{
+		decode("mzxq");
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testInvalidCharacter()
+	{
+		decode("MZXW8===");
+	}
+
 	private byte[] ascii(String str)
 	{
 		return ASCII.encode(str);

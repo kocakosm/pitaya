@@ -16,38 +16,43 @@
 
 package org.pitaya.security;
 
-import static org.junit.Assert.*;
+import static org.pitaya.security.Algorithm.*;
 
-import org.pitaya.charset.ASCII;
-
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * {@link Passwords}' unit tests.
+ * {@link Factory}'s unit tests.
  *
  * @author Osman KOCAK
  */
-public final class PasswordsTest
+public final class FactoryTest
 {
 	@Test
-	public void testGenerate()
+	public void testDigests()
 	{
-		assertTrue(ASCII.isAlphaNumeric(Passwords.generate()));
-		assertEquals(10, Passwords.generate().length());
+		assertEquals(MD2, Factory.getDigest(MD2));
+		assertEquals(MD4, Factory.getDigest(MD4));
+		assertEquals(MD5, Factory.getDigest(MD5));
+		assertEquals(SHA1, Factory.getDigest(SHA1));
+		assertEquals(SHA256, Factory.getDigest(SHA256));
+		assertEquals(SHA512, Factory.getDigest(SHA512));
 	}
 
 	@Test
-	public void testValidPassword()
+	public void testMACs()
 	{
-		String password = Passwords.generate();
-		byte[] hash = Passwords.hash(password);
-		assertTrue(Passwords.verify(password, hash));
+		byte[] key = new byte[0];
+		assertEquals(HMAC_MD2, Factory.getMAC(HMAC_MD2, key));
+		assertEquals(HMAC_MD4, Factory.getMAC(HMAC_MD4, key));
+		assertEquals(HMAC_MD5, Factory.getMAC(HMAC_MD5, key));
+		assertEquals(HMAC_SHA1, Factory.getMAC(HMAC_SHA1, key));
+		assertEquals(HMAC_SHA256, Factory.getMAC(HMAC_SHA256, key));
+		assertEquals(HMAC_SHA512, Factory.getMAC(HMAC_SHA512, key));
 	}
 
-	@Test
-	public void testInvalidPassword()
+	private void assertEquals(Algorithm algo, Object o)
 	{
-		byte[] hash = Passwords.hash("password");
-		assertFalse(Passwords.verify("Password", hash));
+		Assert.assertEquals(algo.toString(), o.toString());
 	}
 }

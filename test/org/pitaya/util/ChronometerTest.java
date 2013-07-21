@@ -72,4 +72,16 @@ public final class ChronometerTest
 		chronometer.stop();
 		assertTrue(Math.abs(chronometer.elapsedTime() - 50) < 5);
 	}
+
+	@Test
+	public void testToString() throws Exception
+	{
+		Chronometer chronometer = new Chronometer();
+		assertEquals("", chronometer.toString());
+		chronometer.start();
+		Thread.sleep(100);
+		chronometer.stop();
+		long elapsed = chronometer.elapsedTime();
+		assertEquals(elapsed + " milliseconds", chronometer.toString());
+	}
 }

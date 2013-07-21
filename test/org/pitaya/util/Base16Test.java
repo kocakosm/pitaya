@@ -69,6 +69,18 @@ public final class Base16Test
 		assertArrayEquals(ascii("hello"), decode("\t68 656C 6C\n6F\r"));
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void testInvalidLength()
+	{
+		decode("E1F0C");
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testInvalidCharacter()
+	{
+		decode("E1F0HA");
+	}
+
 	private byte[] ascii(String str)
 	{
 		return ASCII.encode(str);

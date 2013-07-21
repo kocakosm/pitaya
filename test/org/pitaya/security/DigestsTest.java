@@ -16,7 +16,7 @@
 
 package org.pitaya.security;
 
-import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.*;
 
 import org.pitaya.charset.ASCII;
 import org.pitaya.util.Base16;
@@ -24,7 +24,7 @@ import org.pitaya.util.Base16;
 import org.junit.Test;
 
 /**
- * Digests unit tests.
+ * {@link Digests}' unit tests.
  *
  * @author Osman KOCAK
  */
@@ -45,6 +45,8 @@ public final class DigestsTest
 			.isEqualTo("8350e5a3e24c153df2275c9f80692773");
 		assertThat(PANGRAM).hashedWith(md2)
 			.isEqualTo("03d85a0d629d2c442e987525319fc471");
+		assertEquals(16, md2.length());
+		assertEquals("MD2", md2.toString());
 	}
 
 	@Test
@@ -55,6 +57,8 @@ public final class DigestsTest
 			.isEqualTo("31d6cfe0d16ae931b73c59d7e0c089c0");
 		assertThat(PANGRAM).hashedWith(md4)
 			.isEqualTo("1bee69a46ba811185c194762abaeae90");
+		assertEquals(16, md4.length());
+		assertEquals("MD4", md4.toString());
 	}
 
 	@Test
@@ -65,7 +69,8 @@ public final class DigestsTest
 			.isEqualTo("d41d8cd98f00b204e9800998ecf8427e");
 		assertThat(PANGRAM).hashedWith(md5)
 			.isEqualTo("9e107d9d372bb6826bd81d3542a419d6");
-
+		assertEquals(16, md5.length());
+		assertEquals("MD5", md5.toString());
 	}
 
 	@Test
@@ -76,6 +81,8 @@ public final class DigestsTest
 			.isEqualTo("da39a3ee5e6b4b0d3255bfef95601890afd80709");
 		assertThat(PANGRAM).hashedWith(sha1)
 			.isEqualTo("2fd4e1c67a2d28fced849ee1bb76e7391b93eb12");
+		assertEquals(20, sha1.length());
+		assertEquals("SHA1", sha1.toString());
 	}
 
 	@Test
@@ -88,6 +95,8 @@ public final class DigestsTest
 		assertThat(PANGRAM).hashedWith(sha256)
 			.isEqualTo("d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3"
 				+ "cdb762d02d0bf37c9e592");
+		assertEquals(32, sha256.length());
+		assertEquals("SHA-256", sha256.toString());
 	}
 
 	@Test
@@ -102,6 +111,8 @@ public final class DigestsTest
 			.isEqualTo("07e547d9586f6a73f73fbac0435ed76951218fb7d0c"
 				+ "8d788a309d785436bbb642e93a252a954f23912547d1"
 				+ "e8a3b5ed6e1bfd7097821233fa0538f3db854fee6");
+		assertEquals(64, sha512.length());
+		assertEquals("SHA-512", sha512.toString());
 	}
 
 	private static Input assertThat(String input)

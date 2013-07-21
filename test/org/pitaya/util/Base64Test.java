@@ -69,6 +69,18 @@ public final class Base64Test
 		assertArrayEquals(ascii("hello"), decode("  a\nGV\ts \rbG8= "));
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void testInvalidLength()
+	{
+		decode("Zg");
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testInvalidCharacter()
+	{
+		decode("Zm9v_mFy");
+	}
+
 	private byte[] ascii(String str)
 	{
 		return ASCII.encode(str);

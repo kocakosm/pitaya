@@ -19,6 +19,8 @@ package org.pitaya.charset;
 import static org.pitaya.charset.ASCII.*;
 import static org.junit.Assert.*;
 
+import java.nio.charset.Charset;
+
 import org.junit.Test;
 
 /**
@@ -29,22 +31,23 @@ import org.junit.Test;
 public final class ASCIITest
 {
 	@Test
-	public void testEncode() throws Exception
+	public void testEncode()
 	{
+		Charset ascii = Charset.forName("US-ASCII");
 		assertArrayEquals(encode(""), new byte[0]);
 		String str = "Hello world!";
-		assertArrayEquals(encode(str), str.getBytes("ASCII"));
-		assertArrayEquals(encode(str, 2, 5), "llo w".getBytes("ASCII"));
-
+		assertArrayEquals(encode(str), str.getBytes(ascii));
+		assertArrayEquals(encode(str, 2, 5), "llo w".getBytes(ascii));
 	}
 
 	@Test
-	public void testDecode() throws Exception
+	public void testDecode()
 	{
+		Charset ascii = Charset.forName("US-ASCII");
 		assertEquals(decode(new byte[0]), "");
 		String str = "Hello world!";
-		assertEquals(decode(str.getBytes("ASCII")), str);
-		assertEquals(decode(str.getBytes("ASCII"), 2, 5), "llo w");
+		assertEquals(decode(str.getBytes(ascii)), str);
+		assertEquals(decode(str.getBytes(ascii), 2, 5), "llo w");
 	}
 
 	@Test

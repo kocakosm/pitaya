@@ -24,11 +24,11 @@ import org.pitaya.util.Base16;
 import org.junit.Test;
 
 /**
- * HMACs unit tests.
+ * {@link HMAC}'s unit tests.
  *
  * @author Osman KOCAK
  */
-public final class HMACsTest
+public final class HMACTest
 {
 	private static final String PANGRAM;
 	private static final String EMPTY_STRING;

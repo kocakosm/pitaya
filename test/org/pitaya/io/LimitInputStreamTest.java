@@ -17,6 +17,7 @@
 package org.pitaya.io;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -38,6 +39,16 @@ public final class LimitInputStreamTest
 		(byte) 0xAA, (byte) 0xBB, (byte) 0xCC, (byte) 0xDD, (byte) 0xEE,
 		(byte) 0xFF
 	};
+
+	@Test
+	public void testAvailable() throws IOException
+	{
+		InputStream data = new ByteArrayInputStream(DATA);
+		InputStream in = new LimitInputStream(data, 10);
+		assertTrue(in.available() > 0);
+		Streams.read(in);
+		assertTrue(in.available() == 0);
+	}
 
 	@Test
 	public void testRead() throws IOException
@@ -90,5 +101,44 @@ public final class LimitInputStreamTest
 		data = new ByteArrayInputStream(DATA);
 		in = new LimitInputStream(data, 10);
 		assertArrayEquals(Arrays.copyOf(DATA, 10), Streams.read(in));
+	}
+
+	@Test
+	public void testMarkSupported() throws IOException
+	{
+		InputStream data = new ByteArrayInputStream(DATA);
+		InputStream in = new LimitInputStream(data, 10);
+		assertEquals(data.markSupported(), in.markSupported());
+	}
+
+	@Test
+	public void testMarkAndReset() throws IOException
+	{
+		InputStream data = new ByteArrayInputStream(DATA);
+		InputStream in = new LimitInputStream(data, 10);
+		assertTrue(in.available() > 0);
+		in.mark(100);
+		in.read(new byte[20]);
+		in.reset();
+		assertTrue(in.available() > 0);
+	}
+
+	@Test
+	public void testSkip() throws IOException
+	{
+		InputStream data = new ByteArrayInputStream(DATA);
+		InputStream in = new LimitInputStream(data, 10);
+		in.read();
+		assertEquals(9, in.skip(15));
+		assertEquals(0, in.skip(15));
+	}
+
+	@Test
+	public void testClose() throws IOException
+	{
+		InputStream data = mock(InputStream.class);
+		InputStream in = new LimitInputStream(data, 10);
+		in.close();
+		verify(data).close();
 	}
 }

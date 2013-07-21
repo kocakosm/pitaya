@@ -17,6 +17,7 @@
 package org.pitaya.io;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -33,6 +34,16 @@ public final class CountingReaderTest
 	private static final String DATA = "Hello World !!!!";
 
 	@Test
+	public void testReady() throws IOException
+	{
+		Reader data = new StringReader(DATA);
+		CountingReader reader = new CountingReader(data);
+		assertEquals(data.ready(), reader.ready());
+		reader.read(new char[8]);
+		assertEquals(data.ready(), reader.ready());
+	}
+
+	@Test
 	public void testCount() throws IOException
 	{
 		Reader data = new StringReader(DATA);
@@ -47,7 +58,7 @@ public final class CountingReaderTest
 	}
 
 	@Test
-	public void testReset() throws IOException
+	public void testResetCount() throws IOException
 	{
 		Reader data = new StringReader(DATA);
 		CountingReader reader = new CountingReader(data);
@@ -57,6 +68,27 @@ public final class CountingReaderTest
 		assertEquals(0, reader.getCount());
 		reader.read(new char[8]);
 		assertEquals(8, reader.getCount());
+	}
+
+	@Test
+	public void testMarkSupported() throws IOException
+	{
+		Reader data = new StringReader(DATA);
+		CountingReader reader = new CountingReader(data);
+		assertEquals(data.markSupported(), reader.markSupported());
+	}
+
+	@Test
+	public void testMarkAndReset() throws IOException
+	{
+		Reader data = new StringReader(DATA);
+		CountingReader reader = new CountingReader(data);
+		reader.mark(100);
+		reader.read(new char[20]);
+		assertEquals(16, reader.getCount());
+		reader.reset();
+		reader.read(new char[20]);
+		assertEquals(32, reader.getCount());
 	}
 
 	@Test
@@ -72,15 +104,11 @@ public final class CountingReaderTest
 	}
 
 	@Test
-	public void testMark() throws IOException
+	public void testClose() throws IOException
 	{
-		Reader data = new StringReader(DATA);
-		CountingReader reader = new CountingReader(data);
-		reader.mark(100);
-		reader.read(new char[20]);
-		assertEquals(16, reader.getCount());
-		reader.reset();
-		reader.read(new char[20]);
-		assertEquals(32, reader.getCount());
+		Reader data = mock(Reader.class);
+		Reader reader = new CountingReader(data);
+		reader.close();
+		verify(data).close();
 	}
 }

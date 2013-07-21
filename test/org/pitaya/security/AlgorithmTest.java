@@ -16,38 +16,31 @@
 
 package org.pitaya.security;
 
-import static org.junit.Assert.*;
-
-import org.pitaya.charset.ASCII;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
 /**
- * {@link Passwords}' unit tests.
+ * {@link Algorithm}'s unit tests.
  *
  * @author Osman KOCAK
  */
-public final class PasswordsTest
+public final class AlgorithmTest
 {
 	@Test
-	public void testGenerate()
+	public void testToString()
 	{
-		assertTrue(ASCII.isAlphaNumeric(Passwords.generate()));
-		assertEquals(10, Passwords.generate().length());
-	}
-
-	@Test
-	public void testValidPassword()
-	{
-		String password = Passwords.generate();
-		byte[] hash = Passwords.hash(password);
-		assertTrue(Passwords.verify(password, hash));
-	}
-
-	@Test
-	public void testInvalidPassword()
-	{
-		byte[] hash = Passwords.hash("password");
-		assertFalse(Passwords.verify("Password", hash));
+		assertEquals("MD2", Algorithm.MD2.toString());
+		assertEquals("MD4", Algorithm.MD4.toString());
+		assertEquals("MD5", Algorithm.MD5.toString());
+		assertEquals("SHA1", Algorithm.SHA1.toString());
+		assertEquals("SHA-256", Algorithm.SHA256.toString());
+		assertEquals("SHA-512", Algorithm.SHA512.toString());
+		assertEquals("HMAC-MD2", Algorithm.HMAC_MD2.toString());
+		assertEquals("HMAC-MD4", Algorithm.HMAC_MD4.toString());
+		assertEquals("HMAC-MD5", Algorithm.HMAC_MD5.toString());
+		assertEquals("HMAC-SHA1", Algorithm.HMAC_SHA1.toString());
+		assertEquals("HMAC-SHA-256", Algorithm.HMAC_SHA256.toString());
+		assertEquals("HMAC-SHA-512", Algorithm.HMAC_SHA512.toString());
 	}
 }

@@ -16,11 +16,13 @@
 
 package org.pitaya.io;
 
-import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 import org.junit.Test;
 
@@ -43,5 +45,25 @@ public final class StreamsTest
 	{
 		InputStream in = new ByteArrayInputStream(DATA);
 		assertArrayEquals(DATA, Streams.read(in));
+	}
+
+	@Test
+	public void testClose() throws IOException
+	{
+		InputStream in = null;
+		Streams.close(in);
+		
+		in = mock(InputStream.class);
+		doThrow(new IOException()).when(in).close();
+		Streams.close(in);
+		verify(in).close();
+		
+		OutputStream out = null;
+		Streams.close(out);
+		
+		out = mock(OutputStream.class);
+		doThrow(new IOException()).when(out).close();
+		Streams.close(out);
+		verify(out).close();
 	}
 }
