@@ -21,7 +21,7 @@ package org.pitaya.util;
  *
  * @author Osman KOCAK
  */
-public class Bits
+public final class Bits
 {
 	/**
 	 * Returns the value obtained by rotating the two's complement binary
