@@ -19,6 +19,8 @@ package org.pitaya.io;
 import org.pitaya.util.Parameters;
 
 import java.io.Reader;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * A {@link Reader} whose source are {@link String}s. Instances of this class
@@ -44,7 +46,20 @@ public final class StringReader extends Reader
 	 */
 	public StringReader(String... strings)
 	{
-		this.in = new StringBuilder(strings.length * 10);
+		this(Arrays.asList(strings));
+	}
+
+	/**
+	 * Creates a new {@code StringReader}.
+	 *
+	 * @param strings the input {@link String}s.
+	 *
+	 * @throws NullPointerException if {@code strings} is {@code null} or if
+	 *	it contains a {@code null} reference.
+	 */
+	public StringReader(List<String> strings)
+	{
+		this.in = new StringBuilder(strings.size() * 10);
 		for (String str : strings) {
 			Parameters.checkNotNull(str);
 			this.in.append(str);

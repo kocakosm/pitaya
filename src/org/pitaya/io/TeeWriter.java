@@ -20,7 +20,9 @@ import org.pitaya.util.Parameters;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * A decorating {@link Writer} implementation that writes all data written to it
@@ -30,7 +32,7 @@ import java.util.Arrays;
  */
 public final class TeeWriter extends Writer
 {
-	private final Writer[] writers;
+	private final List<Writer> writers;
 
 	/**
 	 * Creates a new {@code TeeWriter}.
@@ -42,9 +44,23 @@ public final class TeeWriter extends Writer
 	 */
 	public TeeWriter(Writer... writers)
 	{
-		this.writers = Arrays.copyOf(writers, writers.length);
-		for (Writer writer : this.writers) {
+		this(Arrays.asList(writers));
+	}
+
+	/**
+	 * Creates a new {@code TeeWriter}.
+	 * 
+	 * @param writers the writers to write to.
+	 *
+	 * @throws NullPointerException if {@code writers} is {@code null} or
+	 *	if it returns a {@code null} reference.
+	 */
+	public TeeWriter(Iterable<Writer> writers)
+	{
+		this.writers = new ArrayList<Writer>();
+		for (Writer writer : writers) {
 			Parameters.checkNotNull(writer);
+			this.writers.add(writer);
 		}
 	}
 

@@ -20,7 +20,9 @@ import org.pitaya.util.Parameters;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * A decorating {@link OutputStream} that writes all bytes written to it to 
@@ -30,7 +32,7 @@ import java.util.Arrays;
  */
 public final class TeeOutputStream extends OutputStream
 {
-	private final OutputStream[] streams;
+	private final List<OutputStream> streams;
 
 	/**
 	 * Creates a new {@code TeeOutputStream}.
@@ -42,9 +44,23 @@ public final class TeeOutputStream extends OutputStream
 	 */
 	public TeeOutputStream(OutputStream... streams)
 	{
-		this.streams = Arrays.copyOf(streams, streams.length);
-		for (OutputStream stream : this.streams) {
+		this(Arrays.asList(streams));
+	}
+
+	/**
+	 * Creates a new {@code TeeOutputStream}.
+	 * 
+	 * @param streams the streams to write to.
+	 *
+	 * @throws NullPointerException if {@code streams} is {@code null} or
+	 *	if it returns a {@code null} reference.
+	 */
+	public TeeOutputStream(Iterable<OutputStream> streams)
+	{
+		this.streams = new ArrayList<OutputStream>();
+		for (OutputStream stream : streams) {
 			Parameters.checkNotNull(stream);
+			this.streams.add(stream);
 		}
 	}
 

@@ -20,7 +20,9 @@ import org.pitaya.util.Parameters;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * A decorating {@link Reader} which reads sequentially from multiple sources. 
@@ -31,7 +33,7 @@ import java.util.Arrays;
  */
 public final class ConcatReader extends Reader
 {
-	private final Reader[] readers;
+	private final List<Reader> readers;
 	private int index;
 
 	/**
@@ -45,8 +47,22 @@ public final class ConcatReader extends Reader
 	 */
 	public ConcatReader(Reader... readers)
 	{
-		this.readers = Arrays.copyOf(readers, readers.length);
-		Parameters.checkCondition(this.readers.length > 0);
+		this(Arrays.asList(readers));
+	}
+
+	/**
+	 * Creates a new {@code ConcatReader}.
+	 * 
+	 * @param readers the readers to concatenate.
+	 *
+	 * @throws NullPointerException if {@code readers} is {@code null} or
+	 *	if it contains a {@code null} reference.
+	 * @throws IllegalArgumentException if {@code readers} is empty.
+	 */
+	public ConcatReader(List<Reader> readers)
+	{
+		this.readers = new ArrayList<Reader>(readers);
+		Parameters.checkCondition(!this.readers.isEmpty());
 		for (Reader reader : this.readers) {
 			Parameters.checkNotNull(reader);
 		}
@@ -115,12 +131,12 @@ public final class ConcatReader extends Reader
 
 	private Reader current()
 	{
-		return readers[index];
+		return readers.get(index);
 	}
 
 	private boolean finished()
 	{
-		return index >= readers.length;
+		return index >= readers.size();
 	}
 
 	private boolean next()

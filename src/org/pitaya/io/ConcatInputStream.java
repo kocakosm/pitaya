@@ -20,7 +20,9 @@ import org.pitaya.util.Parameters;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * An {@code InputStream} which reads sequentially from multiple sources. Mark
@@ -30,7 +32,7 @@ import java.util.Arrays;
  */
 public final class ConcatInputStream extends InputStream
 {
-	private final InputStream[] streams;
+	private final List<InputStream> streams;
 	private int index;
 
 	/**
@@ -44,8 +46,22 @@ public final class ConcatInputStream extends InputStream
 	 */
 	public ConcatInputStream(InputStream... streams)
 	{
-		this.streams = Arrays.copyOf(streams, streams.length);
-		Parameters.checkCondition(this.streams.length > 0);
+		this(Arrays.asList(streams));
+	}
+
+	/**
+	 * Creates a new {@code ConcatInputStream}.
+	 * 
+	 * @param streams the streams to concatenate.
+	 *
+	 * @throws NullPointerException if {@code streams} is {@code null} or
+	 *	if it contains a {@code null} reference.
+	 * @throws IllegalArgumentException if {@code streams} is empty.
+	 */
+	public ConcatInputStream(List<InputStream> streams)
+	{
+		this.streams = new ArrayList<InputStream>(streams);
+		Parameters.checkCondition(!this.streams.isEmpty());
 		for (InputStream stream : this.streams) {
 			Parameters.checkNotNull(stream);
 		}
@@ -94,12 +110,12 @@ public final class ConcatInputStream extends InputStream
 
 	private InputStream current()
 	{
-		return streams[index];
+		return streams.get(index);
 	}
 
 	private boolean finished()
 	{
-		return index >= streams.length;
+		return index >= streams.size();
 	}
 
 	private boolean next()
