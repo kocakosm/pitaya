@@ -115,6 +115,66 @@ public final class DigestsTest
 		assertEquals("SHA-512", sha512.toString());
 	}
 
+	@Test
+	public void testKeccak224()
+	{
+		Digest keccak224 = Digests.keccak224();
+		assertThat(EMPTY_STRING).hashedWith(keccak224)
+			.isEqualTo("f71837502ba8e10837bdd8d365adb85591895602fc5"
+				+ "52b48b7390abd");
+		assertThat(PANGRAM).hashedWith(keccak224)
+			.isEqualTo("310aee6b30c47350576ac2873fa89fd190cdc488442"
+				+ "f3ef654cf23fe");
+		assertEquals(28, keccak224.length());
+		assertEquals("Keccak-224", keccak224.toString());
+	}
+
+	@Test
+	public void testKeccak256()
+	{
+		Digest keccak256 = Digests.keccak256();
+		assertThat(EMPTY_STRING).hashedWith(keccak256)
+			.isEqualTo("c5d2460186f7233c927e7db2dcc703c0e500b653ca8"
+				+ "2273b7bfad8045d85a470");
+		assertThat(PANGRAM).hashedWith(keccak256)
+			.isEqualTo("4d741b6f1eb29cb2a9b9911c82f56fa8d73b04959d3"
+				+ "d9d222895df6c0b28aa15");
+		assertEquals(32, keccak256.length());
+		assertEquals("Keccak-256", keccak256.toString());
+	}
+
+	@Test
+	public void testKeccak384()
+	{
+		Digest keccak384 = Digests.keccak384();
+		assertThat(EMPTY_STRING).hashedWith(keccak384)
+			.isEqualTo("2c23146a63a29acf99e73b88f8c24eaa7dc60aa7717"
+				+ "80ccc006afbfa8fe2479b2dd2b21362337441ac12b51"
+				+ "5911957ff");
+		assertThat(PANGRAM).hashedWith(keccak384)
+			.isEqualTo("283990fa9d5fb731d786c5bbee94ea4db4910f18c62"
+				+ "c03d173fc0a5e494422e8a0b3da7574dae7fa0baf005"
+				+ "e504063b3");
+		assertEquals(48, keccak384.length());
+		assertEquals("Keccak-384", keccak384.toString());
+	}
+
+	@Test
+	public void testKeccak512()
+	{
+		Digest keccak512 = Digests.keccak512();
+		assertThat(EMPTY_STRING).hashedWith(keccak512)
+			.isEqualTo("0eab42de4c3ceb9235fc91acffe746b29c29a8c366b"
+				+ "7c60e4e67c466f36a4304c00fa9caf9d87976ba469bc"
+				+ "be06713b435f091ef2769fb160cdab33d3670680e");
+		assertThat(PANGRAM).hashedWith(keccak512)
+			.isEqualTo("d135bb84d0439dbac432247ee573a23ea7d3c9deb2a"
+				+ "968eb31d47c4fb45f1ef4422d6c531b5b9bd6f449ebc"
+				+ "c449ea94d0a8f05f62130fda612da53c79659f609");
+		assertEquals(64, keccak512.length());
+		assertEquals("Keccak-512", keccak512.toString());
+	}
+
 	private static Input assertThat(String input)
 	{
 		return new Input(input);

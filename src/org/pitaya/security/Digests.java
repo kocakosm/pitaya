@@ -90,6 +90,46 @@ public final class Digests
 		return new BuiltInDigest("SHA-512");
 	}
 
+	/**
+	 * Returns a new Keccak-224 {@link Digest} instance.
+	 *
+	 * @return a new Keccak-224 {@link Digest} instance.
+	 */
+	public static Digest keccak224()
+	{
+		return new Keccak(28);
+	}
+
+	/**
+	 * Returns a new Keccak-256 {@link Digest} instance.
+	 *
+	 * @return a new Keccak-256 {@link Digest} instance.
+	 */
+	public static Digest keccak256()
+	{
+		return new Keccak(32);
+	}
+
+	/**
+	 * Returns a new Keccak-384 {@link Digest} instance.
+	 *
+	 * @return a new Keccak-384 {@link Digest} instance.
+	 */
+	public static Digest keccak384()
+	{
+		return new Keccak(48);
+	}
+
+	/**
+	 * Returns a new Keccak-512 {@link Digest} instance.
+	 *
+	 * @return a new Keccak-512 {@link Digest} instance.
+	 */
+	public static Digest keccak512()
+	{
+		return new Keccak(64);
+	}
+
 	private static final class BuiltInDigest implements Digest
 	{
 		private final String algorithm;
