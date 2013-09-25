@@ -24,7 +24,7 @@ import java.util.Arrays;
 
 /**
  * The Keccak digest algorithm. Instances of this class are not thread safe.
- * Note: this implementation is focused on redability instead of performance, 
+ * Note: this implementation is focused on readability instead of performance,
  * so it should not perform as well as other implementations.
  *
  * @author Osman KOCAK
@@ -53,9 +53,9 @@ final class Keccak extends AbstractDigest
 
 	/**
 	 * Creates a new ready to use {@code Keccak}.
-	 * 
+	 *
 	 * @param length the digest length (in bytes).
-	 * 
+	 *
 	 * @throws IllegalArgumentException if {@code length} is not one of 28,
 	 *	32, 48 or 64.
 	 */
@@ -73,7 +73,7 @@ final class Keccak extends AbstractDigest
 	public void reset()
 	{
 		for (int i = 0; i < 25; i++) {
-			A[i] = 0;
+			A[i] = 0L;
 		}
 		bufferLen = 0;
 	}
