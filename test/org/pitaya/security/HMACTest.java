@@ -133,6 +133,78 @@ public final class HMACTest
 		);
 	}
 
+	@Test
+	public void testKeccak224()
+	{
+		MAC hmac = HMAC.keccak224(ascii(EMPTY_STRING));
+		assertArrayEquals(
+			hex("5b71601b23a34517acd63847e99e461baf705e71884b986b4c"
+				+ "f64e19"),
+			hmac.mac(ascii(EMPTY_STRING))
+		);
+		hmac = HMAC.keccak224(ascii("key"));
+		assertArrayEquals(
+			hex("763e70a1ec866fbc1c6e6c398cd6e2383e2ad3aecbb3d6150f"
+				+ "1e56fd"),
+			hmac.mac(ascii(PANGRAM))
+		);
+	}
+
+	@Test
+	public void testKeccak256()
+	{
+		MAC hmac = HMAC.keccak256(ascii(EMPTY_STRING));
+		assertArrayEquals(
+			hex("042186ec4e98680a0866091d6fb89b60871134b44327f8f467"
+				+ "c14e9841d3e97b"),
+			hmac.mac(ascii(EMPTY_STRING))
+		);
+		hmac = HMAC.keccak256(ascii("key"));
+		assertArrayEquals(
+			hex("74547bc8c8e1ef02aec834ca60ff24cc316d4c2244a360fe17"
+				+ "448cb53410bed4"),
+			hmac.mac(ascii(PANGRAM))
+		);
+	}
+
+	@Test
+	public void testKeccak384()
+	{
+		MAC hmac = HMAC.keccak384(ascii(EMPTY_STRING));
+		assertArrayEquals(
+			hex("09e18efb747979fcbc89849ff5c388a763c5fed1836a2850b7"
+				+ "9598eaa3a5cf014d57e337923e69c6f4a2dade032b02"
+				+ "40"),
+			hmac.mac(ascii(EMPTY_STRING))
+		);
+		hmac = HMAC.keccak384(ascii("key"));
+		assertArrayEquals(
+			hex("73acb07b5b1db5431758262b55e5923d362de4492229a74203"
+				+ "02c80d4348ca1b11ecea06fb1c232f9b832aadca8cd2"
+				+ "89"),
+			hmac.mac(ascii(PANGRAM))
+		);
+	}
+
+	@Test
+	public void testKeccak512()
+	{
+		MAC hmac = HMAC.keccak512(ascii(EMPTY_STRING));
+		assertArrayEquals(
+			hex("a857c9f1cd9cb25c2f24a933618abfc724d4eaebf74099dddc"
+				+ "5e0a1c7ab8de3865faa1fb039419de768e962bdc81a6"
+				+ "d85b9809d6ab84f8cc984f5d6b90f23c15"),
+			hmac.mac(ascii(EMPTY_STRING))
+		);
+		hmac = HMAC.keccak512(ascii("key"));
+		assertArrayEquals(
+			hex("22fb03b3391bc0adfc73c18e0919d9f142390e81d6cc268971"
+				+ "6ac53ab75458a718059d58cfbb23c6a416c32b8afa84"
+				+ "a9a7a9d852312a743bef0a55148e5a1b8a"),
+			hmac.mac(ascii(PANGRAM))
+		);
+	}
+
 	private byte[] hex(String hex)
 	{
 		return Base16.decode(hex);

@@ -117,6 +117,62 @@ public final class HMAC
 		return new Engine(key, Digests.sha512(), 128);
 	}
 
+	/**
+	 * Returns a new Keccak-224 HMAC engine.
+	 *
+	 * @param key the HMAC's secret key.
+	 *
+	 * @return a new Keccak-224 HMAC engine.
+	 *
+	 * @throws NullPointerException if {@code key} is {@code null}.
+	 */
+	public static MAC keccak224(byte... key)
+	{
+		return new Engine(key, Digests.keccak224(), 144);
+	}
+
+	/**
+	 * Returns a new Keccak-256 HMAC engine.
+	 *
+	 * @param key the HMAC's secret key.
+	 *
+	 * @return a new Keccak-256 HMAC engine.
+	 *
+	 * @throws NullPointerException if {@code key} is {@code null}.
+	 */
+	public static MAC keccak256(byte... key)
+	{
+		return new Engine(key, Digests.keccak256(), 136);
+	}
+
+	/**
+	 * Returns a new Keccak-384 HMAC engine.
+	 *
+	 * @param key the HMAC's secret key.
+	 *
+	 * @return a new Keccak-384 HMAC engine.
+	 *
+	 * @throws NullPointerException if {@code key} is {@code null}.
+	 */
+	public static MAC keccak384(byte... key)
+	{
+		return new Engine(key, Digests.keccak384(), 104);
+	}
+
+	/**
+	 * Returns a new Keccak-512 HMAC engine.
+	 *
+	 * @param key the HMAC's secret key.
+	 *
+	 * @return a new Keccak-512 HMAC engine.
+	 *
+	 * @throws NullPointerException if {@code key} is {@code null}.
+	 */
+	public static MAC keccak512(byte... key)
+	{
+		return new Engine(key, Digests.keccak512(), 72);
+	}
+
 	private static final class Engine implements MAC
 	{
 		private final byte[] key;
