@@ -37,6 +37,10 @@ public final class FactoryTest
 		assertEquals(SHA1, Factory.getDigest(SHA1));
 		assertEquals(SHA256, Factory.getDigest(SHA256));
 		assertEquals(SHA512, Factory.getDigest(SHA512));
+		assertEquals(KECCAK224, Factory.getDigest(KECCAK224));
+		assertEquals(KECCAK256, Factory.getDigest(KECCAK256));
+		assertEquals(KECCAK384, Factory.getDigest(KECCAK384));
+		assertEquals(KECCAK512, Factory.getDigest(KECCAK512));
 	}
 
 	@Test
@@ -49,6 +53,10 @@ public final class FactoryTest
 		assertEquals(HMAC_SHA1, Factory.getMAC(HMAC_SHA1, key));
 		assertEquals(HMAC_SHA256, Factory.getMAC(HMAC_SHA256, key));
 		assertEquals(HMAC_SHA512, Factory.getMAC(HMAC_SHA512, key));
+		assertEquals(HMAC_KECCAK224, Factory.getMAC(HMAC_KECCAK224, key));
+		assertEquals(HMAC_KECCAK256, Factory.getMAC(HMAC_KECCAK256, key));
+		assertEquals(HMAC_KECCAK384, Factory.getMAC(HMAC_KECCAK384, key));
+		assertEquals(HMAC_KECCAK512, Factory.getMAC(HMAC_KECCAK512, key));
 	}
 
 	private void assertEquals(Algorithm algo, Object o)

@@ -52,6 +52,14 @@ final class Factory
 			digest = Digests.sha256();
 		} else if (algorithm == Algorithm.SHA512) {
 			digest = Digests.sha512();
+		} else if (algorithm == Algorithm.KECCAK224) {
+			digest = Digests.keccak224();
+		} else if (algorithm == Algorithm.KECCAK256) {
+			digest = Digests.keccak256();
+		} else if (algorithm == Algorithm.KECCAK384) {
+			digest = Digests.keccak384();
+		} else if (algorithm == Algorithm.KECCAK512) {
+			digest = Digests.keccak512();
 		} else {
 			throw new IllegalArgumentException("Unknown algorithm");
 		}
@@ -86,6 +94,14 @@ final class Factory
 			mac = HMAC.sha256(key);
 		} else if (algorithm == Algorithm.HMAC_SHA512) {
 			mac = HMAC.sha512(key);
+		} else if (algorithm == Algorithm.HMAC_KECCAK224) {
+			mac = HMAC.keccak224(key);
+		} else if (algorithm == Algorithm.HMAC_KECCAK256) {
+			mac = HMAC.keccak256(key);
+		} else if (algorithm == Algorithm.HMAC_KECCAK384) {
+			mac = HMAC.keccak384(key);
+		} else if (algorithm == Algorithm.HMAC_KECCAK512) {
+			mac = HMAC.keccak512(key);
 		} else {
 			throw new IllegalArgumentException("Unknown algorithm");
 		}

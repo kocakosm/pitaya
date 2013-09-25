@@ -36,11 +36,19 @@ public final class AlgorithmTest
 		assertEquals("SHA1", Algorithm.SHA1.toString());
 		assertEquals("SHA-256", Algorithm.SHA256.toString());
 		assertEquals("SHA-512", Algorithm.SHA512.toString());
+		assertEquals("Keccak-224", Algorithm.KECCAK224.toString());
+		assertEquals("Keccak-256", Algorithm.KECCAK256.toString());
+		assertEquals("Keccak-384", Algorithm.KECCAK384.toString());
+		assertEquals("Keccak-512", Algorithm.KECCAK512.toString());
 		assertEquals("HMAC-MD2", Algorithm.HMAC_MD2.toString());
 		assertEquals("HMAC-MD4", Algorithm.HMAC_MD4.toString());
 		assertEquals("HMAC-MD5", Algorithm.HMAC_MD5.toString());
 		assertEquals("HMAC-SHA1", Algorithm.HMAC_SHA1.toString());
 		assertEquals("HMAC-SHA-256", Algorithm.HMAC_SHA256.toString());
 		assertEquals("HMAC-SHA-512", Algorithm.HMAC_SHA512.toString());
+		assertEquals("HMAC-Keccak-224", Algorithm.HMAC_KECCAK224.toString());
+		assertEquals("HMAC-Keccak-256", Algorithm.HMAC_KECCAK256.toString());
+		assertEquals("HMAC-Keccak-384", Algorithm.HMAC_KECCAK384.toString());
+		assertEquals("HMAC-Keccak-512", Algorithm.HMAC_KECCAK512.toString());
 	}
 }

@@ -43,6 +43,18 @@ public final class Algorithm<T>
 	/** The SHA-512 digest algorithm. */
 	public static final Algorithm<Digest> SHA512 = new Algorithm<Digest>("SHA-512");
 
+	/** The Keccak-224 digest algorithm. */
+	public static final Algorithm<Digest> KECCAK224 = new Algorithm<Digest>("Keccak-224");
+
+	/** The Keccak-256 digest algorithm. */
+	public static final Algorithm<Digest> KECCAK256 = new Algorithm<Digest>("Keccak-256");
+
+	/** The Keccak-384 digest algorithm. */
+	public static final Algorithm<Digest> KECCAK384 = new Algorithm<Digest>("Keccak-384");
+
+	/** The Keccak-512 digest algorithm. */
+	public static final Algorithm<Digest> KECCAK512 = new Algorithm<Digest>("Keccak-512");
+
 	/** The HMAC-MD2 MAC algorithm. */
 	public static final Algorithm<MAC> HMAC_MD2 = new Algorithm<MAC>("HMAC-MD2");
 
@@ -60,6 +72,18 @@ public final class Algorithm<T>
 
 	/** The HMAC-SHA-512 MAC algorithm. */
 	public static final Algorithm<MAC> HMAC_SHA512 = new Algorithm<MAC>("HMAC-SHA-512");
+
+	/** The HMAC-Keccak-224 MAC algorithm. */
+	public static final Algorithm<MAC> HMAC_KECCAK224 = new Algorithm<MAC>("HMAC-Keccak-224");
+
+	/** The HMAC-Keccak-256 MAC algorithm. */
+	public static final Algorithm<MAC> HMAC_KECCAK256 = new Algorithm<MAC>("HMAC-Keccak-256");
+
+	/** The HMAC-Keccak-384 MAC algorithm. */
+	public static final Algorithm<MAC> HMAC_KECCAK384 = new Algorithm<MAC>("HMAC-Keccak-384");
+
+	/** The HMAC-Keccak-512 MAC algorithm. */
+	public static final Algorithm<MAC> HMAC_KECCAK512 = new Algorithm<MAC>("HMAC-Keccak-512");
 
 	private final String name;
 
