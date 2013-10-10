@@ -232,13 +232,13 @@ public final class ASCII
 	}
 
 	/**
-	 * Returns a {@code String} in which all uppercase ASCII characters have
+	 * Returns a {@link String} in which all uppercase ASCII characters have
 	 * been replaced by their lowercase equivalent (all other characters are
 	 * unchanged).
 	 *
-	 * @param s the {@code String} to convert into lowercase.
+	 * @param s the {@link String} to convert into lowercase.
 	 *
-	 * @return the converted {@code String}.
+	 * @return the converted {@link String}.
 	 *
 	 * @throws NullPointerException if {@code s} is {@code null}.
 	 */
@@ -252,13 +252,13 @@ public final class ASCII
 	}
 
 	/**
-	 * Returns a {@code String} in which all lowercase ASCII characters have
+	 * Returns a {@link String} in which all lowercase ASCII characters have
 	 * been replaced by their uppercase equivalent (all other characters are
 	 * unchanged).
 	 *
-	 * @param s the {@code String} to convert into uppercase.
+	 * @param s the {@link String} to convert into uppercase.
 	 *
-	 * @return the converted {@code String}.
+	 * @return the converted {@link String}.
 	 *
 	 * @throws NullPointerException if {@code s} is {@code null}.
 	 */
