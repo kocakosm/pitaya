@@ -152,4 +152,16 @@ public final class ASCIITest
 		assertEquals("", toUpperCase(""));
 		assertEquals("HELLO WORLD!", toUpperCase("Hello World!"));
 	}
+
+	@Test
+	public void testCapitalize()
+	{
+		assertEquals("", capitalize(""));
+		assertEquals("A", capitalize("a"));
+		assertEquals("Z", capitalize("Z"));
+		assertEquals("5", capitalize("5"));
+		assertEquals("5abc", capitalize("5AbC"));
+		assertEquals("   abc", capitalize("   AbC"));
+		assertEquals("Hello", capitalize("hello"));
+	}
 }

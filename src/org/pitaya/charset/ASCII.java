@@ -271,6 +271,25 @@ public final class ASCII
 		return sb.toString();
 	}
 
+	/**
+	 * Returns a {@link String} built from the given one by upper-casing its
+	 * first character while lower-casing the others.
+	 * 
+	 * @param s the {@link String} to capitalize.
+	 *
+	 * @return the capitalized {@link String}.
+	 *
+	 * @throws NullPointerException if {@code s} is {@code null}.
+	 */
+	public static String capitalize(String s)
+	{
+		StringBuilder sb = new StringBuilder(s.length());
+		for (char c : s.toCharArray()) {
+			sb.append(sb.length() > 0 ? toLowerCase(c) : toUpperCase(c));
+		}
+		return sb.toString();
+	}
+
 	private ASCII()
 	{
 		/* ... */
