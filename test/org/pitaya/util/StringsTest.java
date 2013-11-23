@@ -43,12 +43,35 @@ public final class StringsTest
 	}
 
 	@Test
+	public void testIsNullOrBlank()
+	{
+		assertTrue(isNullOrBlank(null));
+		assertTrue(isNullOrBlank(""));
+		assertTrue(isNullOrBlank(" "));
+		assertTrue(isNullOrBlank("\t"));
+		assertTrue(isNullOrBlank("\r"));
+		assertTrue(isNullOrBlank("\n"));
+		assertTrue(isNullOrBlank(" \n\r  \t"));
+		assertFalse(isNullOrBlank("\tHello world!\r\n"));
+	}
+
+	@Test
 	public void testIsWhitespace()
 	{
 		assertTrue(isWhiteSpace(""));
 		assertTrue(isWhiteSpace(" "));
 		assertFalse(isWhiteSpace("\t"));
 		assertFalse(isWhiteSpace("Hello world!"));
+	}
+
+	@Test
+	public void testIsNullOrWhitespace()
+	{
+		assertTrue(isNullOrWhiteSpace(null));
+		assertTrue(isNullOrWhiteSpace(""));
+		assertTrue(isNullOrWhiteSpace(" "));
+		assertFalse(isNullOrWhiteSpace("\t"));
+		assertFalse(isNullOrWhiteSpace("Hello world!"));
 	}
 
 	@Test

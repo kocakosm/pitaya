@@ -48,12 +48,25 @@ public final class Strings
 	}
 
 	/**
+	 * Returns whether the given {@link CharSequence} is {@code null} or 
+	 * only contains space, '\n', '\r' or '\t' characters.
+	 *
+	 * @param sequence the {@code CharSequence} to test.
+	 *
+	 * @return whether the given {@link CharSequence} is {@code null} or blank.
+	 */
+	public static boolean isNullOrBlank(CharSequence sequence)
+	{
+		return sequence == null || isBlank(sequence);
+	}
+
+	/**
 	 * Returns whether the given {@link CharSequence} only contains space
 	 * characters.
 	 *
 	 * @param sequence the {@code CharSequence} to test.
 	 *
-	 * @return whether the given {@link CharSequence} containes only spaces.
+	 * @return whether the given {@link CharSequence} contains only spaces.
 	 *
 	 * @throws NullPointerException if {@code sequence} is {@code null}.
 	 */
@@ -65,6 +78,20 @@ public final class Strings
 			}
 		}
 		return true;
+	}
+
+	/**
+	 * Returns whether the given {@link CharSequence} is {@code null} or 
+	 * only contains space characters.
+	 *
+	 * @param sequence the {@code CharSequence} to test.
+	 *
+	 * @return whether the given {@link CharSequence} is {@code null} or
+	 *	contains only spaces.
+	 */
+	public static boolean isNullOrWhiteSpace(CharSequence sequence)
+	{
+		return sequence == null || isWhiteSpace(sequence);
 	}
 
 	/**
