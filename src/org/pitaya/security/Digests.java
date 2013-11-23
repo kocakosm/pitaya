@@ -152,27 +152,31 @@ public final class Digests
 		}
 
 		@Override
-		public void reset()
+		public Digest reset()
 		{
 			md.reset();
+			return this;
 		}
 
 		@Override
-		public void update(byte input)
+		public Digest update(byte input)
 		{
 			md.update(input);
+			return this;
 		}
 
 		@Override
-		public void update(byte... input)
+		public Digest update(byte... input)
 		{
 			md.update(input);
+			return this;
 		}
 
 		@Override
-		public void update(byte[] input, int off, int len)
+		public Digest update(byte[] input, int off, int len)
 		{
 			md.update(input, off, len);
+			return this;
 		}
 
 		@Override

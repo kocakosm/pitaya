@@ -70,25 +70,27 @@ final class Keccak extends AbstractDigest
 	}
 
 	@Override
-	public void reset()
+	public Digest reset()
 	{
 		for (int i = 0; i < 25; i++) {
 			A[i] = 0L;
 		}
 		bufferLen = 0;
+		return this;
 	}
 
 	@Override
-	public void update(byte input)
+	public Digest update(byte input)
 	{
 		buffer[bufferLen] = input;
 		if (++bufferLen == blockLen) {
 			processBuffer();
 		}
+		return this;
 	}
 
 	@Override
-	public void update(byte[] input, int off, int len)
+	public Digest update(byte[] input, int off, int len)
 	{
 		while (len > 0) {
 			int cpLen = Math.min(blockLen - bufferLen, len);
@@ -100,6 +102,7 @@ final class Keccak extends AbstractDigest
 				processBuffer();
 			}
 		}
+		return this;
 	}
 
 	@Override

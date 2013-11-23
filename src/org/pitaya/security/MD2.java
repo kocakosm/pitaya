@@ -103,24 +103,26 @@ final class MD2 extends AbstractDigest
 	}
 
 	@Override
-	public void reset()
+	public Digest reset()
 	{
 		bufferLen = 0;
 		checksum = new byte[BLOCK_LENGTH];
 		X = new byte[BLOCK_LENGTH * 3];
+		return this;
 	}
 
 	@Override
-	public void update(byte input)
+	public Digest update(byte input)
 	{
 		buffer[bufferLen] = input;
 		if (++bufferLen == BLOCK_LENGTH) {
 			processBuffer();
 		}
+		return this;
 	}
 
 	@Override
-	public void update(byte[] input, int off, int len)
+	public Digest update(byte[] input, int off, int len)
 	{
 		while (len > 0) {
 			int cpLen = Math.min(BLOCK_LENGTH - bufferLen, len);
@@ -132,6 +134,7 @@ final class MD2 extends AbstractDigest
 				processBuffer();
 			}
 		}
+		return this;
 	}
 
 	@Override

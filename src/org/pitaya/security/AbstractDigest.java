@@ -45,9 +45,9 @@ abstract class AbstractDigest implements Digest
 	}
 
 	@Override
-	public void update(byte... input)
+	public Digest update(byte... input)
 	{
-		update(input, 0, input.length);
+		return update(input, 0, input.length);
 	}
 
 	@Override

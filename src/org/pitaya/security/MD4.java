@@ -51,7 +51,7 @@ final class MD4 extends AbstractDigest
 	}
 
 	@Override
-	public void reset()
+	public Digest reset()
 	{
 		counter = 0L;
 		value[0] = 0x67452301;
@@ -59,19 +59,21 @@ final class MD4 extends AbstractDigest
 		value[2] = 0x98BADCFE;
 		value[3] = 0x10325476;
 		bufferLen = 0;
+		return this;
 	}
 
 	@Override
-	public void update(byte input)
+	public Digest update(byte input)
 	{
 		buffer[bufferLen] = input;
 		if (++bufferLen == BLOCK_LENGTH) {
 			processBuffer();
 		}
+		return this;
 	}
 
 	@Override
-	public void update(byte[] input, int off, int len)
+	public Digest update(byte[] input, int off, int len)
 	{
 		while (len > 0) {
 			int cpLen = Math.min(BLOCK_LENGTH - bufferLen, len);
@@ -83,6 +85,7 @@ final class MD4 extends AbstractDigest
 				processBuffer();
 			}
 		}
+		return this;
 	}
 
 	@Override

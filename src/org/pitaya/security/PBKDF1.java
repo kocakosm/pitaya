@@ -60,8 +60,7 @@ final class PBKDF1 implements KDF
 	public byte[] deriveKey(byte[] secret, byte[] salt)
 	{
 		Digest digest = Factory.getDigest(algorithm);
-		digest.update(secret);
-		byte[] hash = digest.digest(salt);
+		byte[] hash = digest.update(secret).digest(salt);
 		for (int i = 1; i < iterationCount; i++) {
 			hash = digest.digest(hash);
 		}
