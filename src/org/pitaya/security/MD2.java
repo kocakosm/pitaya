@@ -83,7 +83,7 @@ final class MD2 extends AbstractDigest
 	};
 
 	/** Input buffer. */
-	private byte[] buffer;
+	private final byte[] buffer;
 
 	/** Current checksum. */
 	private byte[] checksum;

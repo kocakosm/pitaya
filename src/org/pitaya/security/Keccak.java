@@ -120,11 +120,11 @@ final class Keccak extends AbstractDigest
 
 	private void addPadding()
 	{
-		if ((bufferLen + 1) == buffer.length) {
+		if (bufferLen + 1 == buffer.length) {
 			buffer[bufferLen] = (byte) 0x81;
 		} else {
 			buffer[bufferLen] = (byte) 0x01;
-			for (int i = bufferLen + 1; i < (buffer.length - 1); i++) {
+			for (int i = bufferLen + 1; i < buffer.length - 1; i++) {
 				buffer[i] = 0;
 			}
 			buffer[buffer.length - 1] = (byte) 0x80;
@@ -151,20 +151,20 @@ final class Keccak extends AbstractDigest
 			}
 			for (int x = 0; x < 5; x++) {
 				D[x] = C[index(x - 1)] ^ Bits.rotateLeft(C[index(x + 1)], 1);
-			}
-			for (int x = 0; x < 5; x++) {
 				for (int y = 0; y < 5; y++) {
 					A[index(x, y)] ^= D[x];
 				}
 			}
 			for (int x = 0; x < 5; x++) {
 				for (int y = 0; y < 5; y++) {
-					B[index(y, x * 2 + 3 * y)] = Bits.rotateLeft(A[index(x, y)], R[index(x, y)]);
+					int i = index(x, y);
+					B[index(y, x * 2 + 3 * y)] = Bits.rotateLeft(A[i], R[i]);
 				}
 			}
 			for (int x = 0; x < 5; x++) {
 				for (int y = 0; y < 5; y++) {
-					A[index(x, y)] = B[index(x, y)] ^ (~B[index(x + 1, y)] & B[index(x + 2, y)]);
+					int i = index(x, y);
+					A[i] = B[i] ^ (~B[index(x + 1, y)] & B[index(x + 2, y)]);
 				}
 			}
 			A[0] ^= RC[n];
@@ -173,10 +173,7 @@ final class Keccak extends AbstractDigest
 
 	private int index(int x)
 	{
-		while (x < 0) {
-			x += 5;
-		}
-		return (x % 5);
+		return x < 0 ? index(x + 5) : x % 5;
 	}
 
 	private int index(int x, int y)

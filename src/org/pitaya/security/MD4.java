@@ -33,10 +33,10 @@ final class MD4 extends AbstractDigest
 	private long counter;
 
 	/** Current digest value (4 32-bit words). */
-	private int[] value;
+	private final int[] value;
 
 	/** Input buffer (16 32-bit words). */
-	private byte[] buffer;
+	private final byte[] buffer;
 
 	/** Number of bytes in the input buffer. */
 	private int bufferLen;
