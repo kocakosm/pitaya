@@ -54,8 +54,7 @@ final class HKDF implements KDF
 		Parameters.checkCondition(dkLen <= 255 * mac.length());
 		this.algorithm = algorithm;
 		this.dkLen = dkLen;
-		this.info = info == null ? 
-			new byte[0] : Arrays.copyOf(info, info.length);
+		this.info = info == null ? new byte[0] : Arrays.copyOf(info, info.length);
 	}
 
 	@Override
@@ -85,10 +84,7 @@ final class HKDF implements KDF
 		int n = (int) Math.ceil((double) dkLen / mac.length());
 		byte[] u = new byte[0];
 		for (int i = 1; i <= n; i++) {
-			mac.update(u);
-			mac.update(info);
-			mac.update((byte) i);
-			u = mac.mac();
+			u = mac.update(u).update(info).mac((byte) i);
 			t.append(u);
 		}
 		return t.toByteArray(0, dkLen);

@@ -196,30 +196,34 @@ public final class HMAC
 		}
 
 		@Override
-		public void reset()
+		public MAC reset()
 		{
 			digest.reset();
 			for (byte b : key) {
 				digest.update((byte) ((b & 0xFF) ^ 0x36));
 			}
+			return this;
 		}
 
 		@Override
-		public void update(byte input)
+		public MAC update(byte input)
 		{
 			digest.update(input);
+			return this;
 		}
 
 		@Override
-		public void update(byte... input)
+		public MAC update(byte... input)
 		{
 			digest.update(input);
+			return this;
 		}
 
 		@Override
-		public void update(byte[] input, int off, int len)
+		public MAC update(byte[] input, int off, int len)
 		{
 			digest.update(input, off, len);
+			return this;
 		}
 
 		@Override
