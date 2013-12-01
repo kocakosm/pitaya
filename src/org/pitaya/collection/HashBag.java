@@ -16,8 +16,6 @@
 
 package org.pitaya.collection;
 
-import org.pitaya.util.Iterables;
-import org.pitaya.util.Iterators;
 import org.pitaya.util.Parameters;
 
 import java.util.ArrayList;
