@@ -55,6 +55,9 @@ public final class Iterables
 	 * @param iterables the iterables to concatenate.
 	 *
 	 * @return the concatenated iterable.
+	 * 
+	 * @throws NullPointerException if {@code iterables} is {@code null} or
+	 *	if it contains a {@code null} reference.
 	 */
 	public static <T> Iterable<T> concat(Iterable<? extends T>... iterables)
 	{
@@ -71,6 +74,9 @@ public final class Iterables
 	 * @param iterables the iterables to concatenate.
 	 *
 	 * @return the concatenated iterable.
+	 * 
+	 * @throws NullPointerException if {@code iterables} is {@code null} or
+	 *	if it contains a {@code null} reference.
 	 */
 	public static <T> Iterable<T> concat(Iterable<? extends Iterable<? extends T>> iterables)
 	{

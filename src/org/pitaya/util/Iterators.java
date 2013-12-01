@@ -56,6 +56,9 @@ public final class Iterators
 	 * @param iterators the iterators to concatenate.
 	 * 
 	 * @return the concatenated iterator.
+	 * 
+	 * @throws NullPointerException if {@code iterators} is {@code null} or
+	 *	if it contains a {@code null} reference.
 	 */
 	public static <E> Iterator<E> concat(Iterator<? extends E>... iterators)
 	{
@@ -72,6 +75,9 @@ public final class Iterators
 	 * @param iterators the iterators to concatenate.
 	 * 
 	 * @return the concatenated iterator.
+	 * 
+	 * @throws NullPointerException if {@code iterators} is {@code null} or
+	 *	if it contains a {@code null} reference.
 	 */
 	public static <E> Iterator<E> concat(Iterable<? extends Iterator<? extends E>> iterators)
 	{
