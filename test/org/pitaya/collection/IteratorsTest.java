@@ -16,6 +16,7 @@
 
 package org.pitaya.collection;
 
+import static org.pitaya.collection.Iterators.*;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
@@ -36,19 +37,19 @@ public final class IteratorsTest
 	@Test
 	public void testEmptyIteratorHasNext()
 	{
-		assertFalse(Iterators.emptyIterator().hasNext());
+		assertFalse(emptyIterator().hasNext());
 	}
 
 	@Test(expected = NoSuchElementException.class)
 	public void testEmptyIteratorNext()
 	{
-		Iterators.emptyIterator().next();
+		emptyIterator().next();
 	}
 
 	@Test(expected = IllegalStateException.class)
 	public void testEmptyIteratorRemove()
 	{
-		Iterators.emptyIterator().remove();
+		emptyIterator().remove();
 	}
 
 	@Test
@@ -60,11 +61,19 @@ public final class IteratorsTest
 		Iterator<String> i4 = Arrays.asList("!").iterator();
 
 		List<String> result = new ArrayList<String>();
-		Iterator<String> concat = Iterators.concat(i1, i2, i3, i4);
+		Iterator<String> concat = concat(i1, i2, i3, i4);
 		while (concat.hasNext()) {
 			result.add(concat.next());
 		}
 
 		assertEquals(Arrays.asList("Hello", " ", "World", "!"), result);
+	}
+
+	@Test
+	public void testConcatEmptyIterators()
+	{
+		assertFalse(concat(emptyIterator(), emptyIterator()).hasNext());
+		assertFalse(concat(new ArrayList<Iterator<Long>>()).hasNext());
+		assertFalse(concat().hasNext());
 	}
 }

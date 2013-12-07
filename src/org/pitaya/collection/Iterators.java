@@ -123,7 +123,8 @@ public final class Iterators
 		@Override
 		public boolean hasNext()
 		{
-			return current().hasNext() || nextIterator();
+			return (!finished() && current().hasNext()) 
+				|| (nextIterator() && hasNext());
 		}
 
 		@Override
