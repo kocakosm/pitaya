@@ -19,7 +19,7 @@ package org.pitaya.collection;
 import java.util.Collection;
 
 /**
- * A collection that supports order-independent equality, like {@link  Set}, but
+ * A collection that supports order-independent equality, like {@link Set}, but
  * may have duplicate elements.
  *
  * @param <E> the type of the elements in the bag.

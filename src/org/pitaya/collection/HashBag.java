@@ -28,7 +28,7 @@ import java.util.Map;
 
 /**
  * {@link Bag} implementation based on {@link HashMap}. This implementation 
- * accepts {@code null} elements.
+ * accepts {@code null} elements. Instances of this class are not thread-safe.
  *
  * @param <E> the type of the elements in the bag.
  *
@@ -41,7 +41,7 @@ public final class HashBag<E> extends AbstractBag<E>
 	/** Creates a new empty {@code HashBag}. */
 	public HashBag()
 	{
-		this(5);
+		this(10);
 	}
 
 	/**
@@ -68,7 +68,7 @@ public final class HashBag<E> extends AbstractBag<E>
 	public HashBag(Collection<? extends E> c)
 	{
 		this(c.size());
-		addAll((Iterable<? extends E>) c);
+		addAll(c);
 	}
 
 	/**
@@ -82,7 +82,9 @@ public final class HashBag<E> extends AbstractBag<E>
 	public HashBag(Iterable<? extends E> i)
 	{
 		this();
-		addAll(i);
+		for (E e : i) {
+			add(e);
+		}
 	}
 
 	/**
@@ -107,9 +109,6 @@ public final class HashBag<E> extends AbstractBag<E>
 	@Override
 	public Iterator<E> iterator()
 	{
-		if (isEmpty()) {
-			return Iterators.emptyIterator();
-		}
 		return Iterables.concat(entries.values()).iterator();
 	}
 
@@ -121,13 +120,6 @@ public final class HashBag<E> extends AbstractBag<E>
 			size += value.size();
 		}
 		return size;
-	}
-
-	private void addAll(Iterable<? extends E> c)
-	{
-		for (E e : c) {
-			getEntry(e).add(e);
-		}
 	}
 
 	private List<E> getEntry(E e)
