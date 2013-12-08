@@ -74,7 +74,7 @@ public final class HashBagTest
 	public void testAddAll()
 	{
 		Bag<String> bag = new HashBag<String>();
-		bag.addAll(Arrays.asList("Hello", "World"));
+		assertTrue(bag.addAll(Arrays.asList("Hello", "World")));
 		assertTrue(bag.contains("Hello"));
 		assertTrue(bag.contains("World"));
 	}
@@ -121,7 +121,7 @@ public final class HashBagTest
 	public void testIterator()
 	{
 		assertFalse(new HashBag<Integer>().iterator().hasNext());
-		Bag<Long> bag = new HashBag<Long>(Arrays.asList(1L, 2L, 1L, 2L, 3L));
+		Bag<Long> bag = new HashBag<Long>(1L, 2L, 1L, 2L, 3L);
 		List<Long> result = new ArrayList<Long>();
 		Iterator<Long> iterator = bag.iterator();
 		while (iterator.hasNext()) {
@@ -133,20 +133,22 @@ public final class HashBagTest
 	@Test
 	public void testRemove()
 	{
-		Bag<Long> bag = new HashBag<Long>(Arrays.asList(1L, 2L, 1L));
-		bag.remove(1L);
+		Bag<Long> bag = new HashBag<Long>(1L, 2L, 1L);
+		assertFalse(bag.remove(5L));
+		assertTrue(bag.remove(1L));
 		assertTrue(bag.contains(1L));
-		bag.remove(1L);
+		assertTrue(bag.remove(1L));
 		assertFalse(bag.contains(1L));
-		bag.remove(2L);
+		assertTrue(bag.remove(2L));
 		assertFalse(bag.contains(2L));
 	}
 
 	@Test
 	public void testRemoveAll()
 	{
-		Bag<Long> bag = new HashBag<Long>(Arrays.asList(1L, 2L, 1L, 3L));
-		bag.removeAll(Arrays.asList(1L, 2L, 5L));
+		assertFalse(new HashBag<Long>(1L, 5L, 1L).removeAll(Arrays.asList(2L)));
+		Bag<Long> bag = new HashBag<Long>(1L, 2L, 1L, 3L);
+		assertTrue(bag.removeAll(Arrays.asList(1L, 2L, 5L)));
 		assertFalse(bag.contains(1L));
 		assertFalse(bag.contains(2L));
 		assertTrue(bag.contains(3L));
@@ -155,8 +157,9 @@ public final class HashBagTest
 	@Test
 	public void testRetainAll()
 	{
-		Bag<Long> bag = new HashBag<Long>(Arrays.asList(1L, 2L, 1L, 3L));
-		bag.retainAll(Arrays.asList(2L));
+		assertFalse(new HashBag<Long>(2L, 2L).retainAll(Arrays.asList(2L)));
+		Bag<Long> bag = new HashBag<Long>(1L, 2L, 1L, 3L);
+		assertTrue(bag.retainAll(Arrays.asList(2L)));
 		assertTrue(bag.contains(2L));
 		assertFalse(bag.contains(1L));
 		assertFalse(bag.contains(3L));
@@ -181,7 +184,7 @@ public final class HashBagTest
 	public void testToArray()
 	{
 		assertEquals(0, new HashBag<String>().toArray().length);
-		String[] in = new String[] {"Hello", "World"};
+		String[] in = new String[]{"Hello", "World"};
 		String[] out = new HashBag<String>(in).toArray(new String[0]);
 		Arrays.sort(out);
 		assertArrayEquals(in, out);

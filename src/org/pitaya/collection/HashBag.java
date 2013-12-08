@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * {@link Bag} implementation based on {@link HashMap}. This implementation 
+ * {@link Bag} implementation based on {@link HashMap}. This implementation
  * accepts {@code null} elements. Instances of this class are not thread-safe.
  *
  * @param <E> the type of the elements in the bag.
@@ -46,9 +46,9 @@ public final class HashBag<E> extends AbstractBag<E>
 
 	/**
 	 * Creates a new empty {@code HashBag} having the given initial capacity.
-	 * 
+	 *
 	 * @param initialCapacity the bag's initial capacity.
-	 * 
+	 *
 	 * @throws IllegalArgumentException if {@code initialCapacity < 0}.
 	 */
 	public HashBag(int initialCapacity)
@@ -58,11 +58,11 @@ public final class HashBag<E> extends AbstractBag<E>
 	}
 
 	/**
-	 * Creates a new {@code HashBag} using the elements contained in the 
+	 * Creates a new {@code HashBag} using the elements contained in the
 	 * given {@link Collection}.
-	 * 
+	 *
 	 * @param c the collection to use to populate the created bag.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code c} is {@code null}.
 	 */
 	public HashBag(Collection<? extends E> c)
@@ -72,11 +72,11 @@ public final class HashBag<E> extends AbstractBag<E>
 	}
 
 	/**
-	 * Creates a new {@code HashBag} using the elements contained in the 
+	 * Creates a new {@code HashBag} using the elements contained in the
 	 * given {@link Iterable}.
-	 * 
+	 *
 	 * @param i the iterable to use to populate the created bag.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code i} is {@code null}.
 	 */
 	public HashBag(Iterable<? extends E> i)
@@ -88,11 +88,11 @@ public final class HashBag<E> extends AbstractBag<E>
 	}
 
 	/**
-	 * Creates a new {@code HashBag} using the elements contained in the 
+	 * Creates a new {@code HashBag} using the elements contained in the
 	 * given array.
-	 * 
+	 *
 	 * @param elements the elements to use to populate the created bag.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code elements} is {@code null}.
 	 */
 	public HashBag(E... elements)
@@ -103,13 +103,55 @@ public final class HashBag<E> extends AbstractBag<E>
 	@Override
 	public boolean add(E e)
 	{
-		return getEntry(e).add(e);
+		List<E> entry = entries.get(e);
+		if (entry == null) {
+			entry = new ArrayList<E>();
+			entries.put(e, entry);
+		}
+		return entry.add(e);
+	}
+
+	@Override
+	public void clear()
+	{
+		entries.clear();
+	}
+
+	@Override
+	public boolean contains(Object o)
+	{
+		List<E> entry = entries.get(o);
+		return entry == null ? false : !entry.isEmpty();
+	}
+
+	@Override
+	public int count(E e)
+	{
+		List<E> entry = entries.get(e);
+		return entry == null ? 0 : entry.size();
 	}
 
 	@Override
 	public Iterator<E> iterator()
 	{
 		return Iterables.concat(entries.values()).iterator();
+	}
+
+	@Override
+	public boolean remove(Object o)
+	{
+		List<E> entry = entries.get(o);
+		return entry == null ? false : entry.remove(o);
+	}
+
+	@Override
+	public boolean removeAll(Collection<?> c)
+	{
+		boolean removed = false;
+		for (Object o : c) {
+			removed |= entries.remove(o) != null;
+		}
+		return removed;
 	}
 
 	@Override
@@ -120,15 +162,5 @@ public final class HashBag<E> extends AbstractBag<E>
 			size += value.size();
 		}
 		return size;
-	}
-
-	private List<E> getEntry(E e)
-	{
-		List<E> entry = entries.get(e);
-		if (entry == null) {
-			entry = new ArrayList<E>();
-			entries.put(e, entry);
-		}
-		return entry;
 	}
 }
