@@ -140,6 +140,7 @@ public final class ConcurrentHashBagTest
 	public void testIsEmpty()
 	{
 		assertTrue(new ConcurrentHashBag<Integer>().isEmpty());
+		assertFalse(new HashBag<String>("Hello").isEmpty());
 	}
 
 	@Test
@@ -231,5 +232,12 @@ public final class ConcurrentHashBagTest
 		assertTrue(bag3.equals(bag1));
 		assertTrue(bag1.hashCode() == bag2.hashCode());
 		assertTrue(bag2.hashCode() == bag3.hashCode());
+
+		bag2.add(3);
+		assertFalse(bag1.equals(bag2));
+		assertFalse(bag2.equals(bag1));
+
+		bag2 = null;
+		assertFalse(bag1.equals(bag2));
 	}
 }

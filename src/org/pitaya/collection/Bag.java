@@ -24,8 +24,11 @@ import java.util.Collection;
  *
  * @param <E> the type of the elements in the bag.
  * 
+ * @see Collection
  * @see AbstractBag
  * @see HashBag
+ * @see ConcurrentHashBag
+ * @see Bags
  *
  * @author Osman KOCAK
  */

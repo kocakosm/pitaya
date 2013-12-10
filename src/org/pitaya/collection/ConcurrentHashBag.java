@@ -151,7 +151,7 @@ public final class ConcurrentHashBag<E> extends AbstractBag<E>
 	public boolean contains(Object o)
 	{
 		List<E> entry = entries.get(o);
-		return entry == null ? false : entry.contains(o);
+		return entry == null ? false : !entry.isEmpty();
 	}
 
 	@Override
