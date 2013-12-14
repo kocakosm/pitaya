@@ -48,6 +48,13 @@ public final class EmptyBagTest
 	}
 
 	@Test
+	public void testContains()
+	{
+		assertFalse(Bags.emptyBag().contains("Hello"));
+		assertFalse(Bags.emptyBag().contains(null));
+	}
+
+	@Test
 	public void testContainsAll()
 	{
 		assertFalse(Bags.emptyBag().containsAll(Arrays.asList("Hello")));

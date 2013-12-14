@@ -114,6 +114,15 @@ public final class ConcurrentHashBagTest
 	}
 
 	@Test
+	public void testContains()
+	{
+		Bag<String> bag = new ConcurrentHashBag<String>("Hello", "World");
+		assertTrue(bag.contains("Hello"));
+		assertTrue(bag.contains("World"));
+		assertFalse(bag.contains("Bye"));
+	}
+
+	@Test
 	public void testContainsAll()
 	{
 		Bag<String> bag = new ConcurrentHashBag<String>("Hello", "World");

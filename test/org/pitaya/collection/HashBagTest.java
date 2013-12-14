@@ -89,6 +89,21 @@ public final class HashBagTest
 	}
 
 	@Test
+	public void testContains()
+	{
+		Bag<String> bag = new HashBag<String>("Hello", "World");
+		assertTrue(bag.contains("Hello"));
+		assertTrue(bag.contains("World"));
+		assertFalse(bag.contains("Bye"));
+		assertFalse(bag.contains(null));
+
+		bag = new HashBag<String>("271", null);
+		assertTrue(bag.contains("271"));
+		assertFalse(bag.contains("Hello"));
+		assertTrue(bag.contains(null));
+	}
+
+	@Test
 	public void testContainsAll()
 	{
 		Bag<String> bag = new HashBag<String>("Hello", "World");
