@@ -21,8 +21,12 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 import org.junit.Test;
 
@@ -73,5 +77,85 @@ public final class IterablesTest
 		assertFalse(concat(emptyIterable(), emptyIterable()).iterator().hasNext());
 		assertFalse(concat(new ArrayList<Iterable<Long>>()).iterator().hasNext());
 		assertFalse(concat().iterator().hasNext());
+	}
+
+	@Test
+	public void testCycle()
+	{
+		List<Long> result = new ArrayList<Long>();
+		for (Long n : cycle(1L, 2L, 3L)) {
+			result.add(n);
+			if (result.size() >= 9) {
+				break;
+			}
+		}
+		assertEquals(Arrays.asList(1L, 2L, 3L, 1L, 2L, 3L, 1L, 2L, 3L), result);
+
+		Iterator<Long> iterator = cycle(Arrays.asList(1L, 2L, 3L)).iterator();
+		result = new ArrayList<Long>();
+		while (iterator.hasNext()) {
+			result.add(iterator.next());
+			iterator.remove();
+		}
+		assertEquals(Arrays.asList(1L, 2L, 3L), result);
+	}
+
+	@Test
+	public void testLimit()
+	{
+		List<Long> result = new ArrayList<Long>();
+		for (Long n : limit(Arrays.asList(1L, 2L, 3L, 4L), 3)) {
+			result.add(n);
+		}
+		assertEquals(Arrays.asList(1L, 2L, 3L), result);
+	}
+
+	@Test
+	public void testSkip()
+	{
+		List<Long> result = new ArrayList<Long>();
+		for (Long n : skip(Arrays.asList(0L, 1L, 2L, 3L, 4L, 5L), 3)) {
+			result.add(n);
+		}
+		assertEquals(Arrays.asList(3L, 4L, 5L), result);
+		assertFalse(skip(Arrays.asList(1L, 2L, 3L), 10).iterator().hasNext());
+	}
+
+	@Test
+	public void testToList()
+	{
+		assertEquals(Arrays.asList(1L, 2L, 3L), toList(Arrays.asList(1L, 2L, 3L)));
+		assertEquals(Collections.emptyList(), toList(Collections.emptyList()));
+	}
+
+	@Test
+	public void testToSet()
+	{
+		assertEquals(set(1L, 2L, 3L), toSet(Arrays.asList(1L, 2L, 3L)));
+		assertEquals(Collections.emptySet(), toSet(Collections.emptyList()));
+	}
+
+	@Test
+	public void testToBag()
+	{
+		assertEquals(bag(3L, 2L, 1L), toBag(Arrays.asList(1L, 2L, 3L)));
+		assertEquals(Bags.emptyBag(), toBag(Collections.emptyList()));
+	}
+
+	@Test
+	public void testToString()
+	{
+		assertEquals("[]", Iterables.toString(Collections.emptyList()));
+		assertEquals("[1, 2, 3]", Iterables.toString(Arrays.asList(1L, 2L, 3L)));
+	}
+
+	private <E> Set<E> set(E... elements)
+	{
+		return new HashSet<E>(Arrays.asList(elements));
+	}
+
+	private <E> Bag<E> bag(E... elements)
+	{
+		return new HashBag<E>(elements);
 	}
 }
