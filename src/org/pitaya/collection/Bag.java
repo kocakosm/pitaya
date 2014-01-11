@@ -17,6 +17,7 @@
 package org.pitaya.collection;
 
 import java.util.Collection;
+import java.util.Set;
 
 /**
  * A collection that supports order-independent equality, like {@link Set}, but

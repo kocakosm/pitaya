@@ -29,7 +29,7 @@ import java.util.Iterator;
 public final class Bags
 {
 	/** The empty bag. */
-	private static final Bag EMPTY_BAG = new EmptyBag();
+	public static final Bag EMPTY_BAG = new EmptyBag();
 
 	/**
 	 * Returns the empty {@link Bag} for a particular type (type-safe). Note
