@@ -49,5 +49,7 @@ public final class PasswordsTest
 	{
 		byte[] hash = Passwords.hash("password");
 		assertFalse(Passwords.verify("Password", hash));
+
+		assertFalse(Passwords.verify("Password", new byte[0]));
 	}
 }

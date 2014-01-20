@@ -28,6 +28,7 @@ import java.util.Arrays;
  * strength of the underlying hash function, the size of its hash output length
  * in bits, and on the size and quality of the cryptographic key, so, some of
  * these HMAC engines may not be suitable for security related applications.
+ * Also, note that instances returned by this class are not thread-safe.
  *
  * @author Osman KOCAK
  */

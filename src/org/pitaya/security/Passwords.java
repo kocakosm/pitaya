@@ -21,6 +21,7 @@ import org.pitaya.util.ByteBuffer;
 import org.pitaya.util.Strings;
 
 import java.security.SecureRandom;
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -55,8 +56,8 @@ public final class Passwords
 	}
 
 	/**
-	 * Hashes the given password (using {@link SCrypt}). Hashing parameters
-	 * are appended to the result before being returned.
+	 * Hashes the given password (using {@linkplain KDFs#scrypt SCrypt}). 
+	 * Hashing parameters are appended to the returned result.
 	 *
 	 * @param password the password to hash.
 	 *
@@ -81,21 +82,21 @@ public final class Passwords
 	 */
 	public static boolean verify(String password, byte[] hash)
 	{
-		if (hash.length != HASH_LENGTH + SALT_LENGTH + 3) {
-			return false;
-		}
-		int n = 1 << (hash[HASH_LENGTH + SALT_LENGTH] & 0xFF);
-		int r = hash[HASH_LENGTH + SALT_LENGTH + 1] & 0xFF;
-		int p = hash[HASH_LENGTH + SALT_LENGTH + 2] & 0xFF;
-		if (n > N || r > R || p > P) {
-			return false;
+		byte[] h = Arrays.copyOf(hash, HASH_LENGTH + SALT_LENGTH + 3);
+		int n = 1 << (h[HASH_LENGTH + SALT_LENGTH] & 0xFF);
+		int r = h[HASH_LENGTH + SALT_LENGTH + 1] & 0xFF;
+		int p = h[HASH_LENGTH + SALT_LENGTH + 2] & 0xFF;
+		if (n > N || n == 0 || r > R || r == 0 || p > P || p == 0) {
+			n = N;
+			r = R;
+			p = P;
 		}
 		byte[] salt = new byte[SALT_LENGTH];
-		System.arraycopy(hash, HASH_LENGTH, salt, 0, SALT_LENGTH);
+		System.arraycopy(h, HASH_LENGTH, salt, 0, SALT_LENGTH);
 		byte[] expected = hash(password, salt, r, n, p);
 		int result = 0;
-		for (int i = 0; i < hash.length; i++) {
-			result |= hash[i] ^ expected[i];
+		for (int i = 0; i < h.length; i++) {
+			result |= h[i] ^ expected[i];
 		}
 		return result == 0;
 	}

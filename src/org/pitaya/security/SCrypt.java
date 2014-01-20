@@ -66,14 +66,14 @@ final class SCrypt implements KDF
 	@Override
 	public byte[] deriveKey(byte[] secret, byte[] salt)
 	{
-		KDF pbkdf = KDFs.pbkdf2(Algorithm.HMAC_SHA256, 1, p * 128 * r);
-		byte[] b = pbkdf.deriveKey(secret, salt);
+		KDF pbkdf2 = KDFs.pbkdf2(Algorithm.HMAC_SHA256, 1, p * 128 * r);
+		byte[] b = pbkdf2.deriveKey(secret, salt);
 		ByteBuffer buffer = new ByteBuffer(p * 128 * r);
 		for (int i = 0; i < p; i++) {
 			buffer.append(roMix(slice(b, i * 128 * r, 128 * r)));
 		}
-		pbkdf = KDFs.pbkdf2(Algorithm.HMAC_SHA256, 1, dkLen);
-		return pbkdf.deriveKey(secret, buffer.toByteArray());
+		pbkdf2 = KDFs.pbkdf2(Algorithm.HMAC_SHA256, 1, dkLen);
+		return pbkdf2.deriveKey(secret, buffer.toByteArray());
 	}
 
 	@Override
@@ -93,8 +93,9 @@ final class SCrypt implements KDF
 			v.append(x);
 			x = blockMix(x);
 		}
+		int offset = (2 * r - 1) * 64;
 		for (int i = 0; i < n; i++) {
-			int j = LittleEndian.decodeInt(x, (2 * r - 1) * 64) & (n - 1);
+			int j = LittleEndian.decodeInt(x, offset) & (n - 1);
 			x = blockMix(xor(x, v.toByteArray(j * len, len)));
 		}
 		return x;
@@ -162,7 +163,7 @@ final class SCrypt implements KDF
 			x[15] ^= Bits.rotateLeft(x[14] + x[13], 18);
 		}
 		byte[] out = new byte[64];
-		for (int i = 0; i < 16; ++i) {
+		for (int i = 0; i < 16; i++) {
 			LittleEndian.encode(x[i] + in[i], out, i * 4);
 		}
 		return out;
