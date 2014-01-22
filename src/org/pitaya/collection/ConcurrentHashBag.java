@@ -36,7 +36,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public final class ConcurrentHashBag<E> extends AbstractBag<E>
 {
 	private final ConcurrentHashMap<E, CopyOnWriteArrayList<E>> entries;
-	private final Object lock;
 
 	/** Creates a new empty {@code ConcurrentHashBag}. */
 	public ConcurrentHashBag()
@@ -56,7 +55,6 @@ public final class ConcurrentHashBag<E> extends AbstractBag<E>
 	{
 		Parameters.checkCondition(initialCapacity >= 0);
 		this.entries = new ConcurrentHashMap<E, CopyOnWriteArrayList<E>>(initialCapacity);
-		this.lock = new Object();
 	}
 
 	/**
@@ -65,7 +63,8 @@ public final class ConcurrentHashBag<E> extends AbstractBag<E>
 	 *
 	 * @param c the collection to use to populate the created bag.
 	 *
-	 * @throws NullPointerException if {@code c} is {@code null}.
+	 * @throws NullPointerException if {@code c} is {@code null} or if it 
+	 *	contains a {@code null} reference.
 	 */
 	public ConcurrentHashBag(Collection<? extends E> c)
 	{
@@ -79,7 +78,8 @@ public final class ConcurrentHashBag<E> extends AbstractBag<E>
 	 *
 	 * @param i the iterable to use to populate the created bag.
 	 *
-	 * @throws NullPointerException if {@code i} is {@code null}.
+	 * @throws NullPointerException if {@code i} is {@code null} or if it 
+	 *	contains a {@code null} reference.
 	 */
 	public ConcurrentHashBag(Iterable<? extends E> i)
 	{
@@ -95,7 +95,8 @@ public final class ConcurrentHashBag<E> extends AbstractBag<E>
 	 *
 	 * @param elements the elements to use to populate the created bag.
 	 *
-	 * @throws NullPointerException if {@code elements} is {@code null}.
+	 * @throws NullPointerException if {@code elements} is {@code null} or 
+	 *	if it contains a {@code null} reference.
 	 */
 	public ConcurrentHashBag(E... elements)
 	{
@@ -116,7 +117,8 @@ public final class ConcurrentHashBag<E> extends AbstractBag<E>
 	 *
 	 * @return the number of elements added.
 	 *
-	 * @throws NullPointerException if the given collection is {@code null}.
+	 * @throws NullPointerException if the given collection is {@code null}
+	 *	or if it contains a {@code null} reference.
 	 */
 	public int addAllAbsent(Collection<? extends E> c)
 	{
@@ -135,6 +137,8 @@ public final class ConcurrentHashBag<E> extends AbstractBag<E>
 	 * @param e the element to be added to this bag, if absent.
 	 *
 	 * @return {@code true} if the element was added.
+	 * 
+	 * @throws NullPointerException if {@code e} is {@code null}.
 	 */
 	public boolean addIfAbsent(E e)
 	{
@@ -206,9 +210,7 @@ public final class ConcurrentHashBag<E> extends AbstractBag<E>
 
 	private CopyOnWriteArrayList<E> getEntry(E e)
 	{
-		synchronized (lock) {
-			entries.putIfAbsent(e, new CopyOnWriteArrayList<E>());
-			return entries.get(e);
-		}
+		entries.putIfAbsent(e, new CopyOnWriteArrayList<E>());
+		return entries.get(e);
 	}
 }
