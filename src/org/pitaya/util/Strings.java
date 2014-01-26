@@ -302,18 +302,7 @@ public final class Strings
 	 */
 	public static String shuffle(String str, Random rnd)
 	{
-		char[] chars = str.toCharArray();
-		for (int i = chars.length; i > 1; i--) {
-			swap(chars, i - 1, rnd.nextInt(i));
-		}
-		return new String(chars);
-	}
-
-	private static void swap(char[] chars, int i, int j)
-	{
-		char c = chars[i];
-		chars[i] = chars[j];
-		chars[j] = c;
+		return new String(XArrays.shuffle(str.toCharArray(), rnd));
 	}
 
 	/**
