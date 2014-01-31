@@ -61,7 +61,9 @@ public final class Objects
 
 	/**
 	 * Returns {@code true} if the given objects are both {@code null} or if
-	 * they are equal, {@code false} in all other cases.
+	 * they are equal, {@code false} in all other cases. If {@code a} and 
+	 * {@code b} are arrays, they are compared using the appropriate
+	 * {@link Arrays}' {@code equals} method.
 	 *
 	 * @param a the first to object.
 	 * @param b the second to object.
@@ -70,7 +72,51 @@ public final class Objects
 	 */
 	public static boolean equals(Object a, Object b)
 	{
-		return a == null ? b == null : a.equals(b);
+		if (a == b) {
+			return true;
+		}
+		if (a == null || b == null) {
+			return false;
+		}
+		if (a.equals(b)) {
+			return true;
+		}
+		if (a.getClass().isArray() && b.getClass().isArray()) {
+			return arrayEquals(a, b);
+		}
+		return false;
+	}
+
+	private static boolean arrayEquals(Object a, Object b)
+	{
+		if (a instanceof Object[] && b instanceof Object[]) {
+			return Arrays.equals((Object[]) a, (Object[]) b);
+		}
+		if (a instanceof boolean[] && b instanceof boolean[]) {
+			return Arrays.equals((boolean[]) a, (boolean[]) b);
+		}
+		if (a instanceof byte[] && b instanceof byte[]) {
+			return Arrays.equals((byte[]) a, (byte[]) b);
+		}
+		if (a instanceof char[] && b instanceof char[]) {
+			return Arrays.equals((char[]) a, (char[]) b);
+		}
+		if (a instanceof double[] && b instanceof double[]) {
+			return Arrays.equals((double[]) a, (double[]) b);
+		}
+		if (a instanceof float[] && b instanceof float[]) {
+			return Arrays.equals((float[]) a, (float[]) b);
+		}
+		if (a instanceof int[] && b instanceof int[]) {
+			return Arrays.equals((int[]) a, (int[]) b);
+		}
+		if (a instanceof long[] && b instanceof long[]) {
+			return Arrays.equals((long[]) a, (long[]) b);
+		}
+		if (a instanceof short[] && b instanceof short[]) {
+			return Arrays.equals((short[]) a, (short[]) b);
+		}
+		return false;
 	}
 
 	/**
@@ -79,17 +125,24 @@ public final class Objects
 	 * @param objects the {@code Object}s to compute a hash code for.
 	 *
 	 * @return a hash code for the given {@code Object}s.
-	 *
-	 * @throws NullPointerException if {@code objects} is {@code null}.
 	 */
 	public static int hashCode(Object... objects)
 	{
-		return Arrays.hashCode(objects);
+		return objects == null 
+			? 0 : objects.length == 1 
+			? hashCode(objects[0]) : Arrays.hashCode(objects);
+	}
+
+	private static int hashCode(Object object)
+	{
+		return object == null ? 0 : object.hashCode();
 	}
 
 	/**
-	 * Returns the result of the given object's {@code toString()} method if
-	 * it is non-{@code null}, and {@code ""} if it is {@code null}.
+	 * Returns a {@code String} representation of the given object obtained
+	 * by calling its {@link Object#toString()} method if it's a "regular" 
+	 * object or by calling the appropriate {@link Arrays}' {@code toString}
+	 * method if it is an array, returns {@code ""} if it is {@code null}.
 	 * 
 	 * @param o the object to translate into a {@link String}.
 	 *
@@ -97,7 +150,41 @@ public final class Objects
 	 */
 	public static String toString(Object o)
 	{
-		return o == null ? "" : o.toString();
+		return o == null 
+			? "" : o.getClass().isArray() 
+			? arrayToString(o) : o.toString();
+	}
+
+	private static String arrayToString(Object array)
+	{
+		if (array instanceof long[]) {
+			return Arrays.toString((long[]) array);
+		}
+		if (array instanceof int[]) {
+			return Arrays.toString((int[]) array);
+		}
+		if (array instanceof short[]) {
+			return Arrays.toString((short[]) array);
+		}
+		if (array instanceof char[]) {
+			return Arrays.toString((char[]) array);
+		}
+		if (array instanceof byte[]) {
+			return Arrays.toString((byte[]) array);
+		}
+		if (array instanceof boolean[]) {
+			return Arrays.toString((boolean[]) array);
+		}
+		if (array instanceof float[]) {
+			return Arrays.toString((float[]) array);
+		}
+		if (array instanceof double[]) {
+			return Arrays.toString((double[]) array);
+		}
+		if (array instanceof Object[]) {
+			return Arrays.toString((Object[]) array);
+		}
+		return array.toString();
 	}
 
 	/**

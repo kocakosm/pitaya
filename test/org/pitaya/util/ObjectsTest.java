@@ -18,6 +18,8 @@ package org.pitaya.util;
 
 import static org.junit.Assert.*;
 
+import java.util.Arrays;
+
 import org.junit.Test;
 
 /**
@@ -49,6 +51,42 @@ public final class ObjectsTest
 		assertTrue(Objects.equals("Hey", "Hey"));
 		assertFalse(Objects.equals(null, "Hey"));
 		assertFalse(Objects.equals("Hey", null));
+
+		long[] a = new long[] {1, 2, 3};
+		int[] b = new int[] {1, 2, 3};
+		short[] c = new short[] {1, 2, 3};
+		char[] d = new char[] {1, 2, 3};
+		byte[] e = new byte[] {1, 2, 3};
+		boolean[] f = new boolean[] {false, true, false};
+		float[] g = new float[] {1, 2, 3};
+		double[] h = new double[] {1, 2, 3};
+		String[] i = new String[] {"Hey", "Jude"};
+
+		assertTrue(Objects.equals(a, a));
+		assertFalse(Objects.equals(a, b));
+		assertTrue(Objects.equals(b, b));
+		assertFalse(Objects.equals(b, c));
+		assertTrue(Objects.equals(c, c));
+		assertFalse(Objects.equals(c, d));
+		assertTrue(Objects.equals(d, d));
+		assertFalse(Objects.equals(d, e));
+		assertTrue(Objects.equals(e, e));
+		assertFalse(Objects.equals(e, f));
+		assertTrue(Objects.equals(f, f));
+		assertFalse(Objects.equals(f, g));
+		assertTrue(Objects.equals(g, g));
+		assertFalse(Objects.equals(g, h));
+		assertTrue(Objects.equals(h, h));
+		assertFalse(Objects.equals(h, i));
+		assertTrue(Objects.equals(i, i));
+	}
+
+	@Test
+	public void testHashcode()
+	{
+		assertEquals(0, Objects.hashCode((Object) null));
+		int h = Arrays.hashCode(new String[] {"Hey", "Hey"});
+		assertEquals(h, Objects.hashCode("Hey", "Hey"));
 	}
 
 	@Test
@@ -56,6 +94,24 @@ public final class ObjectsTest
 	{
 		assertEquals("", Objects.toString(null));
 		assertEquals("Hey", Objects.toString("Hey"));
+		long[] a = new long[] {1, 2, 3};
+		assertEquals(Arrays.toString(a), Objects.toString(a));
+		int[] b = new int[] {1, 2, 3};
+		assertEquals(Arrays.toString(b), Objects.toString(b));
+		short[] c = new short[] {1, 2, 3};
+		assertEquals(Arrays.toString(c), Objects.toString(c));
+		char[] d = new char[] {1, 2, 3};
+		assertEquals(Arrays.toString(d), Objects.toString(d));
+		byte[] e = new byte[] {1, 2, 3};
+		assertEquals(Arrays.toString(e), Objects.toString(e));
+		boolean[] f = new boolean[] {false, true, false};
+		assertEquals(Arrays.toString(f), Objects.toString(f));
+		float[] g = new float[] {1, 2, 3};
+		assertEquals(Arrays.toString(g), Objects.toString(g));
+		double[] h = new double[] {1, 2, 3};
+		assertEquals(Arrays.toString(h), Objects.toString(h));
+		String[] i = new String[] {"Hey", "Jude"};
+		assertEquals(Arrays.toString(i), Objects.toString(i));
 	}
 
 	@Test
