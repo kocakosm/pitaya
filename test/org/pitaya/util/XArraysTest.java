@@ -33,6 +33,78 @@ public class XArraysTest
 	private static final Random PRNG = new Random();
 
 	@Test
+	public void testLongArrayIsEmptyOrNull()
+	{
+		assertTrue(XArrays.isNullOrEmpty(new long[0]));
+		assertTrue(XArrays.isNullOrEmpty((long[]) null));
+		assertFalse(XArrays.isNullOrEmpty(new long[] {1, 2, 3}));
+	}
+
+	@Test
+	public void testIntArrayIsEmptyOrNull()
+	{
+		assertTrue(XArrays.isNullOrEmpty(new int[0]));
+		assertTrue(XArrays.isNullOrEmpty((int[]) null));
+		assertFalse(XArrays.isNullOrEmpty(new int[] {1, 2, 3}));
+	}
+
+	@Test
+	public void testShortArrayIsEmptyOrNull()
+	{
+		assertTrue(XArrays.isNullOrEmpty(new short[0]));
+		assertTrue(XArrays.isNullOrEmpty((short[]) null));
+		assertFalse(XArrays.isNullOrEmpty(new short[] {1, 2, 3}));
+	}
+
+	@Test
+	public void testCharArrayIsEmptyOrNull()
+	{
+		assertTrue(XArrays.isNullOrEmpty(new char[0]));
+		assertTrue(XArrays.isNullOrEmpty((char[]) null));
+		assertFalse(XArrays.isNullOrEmpty(new char[] {1, 2, 3}));
+	}
+
+	@Test
+	public void testByteArrayIsEmptyOrNull()
+	{
+		assertTrue(XArrays.isNullOrEmpty(new byte[0]));
+		assertTrue(XArrays.isNullOrEmpty((byte[]) null));
+		assertFalse(XArrays.isNullOrEmpty(new byte[] {1, 2, 3}));
+	}
+
+	@Test
+	public void testBooleanArrayIsEmptyOrNull()
+	{
+		assertTrue(XArrays.isNullOrEmpty(new boolean[0]));
+		assertTrue(XArrays.isNullOrEmpty((boolean[]) null));
+		assertFalse(XArrays.isNullOrEmpty(new boolean[] {true, false}));
+	}
+
+	@Test
+	public void testFloatArrayIsEmptyOrNull()
+	{
+		assertTrue(XArrays.isNullOrEmpty(new float[0]));
+		assertTrue(XArrays.isNullOrEmpty((float[]) null));
+		assertFalse(XArrays.isNullOrEmpty(new float[] {1, 2, 3}));
+	}
+
+	@Test
+	public void testDoubleArrayIsEmptyOrNull()
+	{
+		assertTrue(XArrays.isNullOrEmpty(new double[0]));
+		assertTrue(XArrays.isNullOrEmpty((double[]) null));
+		assertFalse(XArrays.isNullOrEmpty(new double[] {1, 2, 3}));
+	}
+
+	@Test
+	public void testObjectArrayIsEmptyOrNull()
+	{
+		assertTrue(XArrays.isNullOrEmpty(new Object[0]));
+		assertTrue(XArrays.isNullOrEmpty((Object[]) null));
+		assertFalse(XArrays.isNullOrEmpty(new Object[] {"1", "2"}));
+	}
+
+	@Test
 	public void testConcatLongArrays()
 	{
 		long[] a = new long[] {1, 2, 3};

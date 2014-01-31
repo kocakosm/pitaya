@@ -31,6 +31,132 @@ public final class XArrays
 	private static final Random PRNG = new Random();
 
 	/**
+	 * Returns whether the given array is {@code null} or {@code empty},
+	 * that is, returns {@code true} if {@code a} is {@code null} or empty 
+	 * and {@code false} otherwise.
+	 * 
+	 * @param a the array to test.
+	 * 
+	 * @return whether the given array is {@code null} or {@code empty}.
+	 */
+	public static boolean isNullOrEmpty(long[] a)
+	{
+		return a == null || a.length == 0;
+	}
+
+	/**
+	 * Returns whether the given array is {@code null} or {@code empty},
+	 * that is, returns {@code true} if {@code a} is {@code null} or empty 
+	 * and {@code false} otherwise.
+	 * 
+	 * @param a the array to test.
+	 * 
+	 * @return whether the given array is {@code null} or {@code empty}.
+	 */
+	public static boolean isNullOrEmpty(int[] a)
+	{
+		return a == null || a.length == 0;
+	}
+
+	/**
+	 * Returns whether the given array is {@code null} or {@code empty},
+	 * that is, returns {@code true} if {@code a} is {@code null} or empty 
+	 * and {@code false} otherwise.
+	 * 
+	 * @param a the array to test.
+	 * 
+	 * @return whether the given array is {@code null} or {@code empty}.
+	 */
+	public static boolean isNullOrEmpty(short[] a)
+	{
+		return a == null || a.length == 0;
+	}
+
+	/**
+	 * Returns whether the given array is {@code null} or {@code empty},
+	 * that is, returns {@code true} if {@code a} is {@code null} or empty 
+	 * and {@code false} otherwise.
+	 * 
+	 * @param a the array to test.
+	 * 
+	 * @return whether the given array is {@code null} or {@code empty}.
+	 */
+	public static boolean isNullOrEmpty(char[] a)
+	{
+		return a == null || a.length == 0;
+	}
+
+	/**
+	 * Returns whether the given array is {@code null} or {@code empty},
+	 * that is, returns {@code true} if {@code a} is {@code null} or empty 
+	 * and {@code false} otherwise.
+	 * 
+	 * @param a the array to test.
+	 * 
+	 * @return whether the given array is {@code null} or {@code empty}.
+	 */
+	public static boolean isNullOrEmpty(byte[] a)
+	{
+		return a == null || a.length == 0;
+	}
+
+	/**
+	 * Returns whether the given array is {@code null} or {@code empty},
+	 * that is, returns {@code true} if {@code a} is {@code null} or empty 
+	 * and {@code false} otherwise.
+	 * 
+	 * @param a the array to test.
+	 * 
+	 * @return whether the given array is {@code null} or {@code empty}.
+	 */
+	public static boolean isNullOrEmpty(boolean[] a)
+	{
+		return a == null || a.length == 0;
+	}
+
+	/**
+	 * Returns whether the given array is {@code null} or {@code empty},
+	 * that is, returns {@code true} if {@code a} is {@code null} or empty 
+	 * and {@code false} otherwise.
+	 * 
+	 * @param a the array to test.
+	 * 
+	 * @return whether the given array is {@code null} or {@code empty}.
+	 */
+	public static boolean isNullOrEmpty(float[] a)
+	{
+		return a == null || a.length == 0;
+	}
+
+	/**
+	 * Returns whether the given array is {@code null} or {@code empty},
+	 * that is, returns {@code true} if {@code a} is {@code null} or empty 
+	 * and {@code false} otherwise.
+	 * 
+	 * @param a the array to test.
+	 * 
+	 * @return whether the given array is {@code null} or {@code empty}.
+	 */
+	public static boolean isNullOrEmpty(double[] a)
+	{
+		return a == null || a.length == 0;
+	}
+
+	/**
+	 * Returns whether the given array is {@code null} or {@code empty},
+	 * that is, returns {@code true} if {@code a} is {@code null} or empty 
+	 * and {@code false} otherwise.
+	 * 
+	 * @param a the array to test.
+	 * 
+	 * @return whether the given array is {@code null} or {@code empty}.
+	 */
+	public static boolean isNullOrEmpty(Object[] a)
+	{
+		return a == null || a.length == 0;
+	}
+
+	/**
 	 * Concatenates the given arrays into a single one.
 	 * 
 	 * @param arrays the arrays to concatenate.
