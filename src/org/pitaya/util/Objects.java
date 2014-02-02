@@ -198,7 +198,7 @@ public final class Objects
 	 */
 	public static ToStringBuilder toStringBuilder(Object self)
 	{
-		return toStringBuilder(prettyName(self));
+		return toStringBuilder(Classes.getShortName(self.getClass()));
 	}
 
 	/**
@@ -740,16 +740,6 @@ public final class Objects
 			}
 			return sb;
 		}
-	}
-
-	private static String prettyName(Object o)
-	{
-		String name = o.getClass().getName();
-		int start = name.lastIndexOf('$');
-		if (start == -1) {
-			start = name.lastIndexOf('.');
-		}
-		return name.substring(start + 1);
 	}
 
 	private Objects()
