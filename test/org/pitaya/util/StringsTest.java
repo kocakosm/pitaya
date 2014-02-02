@@ -219,4 +219,39 @@ public final class StringsTest
 		assertEquals("Hello", padRight("Hello", 5, '.'));
 		assertEquals("Hello.....", padRight("Hello", 10, '.'));
 	}
+
+	@Test
+	public void testQuote()
+	{
+		assertEquals("\"\"", quote(""));
+		assertEquals("\"\"", quote("\"\""));
+		assertEquals("\"Hello\"", quote("Hello\""));
+		assertEquals("\"Hello\"", quote("\"Hello"));
+		assertEquals("\"Hello\"", quote("\"Hello\""));
+		assertEquals("\"Hello\"", quote("\"\"Hello\"\""));
+		assertEquals("\"Hello\"", quote("\"\"Hello\"\"\""));
+	}
+
+	@Test
+	public void testUnquote()
+	{
+		assertEquals("", unquote(""));
+		assertEquals("", unquote("\""));
+		assertEquals("Hello", unquote("Hello\""));
+		assertEquals("Hello", unquote("\"Hello"));
+		assertEquals("Hello", unquote("\"Hello\""));
+		assertEquals("Hello", unquote("\"\"Hello\"\""));
+		assertEquals("Hello", unquote("\"\"Hello\"\"\""));
+	}
+
+	@Test
+	public void testCountOccurences()
+	{
+		assertEquals(0, countOccurrences("", "hello"));
+		assertEquals(0, countOccurrences("hello", ""));
+		assertEquals(0, countOccurrences("acegikmoqsuwy", "ab"));
+		assertEquals(3, countOccurrences("abcegiabmosuab", "ab"));
+		assertEquals(7, countOccurrences("ababababababab", "ab"));
+		assertEquals(1, countOccurrences("hello", "hello"));
+	}
 }

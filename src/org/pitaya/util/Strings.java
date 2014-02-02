@@ -455,19 +455,87 @@ public final class Strings
 	 *
 	 * @return the padded {@link String}.
 	 *
-	 * @throws IllegalArgumentException if {@code len} is negative.
 	 * @throws NullPointerException if {@code str} is {@code null}.
+	 * @throws IllegalArgumentException if {@code len} is negative.
 	 */
 	public static String padRight(String str, int len, char padChar)
 	{
-		Parameters.checkCondition(len >= 0);
 		Parameters.checkNotNull(str);
+		Parameters.checkCondition(len >= 0);
 		StringBuilder sb = new StringBuilder(len);
 		sb.append(str);
 		while (sb.length() < len) {
 			sb.append(padChar);
 		}
 		return sb.toString();
+	}
+
+	/**
+	 * Quotes the given {@code String} with double quotes. If the given 
+	 * {@code String} has multiple quotes, only one of them is kept.
+	 * 
+	 * @param str the {@code String} to quote.
+	 * 
+	 * @return the quoted {@code String}.
+	 * 
+	 * @throws NullPointerException if {@code str} is {@code null}.
+	 */
+	public static String quote(String str)
+	{
+		return new StringBuilder(str.length() + 2)
+			.append("\"").append(unquote(str)).append("\"")
+			.toString();
+	}
+
+	/**
+	 * Unquotes the given {@code String}, that is, this method removes any 
+	 * leading or trailing double quotes. If the given {@code String} is not
+	 * quoted, returns it unmodified.
+	 * 
+	 * @param str the {@code String} to unquote.
+	 * 
+	 * @return the unquoted {@code String}.
+	 * 
+	 * @throws NullPointerException if {@code str} is {@code null}.
+	 */
+	public static String unquote(String str)
+	{
+		String unquoted = str;
+		while (unquoted.startsWith("\"")) {
+			unquoted = unquoted.substring(1);
+		}
+		while (unquoted.endsWith("\"")) {
+			unquoted = unquoted.substring(0, unquoted.length() - 1);
+		}
+		return unquoted;
+	}
+
+	/**
+	 * Counts the occurrences of the substring {@code sub} in {@code s}.
+	 * 
+	 * @param str {@code String} to search in.
+	 * @param sub {@code String} to search for.
+	 * 
+	 * @return the number of occurrences of {@code sub} in {@code s}.
+	 * 
+	 * @throws NullPointerException if one of the arguments is {@code null}.
+	 */
+	public static int countOccurrences(String str, String sub)
+	{
+		Parameters.checkNotNull(str);
+		int n = 0;
+		if (!isEmpty(sub)) {
+			int start = 0;
+			while (true) {
+				start = str.indexOf(sub, start);
+				if (start == -1) {
+					break;
+				}
+				start += sub.length();
+				n++;
+			}
+		}
+		return n;
 	}
 
 	private Strings()
