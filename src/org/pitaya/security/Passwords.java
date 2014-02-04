@@ -34,6 +34,9 @@ public final class Passwords
 	private static final int R = 8;
 	private static final int P = 1;
 	private static final int N = 1 << 14;
+	private static final int R_MIN = 8;
+	private static final int P_MIN = 1;
+	private static final int N_MIN = 1 << 14;
 	private static final int SALT_LENGTH = 16;
 	private static final int HASH_LENGTH = 32;
 	private static final Random PRNG = new SecureRandom();
@@ -86,7 +89,7 @@ public final class Passwords
 		int n = 1 << (h[HASH_LENGTH + SALT_LENGTH] & 0xFF);
 		int r = h[HASH_LENGTH + SALT_LENGTH + 1] & 0xFF;
 		int p = h[HASH_LENGTH + SALT_LENGTH + 2] & 0xFF;
-		if (n > N || n == 0 || r > R || r == 0 || p > P || p == 0) {
+		if (n > N || n < N_MIN || r > R || r < R_MIN || p > P || p < P_MIN) {
 			n = N;
 			r = R;
 			p = P;
@@ -101,8 +104,7 @@ public final class Passwords
 		return result == 0;
 	}
 
-	private static byte[] hash(String password, byte[] salt, int r, int n, 
-		int p)
+	private static byte[] hash(String password, byte[] salt, int r, int n, int p)
 	{
 		KDF scrypt = KDFs.scrypt(r, n, p, HASH_LENGTH);
 		ByteBuffer buf = new ByteBuffer(HASH_LENGTH + SALT_LENGTH + 3);

@@ -71,9 +71,12 @@ public final class ClassesTest
 	}
 
 	@Test
-	public void testFindCommonAncestors()
+	public void testGetCommonSuperTypes()
 	{
-		assertEquals(asSet(A.class, D.class), findCommonAncestors(E.class, I.class));
+		assertEquals(asSet(A.class), getCommonSuperTypes(B.class));
+		assertEquals(asSet(), getCommonSuperTypes(A.class, I.class));
+		assertEquals(asSet(A.class), getCommonSuperTypes(C.class, E.class, I.class));
+		assertEquals(asSet(A.class, D.class), getCommonSuperTypes(E.class, I.class));
 	}
 
 	private <T> Set<T> asSet(T... objects)

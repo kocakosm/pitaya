@@ -39,7 +39,7 @@ public final class PasswordsTest
 	@Test
 	public void testValidPassword()
 	{
-		String password = Passwords.generate();
+		String password = "password";
 		byte[] hash = Passwords.hash(password);
 		assertTrue(Passwords.verify(password, hash));
 	}

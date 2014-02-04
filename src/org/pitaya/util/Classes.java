@@ -21,7 +21,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Utilies for {@code Class}es.
+ * Utilities for {@code Class}es.
  *
  * @author Osman KOCAK
  */
@@ -29,8 +29,9 @@ public final class Classes
 {
 	/**
 	 * Returns the qualified name of the given class (package name followed
-	 * by a dot followed by the class name). For arrays classes, this method
-	 * returns the component type class name followed by "[]".
+	 * by a dot, followed by the class name). For array classes, this method
+	 * returns the component type class name followed by as many "[]" as
+	 * the array's dimension.
 	 *
 	 * @param c the class.
 	 *
@@ -54,7 +55,7 @@ public final class Classes
 
 	/**
 	 * Returns only the name of the given class, that is, without its 
-	 * package name and without its eventual "outer" name.
+	 * package name and without its eventual "outer" class name.
 	 *
 	 * @param c the class.
 	 *
@@ -86,7 +87,7 @@ public final class Classes
 	{
 		String name = c.getName();
 		int i = name.lastIndexOf('.');
-		return (i != -1 ? name.substring(0, i) : "");
+		return i != -1 ? name.substring(0, i) : "";
 	}
 
 	/**
@@ -115,24 +116,25 @@ public final class Classes
 	}
 
 	/**
-	 * Returns the {@code Set} of common ancestors of the given classes, 
-	 * that is, all the classes in which any instance of the given classes 
-	 * can be both cast into.
+	 * Returns the {@code Set} of common super types of the given classes,
+	 * that is, all the classes in which any instance of the given classes
+	 * can be all cast into.
 	 *
-	 * @param c1 the first class.
-	 * @param c2 the other class.
+	 * @param classes the classes.
 	 *
-	 * @return the common ancestors of the given classes.
+	 * @return the common super types of the given classes.
 	 * 
-	 * @throws NullPointerException if {@code c1} or {@code c2} is {@code null}.
+	 * @throws NullPointerException if {@code classes} is {@code null}.
+	 * @throws IllegalArgumentException if {@code classes} is empty.
 	 */
-	public static Set<Class<?>> findCommonAncestors(Class<?> c1, Class<?> c2)
+	public static Set<Class<?>> getCommonSuperTypes(Class<?>... classes)
 	{
-		Set<Class<?>> c1Ancestors = getSuperTypes(c1);
-		Set<Class<?>> c2Ancestors = getSuperTypes(c2);
-		Set<Class<?>> intersection = new HashSet<Class<?>>(c1Ancestors);
-		intersection.retainAll(c2Ancestors);
-		return Collections.unmodifiableSet(intersection);
+		Parameters.checkCondition(classes.length > 0);
+		Set<Class<?>> common = new HashSet<Class<?>>(getSuperTypes(classes[0]));
+		for (int i = 1; i < classes.length; i++) {
+			common.retainAll(getSuperTypes(classes[i]));
+		}
+		return Collections.unmodifiableSet(common);
 	}
 
 	private Classes()
