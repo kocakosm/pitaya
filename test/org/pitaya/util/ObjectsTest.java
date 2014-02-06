@@ -52,33 +52,42 @@ public final class ObjectsTest
 		assertFalse(Objects.equals(null, "Hey"));
 		assertFalse(Objects.equals("Hey", null));
 
-		long[] a = new long[] {1, 2, 3};
-		int[] b = new int[] {1, 2, 3};
-		short[] c = new short[] {1, 2, 3};
-		char[] d = new char[] {1, 2, 3};
-		byte[] e = new byte[] {1, 2, 3};
-		boolean[] f = new boolean[] {false, true, false};
-		float[] g = new float[] {1, 2, 3};
-		double[] h = new double[] {1, 2, 3};
-		String[] i = new String[] {"Hey", "Jude"};
+		long[] a1 = new long[] {1, 2, 3};
+		long[] a2 = new long[] {1, 2, 3};
+		int[] b1 = new int[] {1, 2, 3};
+		int[] b2 = new int[] {1, 2, 3};
+		short[] c1 = new short[] {1, 2, 3};
+		short[] c2 = new short[] {1, 2, 3};
+		char[] d1 = new char[] {1, 2, 3};
+		char[] d2 = new char[] {1, 2, 3};
+		byte[] e1 = new byte[] {1, 2, 3};
+		byte[] e2 = new byte[] {1, 2, 3};
+		boolean[] f1 = new boolean[] {false, true, false};
+		boolean[] f2 = new boolean[] {false, true, false};
+		float[] g1 = new float[] {1, 2, 3};
+		float[] g2 = new float[] {1, 2, 3};
+		double[] h1 = new double[] {1, 2, 3};
+		double[] h2 = new double[] {1, 2, 3};
+		String[] i1 = new String[] {"Hey", "Jude"};
+		String[] i2 = new String[] {"Hey", "Jude"};
 
-		assertTrue(Objects.equals(a, a));
-		assertFalse(Objects.equals(a, b));
-		assertTrue(Objects.equals(b, b));
-		assertFalse(Objects.equals(b, c));
-		assertTrue(Objects.equals(c, c));
-		assertFalse(Objects.equals(c, d));
-		assertTrue(Objects.equals(d, d));
-		assertFalse(Objects.equals(d, e));
-		assertTrue(Objects.equals(e, e));
-		assertFalse(Objects.equals(e, f));
-		assertTrue(Objects.equals(f, f));
-		assertFalse(Objects.equals(f, g));
-		assertTrue(Objects.equals(g, g));
-		assertFalse(Objects.equals(g, h));
-		assertTrue(Objects.equals(h, h));
-		assertFalse(Objects.equals(h, i));
-		assertTrue(Objects.equals(i, i));
+		assertTrue(Objects.equals(a1, a2));
+		assertFalse(Objects.equals(a2, b1));
+		assertTrue(Objects.equals(b1, b2));
+		assertFalse(Objects.equals(b2, c1));
+		assertTrue(Objects.equals(c1, c2));
+		assertFalse(Objects.equals(c2, d1));
+		assertTrue(Objects.equals(d1, d2));
+		assertFalse(Objects.equals(d2, e1));
+		assertTrue(Objects.equals(e1, e2));
+		assertFalse(Objects.equals(e2, f1));
+		assertTrue(Objects.equals(f1, f2));
+		assertFalse(Objects.equals(f2, g1));
+		assertTrue(Objects.equals(g1, g2));
+		assertFalse(Objects.equals(g2, h1));
+		assertTrue(Objects.equals(h1, h2));
+		assertFalse(Objects.equals(h2, i1));
+		assertTrue(Objects.equals(i1, i2));
 	}
 
 	@Test
@@ -92,7 +101,7 @@ public final class ObjectsTest
 	@Test
 	public void testToString()
 	{
-		assertEquals("", Objects.toString(null));
+		assertEquals("null", Objects.toString(null));
 		assertEquals("Hey", Objects.toString("Hey"));
 		long[] a = new long[] {1, 2, 3};
 		assertEquals(Arrays.toString(a), Objects.toString(a));
@@ -115,25 +124,48 @@ public final class ObjectsTest
 	}
 
 	@Test
-	public void testToStringBuilder()
+	public void testToStringWithDefaultValue()
 	{
-		assertEquals("TestClass (values=[0, 1], Hello, World)",
-			new TestClass().toString());
+		assertEquals(null, Objects.toString(null, null));
+		assertEquals("", Objects.toString(null, ""));
+		assertEquals("Hello", Objects.toString("Hello", ""));
 	}
 
-	private static final class TestClass
+	@Test
+	public void testToStringBuilder()
 	{
-		private final int[] values = {0, 1};
-		private final String str1 = "Hello";
-		private final String str2 = "World";
-
-		@Override
-		public String toString()
-		{
-			return Objects.toStringBuilder(this)
-				.append("values", values)
-				.append(str1).append(str2)
-				.toString();
-		}
+		assertEquals("Test (1, 2)", 
+			Objects.toStringBuilder("Test")
+				.append(1L).append(2).toString());
+		assertEquals("Test (1, A)", 
+			Objects.toStringBuilder("Test")
+				.append((short) 1).append('A').toString());
+		assertEquals("Test (1, true)", 
+			Objects.toStringBuilder("Test")
+				.append((byte) 1).append(true).toString());
+		assertEquals("Test (1.0, 2.0)", 
+			Objects.toStringBuilder("Test")
+				.append((float) 1.0).append(2.0).toString());
+		assertEquals("ObjectsTest (Hello, World)", 
+			Objects.toStringBuilder(this)
+				.append("Hello").append("World").toString());
+		assertEquals("Test (one=1, two=2)", 
+			Objects.toStringBuilder("Test")
+				.append("one", 1L).append("two", 2).toString());
+		assertEquals("Test (one=1, A=A)", 
+			Objects.toStringBuilder("Test")
+				.append("one", (short) 1).append("A", 'A').toString());
+		assertEquals("Test (one=1, T=true)", 
+			Objects.toStringBuilder("Test")
+				.append("one", (byte) 1).append("T", true).toString());
+		assertEquals("Test (one=1.0, two=2.0)", 
+			Objects.toStringBuilder("Test")
+				.append("one", (float) 1.0).append("two", 2.0).toString());
+		assertEquals("ObjectsTest (h=Hello, w=World)", 
+			Objects.toStringBuilder(this)
+				.append("h", "Hello").append("w", "World").toString());
+		assertEquals("Test ([1, 2, 3])", 
+			Objects.toStringBuilder("Test")
+				.append(new int[] {1, 2, 3}).toString());
 	}
 }
