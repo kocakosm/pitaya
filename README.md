@@ -1,7 +1,7 @@
 Pitaya
 ======
 
-[![Build Status](https://secure.travis-ci.org/kocakosm/pitaya.png?branch=master)](http://travis-ci.org/kocakosm/pitaya)
+[![Build Status](https://secure.travis-ci.org/kocakosm/pitaya.png?branch=master)](http://travis-ci.org/kocakosm/pitaya) [![Dependency Status](https://www.versioneye.com/user/projects/52f3a3a1ec1375381f000083/badge.png)](https://www.versioneye.com/user/projects/52f3a3a1ec1375381f000083)
 
 
 Overview
