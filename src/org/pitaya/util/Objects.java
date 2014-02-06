@@ -89,32 +89,32 @@ public final class Objects
 
 	private static boolean arrayEquals(Object a, Object b)
 	{
-		if (a instanceof Object[] && b instanceof Object[]) {
-			return Arrays.equals((Object[]) a, (Object[]) b);
-		}
-		if (a instanceof boolean[] && b instanceof boolean[]) {
-			return Arrays.equals((boolean[]) a, (boolean[]) b);
-		}
-		if (a instanceof byte[] && b instanceof byte[]) {
-			return Arrays.equals((byte[]) a, (byte[]) b);
-		}
-		if (a instanceof char[] && b instanceof char[]) {
-			return Arrays.equals((char[]) a, (char[]) b);
-		}
-		if (a instanceof double[] && b instanceof double[]) {
-			return Arrays.equals((double[]) a, (double[]) b);
-		}
-		if (a instanceof float[] && b instanceof float[]) {
-			return Arrays.equals((float[]) a, (float[]) b);
+		if (a instanceof long[] && b instanceof long[]) {
+			return Arrays.equals((long[]) a, (long[]) b);
 		}
 		if (a instanceof int[] && b instanceof int[]) {
 			return Arrays.equals((int[]) a, (int[]) b);
 		}
-		if (a instanceof long[] && b instanceof long[]) {
-			return Arrays.equals((long[]) a, (long[]) b);
-		}
 		if (a instanceof short[] && b instanceof short[]) {
 			return Arrays.equals((short[]) a, (short[]) b);
+		}
+		if (a instanceof char[] && b instanceof char[]) {
+			return Arrays.equals((char[]) a, (char[]) b);
+		}
+		if (a instanceof byte[] && b instanceof byte[]) {
+			return Arrays.equals((byte[]) a, (byte[]) b);
+		}
+		if (a instanceof boolean[] && b instanceof boolean[]) {
+			return Arrays.equals((boolean[]) a, (boolean[]) b);
+		}
+		if (a instanceof float[] && b instanceof float[]) {
+			return Arrays.equals((float[]) a, (float[]) b);
+		}
+		if (a instanceof double[] && b instanceof double[]) {
+			return Arrays.equals((double[]) a, (double[]) b);
+		}
+		if (a instanceof Object[] && b instanceof Object[]) {
+			return Arrays.equals((Object[]) a, (Object[]) b);
 		}
 		return false;
 	}
@@ -142,7 +142,7 @@ public final class Objects
 	 * Returns a {@code String} representation of the given object obtained
 	 * by calling its {@link Object#toString()} method if it's a "regular" 
 	 * object or by calling the appropriate {@link Arrays}' {@code toString}
-	 * method if it is an array, returns {@code ""} if it is {@code null}.
+	 * method if it is an array, returns {@code "null"} if it is {@code null}.
 	 * 
 	 * @param o the object to translate into a {@link String}.
 	 *
@@ -150,8 +150,24 @@ public final class Objects
 	 */
 	public static String toString(Object o)
 	{
+		return toString(o, "null");
+	}
+
+	/**
+	 * Returns a {@code String} representation of the given object obtained
+	 * by calling its {@link Object#toString()} method if it's a "regular" 
+	 * object or by calling the appropriate {@link Arrays}' {@code toString}
+	 * method if it is an array, returns {@code ifNull} if it is {@code null}.
+	 * 
+	 * @param o the object to translate into a {@link String}.
+	 * @param ifNull the value to return if {@code o} is {@code null}.
+	 *
+	 * @return a {@link String} representation of the given {@link Object}.
+	 */
+	public static String toString(Object o, String ifNull)
+	{
 		return o == null 
-			? "" : o.getClass().isArray() 
+			? ifNull : o.getClass().isArray() 
 			? arrayToString(o) : o.toString();
 	}
 
@@ -228,7 +244,9 @@ public final class Objects
 		}
 
 		/**
-		 * Appends the given name/value pair.
+		 * Appends the given name/value pair. Note that if {@code value}
+		 * is an array, its values will be displayed between brackets,
+		 * each value being separated by a comma.
 		 *
 		 * @param name the name.
 		 * @param value the value.
@@ -241,25 +259,7 @@ public final class Objects
 		{
 			Parameters.checkNotNull(name);
 			appendSeparator().append(name)
-				.append('=').append(value);
-			return this;
-		}
-
-		/**
-		 * Appends the given name/values pair.
-		 *
-		 * @param name the name.
-		 * @param values the values.
-		 *
-		 * @return this builder.
-		 *
-		 * @throws NullPointerException if {@code name} is {@code null}.
-		 */
-		public ToStringBuilder append(String name, Object... values)
-		{
-			Parameters.checkNotNull(name);
-			appendSeparator().append(name)
-				.append('=').append(Arrays.toString(values));
+				.append('=').append(Objects.toString(value));
 			return this;
 		}
 
@@ -282,24 +282,6 @@ public final class Objects
 		}
 
 		/**
-		 * Appends the given name/values pair.
-		 *
-		 * @param name the name.
-		 * @param values the values.
-		 *
-		 * @return this builder.
-		 *
-		 * @throws NullPointerException if {@code name} is {@code null}.
-		 */
-		public ToStringBuilder append(String name, boolean... values)
-		{
-			Parameters.checkNotNull(name);
-			appendSeparator().append(name)
-				.append('=').append(Arrays.toString(values));
-			return this;
-		}
-
-		/**
 		 * Appends the given name/value pair.
 		 *
 		 * @param name the name.
@@ -314,24 +296,6 @@ public final class Objects
 			Parameters.checkNotNull(name);
 			appendSeparator().append(name)
 				.append('=').append(value);
-			return this;
-		}
-
-		/**
-		 * Appends the given name/values pair.
-		 *
-		 * @param name the name.
-		 * @param values the values.
-		 *
-		 * @return this builder.
-		 *
-		 * @throws NullPointerException if {@code name} is {@code null}.
-		 */
-		public ToStringBuilder append(String name, byte... values)
-		{
-			Parameters.checkNotNull(name);
-			appendSeparator().append(name)
-				.append('=').append(Arrays.toString(values));
 			return this;
 		}
 
@@ -354,24 +318,6 @@ public final class Objects
 		}
 
 		/**
-		 * Appends the given name/values pair.
-		 *
-		 * @param name the name.
-		 * @param values the values.
-		 *
-		 * @return this builder.
-		 *
-		 * @throws NullPointerException if {@code name} is {@code null}.
-		 */
-		public ToStringBuilder append(String name, int... values)
-		{
-			Parameters.checkNotNull(name);
-			appendSeparator().append(name)
-				.append('=').append(Arrays.toString(values));
-			return this;
-		}
-
-		/**
 		 * Appends the given name/value pair.
 		 *
 		 * @param name the name.
@@ -386,24 +332,6 @@ public final class Objects
 			Parameters.checkNotNull(name);
 			appendSeparator().append(name)
 				.append('=').append(value);
-			return this;
-		}
-
-		/**
-		 * Appends the given name/values pair.
-		 *
-		 * @param name the name.
-		 * @param values the values.
-		 *
-		 * @return this builder.
-		 *
-		 * @throws NullPointerException if {@code name} is {@code null}.
-		 */
-		public ToStringBuilder append(String name, long... values)
-		{
-			Parameters.checkNotNull(name);
-			appendSeparator().append(name)
-				.append('=').append(Arrays.toString(values));
 			return this;
 		}
 
@@ -426,24 +354,6 @@ public final class Objects
 		}
 
 		/**
-		 * Appends the given name/values pair.
-		 *
-		 * @param name the name.
-		 * @param values the values.
-		 *
-		 * @return this builder.
-		 *
-		 * @throws NullPointerException if {@code name} is {@code null}.
-		 */
-		public ToStringBuilder append(String name, float... values)
-		{
-			Parameters.checkNotNull(name);
-			appendSeparator().append(name)
-				.append('=').append(Arrays.toString(values));
-			return this;
-		}
-
-		/**
 		 * Appends the given name/value pair.
 		 *
 		 * @param name the name.
@@ -458,24 +368,6 @@ public final class Objects
 			Parameters.checkNotNull(name);
 			appendSeparator().append(name)
 				.append('=').append(value);
-			return this;
-		}
-
-		/**
-		 * Appends the given name/values pair.
-		 *
-		 * @param name the name.
-		 * @param values the values.
-		 *
-		 * @return this builder.
-		 *
-		 * @throws NullPointerException if {@code name} is {@code null}.
-		 */
-		public ToStringBuilder append(String name, double... values)
-		{
-			Parameters.checkNotNull(name);
-			appendSeparator().append(name)
-				.append('=').append(Arrays.toString(values));
 			return this;
 		}
 
@@ -498,24 +390,6 @@ public final class Objects
 		}
 
 		/**
-		 * Appends the given name/values pair.
-		 *
-		 * @param name the name.
-		 * @param values the values.
-		 *
-		 * @return this builder.
-		 *
-		 * @throws NullPointerException if {@code name} is {@code null}.
-		 */
-		public ToStringBuilder append(String name, char... values)
-		{
-			Parameters.checkNotNull(name);
-			appendSeparator().append(name)
-				.append('=').append(Arrays.toString(values));
-			return this;
-		}
-
-		/**
 		 * Appends the given unnamed value.
 		 *
 		 * @param value the value.
@@ -524,20 +398,7 @@ public final class Objects
 		 */
 		public ToStringBuilder append(Object value)
 		{
-			appendSeparator().append(value);
-			return this;
-		}
-
-		/**
-		 * Appends the given unnamed values.
-		 *
-		 * @param values the values.
-		 *
-		 * @return this builder.
-		 */
-		public ToStringBuilder append(Object... values)
-		{
-			appendSeparator().append(Arrays.toString(values));
+			appendSeparator().append(Objects.toString(value));
 			return this;
 		}
 
@@ -555,19 +416,6 @@ public final class Objects
 		}
 
 		/**
-		 * Appends the given unnamed values.
-		 *
-		 * @param values the values.
-		 *
-		 * @return this builder.
-		 */
-		public ToStringBuilder append(boolean... values)
-		{
-			appendSeparator().append(Arrays.toString(values));
-			return this;
-		}
-
-		/**
 		 * Appends the given unnamed value.
 		 *
 		 * @param value the value.
@@ -577,19 +425,6 @@ public final class Objects
 		public ToStringBuilder append(byte value)
 		{
 			appendSeparator().append(value);
-			return this;
-		}
-
-		/**
-		 * Appends the given unnamed values.
-		 *
-		 * @param values the values.
-		 *
-		 * @return this builder.
-		 */
-		public ToStringBuilder append(byte... values)
-		{
-			appendSeparator().append(Arrays.toString(values));
 			return this;
 		}
 
@@ -607,19 +442,6 @@ public final class Objects
 		}
 
 		/**
-		 * Appends the given unnamed values.
-		 *
-		 * @param values the values.
-		 *
-		 * @return this builder.
-		 */
-		public ToStringBuilder append(int... values)
-		{
-			appendSeparator().append(Arrays.toString(values));
-			return this;
-		}
-
-		/**
 		 * Appends the given unnamed value.
 		 *
 		 * @param value the value.
@@ -629,19 +451,6 @@ public final class Objects
 		public ToStringBuilder append(long value)
 		{
 			appendSeparator().append(value);
-			return this;
-		}
-
-		/**
-		 * Appends the given unnamed values.
-		 *
-		 * @param values the values.
-		 *
-		 * @return this builder.
-		 */
-		public ToStringBuilder append(long... values)
-		{
-			appendSeparator().append(Arrays.toString(values));
 			return this;
 		}
 
@@ -659,19 +468,6 @@ public final class Objects
 		}
 
 		/**
-		 * Appends the given unnamed values.
-		 *
-		 * @param values the values.
-		 *
-		 * @return this builder.
-		 */
-		public ToStringBuilder append(float... values)
-		{
-			appendSeparator().append(Arrays.toString(values));
-			return this;
-		}
-
-		/**
 		 * Appends the given unnamed value.
 		 *
 		 * @param value the value.
@@ -685,19 +481,6 @@ public final class Objects
 		}
 
 		/**
-		 * Appends the given unnamed values.
-		 *
-		 * @param values the values.
-		 *
-		 * @return this builder.
-		 */
-		public ToStringBuilder append(double... values)
-		{
-			appendSeparator().append(Arrays.toString(values));
-			return this;
-		}
-
-		/**
 		 * Appends the given unnamed value.
 		 *
 		 * @param value the value.
@@ -707,19 +490,6 @@ public final class Objects
 		public ToStringBuilder append(char value)
 		{
 			appendSeparator().append(value);
-			return this;
-		}
-
-		/**
-		 * Appends the given unnamed values.
-		 *
-		 * @param values the values.
-		 *
-		 * @return this builder.
-		 */
-		public ToStringBuilder append(char... values)
-		{
-			appendSeparator().append(Arrays.toString(values));
 			return this;
 		}
 
