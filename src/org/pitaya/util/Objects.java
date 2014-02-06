@@ -390,7 +390,9 @@ public final class Objects
 		}
 
 		/**
-		 * Appends the given unnamed value.
+		 * Appends the given unnamed value. Note that if {@code value}
+		 * is an array, its values will be displayed between brackets,
+		 * each value being separated by a comma.
 		 *
 		 * @param value the value.
 		 *
