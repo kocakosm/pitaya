@@ -77,7 +77,7 @@ public final class ChronometerTest
 	public void testToString() throws Exception
 	{
 		Chronometer chronometer = new Chronometer();
-		assertEquals("", chronometer.toString());
+		assertEquals("0 millisecond", chronometer.toString());
 		chronometer.start();
 		Thread.sleep(100);
 		chronometer.stop();

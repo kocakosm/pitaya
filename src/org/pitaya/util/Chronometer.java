@@ -116,8 +116,11 @@ public final class Chronometer
 	@Override
 	public String toString()
 	{
-		StringBuilder sb = new StringBuilder();
 		long time = elapsedTime();
+		if (time == 0L) {
+			return "0 millisecond";
+		}
+		StringBuilder sb = new StringBuilder();
 		long days = MILLISECONDS.toDays(time);
 		time -= DAYS.toMillis(days);
 		append(sb, days, "day");
