@@ -160,8 +160,8 @@ public final class ASCIITest
 		assertEquals("A", capitalize("a"));
 		assertEquals("Z", capitalize("Z"));
 		assertEquals("5", capitalize("5"));
-		assertEquals("5abc", capitalize("5AbC"));
-		assertEquals("   abc", capitalize("   AbC"));
+		assertEquals("5AbC", capitalize("5AbC"));
+		assertEquals("   AbC", capitalize("   AbC"));
 		assertEquals("Hello", capitalize("hello"));
 	}
 }

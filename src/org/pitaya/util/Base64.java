@@ -102,17 +102,17 @@ public final class Base64
 	 * first {@code '='} character found. Whitespace characters, namely
 	 * {@code '\t', ' ', '\n'} and {@code '\r'}, are ignored.
 	 *
-	 * @param sequence the Base64 characters to decode.
+	 * @param base64 the Base64 {@code String} to decode.
 	 *
 	 * @return the decoded data.
 	 *
-	 * @throws NullPointerException if {@code sequence} is {@code null}.
-	 * @throws IllegalArgumentException if {@code sequence} is not a valid
-	 *	Base64 sequence.
+	 * @throws NullPointerException if {@code base64} is {@code null}.
+	 * @throws IllegalArgumentException if {@code base64} is not a valid
+	 *	Base64 {@code String}.
 	 */
-	public static byte[] decode(CharSequence sequence)
+	public static byte[] decode(String base64)
 	{
-		String encoded = sequence.toString().replaceAll("[\\s\n\t\r]", "");
+		String encoded = base64.replaceAll("[\\s\n\t\r]", "");
 		int len = encoded.length();
 		Parameters.checkCondition(len % 4 == 0);
 		ByteBuffer buf = new ByteBuffer((len * 3) / 4);
@@ -128,7 +128,7 @@ public final class Base64
 			count += 6;
 			while (count >= 8) {
 				count -= 8;
-				buf.append((byte)(accu >>> count));
+				buf.append((byte) (accu >>> count));
 			}
 		}
 		return buf.toByteArray();

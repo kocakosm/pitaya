@@ -28,18 +28,18 @@ public final class Strings
 	private static final Random PRNG = new Random();
 
 	/**
-	 * Returns whether the given {@link CharSequence} only contains space,
-	 * '\n', '\r' or '\t' characters.
+	 * Returns whether the given {@code String} only contains space, '\n', 
+	 * '\r' or '\t' characters.
 	 *
-	 * @param sequence the {@code CharSequence} to test.
+	 * @param str the {@code String} to test.
 	 *
-	 * @return whether the given {@link CharSequence} is blank.
+	 * @return whether the given {@code String} is blank.
 	 *
-	 * @throws NullPointerException if {@code sequence} is {@code null}.
+	 * @throws NullPointerException if {@code str} is {@code null}.
 	 */
-	public static boolean isBlank(CharSequence sequence)
+	public static boolean isBlank(String str)
 	{
-		for (char c : sequence.toString().toCharArray()) {
+		for (char c : str.toCharArray()) {
 			if (c != ' ' && c != '\r' && c != '\n' && c != '\t') {
 				return false;
 			}
@@ -48,31 +48,31 @@ public final class Strings
 	}
 
 	/**
-	 * Returns whether the given {@link CharSequence} is {@code null} or 
-	 * only contains space, '\n', '\r' or '\t' characters.
+	 * Returns whether the given {@code String} is {@code null} or only 
+	 * contains space, '\n', '\r' or '\t' characters.
 	 *
-	 * @param sequence the {@code CharSequence} to test.
+	 * @param str the {@code String} to test.
 	 *
-	 * @return whether the given {@link CharSequence} is {@code null} or blank.
+	 * @return whether the given {@code String} is {@code null} or blank.
 	 */
-	public static boolean isNullOrBlank(CharSequence sequence)
+	public static boolean isNullOrBlank(String str)
 	{
-		return sequence == null || isBlank(sequence);
+		return str == null || isBlank(str);
 	}
 
 	/**
-	 * Returns whether the given {@link CharSequence} only contains space
+	 * Returns whether the given {@code String} only contains space 
 	 * characters.
 	 *
-	 * @param sequence the {@code CharSequence} to test.
+	 * @param str the {@code String} to test.
 	 *
-	 * @return whether the given {@link CharSequence} contains only spaces.
+	 * @return whether the given {@code String} contains only spaces.
 	 *
-	 * @throws NullPointerException if {@code sequence} is {@code null}.
+	 * @throws NullPointerException if {@code str} is {@code null}.
 	 */
-	public static boolean isWhiteSpace(CharSequence sequence)
+	public static boolean isWhiteSpace(String str)
 	{
-		for (char c : sequence.toString().toCharArray()) {
+		for (char c : str.toCharArray()) {
 			if (c != ' ') {
 				return false;
 			}
@@ -81,45 +81,30 @@ public final class Strings
 	}
 
 	/**
-	 * Returns whether the given {@link CharSequence} is {@code null} or 
-	 * only contains space characters.
+	 * Returns whether the given {@code String} is {@code null} or only 
+	 * contains space characters.
 	 *
-	 * @param sequence the {@code CharSequence} to test.
+	 * @param str the {@code String} to test.
 	 *
-	 * @return whether the given {@link CharSequence} is {@code null} or
-	 *	contains only spaces.
+	 * @return whether the given {@code String} is {@code null} or contains 
+	 *	only spaces.
 	 */
-	public static boolean isNullOrWhiteSpace(CharSequence sequence)
+	public static boolean isNullOrWhiteSpace(String str)
 	{
-		return sequence == null || isWhiteSpace(sequence);
+		return str == null || isWhiteSpace(str);
 	}
 
 	/**
-	 * Returns whether the given {@link CharSequence} is empty.
+	 * Returns whether the given {@code String} is {@code null} or empty.
 	 *
-	 * @param sequence the {@link CharSequence} to test.
+	 * @param str the {@code String} to test.
 	 *
-	 * @return whether the given {@link CharSequence} is empty.
-	 *
-	 * @throws NullPointerException if {@code sequence} is {@code null}.
-	 */
-	public static boolean isEmpty(CharSequence sequence)
-	{
-		return sequence.length() == 0;
-	}
-
-	/**
-	 * Returns whether the given {@link CharSequence} is {@code null} or
-	 * empty.
-	 *
-	 * @param sequence the {@link CharSequence} to test.
-	 *
-	 * @return {@code true} if {@code sequence} is {@code null} or empty,
+	 * @return {@code true} if {@code str} is {@code null} or empty,
 	 *	{@code false} otherwise.
 	 */
-	public static boolean isNullOrEmpty(CharSequence sequence)
+	public static boolean isNullOrEmpty(String str)
 	{
-		return sequence == null || isEmpty(sequence);
+		return str == null || str.isEmpty();
 	}
 
 	/**
@@ -524,7 +509,7 @@ public final class Strings
 	{
 		Parameters.checkNotNull(str);
 		int n = 0;
-		if (!isEmpty(sub)) {
+		if (!sub.isEmpty()) {
 			int start = 0;
 			while (true) {
 				start = str.indexOf(sub, start);

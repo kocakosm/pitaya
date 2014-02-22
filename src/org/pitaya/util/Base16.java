@@ -73,21 +73,21 @@ public final class Base16
 	}
 
 	/**
-	 * Decodes the given hexadecimal encoded character sequence. Whitespace
+	 * Decodes the given hexadecimal encoded {@code String}. Whitespace
 	 * characters, namely {@code '\t', ' ', '\n'} and {@code '\r'}, are 
 	 * ignored.
 	 *
-	 * @param hex the character sequence to decode.
+	 * @param hex the {@code String} to decode.
 	 *
 	 * @return the decoded data.
 	 *
 	 * @throws NullPointerException if {@code hex} is {@code null}.
 	 * @throws IllegalArgumentException if {@code hex} is not a valid Base16
-	 *	sequence.
+	 *	{@code String}.
 	 */
-	public static byte[] decode(CharSequence hex)
+	public static byte[] decode(String hex)
 	{
-		String encoded = hex.toString().replaceAll("[\\s\n\t\r]", "");
+		String encoded = hex.replaceAll("[\\s\n\t\r]", "");
 		int len = encoded.length();
 		Parameters.checkCondition(len % 2 == 0);
 		byte[] data = new byte[len / 2];

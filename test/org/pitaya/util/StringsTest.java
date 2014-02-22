@@ -75,14 +75,6 @@ public final class StringsTest
 	}
 
 	@Test
-	public void testIsEmpty()
-	{
-		assertTrue(isEmpty(""));
-		assertFalse(isEmpty(" "));
-		assertFalse(isEmpty("Hello world!"));
-	}
-
-	@Test
 	public void testIsNullOrEmpty()
 	{
 		assertTrue(isNullOrEmpty(null));

@@ -24,36 +24,36 @@ package org.pitaya.charset;
 public final class Latin1
 {
 	/**
-	 * Returns the LATIN-1 encoding of the given character sequence.
+	 * Returns the LATIN-1 encoding of the given {@code String}.
 	 *
-	 * @param sequence the character sequence to encode.
+	 * @param str the {@code String} to encode.
 	 *
-	 * @return the LATIN-1 encoding of the given character sequence.
+	 * @return the LATIN-1 encoding of the given {@code String}.
 	 *
-	 * @throws NullPointerException if {@code sequence} is {@code null}.
+	 * @throws NullPointerException if {@code str} is {@code null}.
 	 */
-	public static byte[] encode(CharSequence sequence)
+	public static byte[] encode(String str)
 	{
-		return sequence.toString().getBytes(Charsets.ISO_8859_1);
+		return str.getBytes(Charsets.ISO_8859_1);
 	}
 
 	/**
 	 * Returns the LATIN-1 encoding of the specified character sequence.
 	 *
-	 * @param sequence the input character sequence.
+	 * @param str the input {@code String}.
 	 * @param off the start index, inclusive.
 	 * @param len the number of characters to encode.
 	 *
 	 * @return the LATIN-1 encoding of the specified characters.
 	 *
-	 * @throws NullPointerException if {@code sequence} is {@code null}.
+	 * @throws NullPointerException if {@code str} is {@code null}.
 	 * @throws IndexOutOfBoundsException if {@code off} or {@code len} is
-	 *	negative or if {@code off + len} is greater than the sequence
+	 *	negative or if {@code off + len} is greater than {@code str}'s
 	 *	length.
 	 */
-	public static byte[] encode(CharSequence sequence, int off, int len)
+	public static byte[] encode(String str, int off, int len)
 	{
-		return encode(sequence.subSequence(off, off + len));
+		return encode(str.substring(off, off + len));
 	}
 
 	/**

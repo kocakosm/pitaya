@@ -25,36 +25,36 @@ package org.pitaya.charset;
 public final class ASCII
 {
 	/**
-	 * Returns the ASCII encoding of the given character sequence.
+	 * Returns the ASCII encoding of the given {@code String}.
 	 *
-	 * @param sequence the character sequence to encode.
+	 * @param str the {@code String} to encode.
 	 *
-	 * @return the ASCII encoding of the given character sequence.
+	 * @return the ASCII encoding of the given {@code String}.
 	 *
-	 * @throws NullPointerException if {@code sequence} is {@code null}.
+	 * @throws NullPointerException if {@code str} is {@code null}.
 	 */
-	public static byte[] encode(CharSequence sequence)
+	public static byte[] encode(String str)
 	{
-		return sequence.toString().getBytes(Charsets.US_ASCII);
+		return str.getBytes(Charsets.US_ASCII);
 	}
 
 	/**
 	 * Returns the ASCII encoding of the specified character sequence.
 	 *
-	 * @param sequence the input character sequence.
+	 * @param str the input {@code String}.
 	 * @param off the start index, inclusive.
 	 * @param len the number of characters to encode.
 	 *
 	 * @return the ASCII encoding of the specified characters.
 	 *
-	 * @throws NullPointerException if {@code sequence} is {@code null}.
+	 * @throws NullPointerException if {@code str} is {@code null}.
 	 * @throws IndexOutOfBoundsException if {@code off} or {@code len} is
-	 *	negative or if {@code off + len} is greater than the sequence
+	 *	negative or if {@code off + len} is greater than {@code str}'s
 	 *	length.
 	 */
-	public static byte[] encode(CharSequence sequence, int off, int len)
+	public static byte[] encode(String str, int off, int len)
 	{
-		return encode(sequence.subSequence(off, off + len));
+		return encode(str.substring(off, off + len));
 	}
 
 	/**
@@ -116,18 +116,18 @@ public final class ASCII
 	}
 
 	/**
-	 * Returns whether the given {@link CharSequence} is an alphabetic
-	 * sequence, that is, a sequence which only contains letters.
+	 * Returns whether the given {@code String} is an alphabetic sequence, 
+	 * that is, a sequence which only contains letters.
 	 *
-	 * @param sequence the {@link CharSequence} to test.
+	 * @param str the {@code String} to test.
 	 *
-	 * @return whether the given sequence is an alphabetic sequence.
+	 * @return whether the given {@code String} is an alphabetic sequence.
 	 *
-	 * @throws NullPointerException if {@code sequence} is {@code null}.
+	 * @throws NullPointerException if {@code str} is {@code null}.
 	 */
-	public static boolean isAlphabetic(CharSequence sequence)
+	public static boolean isAlphabetic(String str)
 	{
-		for (char c : sequence.toString().toCharArray()) {
+		for (char c : str.toCharArray()) {
 			if (!isLetter(c)) {
 				return false;
 			}
@@ -136,18 +136,18 @@ public final class ASCII
 	}
 
 	/**
-	 * Returns whether the given {@link CharSequence} is a numeric sequence,
-	 * that is, a sequence which only contains digits.
+	 * Returns whether the given {@code String} is a numeric sequence, that 
+	 * is, a sequence which only contains digits.
 	 *
-	 * @param sequence the {@link CharSequence} to test.
+	 * @param str the {@code String} to test.
 	 *
-	 * @return whether the given sequence is a numeric sequence.
+	 * @return whether the given {@code String} is a numeric sequence.
 	 *
-	 * @throws NullPointerException if {@code sequence} is {@code null}.
+	 * @throws NullPointerException if {@code str} is {@code null}.
 	 */
-	public static boolean isNumeric(CharSequence sequence)
+	public static boolean isNumeric(String str)
 	{
-		for (char c : sequence.toString().toCharArray()) {
+		for (char c : str.toCharArray()) {
 			if (!isDigit(c)) {
 				return false;
 			}
@@ -156,18 +156,18 @@ public final class ASCII
 	}
 
 	/**
-	 * Returns whether the given {@link CharSequence} is an alphanumeric
-	 * sequence, that is, a sequence which only contains letters and digits.
+	 * Returns whether the given {@code String} is an alphanumeric sequence,
+	 * that is, a sequence which only contains letters and digits.
 	 *
-	 * @param sequence the {@link CharSequence} to test.
+	 * @param str the {@code String} to test.
 	 *
-	 * @return whether the given sequence is an alphanumeric sequence.
+	 * @return whether the given {@code String} is an alphanumeric sequence.
 	 *
-	 * @throws NullPointerException if {@code sequence} is {@code null}.
+	 * @throws NullPointerException if {@code str} is {@code null}.
 	 */
-	public static boolean isAlphaNumeric(CharSequence sequence)
+	public static boolean isAlphaNumeric(String str)
 	{
-		for (char c : sequence.toString().toCharArray()) {
+		for (char c : str.toCharArray()) {
 			if (!isDigit(c) && !isLetter(c)) {
 				return false;
 			}
@@ -232,60 +232,60 @@ public final class ASCII
 	}
 
 	/**
-	 * Returns a {@link String} in which all uppercase ASCII characters have
+	 * Returns a {@code String} in which all uppercase ASCII characters have
 	 * been replaced by their lowercase equivalent (all other characters are
 	 * unchanged).
 	 *
-	 * @param s the {@link String} to convert into lowercase.
+	 * @param str the {@code String} to convert into lowercase.
 	 *
-	 * @return the converted {@link String}.
+	 * @return the converted {@code String}.
 	 *
-	 * @throws NullPointerException if {@code s} is {@code null}.
+	 * @throws NullPointerException if {@code str} is {@code null}.
 	 */
-	public static String toLowerCase(String s)
+	public static String toLowerCase(String str)
 	{
-		StringBuilder sb = new StringBuilder(s.length());
-		for (char c : s.toCharArray()) {
+		StringBuilder sb = new StringBuilder(str.length());
+		for (char c : str.toCharArray()) {
 			sb.append(toLowerCase(c));
 		}
 		return sb.toString();
 	}
 
 	/**
-	 * Returns a {@link String} in which all lowercase ASCII characters have
+	 * Returns a {@code String} in which all lowercase ASCII characters have
 	 * been replaced by their uppercase equivalent (all other characters are
 	 * unchanged).
 	 *
-	 * @param s the {@link String} to convert into uppercase.
+	 * @param str the {@code String} to convert into uppercase.
 	 *
-	 * @return the converted {@link String}.
+	 * @return the converted {@code String}.
 	 *
-	 * @throws NullPointerException if {@code s} is {@code null}.
+	 * @throws NullPointerException if {@code str} is {@code null}.
 	 */
-	public static String toUpperCase(String s)
+	public static String toUpperCase(String str)
 	{
-		StringBuilder sb = new StringBuilder(s.length());
-		for (char c : s.toCharArray()) {
+		StringBuilder sb = new StringBuilder(str.length());
+		for (char c : str.toCharArray()) {
 			sb.append(toUpperCase(c));
 		}
 		return sb.toString();
 	}
 
 	/**
-	 * Returns a {@link String} built from the given one by upper-casing its
-	 * first character while lower-casing the others.
+	 * Returns a {@code String} built from the given one by upper-casing its
+	 * first character (other characters are copied unchanged).
 	 * 
-	 * @param s the {@link String} to capitalize.
+	 * @param str the {@code String} to capitalize.
 	 *
-	 * @return the capitalized {@link String}.
+	 * @return the capitalized {@code String}.
 	 *
-	 * @throws NullPointerException if {@code s} is {@code null}.
+	 * @throws NullPointerException if {@code str} is {@code null}.
 	 */
-	public static String capitalize(String s)
+	public static String capitalize(String str)
 	{
-		StringBuilder sb = new StringBuilder(s.length());
-		for (char c : s.toCharArray()) {
-			sb.append(sb.length() > 0 ? toLowerCase(c) : toUpperCase(c));
+		StringBuilder sb = new StringBuilder(str.length());
+		for (char c : str.toCharArray()) {
+			sb.append(sb.length() > 0 ? c : toUpperCase(c));
 		}
 		return sb.toString();
 	}

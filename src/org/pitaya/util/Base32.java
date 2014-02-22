@@ -98,17 +98,17 @@ public final class Base32
 	 * first {@code '='} character found. Whitespace characters, namely 
 	 * {@code '\t', ' ', '\n'} and {@code '\r'}, are ignored.
 	 *
-	 * @param sequence the Base32 characters to decode.
+	 * @param base32 the Base32 {@code String} to decode.
 	 *
 	 * @return the decoded data.
 	 *
-	 * @throws NullPointerException if {@code sequence} is {@code null}.
-	 * @throws IllegalArgumentException if {@code sequence} is not a valid
-	 *	Base32 sequence.
+	 * @throws NullPointerException if {@code base32} is {@code null}.
+	 * @throws IllegalArgumentException if {@code base32} is not a valid 
+	 *	Base32 {@code String}.
 	 */
-	public static byte[] decode(CharSequence sequence)
+	public static byte[] decode(String base32)
 	{
-		String encoded = sequence.toString().replaceAll("[\\s\n\t\r]", "");
+		String encoded = base32.replaceAll("[\\s\n\t\r]", "");
 		int len = encoded.length();
 		Parameters.checkCondition(len % 8 == 0);
 		ByteBuffer buf = new ByteBuffer((len * 5) / 8);
@@ -124,7 +124,7 @@ public final class Base32
 			count += 5;
 			while (count >= 8) {
 				count -= 8;
-				buf.append((byte)(accu >>> count));
+				buf.append((byte) (accu >>> count));
 			}
 		}
 		return buf.toByteArray();
