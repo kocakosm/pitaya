@@ -745,7 +745,7 @@ public final class XArrays
 	 * 
 	 * @throws NullPointerException if {@code original} is {@code null}.
 	 */
-	public static Object[] copyOf(Object... original)
+	public static Object[] copyOf(Object[] original)
 	{
 		return Arrays.copyOf(original, original.length);
 	}
@@ -901,7 +901,7 @@ public final class XArrays
 	 * 
 	 * @see Arrays#sort(java.lang.Object[])
 	 */
-	public static Object[] sort(Object... a)
+	public static Object[] sort(Object[] a)
 	{
 		Object[] copy = copyOf(a);
 		Arrays.sort(copy);
@@ -1304,7 +1304,7 @@ public final class XArrays
 	 *
 	 * @throws NullPointerException if {@code a} is {@code null}.
 	 */
-	public static Object[] shuffle(Object... a)
+	public static Object[] shuffle(Object[] a)
 	{
 		return shuffle(a, PRNG);
 	}
@@ -1338,169 +1338,6 @@ public final class XArrays
 		Object c = a[i];
 		a[i] = a[j];
 		a[j] = c;
-	}
-
-	/**
-	 * Returns a hash code based on the contents of the specified array.
-	 * For any two {@code long} arrays {@code a} and {@code b} such that 
-	 * {@link Arrays#equals(long[], long[])}, it is also the case that
-	 * {@code XArrays.hashCode(a) == XArrays.hashCode(b)}. If {@code a} is 
-	 * {@code null}, this method returns {@code 0}.
-	 *
-	 * @param a the array whose hash value to compute.
-	 *
-	 * @return a content-based hash code for {@code a}.
-	 * 
-	 * @see Arrays#hashCode(long[])
-	 */
-	public static int hashCode(long... a)
-	{
-		return Arrays.hashCode(a);
-	}
-
-	/**
-	 * Returns a hash code based on the contents of the specified array.
-	 * For any two {@code int} arrays {@code a} and {@code b} such that 
-	 * {@link Arrays#equals(int[], int[])}, it is also the case that
-	 * {@code XArrays.hashCode(a) == XArrays.hashCode(b)}. If {@code a} is 
-	 * {@code null}, this method returns {@code 0}.
-	 *
-	 * @param a the array whose hash value to compute.
-	 *
-	 * @return a content-based hash code for {@code a}.
-	 * 
-	 * @see Arrays#hashCode(int[])
-	 */
-	public static int hashCode(int... a)
-	{
-		return Arrays.hashCode(a);
-	}
-
-	/**
-	 * Returns a hash code based on the contents of the specified array.
-	 * For any two {@code short} arrays {@code a} and {@code b} such that 
-	 * {@link Arrays#equals(short[], short[])}, it is also the case that
-	 * {@code XArrays.hashCode(a) == XArrays.hashCode(b)}. If {@code a} is 
-	 * {@code null}, this method returns {@code 0}.
-	 *
-	 * @param a the array whose hash value to compute.
-	 *
-	 * @return a content-based hash code for {@code a}.
-	 * 
-	 * @see Arrays#hashCode(short[])
-	 */
-	public static int hashCode(short... a)
-	{
-		return Arrays.hashCode(a);
-	}
-
-	/**
-	 * Returns a hash code based on the contents of the specified array.
-	 * For any two {@code char} arrays {@code a} and {@code b} such that 
-	 * {@link Arrays#equals(char[], char[])}, it is also the case that
-	 * {@code XArrays.hashCode(a) == XArrays.hashCode(b)}. If {@code a} is 
-	 * {@code null}, this method returns {@code 0}.
-	 *
-	 * @param a the array whose hash value to compute.
-	 *
-	 * @return a content-based hash code for {@code a}.
-	 * 
-	 * @see Arrays#hashCode(char[])
-	 */
-	public static int hashCode(char... a)
-	{
-		return Arrays.hashCode(a);
-	}
-
-	/**
-	 * Returns a hash code based on the contents of the specified array.
-	 * For any two {@code byte} arrays {@code a} and {@code b} such that 
-	 * {@link Arrays#equals(byte[], byte[])}, it is also the case that
-	 * {@code XArrays.hashCode(a) == XArrays.hashCode(b)}. If {@code a} is 
-	 * {@code null}, this method returns {@code 0}.
-	 *
-	 * @param a the array whose hash value to compute.
-	 *
-	 * @return a content-based hash code for {@code a}.
-	 * 
-	 * @see Arrays#hashCode(byte[])
-	 */
-	public static int hashCode(byte... a)
-	{
-		return Arrays.hashCode(a);
-	}
-
-	/**
-	 * Returns a hash code based on the contents of the specified array.
-	 * For any two {@code boolean} arrays {@code a} and {@code b} such that 
-	 * {@link Arrays#equals(boolean[], boolean[])}, it is also the case that
-	 * {@code XArrays.hashCode(a) == XArrays.hashCode(b)}. If {@code a} is 
-	 * {@code null}, this method returns {@code 0}.
-	 *
-	 * @param a the array whose hash value to compute.
-	 *
-	 * @return a content-based hash code for {@code a}.
-	 * 
-	 * @see Arrays#hashCode(boolean[])
-	 */
-	public static int hashCode(boolean... a)
-	{
-		return Arrays.hashCode(a);
-	}
-
-	/**
-	 * Returns a hash code based on the contents of the specified array.
-	 * For any two {@code float} arrays {@code a} and {@code b} such that 
-	 * {@link Arrays#equals(float[], float[])}, it is also the case that
-	 * {@code XArrays.hashCode(a) == XArrays.hashCode(b)}. If {@code a} is 
-	 * {@code null}, this method returns {@code 0}.
-	 *
-	 * @param a the array whose hash value to compute.
-	 *
-	 * @return a content-based hash code for {@code a}.
-	 * 
-	 * @see Arrays#hashCode(float[])
-	 */
-	public static int hashCode(float... a)
-	{
-		return Arrays.hashCode(a);
-	}
-
-	/**
-	 * Returns a hash code based on the contents of the specified array.
-	 * For any two {@code double} arrays {@code a} and {@code b} such that 
-	 * {@link Arrays#equals(double[], double[])}, it is also the case that
-	 * {@code XArrays.hashCode(a) == XArrays.hashCode(b)}. If {@code a} is 
-	 * {@code null}, this method returns {@code 0}.
-	 *
-	 * @param a the array whose hash value to compute.
-	 *
-	 * @return a content-based hash code for {@code a}.
-	 * 
-	 * @see Arrays#hashCode(double[])
-	 */
-	public static int hashCode(double... a)
-	{
-		return Arrays.hashCode(a);
-	}
-
-	/**
-	 * Returns a hash code based on the contents of the specified array.
-	 * For any two arrays {@code a} and {@code b} such that 
-	 * {@link Arrays#equals(java.lang.Object[], java.lang.Object[])}, it is 
-	 * also the case that {@code XArrays.hashCode(a) == XArrays.hashCode(b)}.
-	 * If {@code a} is {@code null}, this method returns {@code 0}.
-	 *
-	 * @param a the array whose hash value to compute.
-	 *
-	 * @return a content-based hash code for {@code a}.
-	 * 
-	 * @see Arrays#hashCode(java.lang.Object[]) 
-	 * @see Arrays#deepHashCode(java.lang.Object[])
-	 */
-	public static int hashCode(Object... a)
-	{
-		return Arrays.hashCode(a);
 	}
 
 	/**
@@ -1634,7 +1471,7 @@ public final class XArrays
 	 * @see Arrays#toString(java.lang.Object[]) 
 	 * @see Arrays#deepToString(java.lang.Object[])
 	 */
-	public static String toString(Object... a)
+	public static String toString(Object[] a)
 	{
 		return Arrays.toString(a);
 	}

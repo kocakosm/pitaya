@@ -513,69 +513,6 @@ public class XArraysTest
 	}
 
 	@Test
-	public void testHashLongArray()
-	{
-		long[] a = new long[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-		assertEquals(Arrays.hashCode(a), XArrays.hashCode(a));
-	}
-
-	@Test
-	public void testHashIntArray()
-	{
-		int[] a = new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-		assertEquals(Arrays.hashCode(a), XArrays.hashCode(a));
-	}
-
-	@Test
-	public void testHashShortArray()
-	{
-		short[] a = new short[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-		assertEquals(Arrays.hashCode(a), XArrays.hashCode(a));
-	}
-
-	@Test
-	public void testHashCharArray()
-	{
-		char[] a = new char[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-		assertEquals(Arrays.hashCode(a), XArrays.hashCode(a));
-	}
-
-	@Test
-	public void testHashByteArray()
-	{
-		byte[] a = new byte[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-		assertEquals(Arrays.hashCode(a), XArrays.hashCode(a));
-	}
-
-	@Test
-	public void testHashBooleanArray()
-	{
-		boolean[] a = new boolean[] {false, true, true, false};
-		assertEquals(Arrays.hashCode(a), XArrays.hashCode(a));
-	}
-
-	@Test
-	public void testHashFloatArray()
-	{
-		float[] a = new float[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-		assertEquals(Arrays.hashCode(a), XArrays.hashCode(a));
-	}
-
-	@Test
-	public void testHashDoubleArray()
-	{
-		double[] a = new double[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-		assertEquals(Arrays.hashCode(a), XArrays.hashCode(a));
-	}
-
-	@Test
-	public void testHashObjectArray()
-	{
-		Object[] a = new Object[] {"a", "b", "c", "d"};
-		assertEquals(Arrays.hashCode(a), XArrays.hashCode(a));
-	}
-
-	@Test
 	public void testToStringLongArray()
 	{
 		long[] a = new long[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
