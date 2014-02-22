@@ -55,6 +55,7 @@ public final class ChronometerTest
 		Thread.sleep(50);
 		chronometer.start();
 		Thread.sleep(50);
+		chronometer.stop();
 		assertTrue(Math.abs(chronometer.elapsedTime() - 100) < 10);
 	}
 
@@ -79,8 +80,7 @@ public final class ChronometerTest
 		Chronometer chronometer = new Chronometer();
 		assertEquals("0 millisecond", chronometer.toString());
 		chronometer.start();
-		Thread.sleep(100);
-		chronometer.stop();
+		Thread.sleep(50);
 		long elapsed = chronometer.elapsedTime();
 		assertEquals(elapsed + " milliseconds", chronometer.toString());
 	}
