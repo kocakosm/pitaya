@@ -320,74 +320,234 @@ public class XArraysTest
 	}
 
 	@Test
-	public void testSortLongArray()
+	public void testReverseLongArray()
 	{
-		long[] a = new long[] {3, 1, 5, 4, 2};
-		long[] sorted = new long[] {1, 2, 3, 4, 5};
-		assertNotSame(a, XArrays.sort(a));
-		assertArrayEquals(sorted, XArrays.sort(a));
+		assertArrayEquals(new long[0], XArrays.reverse(new long[0]));
+
+		long[] a = new long[] {-2, -1, 0, 1, 2};
+		assertArrayEquals(new long[] {2, 1, 0, -1, -2}, XArrays.reverse(a));
+		assertArrayEquals(new long[] {-2, -1, 0, 1, 2}, a);
 	}
 
 	@Test
-	public void testSortIntArray()
+	public void testReverseIntArray()
 	{
-		int[] a = new int[] {3, 1, 5, 4, 2};
-		int[] sorted = new int[] {1, 2, 3, 4, 5};
-		assertNotSame(a, XArrays.sort(a));
-		assertArrayEquals(sorted, XArrays.sort(a));
-	}
-	@Test
-	public void testSortShortArray()
-	{
-		short[] a = new short[] {3, 1, 5, 4, 2};
-		short[] sorted = new short[] {1, 2, 3, 4, 5};
-		assertNotSame(a, XArrays.sort(a));
-		assertArrayEquals(sorted, XArrays.sort(a));
+		assertArrayEquals(new int[0], XArrays.reverse(new int[0]));
+
+		int[] a = new int[] {-2, -1, 0, 1, 2};
+		assertArrayEquals(new int[] {2, 1, 0, -1, -2}, XArrays.reverse(a));
+		assertArrayEquals(new int[] {-2, -1, 0, 1, 2}, a);
 	}
 
 	@Test
-	public void testSortCharArray()
+	public void testReverseShortArray()
 	{
-		char[] a = new char[] {3, 1, 5, 4, 2};
-		char[] sorted = new char[] {1, 2, 3, 4, 5};
-		assertNotSame(a, XArrays.sort(a));
-		assertArrayEquals(sorted, XArrays.sort(a));
+		assertArrayEquals(new short[0], XArrays.reverse(new short[0]));
+
+		short[] a = new short[] {-2, -1, 0, 1, 2};
+		assertArrayEquals(new short[] {2, 1, 0, -1, -2}, XArrays.reverse(a));
+		assertArrayEquals(new short[] {-2, -1, 0, 1, 2}, a);
 	}
 
 	@Test
-	public void testSortByteArray()
+	public void testReverseCharArray()
 	{
-		byte[] a = new byte[] {3, 1, 5, 4, 2};
-		byte[] sorted = new byte[] {1, 2, 3, 4, 5};
-		assertNotSame(a, XArrays.sort(a));
-		assertArrayEquals(sorted, XArrays.sort(a));
+		assertArrayEquals(new char[0], XArrays.reverse(new char[0]));
+
+		char[] a = new char[] {0, 1, 2, 3, 4};
+		assertArrayEquals(new char[] {4, 3, 2, 1, 0}, XArrays.reverse(a));
+		assertArrayEquals(new char[] {0, 1, 2, 3, 4}, a);
 	}
 
 	@Test
-	public void testSortFloatArray()
+	public void testReverseByteArray()
 	{
-		float[] a = new float[] {3, 1, 5, 4, 2};
-		float[] sorted = new float[] {1, 2, 3, 4, 5};
-		assertNotSame(a, XArrays.sort(a));
-		assertTrue(Arrays.equals(sorted, XArrays.sort(a)));
+		assertArrayEquals(new byte[0], XArrays.reverse(new byte[0]));
+
+		byte[] a = new byte[] {-2, -1, 0, 1, 2};
+		assertArrayEquals(new byte[] {2, 1, 0, -1, -2}, XArrays.reverse(a));
+		assertArrayEquals(new byte[] {-2, -1, 0, 1, 2}, a);
 	}
 
 	@Test
-	public void testSortDoubleArray()
+	public void testReverseBooleanArray()
 	{
-		double[] a = new double[] {3, 1, 5, 4, 2};
-		double[] sorted = new double[] {1, 2, 3, 4, 5};
-		assertNotSame(a, XArrays.sort(a));
-		assertTrue(Arrays.equals(sorted, XArrays.sort(a)));
+		assertTrue(Arrays.equals(new boolean[0], XArrays.reverse(new boolean[0])));
+
+		boolean[] a = new boolean[] {true, true, false, true, false};
+		assertTrue(Arrays.equals(new boolean[] {false, true, false, true, true}, XArrays.reverse(a)));
+		assertTrue(Arrays.equals(new boolean[] {true, true, false, true, false}, a));
 	}
 
 	@Test
-	public void testSortObjectArray()
+	public void testReverseFloatArray()
 	{
-		Object[] a = new Object[] {"d", "a", "e", "c", "b"};
-		Object[] sorted = new Object[] {"a", "b", "c", "d", "e"};
-		assertNotSame(a, XArrays.sort(a));
-		assertArrayEquals(sorted, XArrays.sort(a));
+		assertTrue(Arrays.equals(new float[0], XArrays.reverse(new float[0])));
+
+		float[] a = new float[] {-2, -1, 0, 1, 2};
+		assertTrue(Arrays.equals(new float[] {2, 1, 0, -1, -2}, XArrays.reverse(a)));
+		assertTrue(Arrays.equals(new float[] {-2, -1, 0, 1, 2}, a));
+	}
+
+	@Test
+	public void testReverseDoubleArray()
+	{
+		assertTrue(Arrays.equals(new double[0], XArrays.reverse(new double[0])));
+
+		double[] a = new double[] {-2, -1, 0, 1, 2};
+		assertTrue(Arrays.equals(new double[] {2, 1, 0, -1, -2}, XArrays.reverse(a)));
+		assertTrue(Arrays.equals(new double[] {-2, -1, 0, 1, 2}, a));
+	}
+
+	@Test
+	public void testReverseObjectArray()
+	{
+		assertArrayEquals(new Object[0], XArrays.reverse(new Object[0]));
+
+		Object[] a = new Object[] {"a", "b", "c", "d"};
+		assertArrayEquals(new Object[] {"d", "c", "b", "a"}, XArrays.reverse(a));
+		assertArrayEquals(new Object[] {"a", "b", "c", "d"}, a);
+	}
+
+	@Test
+	public void testRotateLongArray()
+	{
+		assertArrayEquals(new long[0], XArrays.rotate(new long[0], 15));
+
+		long[] a = new long[] {-2, -1, 0, 1, 2};
+		assertArrayEquals(a, XArrays.rotate(a, 0));
+		assertArrayEquals(a, XArrays.rotate(a, -a.length));
+		assertArrayEquals(a, XArrays.rotate(a, a.length * 5));
+		assertArrayEquals(new long[] {2, -2, -1, 0, 1}, XArrays.rotate(a, 1));
+		assertArrayEquals(new long[] {1, 2, -2, -1, 0}, XArrays.rotate(a, 2));
+		assertArrayEquals(new long[] {0, 1, 2, -2, -1}, XArrays.rotate(a, 3));
+		assertArrayEquals(new long[] {-1, 0, 1, 2, -2}, XArrays.rotate(a, 4));
+		assertArrayEquals(new long[] {2, -2, -1, 0, 1}, XArrays.rotate(a, 6));
+	}
+
+	@Test
+	public void testRotateIntArray()
+	{
+		assertArrayEquals(new int[0], XArrays.rotate(new int[0], 15));
+
+		int[] a = new int[] {-2, -1, 0, 1, 2};
+		assertArrayEquals(a, XArrays.rotate(a, 0));
+		assertArrayEquals(a, XArrays.rotate(a, -a.length));
+		assertArrayEquals(a, XArrays.rotate(a, a.length * 5));
+		assertArrayEquals(new int[] {2, -2, -1, 0, 1}, XArrays.rotate(a, 1));
+		assertArrayEquals(new int[] {1, 2, -2, -1, 0}, XArrays.rotate(a, 2));
+		assertArrayEquals(new int[] {0, 1, 2, -2, -1}, XArrays.rotate(a, 3));
+		assertArrayEquals(new int[] {-1, 0, 1, 2, -2}, XArrays.rotate(a, 4));
+		assertArrayEquals(new int[] {2, -2, -1, 0, 1}, XArrays.rotate(a, 6));
+	}
+
+	@Test
+	public void testRotateShortArray()
+	{
+		assertArrayEquals(new short[0], XArrays.rotate(new short[0], 15));
+
+		short[] a = new short[] {-2, -1, 0, 1, 2};
+		assertArrayEquals(a, XArrays.rotate(a, 0));
+		assertArrayEquals(a, XArrays.rotate(a, -a.length));
+		assertArrayEquals(a, XArrays.rotate(a, a.length * 5));
+		assertArrayEquals(new short[] {2, -2, -1, 0, 1}, XArrays.rotate(a, 1));
+		assertArrayEquals(new short[] {1, 2, -2, -1, 0}, XArrays.rotate(a, 2));
+		assertArrayEquals(new short[] {0, 1, 2, -2, -1}, XArrays.rotate(a, 3));
+		assertArrayEquals(new short[] {-1, 0, 1, 2, -2}, XArrays.rotate(a, 4));
+		assertArrayEquals(new short[] {2, -2, -1, 0, 1}, XArrays.rotate(a, 6));
+	}
+
+	@Test
+	public void testRotateCharArray()
+	{
+		assertArrayEquals(new char[0], XArrays.rotate(new char[0], 15));
+
+		char[] a = new char[] {'a', 'b', 'c', 'd'};
+		assertArrayEquals(a, XArrays.rotate(a, 0));
+		assertArrayEquals(a, XArrays.rotate(a, -a.length));
+		assertArrayEquals(a, XArrays.rotate(a, a.length * 5));
+		assertArrayEquals(new char[] {'d', 'a', 'b', 'c'}, XArrays.rotate(a, 1));
+		assertArrayEquals(new char[] {'c', 'd', 'a', 'b'}, XArrays.rotate(a, 2));
+		assertArrayEquals(new char[] {'b', 'c', 'd', 'a'}, XArrays.rotate(a, 3));
+		assertArrayEquals(new char[] {'d', 'a', 'b', 'c'}, XArrays.rotate(a, 5));
+	}
+
+	@Test
+	public void testRotateByteArray()
+	{
+		assertArrayEquals(new byte[0], XArrays.rotate(new byte[0], 15));
+
+		byte[] a = new byte[] {-2, -1, 0, 1, 2};
+		assertArrayEquals(a, XArrays.rotate(a, 0));
+		assertArrayEquals(a, XArrays.rotate(a, -a.length));
+		assertArrayEquals(a, XArrays.rotate(a, a.length * 5));
+		assertArrayEquals(new byte[] {2, -2, -1, 0, 1}, XArrays.rotate(a, 1));
+		assertArrayEquals(new byte[] {1, 2, -2, -1, 0}, XArrays.rotate(a, 2));
+		assertArrayEquals(new byte[] {0, 1, 2, -2, -1}, XArrays.rotate(a, 3));
+		assertArrayEquals(new byte[] {-1, 0, 1, 2, -2}, XArrays.rotate(a, 4));
+		assertArrayEquals(new byte[] {2, -2, -1, 0, 1}, XArrays.rotate(a, 6));
+	}
+
+	@Test
+	public void testRotateBooleanArray()
+	{
+		assertTrue(Arrays.equals(new boolean[0], XArrays.rotate(new boolean[0], 15)));
+
+		boolean[] a = new boolean[] {true, true, false, true};
+		assertTrue(Arrays.equals(a, XArrays.rotate(a, 0)));
+		assertTrue(Arrays.equals(a, XArrays.rotate(a, -a.length)));
+		assertTrue(Arrays.equals(a, XArrays.rotate(a, a.length * 5)));
+		assertTrue(Arrays.equals(new boolean[] {true, true, true, false}, XArrays.rotate(a, 1)));
+		assertTrue(Arrays.equals(new boolean[] {false, true, true, true}, XArrays.rotate(a, 2)));
+		assertTrue(Arrays.equals(new boolean[] {true, false, true, true}, XArrays.rotate(a, 3)));
+		assertTrue(Arrays.equals(new boolean[] {true, true, true, false}, XArrays.rotate(a, 5)));
+	}
+
+	@Test
+	public void testRotateFloatArray()
+	{
+		assertTrue(Arrays.equals(new float[0], XArrays.rotate(new float[0], 15)));
+
+		float[] a = new float[] {-2, -1, 0, 1, 2};
+		assertTrue(Arrays.equals(a, XArrays.rotate(a, 0)));
+		assertTrue(Arrays.equals(a, XArrays.rotate(a, -a.length)));
+		assertTrue(Arrays.equals(a, XArrays.rotate(a, a.length * 5)));
+		assertTrue(Arrays.equals(new float[] {2, -2, -1, 0, 1}, XArrays.rotate(a, 1)));
+		assertTrue(Arrays.equals(new float[] {1, 2, -2, -1, 0}, XArrays.rotate(a, 2)));
+		assertTrue(Arrays.equals(new float[] {0, 1, 2, -2, -1}, XArrays.rotate(a, 3)));
+		assertTrue(Arrays.equals(new float[] {-1, 0, 1, 2, -2}, XArrays.rotate(a, 4)));
+		assertTrue(Arrays.equals(new float[] {2, -2, -1, 0, 1}, XArrays.rotate(a, 6)));
+	}
+
+	@Test
+	public void testRotateDoubleArray()
+	{
+		assertTrue(Arrays.equals(new double[0], XArrays.rotate(new double[0], 15)));
+
+		double[] a = new double[] {-2, -1, 0, 1, 2};
+		assertTrue(Arrays.equals(a, XArrays.rotate(a, 0)));
+		assertTrue(Arrays.equals(a, XArrays.rotate(a, -a.length)));
+		assertTrue(Arrays.equals(a, XArrays.rotate(a, a.length * 5)));
+		assertTrue(Arrays.equals(new double[] {2, -2, -1, 0, 1}, XArrays.rotate(a, 1)));
+		assertTrue(Arrays.equals(new double[] {1, 2, -2, -1, 0}, XArrays.rotate(a, 2)));
+		assertTrue(Arrays.equals(new double[] {0, 1, 2, -2, -1}, XArrays.rotate(a, 3)));
+		assertTrue(Arrays.equals(new double[] {-1, 0, 1, 2, -2}, XArrays.rotate(a, 4)));
+		assertTrue(Arrays.equals(new double[] {2, -2, -1, 0, 1}, XArrays.rotate(a, 6)));
+	}
+
+	@Test
+	public void testRotateObjectArray()
+	{
+		assertArrayEquals(new Object[0], XArrays.rotate(new Object[0], 15));
+
+		Object[] a = new Object[]{"a", "b", "c", "d"};
+		assertArrayEquals(a, XArrays.rotate(a, 0));
+		assertArrayEquals(a, XArrays.rotate(a, -a.length));
+		assertArrayEquals(a, XArrays.rotate(a, a.length * 5));
+		assertArrayEquals(new Object[]{"d", "a", "b", "c"}, XArrays.rotate(a, 1));
+		assertArrayEquals(new Object[]{"c", "d", "a", "b"}, XArrays.rotate(a, 2));
+		assertArrayEquals(new Object[]{"b", "c", "d", "a"}, XArrays.rotate(a, 3));
+		assertArrayEquals(new Object[]{"d", "a", "b", "c"}, XArrays.rotate(a, 5));
 	}
 
 	@Test
@@ -510,6 +670,77 @@ public class XArraysTest
 		Arrays.sort(a);
 		Arrays.sort(shuffled);
 		assertArrayEquals(a, shuffled);
+	}
+
+	@Test
+	public void testSortLongArray()
+	{
+		long[] a = new long[] {3, 1, 5, 4, 2};
+		long[] sorted = new long[] {1, 2, 3, 4, 5};
+		assertNotSame(a, XArrays.sort(a));
+		assertArrayEquals(sorted, XArrays.sort(a));
+	}
+
+	@Test
+	public void testSortIntArray()
+	{
+		int[] a = new int[] {3, 1, 5, 4, 2};
+		int[] sorted = new int[] {1, 2, 3, 4, 5};
+		assertNotSame(a, XArrays.sort(a));
+		assertArrayEquals(sorted, XArrays.sort(a));
+	}
+	@Test
+	public void testSortShortArray()
+	{
+		short[] a = new short[] {3, 1, 5, 4, 2};
+		short[] sorted = new short[] {1, 2, 3, 4, 5};
+		assertNotSame(a, XArrays.sort(a));
+		assertArrayEquals(sorted, XArrays.sort(a));
+	}
+
+	@Test
+	public void testSortCharArray()
+	{
+		char[] a = new char[] {3, 1, 5, 4, 2};
+		char[] sorted = new char[] {1, 2, 3, 4, 5};
+		assertNotSame(a, XArrays.sort(a));
+		assertArrayEquals(sorted, XArrays.sort(a));
+	}
+
+	@Test
+	public void testSortByteArray()
+	{
+		byte[] a = new byte[] {3, 1, 5, 4, 2};
+		byte[] sorted = new byte[] {1, 2, 3, 4, 5};
+		assertNotSame(a, XArrays.sort(a));
+		assertArrayEquals(sorted, XArrays.sort(a));
+	}
+
+	@Test
+	public void testSortFloatArray()
+	{
+		float[] a = new float[] {3, 1, 5, 4, 2};
+		float[] sorted = new float[] {1, 2, 3, 4, 5};
+		assertNotSame(a, XArrays.sort(a));
+		assertTrue(Arrays.equals(sorted, XArrays.sort(a)));
+	}
+
+	@Test
+	public void testSortDoubleArray()
+	{
+		double[] a = new double[] {3, 1, 5, 4, 2};
+		double[] sorted = new double[] {1, 2, 3, 4, 5};
+		assertNotSame(a, XArrays.sort(a));
+		assertTrue(Arrays.equals(sorted, XArrays.sort(a)));
+	}
+
+	@Test
+	public void testSortObjectArray()
+	{
+		Object[] a = new Object[] {"d", "a", "e", "c", "b"};
+		Object[] sorted = new Object[] {"a", "b", "c", "d", "e"};
+		assertNotSame(a, XArrays.sort(a));
+		assertArrayEquals(sorted, XArrays.sort(a));
 	}
 
 	@Test

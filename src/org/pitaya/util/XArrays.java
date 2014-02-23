@@ -751,167 +751,392 @@ public final class XArrays
 	}
 
 	/**
-	 * Returns a sorted copy of the given array into ascending numerical 
-	 * order.
+	 * Returns a new array containing the same elements as the given one,
+	 * but in reverse order.
 	 *
-	 * @param a the array to be sorted.
-	 * 
-	 * @return a sorted copy of the given array.
-	 * 
+	 * @param a the array to reverse.
+	 *
+	 * @return the reversed array.
+	 *
 	 * @throws NullPointerException if {@code a} is {@code null}.
-	 *
-	 * @see Arrays#sort(long[])
 	 */
-	public static long[] sort(long... a)
+	public static long[] reverse(long... a)
 	{
-		long[] copy = copyOf(a);
-		Arrays.sort(copy);
+		int len = a.length;
+		long[] copy = new long[len];
+		for (int i = 0; i < len; i++) {
+			copy[i] = a[len - i - 1];
+		}
 		return copy;
 	}
 
 	/**
-	 * Returns a sorted copy of the given array into ascending numerical 
-	 * order.
+	 * Returns a new array containing the same elements as the given one,
+	 * but in reverse order.
 	 *
-	 * @param a the array to be sorted.
-	 * 
-	 * @return a sorted copy of the given array.
-	 * 
+	 * @param a the array to reverse.
+	 *
+	 * @return the reversed array.
+	 *
 	 * @throws NullPointerException if {@code a} is {@code null}.
-	 *
-	 * @see Arrays#sort(int[])
 	 */
-	public static int[] sort(int... a)
+	public static int[] reverse(int... a)
 	{
-		int[] copy = copyOf(a);
-		Arrays.sort(copy);
+		int len = a.length;
+		int[] copy = new int[len];
+		for (int i = 0; i < len; i++) {
+			copy[i] = a[len - i - 1];
+		}
 		return copy;
 	}
 
 	/**
-	 * Returns a sorted copy of the given array into ascending numerical 
-	 * order.
+	 * Returns a new array containing the same elements as the given one,
+	 * but in reverse order.
 	 *
-	 * @param a the array to be sorted.
-	 * 
-	 * @return a sorted copy of the given array.
-	 * 
+	 * @param a the array to reverse.
+	 *
+	 * @return the reversed array.
+	 *
 	 * @throws NullPointerException if {@code a} is {@code null}.
-	 *
-	 * @see Arrays#sort(short[])
 	 */
-	public static short[] sort(short... a)
+	public static short[] reverse(short... a)
 	{
-		short[] copy = copyOf(a);
-		Arrays.sort(copy);
+		int len = a.length;
+		short[] copy = new short[len];
+		for (int i = 0; i < len; i++) {
+			copy[i] = a[len - i - 1];
+		}
 		return copy;
 	}
 
 	/**
-	 * Returns a sorted copy of the given array into ascending numerical 
-	 * order.
+	 * Returns a new array containing the same elements as the given one,
+	 * but in reverse order.
 	 *
-	 * @param a the array to be sorted.
-	 * 
-	 * @return a sorted copy of the given array.
-	 * 
+	 * @param a the array to reverse.
+	 *
+	 * @return the reversed array.
+	 *
 	 * @throws NullPointerException if {@code a} is {@code null}.
-	 *
-	 * @see Arrays#sort(char[])
 	 */
-	public static char[] sort(char... a)
+	public static char[] reverse(char... a)
 	{
-		char[] copy = copyOf(a);
-		Arrays.sort(copy);
+		int len = a.length;
+		char[] copy = new char[len];
+		for (int i = 0; i < len; i++) {
+			copy[i] = a[len - i - 1];
+		}
 		return copy;
 	}
 
 	/**
-	 * Returns a sorted copy of the given array into ascending numerical 
-	 * order.
+	 * Returns a new array containing the same elements as the given one,
+	 * but in reverse order.
 	 *
-	 * @param a the array to be sorted.
-	 * 
-	 * @return a sorted copy of the given array.
-	 * 
+	 * @param a the array to reverse.
+	 *
+	 * @return the reversed array.
+	 *
 	 * @throws NullPointerException if {@code a} is {@code null}.
-	 *
-	 * @see Arrays#sort(byte[])
 	 */
-	public static byte[] sort(byte... a)
+	public static byte[] reverse(byte... a)
 	{
-		byte[] copy = copyOf(a);
-		Arrays.sort(copy);
+		int len = a.length;
+		byte[] copy = new byte[len];
+		for (int i = 0; i < len; i++) {
+			copy[i] = a[len - i - 1];
+		}
 		return copy;
 	}
 
 	/**
-	 * Returns a sorted copy of the given array into ascending numerical 
-	 * order.
+	 * Returns a new array containing the same elements as the given one,
+	 * but in reverse order.
 	 *
-	 * @param a the array to be sorted.
-	 * 
-	 * @return a sorted copy of the given array.
-	 * 
+	 * @param a the array to reverse.
+	 *
+	 * @return the reversed array.
+	 *
 	 * @throws NullPointerException if {@code a} is {@code null}.
-	 *
-	 * @see Arrays#sort(float[])
 	 */
-	public static float[] sort(float... a)
+	public static boolean[] reverse(boolean... a)
 	{
-		float[] copy = copyOf(a);
-		Arrays.sort(copy);
+		int len = a.length;
+		boolean[] copy = new boolean[len];
+		for (int i = 0; i < len; i++) {
+			copy[i] = a[len - i - 1];
+		}
 		return copy;
 	}
 
 	/**
-	 * Returns a sorted copy of the given array into ascending numerical 
-	 * order.
+	 * Returns a new array containing the same elements as the given one,
+	 * but in reverse order.
 	 *
-	 * @param a the array to be sorted.
-	 * 
-	 * @return a sorted copy of the given array.
-	 * 
+	 * @param a the array to reverse.
+	 *
+	 * @return the reversed array.
+	 *
 	 * @throws NullPointerException if {@code a} is {@code null}.
-	 *
-	 * @see Arrays#sort(double[])
 	 */
-	public static double[] sort(double... a)
+	public static float[] reverse(float... a)
 	{
-		double[] copy = copyOf(a);
-		Arrays.sort(copy);
+		int len = a.length;
+		float[] copy = new float[len];
+		for (int i = 0; i < len; i++) {
+			copy[i] = a[len - i - 1];
+		}
 		return copy;
 	}
 
 	/**
-	 * Returns a sorted copy of the given array of objects into ascending 
-	 * order, according to the natural ordering of its elements (all 
-	 * elements in the array must implement the {@link Comparable} 
-	 * interface).
+	 * Returns a new array containing the same elements as the given one,
+	 * but in reverse order.
 	 *
-	 * @param a the array to be sorted.
-	 * 
-	 * @return a sorted copy of the given array.
+	 * @param a the array to reverse.
+	 *
+	 * @return the reversed array.
 	 *
 	 * @throws NullPointerException if {@code a} is {@code null}.
-	 * @throws ClassCastException if the array contains elements that are 
-	 *	not mutually comparable (for example, Strings and Integers).
-	 * @throws IllegalArgumentException if the natural ordering of the array
-	 *	elements is found to violate the {@link Comparable} contract.
-	 * 
-	 * @see Arrays#sort(java.lang.Object[])
 	 */
-	public static Object[] sort(Object[] a)
+	public static double[] reverse(double... a)
 	{
-		Object[] copy = copyOf(a);
-		Arrays.sort(copy);
+		int len = a.length;
+		double[] copy = new double[len];
+		for (int i = 0; i < len; i++) {
+			copy[i] = a[len - i - 1];
+		}
 		return copy;
+	}
+
+	/**
+	 * Returns a new array containing the same elements as the given one,
+	 * but in reverse order.
+	 *
+	 * @param a the array to reverse.
+	 *
+	 * @return the reversed array.
+	 *
+	 * @throws NullPointerException if {@code a} is {@code null}.
+	 */
+	public static Object[] reverse(Object[] a)
+	{
+		int len = a.length;
+		Object[] copy = new Object[len];
+		for (int i = 0; i < len; i++) {
+			copy[i] = a[len - i - 1];
+		}
+		return copy;
+	}
+
+	/**
+	 * Returns a new array containing the same elements as the given one,
+	 * but rotated by the given distance. Note that rotation by {@code 0} or
+	 * by a multiple of {@code a.length} is a no-op.
+	 *
+	 * @param a the array to rotate.
+	 * @param distance the distance to rotate.
+	 *
+	 * @return the reversed array.
+	 *
+	 * @throws NullPointerException if {@code a} is {@code null}.
+	 */
+	public static long[] rotate(long[] a, int distance)
+	{
+		int len = a.length;
+		long[] copy = new long[len];
+		for (int i = 0; i < len; i++) {
+			copy[i] = a[index(i - distance, len)];
+		}
+		return copy;
+	}
+
+	/**
+	 * Returns a new array containing the same elements as the given one,
+	 * but rotated by the given distance. Note that rotation by {@code 0} or
+	 * by a multiple of {@code a.length} is a no-op.
+	 *
+	 * @param a the array to rotate.
+	 * @param distance the distance to rotate.
+	 *
+	 * @return the reversed array.
+	 *
+	 * @throws NullPointerException if {@code a} is {@code null}.
+	 */
+	public static int[] rotate(int[] a, int distance)
+	{
+		int len = a.length;
+		int[] copy = new int[len];
+		for (int i = 0; i < len; i++) {
+			copy[i] = a[index(i - distance, len)];
+		}
+		return copy;
+	}
+
+	/**
+	 * Returns a new array containing the same elements as the given one,
+	 * but rotated by the given distance. Note that rotation by {@code 0} or
+	 * by a multiple of {@code a.length} is a no-op.
+	 *
+	 * @param a the array to rotate.
+	 * @param distance the distance to rotate.
+	 *
+	 * @return the reversed array.
+	 *
+	 * @throws NullPointerException if {@code a} is {@code null}.
+	 */
+	public static short[] rotate(short[] a, int distance)
+	{
+		int len = a.length;
+		short[] copy = new short[len];
+		for (int i = 0; i < len; i++) {
+			copy[i] = a[index(i - distance, len)];
+		}
+		return copy;
+	}
+
+	/**
+	 * Returns a new array containing the same elements as the given one,
+	 * but rotated by the given distance. Note that rotation by {@code 0} or
+	 * by a multiple of {@code a.length} is a no-op.
+	 *
+	 * @param a the array to rotate.
+	 * @param distance the distance to rotate.
+	 *
+	 * @return the reversed array.
+	 *
+	 * @throws NullPointerException if {@code a} is {@code null}.
+	 */
+	public static char[] rotate(char[] a, int distance)
+	{
+		int len = a.length;
+		char[] copy = new char[len];
+		for (int i = 0; i < len; i++) {
+			copy[i] = a[index(i - distance, len)];
+		}
+		return copy;
+	}
+
+	/**
+	 * Returns a new array containing the same elements as the given one,
+	 * but rotated by the given distance. Note that rotation by {@code 0} or
+	 * by a multiple of {@code a.length} is a no-op.
+	 *
+	 * @param a the array to rotate.
+	 * @param distance the distance to rotate.
+	 *
+	 * @return the reversed array.
+	 *
+	 * @throws NullPointerException if {@code a} is {@code null}.
+	 */
+	public static byte[] rotate(byte[] a, int distance)
+	{
+		int len = a.length;
+		byte[] copy = new byte[len];
+		for (int i = 0; i < len; i++) {
+			copy[i] = a[index(i - distance, len)];
+		}
+		return copy;
+	}
+
+	/**
+	 * Returns a new array containing the same elements as the given one,
+	 * but rotated by the given distance. Note that rotation by {@code 0} or
+	 * by a multiple of {@code a.length} is a no-op.
+	 *
+	 * @param a the array to rotate.
+	 * @param distance the distance to rotate.
+	 *
+	 * @return the reversed array.
+	 *
+	 * @throws NullPointerException if {@code a} is {@code null}.
+	 */
+	public static boolean[] rotate(boolean[] a, int distance)
+	{
+		int len = a.length;
+		boolean[] copy = new boolean[len];
+		for (int i = 0; i < len; i++) {
+			copy[i] = a[index(i - distance, len)];
+		}
+		return copy;
+	}
+
+	/**
+	 * Returns a new array containing the same elements as the given one,
+	 * but rotated by the given distance. Note that rotation by {@code 0} or
+	 * by a multiple of {@code a.length} is a no-op.
+	 *
+	 * @param a the array to rotate.
+	 * @param distance the distance to rotate.
+	 *
+	 * @return the reversed array.
+	 *
+	 * @throws NullPointerException if {@code a} is {@code null}.
+	 */
+	public static float[] rotate(float[] a, int distance)
+	{
+		int len = a.length;
+		float[] copy = new float[len];
+		for (int i = 0; i < len; i++) {
+			copy[i] = a[index(i - distance, len)];
+		}
+		return copy;
+	}
+
+	/**
+	 * Returns a new array containing the same elements as the given one,
+	 * but rotated by the given distance. Note that rotation by {@code 0} or
+	 * by a multiple of {@code a.length} is a no-op.
+	 *
+	 * @param a the array to rotate.
+	 * @param distance the distance to rotate.
+	 *
+	 * @return the reversed array.
+	 *
+	 * @throws NullPointerException if {@code a} is {@code null}.
+	 */
+	public static double[] rotate(double[] a, int distance)
+	{
+		int len = a.length;
+		double[] copy = new double[len];
+		for (int i = 0; i < len; i++) {
+			copy[i] = a[index(i - distance, len)];
+		}
+		return copy;
+	}
+
+	/**
+	 * Returns a new array containing the same elements as the given one,
+	 * but rotated by the given distance. Note that rotation by {@code 0} or
+	 * by a multiple of {@code a.length} is a no-op.
+	 *
+	 * @param a the array to rotate.
+	 * @param distance the distance to rotate.
+	 *
+	 * @return the reversed array.
+	 *
+	 * @throws NullPointerException if {@code a} is {@code null}.
+	 */
+	public static Object[] rotate(Object[] a, int distance)
+	{
+		int len = a.length;
+		Object[] copy = new Object[len];
+		for (int i = 0; i < len; i++) {
+			copy[i] = a[index(i - distance, len)];
+		}
+		return copy;
+	}
+
+	private static int index(int x, int mod)
+	{
+		return x < 0 ? index(x + mod, mod) : x % mod;
 	}
 
 	/**
 	 * Returns a copy of the given array where its element have been randomly
-	 * permuted. This method uses the optimized version of the Fisher-Yates 
-	 * shuffle algorithm (Fisher, Yates, Durstenfeld, Knuth) and thus runs 
+	 * permuted. This method uses the optimized version of the Fisher-Yates
+	 * shuffle algorithm (Fisher, Yates, Durstenfeld, Knuth) and thus runs
 	 * in linear time.
 	 *
 	 * @param a the array whose content will be shuffled.
@@ -927,7 +1152,7 @@ public final class XArrays
 
 	/**
 	 * Returns a copy of the given array where its element have been randomly
-	 * permuted using the specified source of randomness. All permutations 
+	 * permuted using the specified source of randomness. All permutations
 	 * occur with equal likelihood assuming that the source of randomness is
 	 * fair. This method uses the optimized version of the Fisher-Yates shuffle
 	 * algorithm (Fisher, Yates, Durstenfeld, Knuth) and thus runs in linear
@@ -1006,8 +1231,8 @@ public final class XArrays
 
 	/**
 	 * Returns a copy of the given array where its element have been randomly
-	 * permuted. This method uses the optimized version of the Fisher-Yates 
-	 * shuffle algorithm (Fisher, Yates, Durstenfeld, Knuth) and thus runs 
+	 * permuted. This method uses the optimized version of the Fisher-Yates
+	 * shuffle algorithm (Fisher, Yates, Durstenfeld, Knuth) and thus runs
 	 * in linear time.
 	 *
 	 * @param a the array whose content will be shuffled.
@@ -1023,7 +1248,7 @@ public final class XArrays
 
 	/**
 	 * Returns a copy of the given array where its element have been randomly
-	 * permuted using the specified source of randomness. All permutations 
+	 * permuted using the specified source of randomness. All permutations
 	 * occur with equal likelihood assuming that the source of randomness is
 	 * fair. This method uses the optimized version of the Fisher-Yates shuffle
 	 * algorithm (Fisher, Yates, Durstenfeld, Knuth) and thus runs in linear
@@ -1246,8 +1471,8 @@ public final class XArrays
 
 	/**
 	 * Returns a copy of the given array where its element have been randomly
-	 * permuted. This method uses the optimized version of the Fisher-Yates 
-	 * shuffle algorithm (Fisher, Yates, Durstenfeld, Knuth) and thus runs 
+	 * permuted. This method uses the optimized version of the Fisher-Yates
+	 * shuffle algorithm (Fisher, Yates, Durstenfeld, Knuth) and thus runs
 	 * in linear time.
 	 *
 	 * @param a the array whose content will be shuffled.
@@ -1263,7 +1488,7 @@ public final class XArrays
 
 	/**
 	 * Returns a copy of the given array where its element have been randomly
-	 * permuted using the specified source of randomness. All permutations 
+	 * permuted using the specified source of randomness. All permutations
 	 * occur with equal likelihood assuming that the source of randomness is
 	 * fair. This method uses the optimized version of the Fisher-Yates shuffle
 	 * algorithm (Fisher, Yates, Durstenfeld, Knuth) and thus runs in linear
@@ -1338,6 +1563,164 @@ public final class XArrays
 		Object c = a[i];
 		a[i] = a[j];
 		a[j] = c;
+	}
+
+	/**
+	 * Returns a sorted copy of the given array into ascending numerical 
+	 * order.
+	 *
+	 * @param a the array to be sorted.
+	 * 
+	 * @return a sorted copy of the given array.
+	 * 
+	 * @throws NullPointerException if {@code a} is {@code null}.
+	 *
+	 * @see Arrays#sort(long[])
+	 */
+	public static long[] sort(long... a)
+	{
+		long[] copy = copyOf(a);
+		Arrays.sort(copy);
+		return copy;
+	}
+
+	/**
+	 * Returns a sorted copy of the given array into ascending numerical 
+	 * order.
+	 *
+	 * @param a the array to be sorted.
+	 * 
+	 * @return a sorted copy of the given array.
+	 * 
+	 * @throws NullPointerException if {@code a} is {@code null}.
+	 *
+	 * @see Arrays#sort(int[])
+	 */
+	public static int[] sort(int... a)
+	{
+		int[] copy = copyOf(a);
+		Arrays.sort(copy);
+		return copy;
+	}
+
+	/**
+	 * Returns a sorted copy of the given array into ascending numerical 
+	 * order.
+	 *
+	 * @param a the array to be sorted.
+	 * 
+	 * @return a sorted copy of the given array.
+	 * 
+	 * @throws NullPointerException if {@code a} is {@code null}.
+	 *
+	 * @see Arrays#sort(short[])
+	 */
+	public static short[] sort(short... a)
+	{
+		short[] copy = copyOf(a);
+		Arrays.sort(copy);
+		return copy;
+	}
+
+	/**
+	 * Returns a sorted copy of the given array into ascending numerical 
+	 * order.
+	 *
+	 * @param a the array to be sorted.
+	 * 
+	 * @return a sorted copy of the given array.
+	 * 
+	 * @throws NullPointerException if {@code a} is {@code null}.
+	 *
+	 * @see Arrays#sort(char[])
+	 */
+	public static char[] sort(char... a)
+	{
+		char[] copy = copyOf(a);
+		Arrays.sort(copy);
+		return copy;
+	}
+
+	/**
+	 * Returns a sorted copy of the given array into ascending numerical 
+	 * order.
+	 *
+	 * @param a the array to be sorted.
+	 * 
+	 * @return a sorted copy of the given array.
+	 * 
+	 * @throws NullPointerException if {@code a} is {@code null}.
+	 *
+	 * @see Arrays#sort(byte[])
+	 */
+	public static byte[] sort(byte... a)
+	{
+		byte[] copy = copyOf(a);
+		Arrays.sort(copy);
+		return copy;
+	}
+
+	/**
+	 * Returns a sorted copy of the given array into ascending numerical 
+	 * order.
+	 *
+	 * @param a the array to be sorted.
+	 * 
+	 * @return a sorted copy of the given array.
+	 * 
+	 * @throws NullPointerException if {@code a} is {@code null}.
+	 *
+	 * @see Arrays#sort(float[])
+	 */
+	public static float[] sort(float... a)
+	{
+		float[] copy = copyOf(a);
+		Arrays.sort(copy);
+		return copy;
+	}
+
+	/**
+	 * Returns a sorted copy of the given array into ascending numerical 
+	 * order.
+	 *
+	 * @param a the array to be sorted.
+	 * 
+	 * @return a sorted copy of the given array.
+	 * 
+	 * @throws NullPointerException if {@code a} is {@code null}.
+	 *
+	 * @see Arrays#sort(double[])
+	 */
+	public static double[] sort(double... a)
+	{
+		double[] copy = copyOf(a);
+		Arrays.sort(copy);
+		return copy;
+	}
+
+	/**
+	 * Returns a sorted copy of the given array of objects into ascending 
+	 * order, according to the natural ordering of its elements (all 
+	 * elements in the array must implement the {@link Comparable} 
+	 * interface).
+	 *
+	 * @param a the array to be sorted.
+	 * 
+	 * @return a sorted copy of the given array.
+	 *
+	 * @throws NullPointerException if {@code a} is {@code null}.
+	 * @throws ClassCastException if the array contains elements that are 
+	 *	not mutually comparable (for example, Strings and Integers).
+	 * @throws IllegalArgumentException if the natural ordering of the array
+	 *	elements is found to violate the {@link Comparable} contract.
+	 * 
+	 * @see Arrays#sort(java.lang.Object[])
+	 */
+	public static Object[] sort(Object[] a)
+	{
+		Object[] copy = copyOf(a);
+		Arrays.sort(copy);
+		return copy;
 	}
 
 	/**
