@@ -113,6 +113,32 @@ public final class Throwables
 		return Collections.unmodifiableList(frames);
 	}
 
+	/**
+	 * Re-throws the given {@code Throwable} if it is already an instance of
+	 * {@code RuntimeException} or {@link Error}, and, if not, wraps it in a
+	 * {@code RuntimeException} before throwing it.
+	 * 
+	 * @param t the {@code Throwable} to propagate.
+	 * 
+	 * @return nothing (this method always throws a {@code Throwable}).
+	 * 
+	 * @throws NullPointerException if {@code t} is {@code null}.
+	 * @throws RuntimeException if {@code t} is already an instance of 
+	 *	{@code RuntimeException} or if {@code t} is neither an instance
+	 *	of {@code RuntimeException} nor an instance of {@code Error}.
+	 * @throws Error if {@code t} is an instance of {@code Error}.
+	 */
+	public static RuntimeException propagate(Throwable t)
+	{
+		Parameters.checkNotNull(t);
+		if (t instanceof RuntimeException) {
+			throw (RuntimeException) t;
+		} else if (t instanceof Error) {
+			throw (Error) t;
+		}
+		throw new RuntimeException(t);
+	}
+
 	private Throwables()
 	{
 		/* ... */

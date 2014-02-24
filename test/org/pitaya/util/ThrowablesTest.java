@@ -18,6 +18,8 @@ package org.pitaya.util;
 
 import static org.junit.Assert.*;
 
+import java.io.IOError;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -69,5 +71,23 @@ public final class ThrowablesTest
 		for (int i = 0; i < elements.length; i++) {
 			assertEquals(elements[i].toString(), frames.get(i));
 		}
+	}
+
+	@Test(expected = IOError.class)
+	public void testPropagateError()
+	{
+		Throwables.propagate(new IOError(new Throwable()));
+	}
+
+	@Test(expected = NullPointerException.class)
+	public void testPropagateRuntimeException()
+	{
+		Throwables.propagate(new NullPointerException());
+	}
+
+	@Test(expected = RuntimeException.class)
+	public void testPropagateCheckedException()
+	{
+		Throwables.propagate(new IOException());
 	}
 }
