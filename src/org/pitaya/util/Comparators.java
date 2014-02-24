@@ -1,0 +1,138 @@
+/*----------------------------------------------------------------------------*
+ * This file is part of Pitaya.                                               *
+ * Copyright (C) 2012-2014 Osman KOCAK <kocakosm@gmail.com>                   *
+ *                                                                            *
+ * This program is free software: you can redistribute it and/or modify it    *
+ * under the terms of the GNU Lesser General Public License as published by   *
+ * the Free Software Foundation, either version 3 of the License, or (at your *
+ * option) any later version.                                                 *
+ * This program is distributed in the hope that it will be useful, but        *
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY *
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public     *
+ * License for more details.                                                  *
+ * You should have received a copy of the GNU Lesser General Public License   *
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.       *
+ *----------------------------------------------------------------------------*/
+
+package org.pitaya.util;
+
+import org.pitaya.collection.Iterables;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+
+/**
+ * Utilities for {@link Comparator}s.
+ *
+ * @author Osman KOCAK
+ */
+public final class Comparators
+{
+	/**
+	 * Returns a {@code Comparator} that will call each {@code Comparator} 
+	 * in the given {@code Iterable} until one of them returns a non-zero 
+	 * result (will return {@code 0} if they all return {@code 0}).
+	 * 
+	 * @param <T> the parameters type of the returned {@code Comparator}.
+	 * @param comparators the {@code Comparator}s to compose.
+	 * 
+	 * @return the composed {@code Comparator}.
+	 * 
+	 * @throws NullPointerException if {@code comparators} is {@code null}
+	 *	of if it contains a {@code null} reference.
+	 * @throws IllegalArgumentException if {@code comparators} is empty.
+	 */
+	public static <T> Comparator<T> compose(Iterable<Comparator<? super T>> comparators)
+	{
+		return new CompositeComparator<T>(Iterables.toList(comparators));
+	}
+
+	/**
+	 * Returns a {@code Comparator} that will call each {@code Comparator} 
+	 * in the given array until one of them returns a non-zero result (will 
+	 * return {@code 0} if they all return {@code 0}).
+	 * 
+	 * @param <T> the parameters type of the returned {@code Comparator}.
+	 * @param comparators the {@code Comparator}s to compose.
+	 * 
+	 * @return the composed {@code Comparator}.
+	 * 
+	 * @throws NullPointerException if {@code comparators} is {@code null}
+	 *	of if it contains a {@code null} reference.
+	 * @throws IllegalArgumentException if {@code comparators} is empty.
+	 */
+	public static <T> Comparator<T> compose(Comparator<? super T>... comparators)
+	{
+		return new CompositeComparator<T>(Arrays.asList(comparators));
+	}
+
+	/**
+	 * Returns a {@code Comparator} that represents the reverse ordering of
+	 * the given one. Namely, the returned {@code Comparator} will return
+	 * a negative value if the original returns a positive value and, 
+	 * conversely, will return a positive value if it returns a negative 
+	 * value.
+	 *
+	 * @param <T> the parameters type of the {@code Comparator}s.
+	 * @param comparator the comparator to invert.
+	 *
+	 * @return the inverted {@code Comparator}.
+	 * 
+	 * @throws NullPointerException if {@code comparator} is {@code null}.
+	 */
+	public static <T> Comparator<T> invert(final Comparator<T> comparator)
+	{
+		return new InvertedComparator<T>(comparator);
+	}
+
+	private static final class CompositeComparator<T> implements Comparator<T>
+	{
+		private final List<Comparator<? super T>> comparators;
+
+		CompositeComparator(List<Comparator<? super T>> comparators)
+		{
+			Parameters.checkCondition(!comparators.isEmpty());
+			this.comparators = new ArrayList<Comparator<? super T>>(comparators);
+			for (Comparator<? super T> comparator : this.comparators) {
+				Parameters.checkNotNull(comparator);
+			}
+		}
+
+		@Override
+		public int compare(T o1, T o2)
+		{
+			for (Comparator<? super T> comparator : comparators) {
+				int c = comparator.compare(o1, o2);
+				if (c != 0) {
+					return c;
+				}
+			}
+			return 0;
+		}
+	}
+
+	private static final class InvertedComparator<T> implements Comparator<T>
+	{
+		private final Comparator<T> comparator;
+
+		InvertedComparator(Comparator<T> comparator)
+		{
+			Parameters.checkNotNull(comparator);
+			this.comparator = comparator;
+		}
+
+		@Override
+		public int compare(T o1, T o2)
+		{
+			int c = comparator.compare(o1, o2);
+			return c < 0 ? 1 : c > 0 ? -1 : 0;
+		}
+	}
+
+	private Comparators()
+	{
+		/* ... */
+	}
+}
