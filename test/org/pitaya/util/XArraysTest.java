@@ -29,7 +29,7 @@ import org.junit.Test;
  *
  * @author Osman KOCAK
  */
-public class XArraysTest
+public final class XArraysTest
 {
 	private static final Random PRNG = new Random();
 
