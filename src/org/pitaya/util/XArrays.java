@@ -938,7 +938,7 @@ public final class XArrays
 	 * @param a the array to rotate.
 	 * @param distance the distance to rotate.
 	 *
-	 * @return the reversed array.
+	 * @return the rotated array.
 	 *
 	 * @throws NullPointerException if {@code a} is {@code null}.
 	 */
@@ -960,7 +960,7 @@ public final class XArrays
 	 * @param a the array to rotate.
 	 * @param distance the distance to rotate.
 	 *
-	 * @return the reversed array.
+	 * @return the rotated array.
 	 *
 	 * @throws NullPointerException if {@code a} is {@code null}.
 	 */
@@ -982,7 +982,7 @@ public final class XArrays
 	 * @param a the array to rotate.
 	 * @param distance the distance to rotate.
 	 *
-	 * @return the reversed array.
+	 * @return the rotated array.
 	 *
 	 * @throws NullPointerException if {@code a} is {@code null}.
 	 */
@@ -1004,7 +1004,7 @@ public final class XArrays
 	 * @param a the array to rotate.
 	 * @param distance the distance to rotate.
 	 *
-	 * @return the reversed array.
+	 * @return the rotated array.
 	 *
 	 * @throws NullPointerException if {@code a} is {@code null}.
 	 */
@@ -1026,7 +1026,7 @@ public final class XArrays
 	 * @param a the array to rotate.
 	 * @param distance the distance to rotate.
 	 *
-	 * @return the reversed array.
+	 * @return the rotated array.
 	 *
 	 * @throws NullPointerException if {@code a} is {@code null}.
 	 */
@@ -1048,7 +1048,7 @@ public final class XArrays
 	 * @param a the array to rotate.
 	 * @param distance the distance to rotate.
 	 *
-	 * @return the reversed array.
+	 * @return the rotated array.
 	 *
 	 * @throws NullPointerException if {@code a} is {@code null}.
 	 */
@@ -1070,7 +1070,7 @@ public final class XArrays
 	 * @param a the array to rotate.
 	 * @param distance the distance to rotate.
 	 *
-	 * @return the reversed array.
+	 * @return the rotated array.
 	 *
 	 * @throws NullPointerException if {@code a} is {@code null}.
 	 */
@@ -1092,7 +1092,7 @@ public final class XArrays
 	 * @param a the array to rotate.
 	 * @param distance the distance to rotate.
 	 *
-	 * @return the reversed array.
+	 * @return the rotated array.
 	 *
 	 * @throws NullPointerException if {@code a} is {@code null}.
 	 */
@@ -1114,7 +1114,7 @@ public final class XArrays
 	 * @param a the array to rotate.
 	 * @param distance the distance to rotate.
 	 *
-	 * @return the reversed array.
+	 * @return the rotated array.
 	 *
 	 * @throws NullPointerException if {@code a} is {@code null}.
 	 */
