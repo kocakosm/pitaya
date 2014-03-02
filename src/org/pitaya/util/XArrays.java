@@ -17,6 +17,7 @@
 package org.pitaya.util;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Random;
 
 /**
@@ -1720,6 +1721,29 @@ public final class XArrays
 	{
 		Object[] copy = copyOf(a);
 		Arrays.sort(copy);
+		return copy;
+	}
+
+	/**
+	 * Returns a sorted copy of the given array of objects into ascending 
+	 * order, according to the order induced by the given {@code Comparator}.
+	 *
+	 * @param <T> the type of the elements in the array to sort.
+	 * @param a the array to be sorted.
+	 * @param c the comparator to determine the order of the array.
+	 * 
+	 * @return a sorted copy of the given array.
+	 *
+	 * @throws NullPointerException if {@code a} or {@code c} is {@code null}.
+	 * @throws ClassCastException if the array contains elements that are 
+	 *	not mutually comparable (for example, Strings and Integers).
+	 * 
+	 * @see Arrays#sort(T[], java.util.Comparator)
+	 */
+	public static <T> T[] sort(T[] a, Comparator<? super T> c)
+	{
+		T[] copy = Arrays.copyOf(a, a.length);
+		Arrays.sort(copy, c);
 		return copy;
 	}
 

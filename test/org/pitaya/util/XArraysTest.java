@@ -20,6 +20,7 @@ import static org.pitaya.util.XArrays.*;
 import static org.junit.Assert.*;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Random;
 
 import org.junit.Test;
@@ -751,6 +752,24 @@ public final class XArraysTest
 		Object[] sorted = new Object[] {"a", "b", "c", "d", "e"};
 		assertNotSame(a, sort(a));
 		assertArrayEquals(sorted, sort(a));
+	}
+
+	@Test
+	public void testSortObjectArrayWithComparator()
+	{
+		Comparator<String> c = new Comparator<String>() 
+		{
+			@Override
+			public int compare(String s1, String s2)
+			{
+				int c = s1.compareTo(s2);
+				return c < 0 ? 1 : c > 0 ? -1 : 0;
+			}
+		};
+		String[] a = new String[] {"d", "a", "e", "c", "b"};
+		String[] sorted = new String[] {"e", "d", "c", "b", "a"};
+		assertNotSame(a, sort(a, c));
+		assertArrayEquals(sorted, sort(a, c));
 	}
 
 	@Test
