@@ -933,8 +933,12 @@ public final class XArrays
 
 	/**
 	 * Returns a new array containing the same elements as the given one,
-	 * but rotated by the given distance. Note that rotation by {@code 0} or
-	 * by a multiple of {@code a.length} is a no-op.
+	 * but rotated by the given distance. The element at index {@code i} in
+	 * the returned array corresponds to the element in the original array
+	 * at index {@code (i - distance)} mod {@code a.length}, for all values
+	 * of {@code i} between {@code 0} and {@code a.length - 1}, inclusive.
+	 * Note that rotation by {@code 0} or by a multiple of {@code a.length}
+	 * is a no-op.
 	 *
 	 * @param a the array to rotate.
 	 * @param distance the distance to rotate.
@@ -955,8 +959,12 @@ public final class XArrays
 
 	/**
 	 * Returns a new array containing the same elements as the given one,
-	 * but rotated by the given distance. Note that rotation by {@code 0} or
-	 * by a multiple of {@code a.length} is a no-op.
+	 * but rotated by the given distance. The element at index {@code i} in
+	 * the returned array corresponds to the element in the original array
+	 * at index {@code (i - distance)} mod {@code a.length}, for all values
+	 * of {@code i} between {@code 0} and {@code a.length - 1}, inclusive.
+	 * Note that rotation by {@code 0} or by a multiple of {@code a.length}
+	 * is a no-op.
 	 *
 	 * @param a the array to rotate.
 	 * @param distance the distance to rotate.
@@ -977,8 +985,12 @@ public final class XArrays
 
 	/**
 	 * Returns a new array containing the same elements as the given one,
-	 * but rotated by the given distance. Note that rotation by {@code 0} or
-	 * by a multiple of {@code a.length} is a no-op.
+	 * but rotated by the given distance. The element at index {@code i} in
+	 * the returned array corresponds to the element in the original array
+	 * at index {@code (i - distance)} mod {@code a.length}, for all values
+	 * of {@code i} between {@code 0} and {@code a.length - 1}, inclusive.
+	 * Note that rotation by {@code 0} or by a multiple of {@code a.length}
+	 * is a no-op.
 	 *
 	 * @param a the array to rotate.
 	 * @param distance the distance to rotate.
@@ -999,8 +1011,12 @@ public final class XArrays
 
 	/**
 	 * Returns a new array containing the same elements as the given one,
-	 * but rotated by the given distance. Note that rotation by {@code 0} or
-	 * by a multiple of {@code a.length} is a no-op.
+	 * but rotated by the given distance. The element at index {@code i} in
+	 * the returned array corresponds to the element in the original array
+	 * at index {@code (i - distance)} mod {@code a.length}, for all values
+	 * of {@code i} between {@code 0} and {@code a.length - 1}, inclusive.
+	 * Note that rotation by {@code 0} or by a multiple of {@code a.length}
+	 * is a no-op.
 	 *
 	 * @param a the array to rotate.
 	 * @param distance the distance to rotate.
@@ -1021,8 +1037,12 @@ public final class XArrays
 
 	/**
 	 * Returns a new array containing the same elements as the given one,
-	 * but rotated by the given distance. Note that rotation by {@code 0} or
-	 * by a multiple of {@code a.length} is a no-op.
+	 * but rotated by the given distance. The element at index {@code i} in
+	 * the returned array corresponds to the element in the original array
+	 * at index {@code (i - distance)} mod {@code a.length}, for all values
+	 * of {@code i} between {@code 0} and {@code a.length - 1}, inclusive.
+	 * Note that rotation by {@code 0} or by a multiple of {@code a.length}
+	 * is a no-op.
 	 *
 	 * @param a the array to rotate.
 	 * @param distance the distance to rotate.
@@ -1043,8 +1063,12 @@ public final class XArrays
 
 	/**
 	 * Returns a new array containing the same elements as the given one,
-	 * but rotated by the given distance. Note that rotation by {@code 0} or
-	 * by a multiple of {@code a.length} is a no-op.
+	 * but rotated by the given distance. The element at index {@code i} in
+	 * the returned array corresponds to the element in the original array
+	 * at index {@code (i - distance)} mod {@code a.length}, for all values
+	 * of {@code i} between {@code 0} and {@code a.length - 1}, inclusive.
+	 * Note that rotation by {@code 0} or by a multiple of {@code a.length}
+	 * is a no-op.
 	 *
 	 * @param a the array to rotate.
 	 * @param distance the distance to rotate.
@@ -1065,8 +1089,12 @@ public final class XArrays
 
 	/**
 	 * Returns a new array containing the same elements as the given one,
-	 * but rotated by the given distance. Note that rotation by {@code 0} or
-	 * by a multiple of {@code a.length} is a no-op.
+	 * but rotated by the given distance. The element at index {@code i} in
+	 * the returned array corresponds to the element in the original array
+	 * at index {@code (i - distance)} mod {@code a.length}, for all values
+	 * of {@code i} between {@code 0} and {@code a.length - 1}, inclusive.
+	 * Note that rotation by {@code 0} or by a multiple of {@code a.length}
+	 * is a no-op.
 	 *
 	 * @param a the array to rotate.
 	 * @param distance the distance to rotate.
@@ -1087,8 +1115,12 @@ public final class XArrays
 
 	/**
 	 * Returns a new array containing the same elements as the given one,
-	 * but rotated by the given distance. Note that rotation by {@code 0} or
-	 * by a multiple of {@code a.length} is a no-op.
+	 * but rotated by the given distance. The element at index {@code i} in
+	 * the returned array corresponds to the element in the original array
+	 * at index {@code (i - distance)} mod {@code a.length}, for all values
+	 * of {@code i} between {@code 0} and {@code a.length - 1}, inclusive.
+	 * Note that rotation by {@code 0} or by a multiple of {@code a.length}
+	 * is a no-op.
 	 *
 	 * @param a the array to rotate.
 	 * @param distance the distance to rotate.
@@ -1109,8 +1141,12 @@ public final class XArrays
 
 	/**
 	 * Returns a new array containing the same elements as the given one,
-	 * but rotated by the given distance. Note that rotation by {@code 0} or
-	 * by a multiple of {@code a.length} is a no-op.
+	 * but rotated by the given distance. The element at index {@code i} in
+	 * the returned array corresponds to the element in the original array
+	 * at index {@code (i - distance)} mod {@code a.length}, for all values
+	 * of {@code i} between {@code 0} and {@code a.length - 1}, inclusive.
+	 * Note that rotation by {@code 0} or by a multiple of {@code a.length}
+	 * is a no-op.
 	 *
 	 * @param a the array to rotate.
 	 * @param distance the distance to rotate.
