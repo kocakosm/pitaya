@@ -82,7 +82,7 @@ public final class Comparators
 	 * 
 	 * @throws NullPointerException if {@code comparator} is {@code null}.
 	 */
-	public static <T> Comparator<T> invert(final Comparator<T> comparator)
+	public static <T> Comparator<T> invert(Comparator<T> comparator)
 	{
 		return new InvertedComparator<T>(comparator);
 	}
@@ -93,11 +93,12 @@ public final class Comparators
 
 		CompositeComparator(List<Comparator<? super T>> comparators)
 		{
-			Parameters.checkCondition(!comparators.isEmpty());
-			this.comparators = new ArrayList<Comparator<? super T>>(comparators);
-			for (Comparator<? super T> comparator : this.comparators) {
+			this.comparators = new ArrayList<Comparator<? super T>>();
+			for (Comparator<? super T> comparator : comparators) {
 				Parameters.checkNotNull(comparator);
+				this.comparators.add(comparator);
 			}
+			Parameters.checkCondition(!this.comparators.isEmpty());
 		}
 
 		@Override
