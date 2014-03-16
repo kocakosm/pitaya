@@ -30,7 +30,7 @@ import java.util.List;
  *
  * @author Osman KOCAK
  */
-public final class TeeWriter extends Writer
+final class TeeWriter extends Writer
 {
 	private final List<Writer> writers;
 
@@ -42,7 +42,7 @@ public final class TeeWriter extends Writer
 	 * @throws NullPointerException if {@code writers} is {@code null} or
 	 *	if it contains a {@code null} reference.
 	 */
-	public TeeWriter(Writer... writers)
+	TeeWriter(Writer... writers)
 	{
 		this(Arrays.asList(writers));
 	}
@@ -55,7 +55,7 @@ public final class TeeWriter extends Writer
 	 * @throws NullPointerException if {@code writers} is {@code null} or
 	 *	if it returns a {@code null} reference.
 	 */
-	public TeeWriter(Iterable<Writer> writers)
+	TeeWriter(Iterable<? extends Writer> writers)
 	{
 		this.writers = new ArrayList<Writer>();
 		for (Writer writer : writers) {

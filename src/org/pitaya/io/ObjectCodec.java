@@ -56,7 +56,7 @@ public final class ObjectCodec
 		} catch (IOException ex) {
 			throw new EncodingException(ex);
 		} finally {
-			Streams.close(oos);
+			IO.close(oos);
 		}
 	}
 
@@ -103,7 +103,7 @@ public final class ObjectCodec
 		} catch (ClassNotFoundException ex) {
 			throw new DecodingException(ex);
 		} finally {
-			Streams.close(ois);
+			IO.close(ois);
 		}
 	}
 

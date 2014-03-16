@@ -27,7 +27,7 @@ import java.io.Reader;
  *
  * @author Osman KOCAK
  */
-public final class LimitReader extends Reader
+final class LimitReader extends Reader
 {
 	private final Reader reader;
 	private final long limit;
@@ -47,7 +47,7 @@ public final class LimitReader extends Reader
 	 * @throws NullPointerException if {@code reader} is {@code null}.
 	 * @throws IllegalArgumentException if {@code limit} is negative.
 	 */
-	public LimitReader(Reader reader, long limit)
+	LimitReader(Reader reader, long limit)
 	{
 		Parameters.checkNotNull(reader);
 		Parameters.checkCondition(limit >= 0);

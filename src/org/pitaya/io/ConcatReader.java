@@ -31,7 +31,7 @@ import java.util.List;
  *
  * @author Osman KOCAK
  */
-public final class ConcatReader extends Reader
+final class ConcatReader extends Reader
 {
 	private final List<Reader> readers;
 	private int index;
@@ -45,7 +45,7 @@ public final class ConcatReader extends Reader
 	 *	if it contains a {@code null} reference.
 	 * @throws IllegalArgumentException if {@code readers} is empty.
 	 */
-	public ConcatReader(Reader... readers)
+	ConcatReader(Reader... readers)
 	{
 		this(Arrays.asList(readers));
 	}
@@ -59,7 +59,7 @@ public final class ConcatReader extends Reader
 	 *	if it contains a {@code null} reference.
 	 * @throws IllegalArgumentException if {@code readers} is empty.
 	 */
-	public ConcatReader(List<Reader> readers)
+	ConcatReader(List<? extends Reader> readers)
 	{
 		this.readers = new ArrayList<Reader>(readers);
 		Parameters.checkCondition(!this.readers.isEmpty());

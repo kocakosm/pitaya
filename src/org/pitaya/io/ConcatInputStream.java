@@ -30,7 +30,7 @@ import java.util.List;
  *
  * @author Osman KOCAK
  */
-public final class ConcatInputStream extends InputStream
+final class ConcatInputStream extends InputStream
 {
 	private final List<InputStream> streams;
 	private int index;
@@ -44,7 +44,7 @@ public final class ConcatInputStream extends InputStream
 	 *	if it contains a {@code null} reference.
 	 * @throws IllegalArgumentException if {@code streams} is empty.
 	 */
-	public ConcatInputStream(InputStream... streams)
+	ConcatInputStream(InputStream... streams)
 	{
 		this(Arrays.asList(streams));
 	}
@@ -58,7 +58,7 @@ public final class ConcatInputStream extends InputStream
 	 *	if it contains a {@code null} reference.
 	 * @throws IllegalArgumentException if {@code streams} is empty.
 	 */
-	public ConcatInputStream(List<InputStream> streams)
+	ConcatInputStream(List<? extends InputStream> streams)
 	{
 		this.streams = new ArrayList<InputStream>(streams);
 		Parameters.checkCondition(!this.streams.isEmpty());
@@ -77,7 +77,7 @@ public final class ConcatInputStream extends InputStream
 	public void close()
 	{
 		for (InputStream stream : streams) {
-			Streams.close(stream);
+			IO.close(stream);
 		}
 	}
 

@@ -25,12 +25,12 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * A decorating {@link OutputStream} that writes all bytes written to it to 
- * given underlying streams. Named after the Unix 'tee' command.
+ * A decorating {@code OutputStream} that writes all bytes written to it to the
+ * given underlying streams. Named after the Unix 'tee' command. Not thread-safe.
  *
  * @author Osman KOCAK
  */
-public final class TeeOutputStream extends OutputStream
+final class TeeOutputStream extends OutputStream
 {
 	private final List<OutputStream> streams;
 
@@ -42,7 +42,7 @@ public final class TeeOutputStream extends OutputStream
 	 * @throws NullPointerException if {@code streams} is {@code null} or
 	 *	if it contains a {@code null} reference.
 	 */
-	public TeeOutputStream(OutputStream... streams)
+	TeeOutputStream(OutputStream... streams)
 	{
 		this(Arrays.asList(streams));
 	}
@@ -55,7 +55,7 @@ public final class TeeOutputStream extends OutputStream
 	 * @throws NullPointerException if {@code streams} is {@code null} or
 	 *	if it returns a {@code null} reference.
 	 */
-	public TeeOutputStream(Iterable<OutputStream> streams)
+	TeeOutputStream(Iterable<? extends OutputStream> streams)
 	{
 		this.streams = new ArrayList<OutputStream>();
 		for (OutputStream stream : streams) {

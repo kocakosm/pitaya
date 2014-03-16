@@ -27,7 +27,7 @@ import java.io.InputStream;
  *
  * @author Osman KOCAK
  */
-public final class LimitInputStream extends InputStream
+final class LimitInputStream extends InputStream
 {
 	private final InputStream in;
 	private final long limit;
@@ -46,7 +46,7 @@ public final class LimitInputStream extends InputStream
 	 * @throws NullPointerException if {@code in} is {@code null}.
 	 * @throws IllegalArgumentException if {@code limit} is negative.
 	 */
-	public LimitInputStream(InputStream in, long limit)
+	LimitInputStream(InputStream in, long limit)
 	{
 		Parameters.checkNotNull(in);
 		Parameters.checkCondition(limit >= 0);

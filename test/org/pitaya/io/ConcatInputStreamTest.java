@@ -49,7 +49,7 @@ public final class ConcatInputStreamTest
 		InputStream d2 = new ByteArrayInputStream(DATA);
 		InputStream in = new ConcatInputStream(d1, d2);
 		assertTrue(in.available() > 0);
-		Streams.read(in);
+		ByteStreams.read(in);
 		assertTrue(in.available() == 0);
 	}
 
@@ -73,7 +73,7 @@ public final class ConcatInputStreamTest
 		InputStream d2 = new ByteArrayInputStream(DATA);
 		InputStream d3 = new ByteArrayInputStream(DATA);
 		InputStream in = new ConcatInputStream(d1, d2, d3);
-		assertArrayEquals(DATA2, Streams.read(in));
+		assertArrayEquals(DATA2, ByteStreams.read(in));
 		assertEquals(-1, in.read());
 
 		d1 = new ByteArrayInputStream(DATA);
@@ -96,7 +96,7 @@ public final class ConcatInputStreamTest
 		InputStream d2 = new ByteArrayInputStream(DATA);
 		InputStream in = new ConcatInputStream(d1, d2);
 		assertEquals(DATA.length, in.skip(DATA.length));
-		assertArrayEquals(DATA, Streams.read(in));
+		assertArrayEquals(DATA, ByteStreams.read(in));
 	}
 
 	@Test

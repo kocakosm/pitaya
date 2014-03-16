@@ -46,7 +46,7 @@ public final class LimitInputStreamTest
 		InputStream data = new ByteArrayInputStream(DATA);
 		InputStream in = new LimitInputStream(data, 10);
 		assertTrue(in.available() > 0);
-		Streams.read(in);
+		ByteStreams.read(in);
 		assertTrue(in.available() == 0);
 	}
 
@@ -88,19 +88,19 @@ public final class LimitInputStreamTest
 
 		data = new ByteArrayInputStream(DATA);
 		in = new LimitInputStream(data, 0);
-		assertArrayEquals(new byte[0], Streams.read(in));
+		assertArrayEquals(new byte[0], ByteStreams.read(in));
 
 		data = new ByteArrayInputStream(DATA);
 		in = new LimitInputStream(data, DATA.length);
-		assertArrayEquals(DATA, Streams.read(in));
+		assertArrayEquals(DATA, ByteStreams.read(in));
 
 		data = new ByteArrayInputStream(DATA);
 		in = new LimitInputStream(data, DATA.length + 10);
-		assertArrayEquals(DATA, Streams.read(in));
+		assertArrayEquals(DATA, ByteStreams.read(in));
 
 		data = new ByteArrayInputStream(DATA);
 		in = new LimitInputStream(data, 10);
-		assertArrayEquals(Arrays.copyOf(DATA, 10), Streams.read(in));
+		assertArrayEquals(Arrays.copyOf(DATA, 10), ByteStreams.read(in));
 	}
 
 	@Test

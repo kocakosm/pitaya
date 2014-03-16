@@ -47,7 +47,7 @@ public final class CountingInputStreamTest
 		InputStream data = new ByteArrayInputStream(DATA);
 		CountingInputStream in = new CountingInputStream(data);
 		assertTrue(in.available() > 0);
-		Streams.read(in);
+		ByteStreams.read(in);
 		assertTrue(in.available() == 0);
 	}
 

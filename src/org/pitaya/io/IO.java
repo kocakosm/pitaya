@@ -16,77 +16,50 @@
 
 package org.pitaya.io;
 
-import org.pitaya.util.Parameters;
-
-import java.io.Writer;
+import java.io.Closeable;
+import java.io.Flushable;
+import java.io.IOException;
 
 /**
- * {@link Writer} implementation that simply discards all data written to it 
- * (similar to /dev/null on Unix systems).
+ * Common I/O utilities.
  *
  * @author Osman KOCAK
  */
-final class NullWriter extends Writer
+public final class IO
 {
-	@Override
-	public NullWriter append(char c)
+	/**
+	 * Silently closes the given {@code Closeable}.
+	 *
+	 * @param stream the stream to close, may be {@code null}.
+	 */
+	public static void close(Closeable stream)
 	{
-		return this;
-	}
-
-	@Override
-	public NullWriter append(CharSequence sequence)
-	{
-		Parameters.checkNotNull(sequence);
-		return this;
-	}
-
-	@Override
-	public NullWriter append(CharSequence sequence, int start, int end)
-	{
-		return append(sequence.subSequence(start, end));
-	}
-
-	@Override
-	public void write(int c)
-	{
-		/* ... */
-	}
-
-	@Override
-	public void write(char[] buf)
-	{
-		Parameters.checkNotNull(buf);
-	}
-
-	@Override
-	public void write(char[] buf, int off, int len)
-	{
-		if (off < 0 || len < 0 || off + len > buf.length) {
-			throw new IndexOutOfBoundsException();
+		if (stream != null) {
+			try {
+				stream.close();
+			} catch (IOException ex) {
+				/* Ignored... */
+			}
 		}
 	}
 
-	@Override
-	public void write(String str)
+	/**
+	 * Silently flushes the given {@code Flushable}.
+	 *
+	 * @param stream the stream to flush, may be {@code null}.
+	 */
+	public static void flush(Flushable stream)
 	{
-		Parameters.checkNotNull(str);
+		if (stream != null) {
+			try {
+				stream.flush();
+			} catch (IOException ex) {
+				/* Ignored... */
+			}
+		}
 	}
 
-	@Override
-	public void write(String str, int off, int len)
-	{
-		str.substring(off, off + len);
-	}
-
-	@Override
-	public void flush()
-	{
-		/* ... */
-	}
-
-	@Override
-	public void close()
+	private IO()
 	{
 		/* ... */
 	}

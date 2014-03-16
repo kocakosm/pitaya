@@ -16,54 +16,49 @@
 
 package org.pitaya.io;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 
 import org.junit.Test;
 
 /**
- * {@link Streams}' unit tests.
+ * {@link IO}'s unit tests.
  *
  * @author Osman KOCAK
  */
-public final class StreamsTest
+public final class IOTest
 {
-	private static final byte[] DATA = {
-		(byte) 0x00, (byte) 0x11, (byte) 0x22, (byte) 0x33, (byte) 0x44,
-		(byte) 0x55, (byte) 0x66, (byte) 0x77, (byte) 0x88, (byte) 0x99,
-		(byte) 0xAA, (byte) 0xBB, (byte) 0xCC, (byte) 0xDD, (byte) 0xEE,
-		(byte) 0xFF
-	};
-
 	@Test
-	public void testRead() throws IOException
+	public void testClose() throws Exception
 	{
-		InputStream in = new ByteArrayInputStream(DATA);
-		assertArrayEquals(DATA, Streams.read(in));
+		OutputStream out = null;
+		IO.close(out);
+
+		out = mock(OutputStream.class);
+		IO.close(out);
+		verify(out).close();
+
+		out = mock(OutputStream.class);
+		doThrow(new IOException()).when(out).close();
+		IO.close(out);
+		verify(out).close();
 	}
 
 	@Test
-	public void testClose() throws IOException
+	public void testFlush() throws Exception
 	{
-		InputStream in = null;
-		Streams.close(in);
-		
-		in = mock(InputStream.class);
-		doThrow(new IOException()).when(in).close();
-		Streams.close(in);
-		verify(in).close();
-		
 		OutputStream out = null;
-		Streams.close(out);
-		
+		IO.flush(out);
+
 		out = mock(OutputStream.class);
-		doThrow(new IOException()).when(out).close();
-		Streams.close(out);
-		verify(out).close();
+		IO.flush(out);
+		verify(out).flush();
+
+		out = mock(OutputStream.class);
+		doThrow(new IOException()).when(out).flush();
+		IO.flush(out);
+		verify(out).flush();
 	}
 }
