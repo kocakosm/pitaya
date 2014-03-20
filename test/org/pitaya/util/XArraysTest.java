@@ -103,7 +103,7 @@ public final class XArraysTest
 	{
 		assertTrue(isNullOrEmpty(new Object[0]));
 		assertTrue(isNullOrEmpty((Object[]) null));
-		assertFalse(isNullOrEmpty(new Object[] {"1", "2"}));
+		assertFalse(isNullOrEmpty(new String[] {"1", "2"}));
 	}
 
 	@Test
@@ -748,8 +748,8 @@ public final class XArraysTest
 	@Test
 	public void testSortObjectArray()
 	{
-		Object[] a = new Object[] {"d", "a", "e", "c", "b"};
-		Object[] sorted = new Object[] {"a", "b", "c", "d", "e"};
+		String[] a = new String[] {"d", "a", "e", "c", "b"};
+		String[] sorted = new String[] {"a", "b", "c", "d", "e"};
 		assertNotSame(a, sort(a));
 		assertArrayEquals(sorted, sort(a));
 	}
@@ -831,7 +831,7 @@ public final class XArraysTest
 	@Test
 	public void testToStringObjectArray()
 	{
-		Object[] a = new Object[] {"a", "b", "c", "d"};
+		String[] a = new String[] {"a", "b", "c", "d"};
 		assertEquals(Arrays.toString(a), XArrays.toString(a));
 	}
 }

@@ -16,6 +16,7 @@
 
 package org.pitaya.util;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Random;
@@ -360,22 +361,25 @@ public final class XArrays
 	/**
 	 * Concatenates the given arrays into a single one.
 	 * 
+	 * @param <T> the type of the elements in the arrays to concatenate.
 	 * @param arrays the arrays to concatenate.
 	 * 
 	 * @return the concatenated array.
 	 * 
+	 * @throws IllegalArgumentException if {@code arrays} is empty.
 	 * @throws NullPointerException if {@code arrays} is {@code null} or if
 	 *	it contains a {@code null} reference.
 	 */
-	public static Object[] concat(Object[]... arrays)
+	public static <T> T[] concat(T[]... arrays)
 	{
+		Parameters.checkCondition(arrays.length > 0);
 		int len = 0;
-		for (Object[] array : arrays) {
+		for (T[] array : arrays) {
 			len += array.length;
 		}
-		Object[] concat = new Object[len];
+		T[] concat = newArray(arrays[0].getClass().getComponentType(), len);
 		int i = 0;
-		for (Object[] array : arrays) {
+		for (T[] array : arrays) {
 			System.arraycopy(array, 0, concat, i, array.length);
 			i = array.length;
 		}
@@ -595,6 +599,7 @@ public final class XArrays
 	 * new array. The returned array will be padded with {@code null}, if 
 	 * necessary, so that it has an exact length of {@code len}.
 	 * 
+	 * @param <T> the type of the elements in the array to copy.
 	 * @param a the source array.
 	 * @param off the starting position in the source array.
 	 * @param len the number of elements to copy (returned array's length).
@@ -605,9 +610,9 @@ public final class XArrays
 	 * @throws ArrayIndexOutOfBoundsException if {@code off} is negative.
 	 * @throws NegativeArraySizeException if {@code len} is negative.
 	 */
-	public static Object[] copyOf(Object[] a, int off, int len)
+	public static <T> T[] copyOf(T[] a, int off, int len)
 	{
-		Object[] copy = new Object[len];
+		T[] copy = newArray(a.getClass().getComponentType(), len);
 		if (len > a.length - off) {
 			System.arraycopy(a, off, copy, 0, a.length - off);
 		} else {
@@ -740,13 +745,14 @@ public final class XArrays
 	 * Returns a copy of the given array. The original array and the 
 	 * returned copy will have identical length and content.
 	 * 
+	 * @param <T> the type of the elements in the array to copy.
 	 * @param original the array to be copied.
 	 * 
 	 * @return a copy of the original array.
 	 * 
 	 * @throws NullPointerException if {@code original} is {@code null}.
 	 */
-	public static Object[] copyOf(Object[] original)
+	public static <T> T[] copyOf(T[] original)
 	{
 		return Arrays.copyOf(original, original.length);
 	}
@@ -915,16 +921,17 @@ public final class XArrays
 	 * Returns a new array containing the same elements as the given one,
 	 * but in reverse order.
 	 *
+	 * @param <T> the type of the elements in the array to reverse.
 	 * @param a the array to reverse.
 	 *
 	 * @return the reversed array.
 	 *
 	 * @throws NullPointerException if {@code a} is {@code null}.
 	 */
-	public static Object[] reverse(Object[] a)
+	public static <T> T[] reverse(T[] a)
 	{
 		int len = a.length;
-		Object[] copy = new Object[len];
+		T[] copy = newArray(a.getClass().getComponentType(), len);
 		for (int i = 0; i < len; i++) {
 			copy[i] = a[len - i - 1];
 		}
@@ -1148,6 +1155,7 @@ public final class XArrays
 	 * Note that rotation by {@code 0} or by a multiple of {@code a.length}
 	 * is a no-op.
 	 *
+	 * @param <T> the type of the elements in the array to rotate.
 	 * @param a the array to rotate.
 	 * @param distance the distance to rotate.
 	 *
@@ -1155,10 +1163,10 @@ public final class XArrays
 	 *
 	 * @throws NullPointerException if {@code a} is {@code null}.
 	 */
-	public static Object[] rotate(Object[] a, int distance)
+	public static <T> T[] rotate(T[] a, int distance)
 	{
 		int len = a.length;
-		Object[] copy = new Object[len];
+		T[] copy = newArray(a.getClass().getComponentType(), len);
 		for (int i = 0; i < len; i++) {
 			copy[i] = a[index(i - distance, len)];
 		}
@@ -1560,13 +1568,14 @@ public final class XArrays
 	 * shuffle algorithm (Fisher, Yates, Durstenfeld, Knuth) and thus runs
 	 * in linear time.
 	 *
+	 * @param <T> the type of the elements in the array to shuffle.
 	 * @param a the array whose content will be shuffled.
 	 *
 	 * @return the shuffled array.
 	 *
 	 * @throws NullPointerException if {@code a} is {@code null}.
 	 */
-	public static Object[] shuffle(Object[] a)
+	public static <T> T[] shuffle(T[] a)
 	{
 		return shuffle(a, PRNG);
 	}
@@ -1579,6 +1588,7 @@ public final class XArrays
 	 * algorithm (Fisher, Yates, Durstenfeld, Knuth) and thus runs in linear
 	 * time.
 	 *
+	 * @param <T> the type of the elements in the array to shuffle.
 	 * @param a the array whose content will be shuffled.
 	 * @param rnd the source of randomness to use.
 	 *
@@ -1586,18 +1596,18 @@ public final class XArrays
 	 *
 	 * @throws NullPointerException if one of the arguments is {@code null}.
 	 */
-	public static Object[] shuffle(Object[] a, Random rnd)
+	public static <T> T[] shuffle(T[] a, Random rnd)
 	{
-		Object[] copy = copyOf(a);
+		T[] copy = copyOf(a);
 		for (int i = copy.length; i > 1; i--) {
 			swap(copy, i - 1, rnd.nextInt(i));
 		}
 		return copy;
 	}
 
-	private static void swap(Object[] a, int i, int j)
+	private static <T> void swap(T[] a, int i, int j)
 	{
-		Object c = a[i];
+		T c = a[i];
 		a[i] = a[j];
 		a[j] = c;
 	}
@@ -1741,6 +1751,7 @@ public final class XArrays
 	 * elements in the array must implement the {@link Comparable} 
 	 * interface).
 	 *
+	 * @param <T> the type of the elements in the array to sort.
 	 * @param a the array to be sorted.
 	 * 
 	 * @return a sorted copy of the given array.
@@ -1753,9 +1764,9 @@ public final class XArrays
 	 * 
 	 * @see Arrays#sort(java.lang.Object[])
 	 */
-	public static Object[] sort(Object[] a)
+	public static <T> T[] sort(T[] a)
 	{
-		Object[] copy = copyOf(a);
+		T[] copy = copyOf(a);
 		Arrays.sort(copy);
 		return copy;
 	}
@@ -1917,6 +1928,11 @@ public final class XArrays
 	public static String toString(Object[] a)
 	{
 		return Arrays.toString(a);
+	}
+
+	private static <T> T[] newArray(Class<?> componentType, int len)
+	{
+		return (T[]) Array.newInstance(componentType, len);
 	}
 
 	private XArrays()
