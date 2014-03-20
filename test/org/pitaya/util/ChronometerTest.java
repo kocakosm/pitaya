@@ -81,7 +81,7 @@ public final class ChronometerTest
 		assertEquals("0 millisecond", chronometer.toString());
 		chronometer.start();
 		Thread.sleep(50);
-		long elapsed = chronometer.elapsedTime();
+		long elapsed = chronometer.stop().elapsedTime();
 		assertEquals(elapsed + " milliseconds", chronometer.toString());
 	}
 }

@@ -34,9 +34,7 @@ public final class ObjectCodecTest
 	{
 		SerializableClass original = new SerializableClass(42, "Hello");
 		byte[] serialized = ObjectCodec.encode(original);
-		SerializableClass decoded = (SerializableClass) ObjectCodec.decode(serialized);
-		
-		assertEquals(original, decoded);
+		assertEquals(original, ObjectCodec.decode(serialized));
 	}
 
 	@Test(expected = ClassCastException.class)
