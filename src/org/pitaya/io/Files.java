@@ -56,38 +56,53 @@ public final class Files
 	 */
 	public static void cp(File src, File dst) throws IOException
 	{
-		if (!src.exists()) {
-			throw new FileNotFoundException(src + " doesn't exist");
-		}
-		Parameters.checkCondition(!dst.exists() || dst.isDirectory()
+		checkExists(src);
+		Parameters.checkCondition((!dst.exists() || dst.isDirectory())
 			|| (src.isFile() && dst.isFile()));
 		if (src.isDirectory()) {
-			if (dst.isDirectory()) {
-				cp(src, new File(dst, src.getName()));
-			} else {
-				mkdir(dst);
-				for (File f : src.listFiles()) {
-					cp(f, new File(dst, f.getName()));
-				}
-			}
+			copyDirectory(src, dst);
 		} else if (src.isFile()) {
-			if (dst.isDirectory()) {
-				cp(src, new File(dst, src.getName()));
-			} else {
-				InputStream in = null;
-				OutputStream out = null;
-				try {
-					in = getReader(src);
-					out = getWriter(dst);
-					ByteStreams.copy(in, out);
-				} finally {
-					IO.close(in);
-					IO.close(out);
-				}
-			}
+			copyFile(src, dst);
 		} else {
-			throw new IOException(src
-				+ " is neither a directory nor a regular file");
+			throw new IOException(
+				src + " is neither a directory nor a regular file");
+		}
+	}
+
+	private static void checkExists(File f) throws FileNotFoundException
+	{
+		if (!f.exists()) {
+			throw new FileNotFoundException(f + " doesn't exist");
+		}
+	}
+
+	private static void copyDirectory(File src, File dst) throws IOException
+	{
+		if (dst.isDirectory()) {
+			cp(src, new File(dst, src.getName()));
+		} else {
+			mkdir(dst);
+			for (File f : src.listFiles()) {
+				cp(f, new File(dst, f.getName()));
+			}
+		}
+	}
+
+	private static void copyFile(File src, File dst) throws IOException
+	{
+		if (dst.isDirectory()) {
+			cp(src, new File(dst, src.getName()));
+		} else {
+			InputStream in = null;
+			OutputStream out = null;
+			try {
+				in = getReader(src);
+				out = getWriter(dst);
+				ByteStreams.copy(in, out);
+			} finally {
+				IO.close(in);
+				IO.close(out);
+			}
 		}
 	}
 
@@ -464,31 +479,6 @@ public final class Files
 	}
 
 	/**
-	 * Appends the given data to the end of the specified {@code File}.
-	 *
-	 * @param data the data to append.
-	 * @param f the file to write to.
-	 *
-	 * @throws NullPointerException if one of the arguments is {@code null}.
-	 * @throws IOException if {@code f} exists but is a directory rather 
-	 *	than a regular file, or if it does not exist but cannot be 
-	 *	created, or if an I/O error occurs during the process.
-	 * @throws SecurityException if a security manager exists and denies 
-	 *	write access to {@code f}.
-	 */
-	public static void append(byte[] data, File f) throws IOException
-	{
-		OutputStream out = null;
-		try {
-			out = getWriter(f, FileWriteMode.APPEND);
-			out.write(data);
-		} finally {
-			IO.flush(out);
-			IO.close(out);
-		}
-	}
-
-	/**
 	 * Writes the given data to the specified {@code File}.
 	 *
 	 * @param data the data to write.
@@ -503,9 +493,30 @@ public final class Files
 	 */
 	public static void write(byte[] data, File f) throws IOException
 	{
+		write(data, f, FileWriteMode.OVERWRITE);
+	}
+
+	/**
+	 * Writes the given data to the given {@code File} with the specified
+	 * mode.
+	 *
+	 * @param data the data to write.
+	 * @param f the file to write to.
+	 * @param mode the write mode to file.
+	 *
+	 * @throws NullPointerException if one of the arguments is {@code null}.
+	 * @throws IOException if {@code f} exists but is a directory rather
+	 *	than a regular file, or if it does not exist but cannot be
+	 *	created, or if an I/O error occurs during the process.
+	 * @throws SecurityException if a security manager exists and denies
+	 *	write access to {@code f}.
+	 */
+	public static void write(byte[] data, File f, FileWriteMode mode) 
+		throws IOException
+	{
 		OutputStream out = null;
 		try {
-			out = getWriter(f);
+			out = getWriter(f, mode);
 			out.write(data);
 		} finally {
 			IO.flush(out);
