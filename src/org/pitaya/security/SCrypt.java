@@ -84,10 +84,9 @@ final class SCrypt implements KDF
 			.toString();
 	}
 
-	private byte[] roMix(byte[] in)
+	private byte[] roMix(byte[] x)
 	{
-		int len = in.length;
-		byte[] x = Arrays.copyOf(in, len);
+		int len = x.length;
 		ByteBuffer v = new ByteBuffer(n * len);
 		for (int i = 0; i < n; i++) {
 			v.append(x);
@@ -106,8 +105,7 @@ final class SCrypt implements KDF
 		byte[] x = slice(in, (2 * r - 1) * 64, 64);
 		ByteBuffer buffer = new ByteBuffer(128 * r);
 		for (int i = 0; i < 2 * r; i++) {
-			byte[] t = xor(x, slice(in, i * 64, 64));
-			x = salsa20(t, 8);
+			x = salsa20(xor(x, slice(in, i * 64, 64)), 8);
 			buffer.append(x);
 		}
 		byte[] y = buffer.toByteArray();
