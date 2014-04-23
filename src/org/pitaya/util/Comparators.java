@@ -148,8 +148,7 @@ public final class Comparators
 		@Override
 		public int compare(T o1, T o2)
 		{
-			int c = comparator.compare(o1, o2);
-			return c < 0 ? 1 : c > 0 ? -1 : 0;
+			return -comparator.compare(o1, o2);
 		}
 	}
 
