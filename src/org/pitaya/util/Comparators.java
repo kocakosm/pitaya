@@ -31,15 +31,15 @@ import java.util.List;
 public final class Comparators
 {
 	/**
-	 * Returns a {@code Comparator} that will call each {@code Comparator} 
-	 * in the given {@code Iterable} until one of them returns a non-zero 
+	 * Returns a {@code Comparator} that will call each {@code Comparator}
+	 * in the given {@code Iterable} until one of them returns a non-zero
 	 * result (will return {@code 0} if they all return {@code 0}).
-	 * 
+	 *
 	 * @param <T> the parameters type of the returned {@code Comparator}.
 	 * @param comparators the {@code Comparator}s to compose.
-	 * 
+	 *
 	 * @return the composed {@code Comparator}.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code comparators} is {@code null}
 	 *	of if it contains a {@code null} reference.
 	 * @throws IllegalArgumentException if {@code comparators} is empty.
@@ -50,15 +50,15 @@ public final class Comparators
 	}
 
 	/**
-	 * Returns a {@code Comparator} that will call each {@code Comparator} 
-	 * in the given array until one of them returns a non-zero result (will 
+	 * Returns a {@code Comparator} that will call each {@code Comparator}
+	 * in the given array until one of them returns a non-zero result (will
 	 * return {@code 0} if they all return {@code 0}).
-	 * 
+	 *
 	 * @param <T> the parameters type of the returned {@code Comparator}.
 	 * @param comparators the {@code Comparator}s to compose.
-	 * 
+	 *
 	 * @return the composed {@code Comparator}.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code comparators} is {@code null}
 	 *	of if it contains a {@code null} reference.
 	 * @throws IllegalArgumentException if {@code comparators} is empty.
@@ -71,20 +71,41 @@ public final class Comparators
 	/**
 	 * Returns a {@code Comparator} that represents the reverse ordering of
 	 * the given one. Namely, the returned {@code Comparator} will return
-	 * a negative value if the original returns a positive value and, 
-	 * conversely, will return a positive value if it returns a negative 
+	 * a negative value if the original returns a positive value and,
+	 * conversely, will return a positive value if it returns a negative
 	 * value.
 	 *
 	 * @param <T> the parameters type of the {@code Comparator}s.
 	 * @param comparator the comparator to invert.
 	 *
 	 * @return the inverted {@code Comparator}.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code comparator} is {@code null}.
 	 */
 	public static <T> Comparator<T> invert(Comparator<T> comparator)
 	{
 		return new InvertedComparator<T>(comparator);
+	}
+
+	/**
+	 * Returns a {@code Comparator} that compares {@code Comparable} objects
+	 * in natural order. The returned comparator doesn't accept {@code null}
+	 * values.
+	 *
+	 * @param <T> the {@code Comparable} type.
+	 *
+	 * @return a {@code Comparator} that compares {@code Comparable} objects.
+	 */
+	public static <T extends Comparable<? super T>> Comparator<T> naturalOrder()
+	{
+		return new Comparator<T>()
+		{
+			@Override
+			public int compare(T o1, T o2)
+			{
+				return o1.compareTo(Parameters.checkNotNull(o2));
+			}
+		};
 	}
 
 	private static final class CompositeComparator<T> implements Comparator<T>

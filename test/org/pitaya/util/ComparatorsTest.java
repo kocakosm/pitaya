@@ -67,6 +67,17 @@ public final class ComparatorsTest
 		assertArrayEquals(new Long[] {5L, 4L, 3L, 2L, 1L, 1L}, a);
 	}
 
+	@Test
+	public void testNaturalOrder()
+	{
+		Comparator<Long> natural = Comparators.naturalOrder();
+
+		Long[] a = new Long[] {5L, 1L, 3L, 2L, 4L, 1L};
+		Arrays.sort(a, natural);
+
+		assertArrayEquals(new Long[] {1L, 1L, 2L, 3L, 4L, 5L}, a);
+	}
+
 	private static final class AscendingLongComparator implements Comparator<Long>
 	{
 		@Override
