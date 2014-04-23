@@ -54,6 +54,16 @@ public final class HashBagTest
 	}
 
 	@Test
+	public void testIteratorContructor()
+	{
+		Collection<String> collection = Arrays.asList("Hello", "World");
+		Bag<String> bag = new HashBag<String>(collection.iterator());
+		assertEquals(2, bag.size());
+		assertTrue(bag.contains("Hello"));
+		assertTrue(bag.contains("World"));
+	}
+
+	@Test
 	public void testArrayContructor()
 	{
 		Bag<String> bag = new HashBag<String>("Hello", "World");
