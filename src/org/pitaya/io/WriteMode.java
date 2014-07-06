@@ -17,15 +17,15 @@
 package org.pitaya.io;
 
 /**
- * File write modes.
+ * Write modes.
  *
  * @author Osman KOCAK
  */
-public enum FileWriteMode
+public enum WriteMode
 {
-	/** The file's content will be overwritten. */
+	/** Newly written data will overwrite existing data. */
 	OVERWRITE,
 
-	/** Data will be appended to the current file's content. */
+	/** Newly written data will be appended to existing data. */
 	APPEND;
 }

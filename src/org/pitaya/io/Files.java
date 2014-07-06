@@ -51,7 +51,7 @@ public final class Files
 	 * @throws IOException if {@code src} doesn't exist or if {@code src} is
 	 *	neither a regular file nor a directory or if an I/O error occurs
 	 *	during the process.
-	 * @throws SecurityException if a security manager exists and denies 
+	 * @throws SecurityException if a security manager exists and denies
 	 *	read access to the {@code src} or write access to {@code dst}.
 	 */
 	public static void cp(File src, File dst) throws IOException
@@ -139,10 +139,10 @@ public final class Files
 	 * @param dst the file to write to.
 	 *
 	 * @throws NullPointerException if one of the arguments is {@code null}.
-	 * @throws IOException if {@code dst} exists but is a directory rather 
-	 *	than a regular file, or if it does not exist but cannot be 
+	 * @throws IOException if {@code dst} exists but is a directory rather
+	 *	than a regular file, or if it does not exist but cannot be
 	 *	created, or if an I/O error occurs during the process.
-	 * @throws SecurityException if a security manager exists denies write 
+	 * @throws SecurityException if a security manager exists denies write
 	 *	access to {@code dst}.
 	 */
 	public static void cp(InputStream src, File dst) throws IOException
@@ -165,9 +165,9 @@ public final class Files
 	 * @return the first bytes of the given {@code File}.
 	 *
 	 * @throws NullPointerException if {@code f} is {@code null}.
-	 * @throws IOException if {@code f} does not exist, or if it is a 
+	 * @throws IOException if {@code f} does not exist, or if it is a
 	 *	directory rather than a regular file, or if it can't be read.
-	 * @throws SecurityException if a security manager exists and denies 
+	 * @throws SecurityException if a security manager exists and denies
 	 *	read access to {@code f}.
 	 */
 	public static byte[] head(File f) throws IOException
@@ -186,9 +186,9 @@ public final class Files
 	 *
 	 * @throws NullPointerException if {@code f} is {@code null}.
 	 * @throws IllegalArgumentException if {@code n} is negative.
-	 * @throws IOException if {@code f} does not exist, or if it is a 
+	 * @throws IOException if {@code f} does not exist, or if it is a
 	 *	directory rather than a regular file, or if it can't be read.
-	 * @throws SecurityException if a security manager exists and denies 
+	 * @throws SecurityException if a security manager exists and denies
 	 *	read access to {@code f}.
 	 */
 	public static byte[] head(File f, int n) throws IOException
@@ -213,10 +213,10 @@ public final class Files
 	 * @param f the directory to create.
 	 *
 	 * @throws NullPointerException if {@code f} is {@code null}.
-	 * @throws IOException if the object at the specified path already 
+	 * @throws IOException if the object at the specified path already
 	 *	exists and is a regular file, or if the requested directory can
 	 *	not be created.
-	 * @throws SecurityException if a security manager exists and denies 
+	 * @throws SecurityException if a security manager exists and denies
 	 *	read/write access to {@code f}.
 	 */
 	public static void mkdir(File f) throws IOException
@@ -242,7 +242,7 @@ public final class Files
 	 * @throws IllegalArgumentException if {@code src} is a directory and
 	 *	{@code dst} is a regular file.
 	 * @throws IOException if {@code src} can't be moved to {@code dst}.
-	 * @throws SecurityException if a security manager exists and denies 
+	 * @throws SecurityException if a security manager exists and denies
 	 *	read/write access to {@code src}/{@code dst}.
 	 */
 	public static void mv(File src, File dst) throws IOException
@@ -266,9 +266,9 @@ public final class Files
 	 *
 	 * @return {@code true} if {@code f} has been deleted, {@code false}
 	 *	otherwise.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code f} is {@code null}.
-	 * @throws SecurityException if a security manager exists and denies 
+	 * @throws SecurityException if a security manager exists and denies
 	 *	read/write access to {@code f} or its children.
 	 */
 	public static boolean rm(File f)
@@ -293,9 +293,9 @@ public final class Files
 	 * @return the last bytes of the given {@code File}.
 	 *
 	 * @throws NullPointerException if {@code f} is {@code null}.
-	 * @throws IOException if {@code f} does not exist, or if it is a 
+	 * @throws IOException if {@code f} does not exist, or if it is a
 	 *	directory rather than a regular file, or if it can't be read.
-	 * @throws SecurityException if a security manager exists and denies 
+	 * @throws SecurityException if a security manager exists and denies
 	 *	read access to {@code f}.
 	 */
 	public static byte[] tail(File f) throws IOException
@@ -313,9 +313,9 @@ public final class Files
 	 * @return the last bytes of the given {@code File}.
 	 *
 	 * @throws NullPointerException if {@code f} is {@code null}.
-	 * @throws IOException if {@code f} does not exist, or if it is a 
+	 * @throws IOException if {@code f} does not exist, or if it is a
 	 *	directory rather than a regular file, or if it can't be read.
-	 * @throws SecurityException if a security manager exists and denies 
+	 * @throws SecurityException if a security manager exists and denies
 	 *	read access to {@code f}.
 	 */
 	public static byte[] tail(File f, int n) throws IOException
@@ -336,7 +336,7 @@ public final class Files
 	 * @param f the file to touch.
 	 *
 	 * @throws IOException if an I/O error occurs during the process.
-	 * @throws SecurityException if a security manager exists and denies 
+	 * @throws SecurityException if a security manager exists and denies
 	 *	read/write access to {@code f}.
 	 */
 	public static void touch(File f) throws IOException
@@ -388,7 +388,7 @@ public final class Files
 
 	/**
 	 * Returns an {@code InputStream} to read from the given {@code File}.
-	 * Implementation note: the returned {@code InputStream} is an instance 
+	 * Implementation note: the returned {@code InputStream} is an instance
 	 * of {@link BufferedInputStream}.
 	 *
 	 * @param f the file to read from.
@@ -399,7 +399,7 @@ public final class Files
 	 * @throws FileNotFoundException if {@code f} doesn't exist, or if it is
 	 *	a directory rather than a regular file, or if it can't be opened
 	 *	for reading.
-	 * @throws SecurityException if a security manager exists and denies 
+	 * @throws SecurityException if a security manager exists and denies
 	 *	read access to {@code f}.
 	 */
 	public static InputStream getReader(File f) throws FileNotFoundException
@@ -420,7 +420,7 @@ public final class Files
 	 * @throws FileNotFoundException if {@code f} exists but is a directory
 	 *	rather than a regular file, or if it does not exist but cannot
 	 *	be created, or if it cannot be opened for any other reason.
-	 * @throws SecurityException if a security manager exists and denies 
+	 * @throws SecurityException if a security manager exists and denies
 	 *	write access to {@code f}.
 	 */
 	public static OutputStream getWriter(File f) throws FileNotFoundException
@@ -443,14 +443,14 @@ public final class Files
 	 * @throws FileNotFoundException if {@code f} exists but is a directory
 	 *	rather than a regular file, or if it does not exist but cannot
 	 *	be created, or if it cannot be opened for any other reason.
-	 * @throws SecurityException if a security manager exists and denies 
+	 * @throws SecurityException if a security manager exists and denies
 	 *	write access to {@code f}.
 	 */
-	public static OutputStream getWriter(File f, FileWriteMode mode)
+	public static OutputStream getWriter(File f, WriteMode mode)
 		throws FileNotFoundException
 	{
 		Parameters.checkNotNull(mode);
-		boolean append = mode == FileWriteMode.APPEND;
+		boolean append = mode == WriteMode.APPEND;
 		return new BufferedOutputStream(new FileOutputStream(f, append));
 	}
 
@@ -462,9 +462,9 @@ public final class Files
 	 * @return the file's content as a {@code byte[]}.
 	 *
 	 * @throws NullPointerException if {@code f} is {@code null}.
-	 * @throws IOException if {@code f} does not exist, or if it is a 
+	 * @throws IOException if {@code f} does not exist, or if it is a
 	 *	directory rather than a regular file, or if it can't be read.
-	 * @throws SecurityException if a security manager exists and denies 
+	 * @throws SecurityException if a security manager exists and denies
 	 *	read access to {@code f}.
 	 */
 	public static byte[] read(File f) throws IOException
@@ -485,15 +485,15 @@ public final class Files
 	 * @param f the file to write to.
 	 *
 	 * @throws NullPointerException if one of the arguments is {@code null}.
-	 * @throws IOException if {@code f} exists but is a directory rather 
-	 *	than a regular file, or if it does not exist but cannot be 
+	 * @throws IOException if {@code f} exists but is a directory rather
+	 *	than a regular file, or if it does not exist but cannot be
 	 *	created, or if an I/O error occurs during the process.
-	 * @throws SecurityException if a security manager exists and denies 
+	 * @throws SecurityException if a security manager exists and denies
 	 *	write access to {@code f}.
 	 */
 	public static void write(byte[] data, File f) throws IOException
 	{
-		write(data, f, FileWriteMode.OVERWRITE);
+		write(data, f, WriteMode.OVERWRITE);
 	}
 
 	/**
@@ -511,7 +511,7 @@ public final class Files
 	 * @throws SecurityException if a security manager exists and denies
 	 *	write access to {@code f}.
 	 */
-	public static void write(byte[] data, File f, FileWriteMode mode) 
+	public static void write(byte[] data, File f, WriteMode mode)
 		throws IOException
 	{
 		OutputStream out = null;
