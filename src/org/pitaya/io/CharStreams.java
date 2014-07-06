@@ -48,7 +48,7 @@ public final class CharStreams
 	 * @return the concatenated {@code Reader}.
 	 *
 	 * @throws NullPointerException if {@code streams} is {@code null} or
-	 * if it contains a {@code null} reference.
+	 *	if it contains a {@code null} reference.
 	 * @throws IllegalArgumentException if {@code streams} is empty.
 	 */
 	public static Reader concat(Reader... streams)
@@ -68,7 +68,7 @@ public final class CharStreams
 	 * @return the concatenated {@code Reader}.
 	 *
 	 * @throws NullPointerException if {@code streams} is {@code null} or
-	 * if it contains a {@code null} reference.
+	 *	if it contains a {@code null} reference.
 	 * @throws IllegalArgumentException if {@code streams} is empty.
 	 */
 	public static Reader concat(List<? extends Reader> streams)

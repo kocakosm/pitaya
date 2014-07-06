@@ -385,7 +385,7 @@ public final class FilesTest
 	{
 		File test = tmp.newFolder();
 		File txt = createFile(test, "hello.txt", ascii("Hello"));
-		Files.write(ascii("World"), txt);
+		Files.write(txt, ascii("World"));
 		assertArrayEquals(ascii("World"), read(txt));
 	}
 
@@ -394,8 +394,8 @@ public final class FilesTest
 	{
 		File test = tmp.newFolder();
 		File txt = createFile(test, "hello.txt", ascii("Hello"));
-		Files.write(ascii(" "), txt, WriteMode.APPEND);
-		Files.write(ascii("World"), txt, WriteMode.APPEND);
+		Files.write(txt, WriteMode.APPEND, ascii(" "));
+		Files.write(txt, WriteMode.APPEND, ascii("World"));
 		assertArrayEquals(ascii("Hello World"), read(txt));
 	}
 

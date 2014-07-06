@@ -481,8 +481,8 @@ public final class Files
 	/**
 	 * Writes the given data to the specified {@code File}.
 	 *
-	 * @param data the data to write.
 	 * @param f the file to write to.
+	 * @param data the data to write.
 	 *
 	 * @throws NullPointerException if one of the arguments is {@code null}.
 	 * @throws IOException if {@code f} exists but is a directory rather
@@ -491,18 +491,18 @@ public final class Files
 	 * @throws SecurityException if a security manager exists and denies
 	 *	write access to {@code f}.
 	 */
-	public static void write(byte[] data, File f) throws IOException
+	public static void write(File f, byte[] data) throws IOException
 	{
-		write(data, f, WriteMode.OVERWRITE);
+		write(f, WriteMode.OVERWRITE, data);
 	}
 
 	/**
 	 * Writes the given data to the given {@code File} with the specified
 	 * mode.
 	 *
-	 * @param data the data to write.
 	 * @param f the file to write to.
 	 * @param mode the write mode to file.
+	 * @param data the data to write.
 	 *
 	 * @throws NullPointerException if one of the arguments is {@code null}.
 	 * @throws IOException if {@code f} exists but is a directory rather
@@ -511,7 +511,7 @@ public final class Files
 	 * @throws SecurityException if a security manager exists and denies
 	 *	write access to {@code f}.
 	 */
-	public static void write(byte[] data, File f, WriteMode mode)
+	public static void write(File f, WriteMode mode, byte[] data)
 		throws IOException
 	{
 		OutputStream out = null;

@@ -36,7 +36,7 @@ final class TeeWriter extends Writer
 
 	/**
 	 * Creates a new {@code TeeWriter}.
-	 * 
+	 *
 	 * @param writers the writers to write to.
 	 *
 	 * @throws NullPointerException if {@code writers} is {@code null} or
@@ -49,7 +49,7 @@ final class TeeWriter extends Writer
 
 	/**
 	 * Creates a new {@code TeeWriter}.
-	 * 
+	 *
 	 * @param writers the writers to write to.
 	 *
 	 * @throws NullPointerException if {@code writers} is {@code null} or
@@ -83,7 +83,7 @@ final class TeeWriter extends Writer
 	}
 
 	@Override
-	public TeeWriter append(CharSequence sequence, int start, int end) 
+	public TeeWriter append(CharSequence sequence, int start, int end)
 		throws IOException
 	{
 		return append(sequence.subSequence(start, end));

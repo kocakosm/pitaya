@@ -25,7 +25,7 @@ import java.util.concurrent.atomic.AtomicLong;
 /**
  * A decorating {@link Reader} that counts the number of characters that have
  * been read from its underlying {@link Reader}. Characters read multiple times
- * are counted as many times they have been read. Also, skipped characters are 
+ * are counted as many times they have been read. Also, skipped characters are
  * not counted.
  *
  * @author Osman KOCAK
@@ -48,7 +48,7 @@ public final class CountingReader extends Reader
 		this.reader = reader;
 		this.counter = new AtomicLong();
 	}
-	
+
 	/**
 	 * Returns the number of characters that have been read so far.
 	 *
@@ -68,7 +68,7 @@ public final class CountingReader extends Reader
 	{
 		return counter.getAndSet(0);
 	}
-	
+
 	@Override
 	public boolean ready() throws IOException
 	{
@@ -128,7 +128,7 @@ public final class CountingReader extends Reader
 	{
 		reader.close();
 	}
-	
+
 	private void count(int n)
 	{
 		if (n != -1) {

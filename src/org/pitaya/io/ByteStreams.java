@@ -34,8 +34,8 @@ public final class ByteStreams
 	/**
 	 * Concatenates the given {@code InputStream}s into a single one. The
 	 * given streams will be read sequentially. Closing the concatenated
-	 * stream will close all the source streams. Note that the returned 
-	 * {@code InputStream} is not thread-safe and does not support 
+	 * stream will close all the source streams. Note that the returned
+	 * {@code InputStream} is not thread-safe and does not support
 	 * {@link InputStream#mark(int)} and {@link InputStream#reset()}.
 	 *
 	 * @param streams the streams to concatenate.
@@ -54,8 +54,8 @@ public final class ByteStreams
 	/**
 	 * Concatenates the given {@code InputStream}s into a single one. The
 	 * given streams will be read sequentially. Closing the concatenated
-	 * stream will close all the source streams. Note that the returned 
-	 * {@code InputStream} is not thread-safe and does not support 
+	 * stream will close all the source streams. Note that the returned
+	 * {@code InputStream} is not thread-safe and does not support
 	 * {@link InputStream#mark(int)} and {@link InputStream#reset()}.
 	 *
 	 * @param streams the streams to concatenate.

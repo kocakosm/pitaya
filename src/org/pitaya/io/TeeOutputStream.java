@@ -36,7 +36,7 @@ final class TeeOutputStream extends OutputStream
 
 	/**
 	 * Creates a new {@code TeeOutputStream}.
-	 * 
+	 *
 	 * @param streams the streams to write to.
 	 *
 	 * @throws NullPointerException if {@code streams} is {@code null} or
@@ -49,7 +49,7 @@ final class TeeOutputStream extends OutputStream
 
 	/**
 	 * Creates a new {@code TeeOutputStream}.
-	 * 
+	 *
 	 * @param streams the streams to write to.
 	 *
 	 * @throws NullPointerException if {@code streams} is {@code null} or

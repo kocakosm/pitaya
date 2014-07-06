@@ -100,7 +100,7 @@ public final class Scanf
 	/**
 	 * Reads the next line from the standard input and parses it into an
 	 * {@code int} value with the specified radix.
-	 * 
+	 *
 	 * @param radix the radix to be used in interpreting the read line.
 	 *
 	 * @return the parsed {@code int} value.

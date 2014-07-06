@@ -35,11 +35,11 @@ public final class ObjectCodec
 	/**
 	 * Serializes the given {@code Serializable} object into a {@code byte}
 	 * array.
-	 * 
+	 *
 	 * @param object the object to encode.
-	 * 
+	 *
 	 * @return the given object's encoding.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code object} is {@code null}.
 	 * @throws EncodingException if the given object cannot be serialized.
 	 */
@@ -62,11 +62,11 @@ public final class ObjectCodec
 
 	/**
 	 * Deserializes the given {@code byte} array into an object.
-	 * 
+	 *
 	 * @param object the object's encoding.
-	 * 
+	 *
 	 * @return the deserialized object.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code object} is {@code null}.
 	 * @throws DecodingException if the given object cannot be deserialized.
 	 */
@@ -77,16 +77,16 @@ public final class ObjectCodec
 
 	/**
 	 * Deserializes the given {@code byte} array into an object.
-	 * 
+	 *
 	 * @param <T> the object's expected type.
 	 * @param object the object's encoding.
 	 * @param t the object's expected type's {@code Class}.
-	 * 
+	 *
 	 * @return the deserialized object.
-	 * 
+	 *
 	 * @throws NullPointerException if one of the arguments is {@code null}.
-	 * @throws DecodingException if the given object cannot be deserialized. 
-	 * @throws ClassCastException if the deserialized object is not an 
+	 * @throws DecodingException if the given object cannot be deserialized.
+	 * @throws ClassCastException if the deserialized object is not an
 	 *	instance of the expected class.
 	 */
 	public static <T extends Serializable> T decode(byte[] object, Class<T> t)

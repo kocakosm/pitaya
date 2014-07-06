@@ -37,7 +37,7 @@ final class ConcatInputStream extends InputStream
 
 	/**
 	 * Creates a new {@code ConcatInputStream}.
-	 * 
+	 *
 	 * @param streams the streams to concatenate.
 	 *
 	 * @throws NullPointerException if {@code streams} is {@code null} or
@@ -51,7 +51,7 @@ final class ConcatInputStream extends InputStream
 
 	/**
 	 * Creates a new {@code ConcatInputStream}.
-	 * 
+	 *
 	 * @param streams the streams to concatenate.
 	 *
 	 * @throws NullPointerException if {@code streams} is {@code null} or

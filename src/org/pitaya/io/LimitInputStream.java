@@ -74,7 +74,7 @@ final class LimitInputStream extends InputStream
 		synchronized (lock) {
 			in.close();
 		}
-		
+
 	}
 
 	@Override

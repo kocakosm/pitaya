@@ -21,7 +21,7 @@ import org.pitaya.util.Parameters;
 import java.io.Writer;
 
 /**
- * {@link Writer} implementation that simply discards all data written to it 
+ * {@link Writer} implementation that simply discards all data written to it
  * (similar to /dev/null on Unix systems).
  *
  * @author Osman KOCAK

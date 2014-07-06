@@ -25,8 +25,8 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * A decorating {@link Reader} which reads sequentially from multiple sources. 
- * Does not support {@code mark()} and {@code reset()} operations. Not thread 
+ * A decorating {@link Reader} which reads sequentially from multiple sources.
+ * Does not support {@code mark()} and {@code reset()} operations. Not thread
  * safe.
  *
  * @author Osman KOCAK
@@ -38,7 +38,7 @@ final class ConcatReader extends Reader
 
 	/**
 	 * Creates a new {@code ConcatReader}.
-	 * 
+	 *
 	 * @param readers the readers to concatenate.
 	 *
 	 * @throws NullPointerException if {@code readers} is {@code null} or
@@ -52,7 +52,7 @@ final class ConcatReader extends Reader
 
 	/**
 	 * Creates a new {@code ConcatReader}.
-	 * 
+	 *
 	 * @param readers the readers to concatenate.
 	 *
 	 * @throws NullPointerException if {@code readers} is {@code null} or
