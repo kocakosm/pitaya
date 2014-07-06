@@ -84,7 +84,6 @@ public final class CountingOutputStream extends OutputStream
 	public void write(int i) throws IOException
 	{
 		out.write(i);
-		out.flush();
 		counter.incrementAndGet();
 	}
 
@@ -92,7 +91,6 @@ public final class CountingOutputStream extends OutputStream
 	public void write(byte[] b) throws IOException
 	{
 		out.write(b);
-		out.flush();
 		counter.addAndGet(b.length);
 	}
 
@@ -100,7 +98,6 @@ public final class CountingOutputStream extends OutputStream
 	public void write(byte[] b, int off, int len) throws IOException
 	{
 		out.write(b, off, len);
-		out.flush();
-		counter.addAndGet(len);
+		counter.addAndGet(Math.min(b.length, len));
 	}
 }
