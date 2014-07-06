@@ -28,6 +28,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Arrays;
 
 /**
  * {@link File}s utilities.
@@ -154,6 +155,50 @@ public final class Files
 		} finally {
 			IO.close(out);
 		}
+	}
+
+	/**
+	 * Returns whether the given {@code File}s have the same content. Two
+	 * regular files are considered equal if they contain the same bytes.
+	 * Two directories are considered equal if they both contain the same
+	 * items where an item is either a directory or a regular file (items
+	 * must have the same name and content in both directories).
+	 *
+	 * @param f1 the first {@code File}.
+	 * @param f2 the second {@code File}.
+	 *
+	 * @return whether the given {@code File}s have the same content.
+	 *
+	 * @throws IOException if the content of the {@code File}s can't be read.
+	 */
+	public static boolean equals(File f1, File f2) throws IOException
+	{
+		if (f1 == null ^ f2 == null) {
+			return false;
+		}
+		if (f1 != null && f2 != null) {
+			if (f1.equals(f2)) {
+				return true;
+			}
+			if (f1.isFile() != f2.isFile()
+				|| f1.isDirectory() != f2.isDirectory())
+			{
+				return false;
+			}
+			if (f1.isFile()) {
+				return Arrays.equals(read(f1), read(f2));
+			}
+			File[] files = f1.listFiles();
+			if (files.length != f2.listFiles().length) {
+				return false;
+			}
+			for (File f : files) {
+				if (!equals(f, new File(f2, f.getName()))) {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 
 	/**

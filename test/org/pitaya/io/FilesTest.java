@@ -128,6 +128,31 @@ public final class FilesTest
 	}
 
 	@Test
+	public void testEquals() throws Exception
+	{
+		byte[] data = ascii("Hello");
+		File test1 = tmp.newFolder();
+		File f1 = createFile(test1, "f1.txt", data);
+		File f2 = createFile(test1, "f2.txt", data);
+		File test2 = tmp.newFolder();
+		createFile(test2, "f1.txt", data);
+		createFile(test2, "f2.txt", data);
+
+		assertTrue(Files.equals(f1, f1));
+		assertFalse(Files.equals(f1, new File("f1.txt")));
+		assertFalse(Files.equals(new File("f1.txt"), f1));
+		assertFalse(Files.equals(f1, null));
+		assertFalse(Files.equals(null, f1));
+		assertTrue(Files.equals(null, null));
+		assertTrue(Files.equals(f1, f2));
+		assertFalse(Files.equals(f1, test1));
+		assertFalse(Files.equals(test1, f1));
+		assertTrue(Files.equals(test1, test2));
+		createFile(test1, "f3.txt", data);
+		assertFalse(Files.equals(test1, test2));
+	}
+
+	@Test
 	public void testHead() throws Exception
 	{
 		File test = tmp.newFolder();
