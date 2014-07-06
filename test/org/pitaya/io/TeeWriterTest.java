@@ -94,7 +94,7 @@ public final class TeeWriterTest
 		tee.flush();
 		assertArrayEquals(DATA, w1.toCharArray());
 		assertArrayEquals(DATA, w2.toCharArray());
-		
+
 		w1 = new CharArrayWriter();
 		w2 = new CharArrayWriter();
 		tee = new TeeWriter(w1, w2);
@@ -116,7 +116,7 @@ public final class TeeWriterTest
 		tee.flush();
 		assertArrayEquals(DATA, w1.toCharArray());
 		assertArrayEquals(DATA, w2.toCharArray());
-		
+
 		w1 = new CharArrayWriter();
 		w2 = new CharArrayWriter();
 		tee = new TeeWriter(w1, w2);

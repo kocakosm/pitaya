@@ -109,7 +109,7 @@ public final class ImmutableList<E> extends AbstractList<E> implements RandomAcc
 		 * @throws ClassCastException if this builder contains elements
 		 *	that are not mutually comparable.
 		 * @throws IllegalArgumentException if the natural ordering of
-		 *	the elements in this builder is found to violate the 
+		 *	the elements in this builder is found to violate the
 		 *	{@link Comparable} contract.
 		 */
 		public Builder<E> sort()
@@ -129,7 +129,7 @@ public final class ImmutableList<E> extends AbstractList<E> implements RandomAcc
 		 * @return this object.
 		 *
 		 * @throws ClassCastException if this builder contains elements
-		 *	that are not mutually comparable using the specified 
+		 *	that are not mutually comparable using the specified
 		 *	{@code Comparator}.
 		 */
 		public Builder<E> sort(Comparator<? super E> c)
@@ -166,7 +166,7 @@ public final class ImmutableList<E> extends AbstractList<E> implements RandomAcc
 
 		/**
 		 * Randomly permutes the elements currently in the {@code List}
-		 * being built using a default source of randomness. All 
+		 * being built using a default source of randomness. All
 		 * permutations occur with approximately equal likelihood.
 		 *
 		 * @return this object.
@@ -179,8 +179,8 @@ public final class ImmutableList<E> extends AbstractList<E> implements RandomAcc
 
 		/**
 		 * Randomly permutes the elements currently in the {@code List}
-		 * being built using the specified source of randomness. All 
-		 * permutations occur with equal likelihood assuming that the 
+		 * being built using the specified source of randomness. All
+		 * permutations occur with equal likelihood assuming that the
 		 * source of randomness is fair.
 		 *
 		 * @param random the source of randomness to use.

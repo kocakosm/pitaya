@@ -124,7 +124,7 @@ public final class ByteBuffer implements Iterable<Byte>
 		return this;
 	}
 
-	/** 
+	/**
 	 * Resets this buffer.
 	 *
 	 * @return this object.

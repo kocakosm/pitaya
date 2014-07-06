@@ -26,13 +26,13 @@ import org.pitaya.util.Parameters;
 final class Factory
 {
 	/**
-	 * Creates and returns a {@link Digest} instance corresponding to the 
+	 * Creates and returns a {@link Digest} instance corresponding to the
 	 * given algorithm.
-	 * 
+	 *
 	 * @param algorithm the digest algorithm.
-	 * 
+	 *
 	 * @return the created {@link Digest} instance.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code algorithm} is {@code null}.
 	 * @throws IllegalArgumentException if the given algorithm is unknown.
 	 */
@@ -69,16 +69,16 @@ final class Factory
 	/**
 	 * Creates and returns a {@link MAC} instance corresponding to the given
 	 * algorithm, initialized with the provided secret key.
-	 * 
+	 *
 	 * @param algorithm the MAC algorithm.
 	 * @param key the secret key.
-	 * 
+	 *
 	 * @return the created {@link MAC} instance.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code algorithm} is {@code null}.
 	 * @throws IllegalArgumentException if the given algorithm is unknown.
 	 */
-	static MAC getMAC(Algorithm<MAC> algorithm, byte[] key) 
+	static MAC getMAC(Algorithm<MAC> algorithm, byte[] key)
 	{
 		Parameters.checkNotNull(algorithm);
 		MAC mac;

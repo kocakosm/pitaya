@@ -24,7 +24,7 @@ import java.util.Set;
  * may have duplicate elements.
  *
  * @param <E> the type of the elements in the bag.
- * 
+ *
  * @see Collection
  * @see AbstractBag
  * @see HashBag
@@ -37,9 +37,9 @@ public interface Bag<E> extends Collection<E>
 {
 	/**
 	 * Returns the count of the given element in this bag.
-	 * 
+	 *
 	 * @param e the object to count.
-	 * 
+	 *
 	 * @return the number of occurrences of the element in this bag.
 	 */
 	int count(E e);

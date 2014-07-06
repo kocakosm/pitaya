@@ -190,11 +190,11 @@ public final class Numbers
 	}
 
 	/**
-	 * Returns the arithmetic mean of the given values. This method is not 
+	 * Returns the arithmetic mean of the given values. This method is not
 	 * subject to overflow.
-	 * 
+	 *
 	 * @param values the values.
-	 * 
+	 *
 	 * @return the arithmetic mean of the given values.
 	 *
 	 * @throws NullPointerException if {@code values} is {@code null}.
@@ -211,11 +211,11 @@ public final class Numbers
 	}
 
 	/**
-	 * Returns the arithmetic mean of the given values. This method is not 
+	 * Returns the arithmetic mean of the given values. This method is not
 	 * subject to overflow.
-	 * 
+	 *
 	 * @param values the values.
-	 * 
+	 *
 	 * @return the arithmetic mean of the given values.
 	 *
 	 * @throws NullPointerException if {@code values} is {@code null}.
@@ -232,11 +232,11 @@ public final class Numbers
 	}
 
 	/**
-	 * Returns the arithmetic mean of the given values. This method is not 
+	 * Returns the arithmetic mean of the given values. This method is not
 	 * subject to overflow.
-	 * 
+	 *
 	 * @param values the values.
-	 * 
+	 *
 	 * @return the arithmetic mean of the given values.
 	 *
 	 * @throws NullPointerException if {@code values} is {@code null}.
@@ -253,11 +253,11 @@ public final class Numbers
 	}
 
 	/**
-	 * Returns the arithmetic mean of the given values. This method is not 
+	 * Returns the arithmetic mean of the given values. This method is not
 	 * subject to overflow.
-	 * 
+	 *
 	 * @param values the values.
-	 * 
+	 *
 	 * @return the arithmetic mean of the given values.
 	 *
 	 * @throws NullPointerException if {@code values} is {@code null}.
@@ -309,7 +309,7 @@ public final class Numbers
 	 *
 	 * @return the absolute value of {@code a}.
 	 *
-	 * @throws ArithmeticException if the absolute value of {@code a} can't 
+	 * @throws ArithmeticException if the absolute value of {@code a} can't
 	 *	be represented by a {@code long}.
 	 */
 	public static long safeAbs(long a)
@@ -329,7 +329,7 @@ public final class Numbers
 	 *
 	 * @return the absolute value of {@code a}.
 	 *
-	 * @throws ArithmeticException if the absolute value of {@code a} can't 
+	 * @throws ArithmeticException if the absolute value of {@code a} can't
 	 *	be represented by a {@code int}.
 	 */
 	public static int safeAbs(int a)
@@ -349,7 +349,7 @@ public final class Numbers
 	 *
 	 * @return {@code -a}.
 	 *
-	 * @throws ArithmeticException if {@code -a} can't be represented by a 
+	 * @throws ArithmeticException if {@code -a} can't be represented by a
 	 *	{@code long}.
 	 */
 	public static long safeNegate(long a)
@@ -368,7 +368,7 @@ public final class Numbers
 	 *
 	 * @return {@code -a}.
 	 *
-	 * @throws ArithmeticException if {@code -a} can't be represented by an 
+	 * @throws ArithmeticException if {@code -a} can't be represented by an
 	 *	{@code int}.
 	 */
 	public static int safeNegate(int a)
@@ -388,7 +388,7 @@ public final class Numbers
 	 *
 	 * @return {@code a + b}.
 	 *
-	 * @throws ArithmeticException if {@code a + b} can't be represented by 
+	 * @throws ArithmeticException if {@code a + b} can't be represented by
 	 *	a {@code long}.
 	 */
 	public static long safeAdd(long a, long b)
@@ -410,7 +410,7 @@ public final class Numbers
 	 *
 	 * @return {@code a + b}.
 	 *
-	 * @throws ArithmeticException if {@code a + b} can't be represented by 
+	 * @throws ArithmeticException if {@code a + b} can't be represented by
 	 *	an {@code int}.
 	 */
 	public static int safeAdd(int a, int b)
@@ -424,7 +424,7 @@ public final class Numbers
 	}
 
 	/**
-	 * Returns the difference of {@code a} and {@code b}, provided the 
+	 * Returns the difference of {@code a} and {@code b}, provided the
 	 * result fits into a {@code long}.
 	 *
 	 * @param a the first operand.
@@ -432,7 +432,7 @@ public final class Numbers
 	 *
 	 * @return {@code a - b}.
 	 *
-	 * @throws ArithmeticException if {@code a - b} can't be represented by 
+	 * @throws ArithmeticException if {@code a - b} can't be represented by
 	 *	a {@code long}.
 	 */
 	public static long safeSubtract(long a, long b)
@@ -446,7 +446,7 @@ public final class Numbers
 	}
 
 	/**
-	 * Returns the difference of {@code a} and {@code b}, provided the 
+	 * Returns the difference of {@code a} and {@code b}, provided the
 	 * result fits into an {@code int}.
 	 *
 	 * @param a the first operand.
@@ -454,7 +454,7 @@ public final class Numbers
 	 *
 	 * @return {@code a - b}.
 	 *
-	 * @throws ArithmeticException if {@code a - b} can't be represented by 
+	 * @throws ArithmeticException if {@code a - b} can't be represented by
 	 *	an {@code int}.
 	 */
 	public static int safeSubtract(int a, int b)
@@ -468,15 +468,15 @@ public final class Numbers
 	}
 
 	/**
-	 * Returns the product of {@code a} and {@code b}, provided the result 
+	 * Returns the product of {@code a} and {@code b}, provided the result
 	 * fits into into a {@code long}.
-	 * 
+	 *
 	 * @param a the first operand.
 	 * @param b the second operand.
-	 * 
+	 *
 	 * @return {@code a * b}.
-	 * 
-	 * @throws ArithmeticException if {@code a * b} can't be represented by 
+	 *
+	 * @throws ArithmeticException if {@code a * b} can't be represented by
 	 *	a {@code long}.
 	 */
 	public static long safeMultiply(long a, long b)
@@ -493,15 +493,15 @@ public final class Numbers
 	}
 
 	/**
-	 * Returns the product of {@code a} and {@code b}, provided the result 
+	 * Returns the product of {@code a} and {@code b}, provided the result
 	 * fits into into an {@code int}.
-	 * 
+	 *
 	 * @param a the first operand.
 	 * @param b the second operand.
-	 * 
+	 *
 	 * @return {@code a * b}.
-	 * 
-	 * @throws ArithmeticException if {@code a * b} can't be represented by 
+	 *
+	 * @throws ArithmeticException if {@code a * b} can't be represented by
 	 *	an {@code int}.
 	 */
 	public static int safeMultiply(int a, int b)
@@ -525,7 +525,7 @@ public final class Numbers
 	 * @param b the divisor.
 	 *
 	 * @return {@code a / b}.
-	 * 
+	 *
 	 * @throws ArithmeticException if {@code b} is equal to {@code 0} or if
 	 *	{@code a / b} can't be represented by a {@code long}.
 	 */
@@ -546,7 +546,7 @@ public final class Numbers
 	 * @param b the divisor.
 	 *
 	 * @return {@code a / b}.
-	 * 
+	 *
 	 * @throws ArithmeticException if {@code b} is equal to {@code 0} or if
 	 *	{@code a / b} can't be represented by an {@code int}.
 	 */
@@ -560,9 +560,9 @@ public final class Numbers
 	}
 
 	/**
-	 * Returns the value of the first argument raised to the power of the 
-	 * second, provided the result fits into a {@code long}. This method 
-	 * implements the exponentiation by squaring method. Please refer to 
+	 * Returns the value of the first argument raised to the power of the
+	 * second, provided the result fits into a {@code long}. This method
+	 * implements the exponentiation by squaring method. Please refer to
 	 * <a href="http://en.wikipedia.org/wiki/Exponentiation_by_squaring">
 	 * Wikipedia</a> for further information.
 	 *
@@ -570,9 +570,9 @@ public final class Numbers
 	 * @param b the exponent.
 	 *
 	 * @return {@code a ^ b}.
-	 * 
+	 *
 	 * @throws IllegalArgumentException if {@code b < 0}.
-	 * @throws ArithmeticException if {@code a ^ b} can't be represented by 
+	 * @throws ArithmeticException if {@code a ^ b} can't be represented by
 	 *	a {@code long}.
 	 */
 	public static long safePow(long a, int b)
@@ -601,9 +601,9 @@ public final class Numbers
 	}
 
 	/**
-	 * Returns the value of the first argument raised to the power of the 
-	 * second, provided the result fits into an {@code int}. This method 
-	 * implements the exponentiation by squaring method. Please refer to 
+	 * Returns the value of the first argument raised to the power of the
+	 * second, provided the result fits into an {@code int}. This method
+	 * implements the exponentiation by squaring method. Please refer to
 	 * <a href="http://en.wikipedia.org/wiki/Exponentiation_by_squaring">
 	 * Wikipedia</a> for further information.
 	 *
@@ -611,9 +611,9 @@ public final class Numbers
 	 * @param b the exponent.
 	 *
 	 * @return {@code a ^ b}.
-	 * 
+	 *
 	 * @throws IllegalArgumentException if {@code b < 0}.
-	 * @throws ArithmeticException if {@code a ^ b} can't be represented by 
+	 * @throws ArithmeticException if {@code a ^ b} can't be represented by
 	 *	an {@code int}.
 	 */
 	public static int safePow(int a, int b)
@@ -642,12 +642,12 @@ public final class Numbers
 	}
 
 	/**
-	 * Returns the greatest common divisor of the absolute value of the 
-	 * given two numbers. This method first computes the absolute values of 
+	 * Returns the greatest common divisor of the absolute value of the
+	 * given two numbers. This method first computes the absolute values of
 	 * the given numbers, thus it doesn't accept {@code Long.MIN_VALUE}.
-	 * Also, note that if one of the given values is {@code 0}, this method 
+	 * Also, note that if one of the given values is {@code 0}, this method
 	 * will return the absolute value of the second argument.
-	 * This method implements the binary GCD algorithm (also known as 
+	 * This method implements the binary GCD algorithm (also known as
 	 * Stein's algorithm). For further information on this algorithm, please
 	 * refer to <a href="http://en.wikipedia.org/wiki/Binary_GCD_algorithm">
 	 * Wikipedia</a>.
@@ -656,7 +656,7 @@ public final class Numbers
 	 * @param b the second number.
 	 *
 	 * @return the greatest common divisor of {@code a} and {@code b}.
-	 * 
+	 *
 	 * @throws ArithmeticException if {@code a} or {@code b} is equal to
 	 *	{@code Long.MIN_VALUE}.
 	 */
@@ -695,10 +695,10 @@ public final class Numbers
 	}
 
 	/**
-	 * Returns the greatest common divisor of the absolute value of the 
-	 * given two numbers. This method first computes the absolute values of 
+	 * Returns the greatest common divisor of the absolute value of the
+	 * given two numbers. This method first computes the absolute values of
 	 * the given numbers, thus it doesn't accept {@code Integer.MIN_VALUE}.
-	 * Also, note that if one of the given values is {@code 0}, this method 
+	 * Also, note that if one of the given values is {@code 0}, this method
 	 * will return the absolute value of the second argument.
 	 * This method implements the binary GCD algorithm (also known as
 	 * Stein's algorithm). For further information on this algorithm, please
@@ -709,7 +709,7 @@ public final class Numbers
 	 * @param b the second number.
 	 *
 	 * @return the greatest common divisor of {@code a} and {@code b}.
-	 * 
+	 *
 	 * @throws ArithmeticException if {@code a} or {@code b} is equal to
 	 *	{@code Integer.MIN_VALUE}.
 	 */
@@ -722,12 +722,12 @@ public final class Numbers
 	}
 
 	/**
-	 * Returns the least common multiple of the absolute value of the given 
-	 * two numbers. This method first computes the absolute values of the 
-	 * given numbers, thus it doesn't accept {@code Long.MIN_VALUE}. Also, 
-	 * note that if one of the given values is {@code 0}, this method will 
-	 * return the absolute value of the second argument. This method uses 
-	 * the formula {@code lcm(a,b) = (a / gcd(a,b)) * b}. Please refer to 
+	 * Returns the least common multiple of the absolute value of the given
+	 * two numbers. This method first computes the absolute values of the
+	 * given numbers, thus it doesn't accept {@code Long.MIN_VALUE}. Also,
+	 * note that if one of the given values is {@code 0}, this method will
+	 * return the absolute value of the second argument. This method uses
+	 * the formula {@code lcm(a,b) = (a / gcd(a,b)) * b}. Please refer to
 	 * <a href="http://en.wikipedia.org/wiki/Least_common_multiple">
 	 * Wikipedia</a> for further information.
 	 *
@@ -735,7 +735,7 @@ public final class Numbers
 	 * @param b the second number.
 	 *
 	 * @return the least common multiple of {@code a} and {@code b}.
-	 * 
+	 *
 	 * @throws ArithmeticException if {@code a} or {@code b} is equal to
 	 *	{@code Long.MIN_VALUE}.
 	 */
@@ -759,12 +759,12 @@ public final class Numbers
 	}
 
 	/**
-	 * Returns the least common multiple of the absolute value of the given 
-	 * two numbers. This method first computes the absolute values of the 
-	 * given numbers, thus it doesn't accept {@code Integer.MIN_VALUE}. 
-	 * Also, note that if one of the given values is {@code 0}, this method 
-	 * will return the absolute value of the second argument. This method 
-	 * uses the formula {@code lcm(a,b) = (a / gcd(a,b)) * b}. Please refer 
+	 * Returns the least common multiple of the absolute value of the given
+	 * two numbers. This method first computes the absolute values of the
+	 * given numbers, thus it doesn't accept {@code Integer.MIN_VALUE}.
+	 * Also, note that if one of the given values is {@code 0}, this method
+	 * will return the absolute value of the second argument. This method
+	 * uses the formula {@code lcm(a,b) = (a / gcd(a,b)) * b}. Please refer
 	 * to <a href="http://en.wikipedia.org/wiki/Least_common_multiple">
 	 * Wikipedia</a> for further information.
 	 *
@@ -772,7 +772,7 @@ public final class Numbers
 	 * @param b the second number.
 	 *
 	 * @return the least common multiple of {@code a} and {@code b}.
-	 * 
+	 *
 	 * @throws ArithmeticException if {@code a} or {@code b} is equal to
 	 *	{@code Integer.MIN_VALUE}.
 	 */
@@ -797,12 +797,12 @@ public final class Numbers
 
 	/**
 	 * Casts the given {@code long} value to {@code int}, if possible.
-	 * 
+	 *
 	 * @param a the value to cast to {@code int}.
-	 * 
+	 *
 	 * @return the casted value.
-	 * 
-	 * @throws ArithmeticException if {@code a} cannot be cast into an 
+	 *
+	 * @throws ArithmeticException if {@code a} cannot be cast into an
 	 *	{@code int}.
 	 */
 	public static int safeToInt(long a)

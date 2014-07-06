@@ -95,7 +95,7 @@ public final class Base32
 
 	/**
 	 * Decodes a Base32-encoded {@code String}. Decoding is stopped at the
-	 * first {@code '='} character found. Whitespace characters, namely 
+	 * first {@code '='} character found. Whitespace characters, namely
 	 * {@code '\t', ' ', '\n'} and {@code '\r'}, are ignored.
 	 *
 	 * @param base32 the Base32 {@code String} to decode.
@@ -103,7 +103,7 @@ public final class Base32
 	 * @return the decoded data.
 	 *
 	 * @throws NullPointerException if {@code base32} is {@code null}.
-	 * @throws IllegalArgumentException if {@code base32} is not a valid 
+	 * @throws IllegalArgumentException if {@code base32} is not a valid
 	 *	Base32 {@code String}.
 	 */
 	public static byte[] decode(String base32)

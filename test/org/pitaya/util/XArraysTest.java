@@ -757,7 +757,7 @@ public final class XArraysTest
 	@Test
 	public void testSortObjectArrayWithComparator()
 	{
-		Comparator<String> c = new Comparator<String>() 
+		Comparator<String> c = new Comparator<String>()
 		{
 			@Override
 			public int compare(String s1, String s2)

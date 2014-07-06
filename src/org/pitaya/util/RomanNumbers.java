@@ -20,7 +20,7 @@ import org.pitaya.charset.ASCII;
 
 /**
  * Roman numbers conversion utilities.
- * 
+ *
  * @author Osman KOCAK
  */
 public final class RomanNumbers
@@ -36,7 +36,7 @@ public final class RomanNumbers
 
 	/**
 	 * Returns the {@code int} value of the given roman digit.
-	 * 
+	 *
 	 * @param c the roman digit to interpret.
 	 *
 	 * @return the {@code int} value of the given roman digit.
@@ -91,7 +91,7 @@ public final class RomanNumbers
 	/**
 	 * Returns the roman number representation of the given {@code int}
 	 * value. This method only accepts values between 1 and 4999 inclusive.
-	 * 
+	 *
 	 * @param value the value to convert into a roman number.
 	 *
 	 * @return the roman representation of the given value.

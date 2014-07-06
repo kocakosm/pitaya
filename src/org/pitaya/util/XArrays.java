@@ -34,11 +34,11 @@ public final class XArrays
 
 	/**
 	 * Returns whether the given array is {@code null} or {@code empty},
-	 * that is, returns {@code true} if {@code a} is {@code null} or empty 
+	 * that is, returns {@code true} if {@code a} is {@code null} or empty
 	 * and {@code false} otherwise.
-	 * 
+	 *
 	 * @param a the array to test.
-	 * 
+	 *
 	 * @return whether the given array is {@code null} or {@code empty}.
 	 */
 	public static boolean isNullOrEmpty(long[] a)
@@ -48,11 +48,11 @@ public final class XArrays
 
 	/**
 	 * Returns whether the given array is {@code null} or {@code empty},
-	 * that is, returns {@code true} if {@code a} is {@code null} or empty 
+	 * that is, returns {@code true} if {@code a} is {@code null} or empty
 	 * and {@code false} otherwise.
-	 * 
+	 *
 	 * @param a the array to test.
-	 * 
+	 *
 	 * @return whether the given array is {@code null} or {@code empty}.
 	 */
 	public static boolean isNullOrEmpty(int[] a)
@@ -62,11 +62,11 @@ public final class XArrays
 
 	/**
 	 * Returns whether the given array is {@code null} or {@code empty},
-	 * that is, returns {@code true} if {@code a} is {@code null} or empty 
+	 * that is, returns {@code true} if {@code a} is {@code null} or empty
 	 * and {@code false} otherwise.
-	 * 
+	 *
 	 * @param a the array to test.
-	 * 
+	 *
 	 * @return whether the given array is {@code null} or {@code empty}.
 	 */
 	public static boolean isNullOrEmpty(short[] a)
@@ -76,11 +76,11 @@ public final class XArrays
 
 	/**
 	 * Returns whether the given array is {@code null} or {@code empty},
-	 * that is, returns {@code true} if {@code a} is {@code null} or empty 
+	 * that is, returns {@code true} if {@code a} is {@code null} or empty
 	 * and {@code false} otherwise.
-	 * 
+	 *
 	 * @param a the array to test.
-	 * 
+	 *
 	 * @return whether the given array is {@code null} or {@code empty}.
 	 */
 	public static boolean isNullOrEmpty(char[] a)
@@ -90,11 +90,11 @@ public final class XArrays
 
 	/**
 	 * Returns whether the given array is {@code null} or {@code empty},
-	 * that is, returns {@code true} if {@code a} is {@code null} or empty 
+	 * that is, returns {@code true} if {@code a} is {@code null} or empty
 	 * and {@code false} otherwise.
-	 * 
+	 *
 	 * @param a the array to test.
-	 * 
+	 *
 	 * @return whether the given array is {@code null} or {@code empty}.
 	 */
 	public static boolean isNullOrEmpty(byte[] a)
@@ -104,11 +104,11 @@ public final class XArrays
 
 	/**
 	 * Returns whether the given array is {@code null} or {@code empty},
-	 * that is, returns {@code true} if {@code a} is {@code null} or empty 
+	 * that is, returns {@code true} if {@code a} is {@code null} or empty
 	 * and {@code false} otherwise.
-	 * 
+	 *
 	 * @param a the array to test.
-	 * 
+	 *
 	 * @return whether the given array is {@code null} or {@code empty}.
 	 */
 	public static boolean isNullOrEmpty(boolean[] a)
@@ -118,11 +118,11 @@ public final class XArrays
 
 	/**
 	 * Returns whether the given array is {@code null} or {@code empty},
-	 * that is, returns {@code true} if {@code a} is {@code null} or empty 
+	 * that is, returns {@code true} if {@code a} is {@code null} or empty
 	 * and {@code false} otherwise.
-	 * 
+	 *
 	 * @param a the array to test.
-	 * 
+	 *
 	 * @return whether the given array is {@code null} or {@code empty}.
 	 */
 	public static boolean isNullOrEmpty(float[] a)
@@ -132,11 +132,11 @@ public final class XArrays
 
 	/**
 	 * Returns whether the given array is {@code null} or {@code empty},
-	 * that is, returns {@code true} if {@code a} is {@code null} or empty 
+	 * that is, returns {@code true} if {@code a} is {@code null} or empty
 	 * and {@code false} otherwise.
-	 * 
+	 *
 	 * @param a the array to test.
-	 * 
+	 *
 	 * @return whether the given array is {@code null} or {@code empty}.
 	 */
 	public static boolean isNullOrEmpty(double[] a)
@@ -146,11 +146,11 @@ public final class XArrays
 
 	/**
 	 * Returns whether the given array is {@code null} or {@code empty},
-	 * that is, returns {@code true} if {@code a} is {@code null} or empty 
+	 * that is, returns {@code true} if {@code a} is {@code null} or empty
 	 * and {@code false} otherwise.
-	 * 
+	 *
 	 * @param a the array to test.
-	 * 
+	 *
 	 * @return whether the given array is {@code null} or {@code empty}.
 	 */
 	public static boolean isNullOrEmpty(Object[] a)
@@ -160,11 +160,11 @@ public final class XArrays
 
 	/**
 	 * Concatenates the given arrays into a single one.
-	 * 
+	 *
 	 * @param arrays the arrays to concatenate.
-	 * 
+	 *
 	 * @return the concatenated array.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code arrays} is {@code null} or if
 	 *	it contains a {@code null} reference.
 	 */
@@ -185,11 +185,11 @@ public final class XArrays
 
 	/**
 	 * Concatenates the given arrays into a single one.
-	 * 
+	 *
 	 * @param arrays the arrays to concatenate.
-	 * 
+	 *
 	 * @return the concatenated array.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code arrays} is {@code null} or if
 	 *	it contains a {@code null} reference.
 	 */
@@ -210,11 +210,11 @@ public final class XArrays
 
 	/**
 	 * Concatenates the given arrays into a single one.
-	 * 
+	 *
 	 * @param arrays the arrays to concatenate.
-	 * 
+	 *
 	 * @return the concatenated array.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code arrays} is {@code null} or if
 	 *	it contains a {@code null} reference.
 	 */
@@ -235,11 +235,11 @@ public final class XArrays
 
 	/**
 	 * Concatenates the given arrays into a single one.
-	 * 
+	 *
 	 * @param arrays the arrays to concatenate.
-	 * 
+	 *
 	 * @return the concatenated array.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code arrays} is {@code null} or if
 	 *	it contains a {@code null} reference.
 	 */
@@ -260,11 +260,11 @@ public final class XArrays
 
 	/**
 	 * Concatenates the given arrays into a single one.
-	 * 
+	 *
 	 * @param arrays the arrays to concatenate.
-	 * 
+	 *
 	 * @return the concatenated array.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code arrays} is {@code null} or if
 	 *	it contains a {@code null} reference.
 	 */
@@ -285,11 +285,11 @@ public final class XArrays
 
 	/**
 	 * Concatenates the given arrays into a single one.
-	 * 
+	 *
 	 * @param arrays the arrays to concatenate.
-	 * 
+	 *
 	 * @return the concatenated array.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code arrays} is {@code null} or if
 	 *	it contains a {@code null} reference.
 	 */
@@ -310,11 +310,11 @@ public final class XArrays
 
 	/**
 	 * Concatenates the given arrays into a single one.
-	 * 
+	 *
 	 * @param arrays the arrays to concatenate.
-	 * 
+	 *
 	 * @return the concatenated array.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code arrays} is {@code null} or if
 	 *	it contains a {@code null} reference.
 	 */
@@ -335,11 +335,11 @@ public final class XArrays
 
 	/**
 	 * Concatenates the given arrays into a single one.
-	 * 
+	 *
 	 * @param arrays the arrays to concatenate.
-	 * 
+	 *
 	 * @return the concatenated array.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code arrays} is {@code null} or if
 	 *	it contains a {@code null} reference.
 	 */
@@ -360,12 +360,12 @@ public final class XArrays
 
 	/**
 	 * Concatenates the given arrays into a single one.
-	 * 
+	 *
 	 * @param <T> the type of the elements in the arrays to concatenate.
 	 * @param arrays the arrays to concatenate.
-	 * 
+	 *
 	 * @return the concatenated array.
-	 * 
+	 *
 	 * @throws IllegalArgumentException if {@code arrays} is empty.
 	 * @throws NullPointerException if {@code arrays} is {@code null} or if
 	 *	it contains a {@code null} reference.
@@ -387,16 +387,16 @@ public final class XArrays
 	}
 
 	/**
-	 * Copies the specified range of elements from the given array into a 
-	 * new array. The returned array will be padded with {@code 0}, if 
+	 * Copies the specified range of elements from the given array into a
+	 * new array. The returned array will be padded with {@code 0}, if
 	 * necessary, so that it has an exact length of {@code len}.
-	 * 
+	 *
 	 * @param a the source array.
 	 * @param off the starting position in the source array.
 	 * @param len the number of elements to copy (returned array's length).
-	 * 
+	 *
 	 * @return a new array containing the specified range of the source array.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code a} is {@code null}.
 	 * @throws ArrayIndexOutOfBoundsException if {@code off} is negative.
 	 * @throws NegativeArraySizeException if {@code len} is negative.
@@ -413,16 +413,16 @@ public final class XArrays
 	}
 
 	/**
-	 * Copies the specified range of elements from the given array into a 
-	 * new array. The returned array will be padded with {@code 0}, if 
+	 * Copies the specified range of elements from the given array into a
+	 * new array. The returned array will be padded with {@code 0}, if
 	 * necessary, so that it has an exact length of {@code len}.
-	 * 
+	 *
 	 * @param a the source array.
 	 * @param off the starting position in the source array.
 	 * @param len the number of elements to copy (returned array's length).
-	 * 
+	 *
 	 * @return a new array containing the specified range of the source array.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code a} is {@code null}.
 	 * @throws ArrayIndexOutOfBoundsException if {@code off} is negative.
 	 * @throws NegativeArraySizeException if {@code len} is negative.
@@ -439,16 +439,16 @@ public final class XArrays
 	}
 
 	/**
-	 * Copies the specified range of elements from the given array into a 
-	 * new array. The returned array will be padded with {@code 0}, if 
+	 * Copies the specified range of elements from the given array into a
+	 * new array. The returned array will be padded with {@code 0}, if
 	 * necessary, so that it has an exact length of {@code len}.
-	 * 
+	 *
 	 * @param a the source array.
 	 * @param off the starting position in the source array.
 	 * @param len the number of elements to copy (returned array's length).
-	 * 
+	 *
 	 * @return a new array containing the specified range of the source array.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code a} is {@code null}.
 	 * @throws ArrayIndexOutOfBoundsException if {@code off} is negative.
 	 * @throws NegativeArraySizeException if {@code len} is negative.
@@ -465,16 +465,16 @@ public final class XArrays
 	}
 
 	/**
-	 * Copies the specified range of elements from the given array into a 
-	 * new array. The returned array will be padded with {@code 0}, if 
+	 * Copies the specified range of elements from the given array into a
+	 * new array. The returned array will be padded with {@code 0}, if
 	 * necessary, so that it has an exact length of {@code len}.
-	 * 
+	 *
 	 * @param a the source array.
 	 * @param off the starting position in the source array.
 	 * @param len the number of elements to copy (returned array's length).
-	 * 
+	 *
 	 * @return a new array containing the specified range of the source array.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code a} is {@code null}.
 	 * @throws ArrayIndexOutOfBoundsException if {@code off} is negative.
 	 * @throws NegativeArraySizeException if {@code len} is negative.
@@ -491,16 +491,16 @@ public final class XArrays
 	}
 
 	/**
-	 * Copies the specified range of elements from the given array into a 
-	 * new array. The returned array will be padded with {@code 0}, if 
+	 * Copies the specified range of elements from the given array into a
+	 * new array. The returned array will be padded with {@code 0}, if
 	 * necessary, so that it has an exact length of {@code len}.
-	 * 
+	 *
 	 * @param a the source array.
 	 * @param off the starting position in the source array.
 	 * @param len the number of elements to copy (returned array's length).
-	 * 
+	 *
 	 * @return a new array containing the specified range of the source array.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code a} is {@code null}.
 	 * @throws ArrayIndexOutOfBoundsException if {@code off} is negative.
 	 * @throws NegativeArraySizeException if {@code len} is negative.
@@ -517,16 +517,16 @@ public final class XArrays
 	}
 
 	/**
-	 * Copies the specified range of elements from the given array into a 
-	 * new array. The returned array will be padded with {@code false}, if 
+	 * Copies the specified range of elements from the given array into a
+	 * new array. The returned array will be padded with {@code false}, if
 	 * necessary, so that it has an exact length of {@code len}.
-	 * 
+	 *
 	 * @param a the source array.
 	 * @param off the starting position in the source array.
 	 * @param len the number of elements to copy (returned array's length).
-	 * 
+	 *
 	 * @return a new array containing the specified range of the source array.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code a} is {@code null}.
 	 * @throws ArrayIndexOutOfBoundsException if {@code off} is negative.
 	 * @throws NegativeArraySizeException if {@code len} is negative.
@@ -543,16 +543,16 @@ public final class XArrays
 	}
 
 	/**
-	 * Copies the specified range of elements from the given array into a 
-	 * new array. The returned array will be padded with {@code 0.0}, if 
+	 * Copies the specified range of elements from the given array into a
+	 * new array. The returned array will be padded with {@code 0.0}, if
 	 * necessary, so that it has an exact length of {@code len}.
-	 * 
+	 *
 	 * @param a the source array.
 	 * @param off the starting position in the source array.
 	 * @param len the number of elements to copy (returned array's length).
-	 * 
+	 *
 	 * @return a new array containing the specified range of the source array.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code a} is {@code null}.
 	 * @throws ArrayIndexOutOfBoundsException if {@code off} is negative.
 	 * @throws NegativeArraySizeException if {@code len} is negative.
@@ -569,16 +569,16 @@ public final class XArrays
 	}
 
 	/**
-	 * Copies the specified range of elements from the given array into a 
-	 * new array. The returned array will be padded with {@code 0.0}, if 
+	 * Copies the specified range of elements from the given array into a
+	 * new array. The returned array will be padded with {@code 0.0}, if
 	 * necessary, so that it has an exact length of {@code len}.
-	 * 
+	 *
 	 * @param a the source array.
 	 * @param off the starting position in the source array.
 	 * @param len the number of elements to copy (returned array's length).
-	 * 
+	 *
 	 * @return a new array containing the specified range of the source array.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code a} is {@code null}.
 	 * @throws ArrayIndexOutOfBoundsException if {@code off} is negative.
 	 * @throws NegativeArraySizeException if {@code len} is negative.
@@ -595,17 +595,17 @@ public final class XArrays
 	}
 
 	/**
-	 * Copies the specified range of elements from the given array into a 
-	 * new array. The returned array will be padded with {@code null}, if 
+	 * Copies the specified range of elements from the given array into a
+	 * new array. The returned array will be padded with {@code null}, if
 	 * necessary, so that it has an exact length of {@code len}.
-	 * 
+	 *
 	 * @param <T> the type of the elements in the array to copy.
 	 * @param a the source array.
 	 * @param off the starting position in the source array.
 	 * @param len the number of elements to copy (returned array's length).
-	 * 
+	 *
 	 * @return a new array containing the specified range of the source array.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code a} is {@code null}.
 	 * @throws ArrayIndexOutOfBoundsException if {@code off} is negative.
 	 * @throws NegativeArraySizeException if {@code len} is negative.
@@ -622,13 +622,13 @@ public final class XArrays
 	}
 
 	/**
-	 * Returns a copy of the given array. The original array and the 
+	 * Returns a copy of the given array. The original array and the
 	 * returned copy will have identical length and content.
-	 * 
+	 *
 	 * @param original the array to be copied.
-	 * 
+	 *
 	 * @return a copy of the original array.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code original} is {@code null}.
 	 */
 	public static long[] copyOf(long... original)
@@ -637,13 +637,13 @@ public final class XArrays
 	}
 
 	/**
-	 * Returns a copy of the given array. The original array and the 
+	 * Returns a copy of the given array. The original array and the
 	 * returned copy will have identical length and content.
-	 * 
+	 *
 	 * @param original the array to be copied.
-	 * 
+	 *
 	 * @return a copy of the original array.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code original} is {@code null}.
 	 */
 	public static int[] copyOf(int... original)
@@ -652,13 +652,13 @@ public final class XArrays
 	}
 
 	/**
-	 * Returns a copy of the given array. The original array and the 
+	 * Returns a copy of the given array. The original array and the
 	 * returned copy will have identical length and content.
-	 * 
+	 *
 	 * @param original the array to be copied.
-	 * 
+	 *
 	 * @return a copy of the original array.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code original} is {@code null}.
 	 */
 	public static short[] copyOf(short... original)
@@ -667,13 +667,13 @@ public final class XArrays
 	}
 
 	/**
-	 * Returns a copy of the given array. The original array and the 
+	 * Returns a copy of the given array. The original array and the
 	 * returned copy will have identical length and content.
-	 * 
+	 *
 	 * @param original the array to be copied.
-	 * 
+	 *
 	 * @return a copy of the original array.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code original} is {@code null}.
 	 */
 	public static char[] copyOf(char... original)
@@ -682,13 +682,13 @@ public final class XArrays
 	}
 
 	/**
-	 * Returns a copy of the given array. The original array and the 
+	 * Returns a copy of the given array. The original array and the
 	 * returned copy will have identical length and content.
-	 * 
+	 *
 	 * @param original the array to be copied.
-	 * 
+	 *
 	 * @return a copy of the original array.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code original} is {@code null}.
 	 */
 	public static byte[] copyOf(byte... original)
@@ -697,13 +697,13 @@ public final class XArrays
 	}
 
 	/**
-	 * Returns a copy of the given array. The original array and the 
+	 * Returns a copy of the given array. The original array and the
 	 * returned copy will have identical length and content.
-	 * 
+	 *
 	 * @param original the array to be copied.
-	 * 
+	 *
 	 * @return a copy of the original array.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code original} is {@code null}.
 	 */
 	public static boolean[] copyOf(boolean... original)
@@ -712,13 +712,13 @@ public final class XArrays
 	}
 
 	/**
-	 * Returns a copy of the given array. The original array and the 
+	 * Returns a copy of the given array. The original array and the
 	 * returned copy will have identical length and content.
-	 * 
+	 *
 	 * @param original the array to be copied.
-	 * 
+	 *
 	 * @return a copy of the original array.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code original} is {@code null}.
 	 */
 	public static float[] copyOf(float... original)
@@ -727,13 +727,13 @@ public final class XArrays
 	}
 
 	/**
-	 * Returns a copy of the given array. The original array and the 
+	 * Returns a copy of the given array. The original array and the
 	 * returned copy will have identical length and content.
-	 * 
+	 *
 	 * @param original the array to be copied.
-	 * 
+	 *
 	 * @return a copy of the original array.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code original} is {@code null}.
 	 */
 	public static double[] copyOf(double... original)
@@ -742,14 +742,14 @@ public final class XArrays
 	}
 
 	/**
-	 * Returns a copy of the given array. The original array and the 
+	 * Returns a copy of the given array. The original array and the
 	 * returned copy will have identical length and content.
-	 * 
+	 *
 	 * @param <T> the type of the elements in the array to copy.
 	 * @param original the array to be copied.
-	 * 
+	 *
 	 * @return a copy of the original array.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code original} is {@code null}.
 	 */
 	public static <T> T[] copyOf(T[] original)
@@ -1613,13 +1613,13 @@ public final class XArrays
 	}
 
 	/**
-	 * Returns a sorted copy of the given array into ascending numerical 
+	 * Returns a sorted copy of the given array into ascending numerical
 	 * order.
 	 *
 	 * @param a the array to be sorted.
-	 * 
+	 *
 	 * @return a sorted copy of the given array.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code a} is {@code null}.
 	 *
 	 * @see Arrays#sort(long[])
@@ -1632,13 +1632,13 @@ public final class XArrays
 	}
 
 	/**
-	 * Returns a sorted copy of the given array into ascending numerical 
+	 * Returns a sorted copy of the given array into ascending numerical
 	 * order.
 	 *
 	 * @param a the array to be sorted.
-	 * 
+	 *
 	 * @return a sorted copy of the given array.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code a} is {@code null}.
 	 *
 	 * @see Arrays#sort(int[])
@@ -1651,13 +1651,13 @@ public final class XArrays
 	}
 
 	/**
-	 * Returns a sorted copy of the given array into ascending numerical 
+	 * Returns a sorted copy of the given array into ascending numerical
 	 * order.
 	 *
 	 * @param a the array to be sorted.
-	 * 
+	 *
 	 * @return a sorted copy of the given array.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code a} is {@code null}.
 	 *
 	 * @see Arrays#sort(short[])
@@ -1670,13 +1670,13 @@ public final class XArrays
 	}
 
 	/**
-	 * Returns a sorted copy of the given array into ascending numerical 
+	 * Returns a sorted copy of the given array into ascending numerical
 	 * order.
 	 *
 	 * @param a the array to be sorted.
-	 * 
+	 *
 	 * @return a sorted copy of the given array.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code a} is {@code null}.
 	 *
 	 * @see Arrays#sort(char[])
@@ -1689,13 +1689,13 @@ public final class XArrays
 	}
 
 	/**
-	 * Returns a sorted copy of the given array into ascending numerical 
+	 * Returns a sorted copy of the given array into ascending numerical
 	 * order.
 	 *
 	 * @param a the array to be sorted.
-	 * 
+	 *
 	 * @return a sorted copy of the given array.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code a} is {@code null}.
 	 *
 	 * @see Arrays#sort(byte[])
@@ -1708,13 +1708,13 @@ public final class XArrays
 	}
 
 	/**
-	 * Returns a sorted copy of the given array into ascending numerical 
+	 * Returns a sorted copy of the given array into ascending numerical
 	 * order.
 	 *
 	 * @param a the array to be sorted.
-	 * 
+	 *
 	 * @return a sorted copy of the given array.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code a} is {@code null}.
 	 *
 	 * @see Arrays#sort(float[])
@@ -1727,13 +1727,13 @@ public final class XArrays
 	}
 
 	/**
-	 * Returns a sorted copy of the given array into ascending numerical 
+	 * Returns a sorted copy of the given array into ascending numerical
 	 * order.
 	 *
 	 * @param a the array to be sorted.
-	 * 
+	 *
 	 * @return a sorted copy of the given array.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code a} is {@code null}.
 	 *
 	 * @see Arrays#sort(double[])
@@ -1746,22 +1746,22 @@ public final class XArrays
 	}
 
 	/**
-	 * Returns a sorted copy of the given array of objects into ascending 
-	 * order, according to the natural ordering of its elements (all 
-	 * elements in the array must implement the {@link Comparable} 
+	 * Returns a sorted copy of the given array of objects into ascending
+	 * order, according to the natural ordering of its elements (all
+	 * elements in the array must implement the {@link Comparable}
 	 * interface).
 	 *
 	 * @param <T> the type of the elements in the array to sort.
 	 * @param a the array to be sorted.
-	 * 
+	 *
 	 * @return a sorted copy of the given array.
 	 *
 	 * @throws NullPointerException if {@code a} is {@code null}.
-	 * @throws ClassCastException if the array contains elements that are 
+	 * @throws ClassCastException if the array contains elements that are
 	 *	not mutually comparable (for example, Strings and Integers).
 	 * @throws IllegalArgumentException if the natural ordering of the array
 	 *	elements is found to violate the {@link Comparable} contract.
-	 * 
+	 *
 	 * @see Arrays#sort(java.lang.Object[])
 	 */
 	public static <T> T[] sort(T[] a)
@@ -1772,19 +1772,19 @@ public final class XArrays
 	}
 
 	/**
-	 * Returns a sorted copy of the given array of objects into ascending 
+	 * Returns a sorted copy of the given array of objects into ascending
 	 * order, according to the order induced by the given {@code Comparator}.
 	 *
 	 * @param <T> the type of the elements in the array to sort.
 	 * @param a the array to be sorted.
 	 * @param c the comparator to determine the order of the array.
-	 * 
+	 *
 	 * @return a sorted copy of the given array.
 	 *
 	 * @throws NullPointerException if {@code a} or {@code c} is {@code null}.
-	 * @throws ClassCastException if the array contains elements that are 
+	 * @throws ClassCastException if the array contains elements that are
 	 *	not mutually comparable (for example, Strings and Integers).
-	 * 
+	 *
 	 * @see Arrays#sort(T[], java.util.Comparator)
 	 */
 	public static <T> T[] sort(T[] a, Comparator<? super T> c)
@@ -1801,7 +1801,7 @@ public final class XArrays
 	 * @param a the array whose {@code String} representation to return.
 	 *
 	 * @return a {@code String} representation of {@code a}.
-	 * 
+	 *
 	 * @see Arrays#toString(long[])
 	 */
 	public static String toString(long... a)
@@ -1816,7 +1816,7 @@ public final class XArrays
 	 * @param a the array whose {@code String} representation to return.
 	 *
 	 * @return a {@code String} representation of {@code a}.
-	 * 
+	 *
 	 * @see Arrays#toString(int[])
 	 */
 	public static String toString(int... a)
@@ -1831,7 +1831,7 @@ public final class XArrays
 	 * @param a the array whose {@code String} representation to return.
 	 *
 	 * @return a {@code String} representation of {@code a}.
-	 * 
+	 *
 	 * @see Arrays#toString(short[])
 	 */
 	public static String toString(short... a)
@@ -1846,7 +1846,7 @@ public final class XArrays
 	 * @param a the array whose {@code String} representation to return.
 	 *
 	 * @return a {@code String} representation of {@code a}.
-	 * 
+	 *
 	 * @see Arrays#toString(char[])
 	 */
 	public static String toString(char... a)
@@ -1861,7 +1861,7 @@ public final class XArrays
 	 * @param a the array whose {@code String} representation to return.
 	 *
 	 * @return a {@code String} representation of {@code a}.
-	 * 
+	 *
 	 * @see Arrays#toString(byte[])
 	 */
 	public static String toString(byte... a)
@@ -1876,7 +1876,7 @@ public final class XArrays
 	 * @param a the array whose {@code String} representation to return.
 	 *
 	 * @return a {@code String} representation of {@code a}.
-	 * 
+	 *
 	 * @see Arrays#toString(boolean[])
 	 */
 	public static String toString(boolean... a)
@@ -1891,7 +1891,7 @@ public final class XArrays
 	 * @param a the array whose {@code String} representation to return.
 	 *
 	 * @return a {@code String} representation of {@code a}.
-	 * 
+	 *
 	 * @see Arrays#toString(float[])
 	 */
 	public static String toString(float... a)
@@ -1906,7 +1906,7 @@ public final class XArrays
 	 * @param a the array whose {@code String} representation to return.
 	 *
 	 * @return a {@code String} representation of {@code a}.
-	 * 
+	 *
 	 * @see Arrays#toString(double[])
 	 */
 	public static String toString(double... a)
@@ -1921,8 +1921,8 @@ public final class XArrays
 	 * @param a the array whose {@code String} representation to return.
 	 *
 	 * @return a {@code String} representation of {@code a}.
-	 * 
-	 * @see Arrays#toString(java.lang.Object[]) 
+	 *
+	 * @see Arrays#toString(java.lang.Object[])
 	 * @see Arrays#deepToString(java.lang.Object[])
 	 */
 	public static String toString(Object[] a)

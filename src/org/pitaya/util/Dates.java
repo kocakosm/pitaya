@@ -27,10 +27,10 @@ public final class Dates
 {
 	/**
 	 * Returns a copy of the given {@link Date}.
-	 * 
+	 *
 	 * @param date the {@code Date} to copy.
-	 * 
-	 * @return a copy of the given {@code Date} or {@code null} if it was 
+	 *
+	 * @return a copy of the given {@code Date} or {@code null} if it was
 	 *	{@code null}.
 	 */
 	public static Date copy(Date date)

@@ -116,7 +116,7 @@ public final class ASCII
 	}
 
 	/**
-	 * Returns whether the given {@code String} is an alphabetic sequence, 
+	 * Returns whether the given {@code String} is an alphabetic sequence,
 	 * that is, a sequence which only contains letters.
 	 *
 	 * @param str the {@code String} to test.
@@ -136,7 +136,7 @@ public final class ASCII
 	}
 
 	/**
-	 * Returns whether the given {@code String} is a numeric sequence, that 
+	 * Returns whether the given {@code String} is a numeric sequence, that
 	 * is, a sequence which only contains digits.
 	 *
 	 * @param str the {@code String} to test.
@@ -274,7 +274,7 @@ public final class ASCII
 	/**
 	 * Returns a {@code String} built from the given one by upper-casing its
 	 * first character (other characters are copied unchanged).
-	 * 
+	 *
 	 * @param str the {@code String} to capitalize.
 	 *
 	 * @return the capitalized {@code String}.

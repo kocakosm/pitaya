@@ -38,7 +38,7 @@ public final class ComparatorsTest
 		Comparator<String> nullsLast = new NullsLastStringComparator();
 		Comparator<String> alphabetical = new AlphabeticalStringComparator();
 
-		List<Comparator<? super String>> comparators = 
+		List<Comparator<? super String>> comparators =
 			new ArrayList<Comparator<? super String>>();
 		comparators.addAll(Arrays.asList(alphabetical, nullsLast));
 		Comparator<String> c1 = Comparators.compose(comparators);

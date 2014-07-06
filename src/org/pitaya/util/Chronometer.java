@@ -19,9 +19,9 @@ package org.pitaya.util;
 import static java.util.concurrent.TimeUnit.*;
 
 /**
- * Utility class to measure elapsed time between specific instants. Note that 
- * while this class provides millisecond precision, it does not necessarily 
- * provide millisecond accuracy (depends, among many things, on the accuracy of 
+ * Utility class to measure elapsed time between specific instants. Note that
+ * while this class provides millisecond precision, it does not necessarily
+ * provide millisecond accuracy (depends, among many things, on the accuracy of
  * the underlying system clock). Instances of this class are not thread-safe.
  *
  * @author Osman KOCAK

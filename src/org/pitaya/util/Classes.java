@@ -36,7 +36,7 @@ public final class Classes
 	 * @param c the class.
 	 *
 	 * @return the qualified name of the given class.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code c} is {@code null}.
 	 */
 	public static String getQualifiedName(Class<?> c)
@@ -54,13 +54,13 @@ public final class Classes
 	}
 
 	/**
-	 * Returns only the name of the given class, that is, without its 
+	 * Returns only the name of the given class, that is, without its
 	 * package name and without its eventual "outer" class name.
 	 *
 	 * @param c the class.
 	 *
 	 * @return the short name of the given class.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code c} is {@code null}.
 	 */
 	public static String getShortName(Class<?> c)
@@ -74,13 +74,13 @@ public final class Classes
 	}
 
 	/**
-	 * Returns the name of the package of the given class or the empty 
+	 * Returns the name of the package of the given class or the empty
 	 * {@code String} if the class is defined in the default package.
 	 *
 	 * @param c the class.
 	 *
 	 * @return the package name of the given class.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code c} is {@code null}.
 	 */
 	public static String getPackageName(Class<?> c)
@@ -91,13 +91,13 @@ public final class Classes
 	}
 
 	/**
-	 * Returns all the super types of the given class, that is, all the 
+	 * Returns all the super types of the given class, that is, all the
 	 * classes in which any instance of the given class can be cast into.
-	 * 
+	 *
 	 * @param c the class.
-	 * 
+	 *
 	 * @return all the given class's super types.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code c} is {@code null}.
 	 */
 	public static Set<Class<?>> getSuperTypes(Class<?> c)
@@ -123,7 +123,7 @@ public final class Classes
 	 * @param classes the classes.
 	 *
 	 * @return the common super types of the given classes.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code classes} is {@code null}.
 	 * @throws IllegalArgumentException if {@code classes} is empty.
 	 */

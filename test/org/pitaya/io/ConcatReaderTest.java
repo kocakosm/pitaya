@@ -61,15 +61,15 @@ public final class ConcatReaderTest
 		Reader r2 = new StringReader(" ");
 		Reader r3 = new StringReader("World");
 		Reader reader = new ConcatReader(r1, r2, r3);
-		
+
 		char[] buf = new char[5];
 		assertEquals(5, reader.read(buf));
 		assertArrayEquals("Hello".toCharArray(), buf);
-		
+
 		buf = new char[1];
 		assertEquals(1, reader.read(buf, 0, 1));
 		assertArrayEquals(" ".toCharArray(), buf);
-		
+
 		buf = new char[10];
 		assertEquals(5, reader.read(buf, 0, 8));
 		for (int i = 0; i < 5; i++) {

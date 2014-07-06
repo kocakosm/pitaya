@@ -34,13 +34,13 @@ final class PBKDF2 implements KDF
 
 	/**
 	 * Creates a new {@code PBKDF2} instance.
-	 * 
+	 *
 	 * @param algorithm the MAC algorithm to use.
 	 * @param iterationCount the desired number of iterations.
 	 * @param dkLen the desired length for derived keys, in bytes.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code algorithm} is {@code null}.
-	 * @throws IllegalArgumentException if {@code iterationCount} or 
+	 * @throws IllegalArgumentException if {@code iterationCount} or
 	 *	{@code dkLen} is negative, or if the MAC algorithm is unknown.
 	 */
 	PBKDF2(Algorithm<MAC> algorithm, int iterationCount, int dkLen)

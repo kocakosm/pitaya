@@ -21,7 +21,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 /**
- * A unique identifier (a 128-bit random number). Instances of this class are 
+ * A unique identifier (a 128-bit random number). Instances of this class are
  * immutable.
  *
  * @author Osman KOCAK

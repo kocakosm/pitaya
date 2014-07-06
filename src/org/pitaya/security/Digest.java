@@ -33,9 +33,9 @@ public interface Digest
 	 */
 	int length();
 
-	/** 
+	/**
 	 * Resets the engine.
-	 * 
+	 *
 	 * @return this object.
 	 */
 	Digest reset();
@@ -44,7 +44,7 @@ public interface Digest
 	 * Updates the digest using the given byte.
 	 *
 	 * @param input the byte with which to update the digest.
-	 * 
+	 *
 	 * @return this object.
 	 */
 	Digest update(byte input);
@@ -53,7 +53,7 @@ public interface Digest
 	 * Updates the digest using the specified array of bytes.
 	 *
 	 * @param input the array of bytes with which to update the digest.
-	 * 
+	 *
 	 * @return this object.
 	 *
 	 * @throws NullPointerException if {@code input} is {@code null}.
@@ -67,7 +67,7 @@ public interface Digest
 	 * @param input the array of bytes.
 	 * @param off the offset to start from in the array of bytes.
 	 * @param len the number of bytes to use, starting at {@code off}.
-	 * 
+	 *
 	 * @return this object.
 	 *
 	 * @throws NullPointerException if {@code input} is {@code null}.

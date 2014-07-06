@@ -36,15 +36,15 @@ final class HKDF implements KDF
 
 	/**
 	 * Creates a new {@code HKDF} instance.
-	 * 
+	 *
 	 * @param algorithm the MAC algorithm to use.
-	 * @param info optional context and application specific information, 
+	 * @param info optional context and application specific information,
 	 *	may be {@code null} or empty.
 	 * @param dkLen the desired length for derived keys, in bytes.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code algorithm} is {@code null}.
 	 * @throws IllegalArgumentException if {@code dkLen} is negative, or if
-	 *	the MAC algorithm is unknown, or if {@code dkLen} is greater 
+	 *	the MAC algorithm is unknown, or if {@code dkLen} is greater
 	 *	than 255 * MAC algorithm's output length.
 	 */
 	HKDF(Algorithm<MAC> algorithm, byte[] info, int dkLen)

@@ -214,7 +214,7 @@ public final class Booleans
 	 * Converts the given {@code int} into a {@link Boolean} using the
 	 * convention that zero represents {@code false} and all other values
 	 * represent {@code true}.
-	 * 
+	 *
 	 * @param i the {@code int} to convert.
 	 *
 	 * @return {@code false} if {@code i == 0}, {@code true} otherswise.
@@ -255,7 +255,7 @@ public final class Booleans
 
 	/**
 	 * Returns 1 if {@code bool} is {@code true}, 0 otherwise.
-	 * 
+	 *
 	 * @param bool the {@code boolean} value to convert.
 	 *
 	 * @return 1 if {@code bool} is {@code true}, 0 otherwise.

@@ -28,7 +28,7 @@ public final class Strings
 	private static final Random PRNG = new Random();
 
 	/**
-	 * Returns whether the given {@code String} only contains space, '\n', 
+	 * Returns whether the given {@code String} only contains space, '\n',
 	 * '\r' or '\t' characters.
 	 *
 	 * @param str the {@code String} to test.
@@ -48,7 +48,7 @@ public final class Strings
 	}
 
 	/**
-	 * Returns whether the given {@code String} is {@code null} or only 
+	 * Returns whether the given {@code String} is {@code null} or only
 	 * contains space, '\n', '\r' or '\t' characters.
 	 *
 	 * @param str the {@code String} to test.
@@ -61,7 +61,7 @@ public final class Strings
 	}
 
 	/**
-	 * Returns whether the given {@code String} only contains space 
+	 * Returns whether the given {@code String} only contains space
 	 * characters.
 	 *
 	 * @param str the {@code String} to test.
@@ -81,12 +81,12 @@ public final class Strings
 	}
 
 	/**
-	 * Returns whether the given {@code String} is {@code null} or only 
+	 * Returns whether the given {@code String} is {@code null} or only
 	 * contains space characters.
 	 *
 	 * @param str the {@code String} to test.
 	 *
-	 * @return whether the given {@code String} is {@code null} or contains 
+	 * @return whether the given {@code String} is {@code null} or contains
 	 *	only spaces.
 	 */
 	public static boolean isNullOrWhiteSpace(String str)
@@ -245,7 +245,7 @@ public final class Strings
 	 * @param str the {@link String} to reverse.
 	 *
 	 * @return the reversed {@link String}.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code str} is {@code null}.
 	 */
 	public static String reverse(String str)
@@ -456,13 +456,13 @@ public final class Strings
 	}
 
 	/**
-	 * Quotes the given {@code String} with double quotes. If the given 
+	 * Quotes the given {@code String} with double quotes. If the given
 	 * {@code String} has multiple quotes, only one of them is kept.
-	 * 
+	 *
 	 * @param str the {@code String} to quote.
-	 * 
+	 *
 	 * @return the quoted {@code String}.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code str} is {@code null}.
 	 */
 	public static String quote(String str)
@@ -473,14 +473,14 @@ public final class Strings
 	}
 
 	/**
-	 * Unquotes the given {@code String}, that is, this method removes any 
+	 * Unquotes the given {@code String}, that is, this method removes any
 	 * leading or trailing double quotes. If the given {@code String} is not
 	 * quoted, returns it unmodified.
-	 * 
+	 *
 	 * @param str the {@code String} to unquote.
-	 * 
+	 *
 	 * @return the unquoted {@code String}.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code str} is {@code null}.
 	 */
 	public static String unquote(String str)
@@ -497,12 +497,12 @@ public final class Strings
 
 	/**
 	 * Counts the occurrences of the substring {@code sub} in {@code s}.
-	 * 
+	 *
 	 * @param str {@code String} to search in.
 	 * @param sub {@code String} to search for.
-	 * 
+	 *
 	 * @return the number of occurrences of {@code sub} in {@code s}.
-	 * 
+	 *
 	 * @throws NullPointerException if one of the arguments is {@code null}.
 	 */
 	public static int countOccurrences(String str, String sub)

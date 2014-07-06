@@ -26,7 +26,7 @@ public final class LittleEndian
 	/**
 	 * Encodes the given {@code int} value using little-endian byte ordering
 	 * convention.
-	 * 
+	 *
 	 * @param n the {@code int} value to encode.
 	 *
 	 * @return the encoded value.

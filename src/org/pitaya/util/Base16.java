@@ -74,7 +74,7 @@ public final class Base16
 
 	/**
 	 * Decodes the given hexadecimal encoded {@code String}. Whitespace
-	 * characters, namely {@code '\t', ' ', '\n'} and {@code '\r'}, are 
+	 * characters, namely {@code '\t', ' ', '\n'} and {@code '\r'}, are
 	 * ignored.
 	 *
 	 * @param hex the {@code String} to decode.

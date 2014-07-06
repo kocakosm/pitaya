@@ -37,9 +37,9 @@ public interface MAC
 	 */
 	int length();
 
-	/** 
+	/**
 	 * Resets the engine.
-	 * 
+	 *
 	 * @return this object.
 	 */
 	MAC reset();
@@ -48,7 +48,7 @@ public interface MAC
 	 * Updates the MAC using the given byte.
 	 *
 	 * @param input the byte with which to update the MAC.
-	 * 
+	 *
 	 * @return this object.
 	 */
 	MAC update(byte input);
@@ -57,7 +57,7 @@ public interface MAC
 	 * Updates the MAC using the specified array of bytes.
 	 *
 	 * @param input the array of bytes with which to update the MAC.
-	 * 
+	 *
 	 * @return this object.
 	 *
 	 * @throws NullPointerException if {@code input} is {@code null}.
@@ -71,7 +71,7 @@ public interface MAC
 	 * @param input the array of bytes.
 	 * @param off the offset to start from in the array of bytes.
 	 * @param len the number of bytes to use, starting at offset.
-	 * 
+	 *
 	 * @return this object.
 	 *
 	 * @throws NullPointerException if {@code input} is {@code null}.

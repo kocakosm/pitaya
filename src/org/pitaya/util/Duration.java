@@ -22,7 +22,7 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 /**
- * A duration. Instances of this class are immutable. Implementation note: the 
+ * A duration. Instances of this class are immutable. Implementation note: the
  * duration is stored as milliseconds in a {@code long} value, thus some methods
  * on this class are subject to overflow.
  *
@@ -52,21 +52,21 @@ public final class Duration implements Comparable<Duration>
 	public static final Duration ONE_WEEK = new Duration(604800000L);
 
 	/**
-	 * Parses the given duration's {@code String} representation into a 
-	 * {@code Duration} instance. The given {@code String} must be a list 
+	 * Parses the given duration's {@code String} representation into a
+	 * {@code Duration} instance. The given {@code String} must be a list
 	 * of value/unit pairs separated by ' ', '+', '-', '\n', '\t', '\r', '&'
-	 * or ',' characters or by the "and" {@code String}. Values must be 
-	 * integer (either positive or negative) values. Valid units are: 
-	 * "milliseconds", "millisecond", "millis" and "ms" for milliseconds, 
-	 * "seconds", "second", "sec", "secs" and "s" for seconds, "minutes", 
+	 * or ',' characters or by the "and" {@code String}. Values must be
+	 * integer (either positive or negative) values. Valid units are:
+	 * "milliseconds", "millisecond", "millis" and "ms" for milliseconds,
+	 * "seconds", "second", "sec", "secs" and "s" for seconds, "minutes",
 	 * "minute", "min", "mins" and "m" for minutes, "hours", "hour" and "h"
-	 * for hours, "days", "day" and "d" for days. Parsing is not case 
+	 * for hours, "days", "day" and "d" for days. Parsing is not case
 	 * sensitive.
 	 *
 	 * @param duration the {@code String} to parse into a {@code Duration}.
 	 *
 	 * @return the parsed {@code Duration}.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code duration} is {@code null}.
 	 * @throws IllegalArgumentException if {@code duration} can't be parsed.
 	 * @throws ArithmeticException if the total duration value overflows the
@@ -104,12 +104,12 @@ public final class Duration implements Comparable<Duration>
 	/**
 	 * Creates a new {@code Duration} representing the given amount in the
 	 * given unit.
-	 * 
+	 *
 	 * @param amount the amount.
 	 * @param unit the unit in which the amout is given.
-	 * 
+	 *
 	 * @return the created {@code Duration} instance.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code unit} is {@code null}.
 	 */
 	public static Duration of(int amount, TimeUnit unit)
@@ -118,13 +118,13 @@ public final class Duration implements Comparable<Duration>
 	}
 
 	/**
-	 * Creates a new {@code Duration} instance by summing all the given 
+	 * Creates a new {@code Duration} instance by summing all the given
 	 * {@code Duration}s' values.
-	 * 
+	 *
 	 * @param durations the {@code Duration}s to sum.
-	 * 
+	 *
 	 * @return the created {@code Duration}.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code durations} is {@code null} or
 	 *	if it contains {@code null} reference.
 	 * @throws ArithmeticException if the resulting duration is too large.
@@ -142,14 +142,14 @@ public final class Duration implements Comparable<Duration>
 	}
 
 	/**
-	 * Creates a new {@code Duration} instance representing the amount of 
+	 * Creates a new {@code Duration} instance representing the amount of
 	 * time elapsed between the given dates.
-	 * 
+	 *
 	 * @param start the start date.
 	 * @param end the end date.
-	 * 
+	 *
 	 * @return the duration between {@code start} and {@code end}.
-	 * 
+	 *
 	 * @throws NullPointerException if one of the arguments is {@code null}.
 	 */
 	public static Duration between(Date start, Date end)
@@ -158,13 +158,13 @@ public final class Duration implements Comparable<Duration>
 	}
 
 	/**
-	 * Creates a new {@code Duration} instance representing the amount of 
+	 * Creates a new {@code Duration} instance representing the amount of
 	 * time elapsed since the given date.
-	 * 
+	 *
 	 * @param d the start date.
-	 * 
+	 *
 	 * @return the duration since {@code d}.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code d} is {@code null}.
 	 */
 	public static Duration since(Date d)
@@ -173,13 +173,13 @@ public final class Duration implements Comparable<Duration>
 	}
 
 	/**
-	 * Creates a new {@code Duration} instance representing the amount of 
+	 * Creates a new {@code Duration} instance representing the amount of
 	 * time that will elapse until the given date.
-	 * 
+	 *
 	 * @param d the end date.
-	 * 
+	 *
 	 * @return the duration until {@code d}.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code d} is {@code null}.
 	 */
 	public static Duration until(Date d)
@@ -202,11 +202,11 @@ public final class Duration implements Comparable<Duration>
 	/**
 	 * Converts this duration into the given unit. Beware of possible
 	 * precision loss.
-	 * 
+	 *
 	 * @param unit the target unit.
-	 * 
+	 *
 	 * @return the value of the duration in the given unit.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code unit} is {@code null}.
 	 */
 	public long to(TimeUnit unit)
@@ -216,7 +216,7 @@ public final class Duration implements Comparable<Duration>
 
 	/**
 	 * Returns the number of milliseconds in this duration.
-	 * 
+	 *
 	 * @return the number of milliseconds in this duration.
 	 */
 	public long toMilliseconds()
@@ -226,13 +226,13 @@ public final class Duration implements Comparable<Duration>
 
 	/**
 	 * Returns the result of adding the given duration to this duration.
-	 * 
+	 *
 	 * @param d the duration to add.
-	 * 
+	 *
 	 * @return the sum of this duration and the given one.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code d} is {@code null}.
-	 * @throws ArithmeticException if the resulting duration is too large. 
+	 * @throws ArithmeticException if the resulting duration is too large.
 	 */
 	public Duration plus(Duration d)
 	{
@@ -241,11 +241,11 @@ public final class Duration implements Comparable<Duration>
 
 	/**
 	 * Returns the result of subtracting the given duration from this one.
-	 * 
+	 *
 	 * @param d the duration to subtract.
-	 * 
+	 *
 	 * @return the difference between this duration and the given one.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code d} is {@code null}.
 	 * @throws ArithmeticException if the resulting duration is too large.
 	 */
@@ -256,11 +256,11 @@ public final class Duration implements Comparable<Duration>
 
 	/**
 	 * Returns the result of multiplying this duration by the given factor.
-	 * 
+	 *
 	 * @param factor the multiplication factor.
-	 * 
+	 *
 	 * @return the product of this duration by the given factor.
-	 * 
+	 *
 	 * @throws ArithmeticException if the resulting duration is too large.
 	 */
 	public Duration multipliedBy(int factor)
@@ -270,11 +270,11 @@ public final class Duration implements Comparable<Duration>
 
 	/**
 	 * Returns the result of dividing this duration by the given divisor.
-	 * 
+	 *
 	 * @param divisor the divisor.
-	 * 
+	 *
 	 * @return the resulting duration.
-	 * 
+	 *
 	 * @throws ArithmeticException if the resulting duration is too large.
 	 */
 	public Duration dividedBy(int divisor)
@@ -284,9 +284,9 @@ public final class Duration implements Comparable<Duration>
 
 	/**
 	 * Returns the result of negating this duration.
-	 * 
+	 *
 	 * @return the negated duration.
-	 * 
+	 *
 	 * @throws ArithmeticException if the resulting duration is too large.
 	 */
 	public Duration negated()
@@ -295,10 +295,10 @@ public final class Duration implements Comparable<Duration>
 	}
 
 	/**
-	 * Returns the sign of this duration, namely it returns {@code 1} if 
+	 * Returns the sign of this duration, namely it returns {@code 1} if
 	 * this duration is positive, {@code 0} if it is equal to {@code 0}, and
 	 * {@code -1} if it is negative.
-	 * 
+	 *
 	 * @return the sign of this duration.
 	 */
 	public int sign()
@@ -308,11 +308,11 @@ public final class Duration implements Comparable<Duration>
 
 	/**
 	 * Returns the date obtained by adding this duration to the given date.
-	 * 
+	 *
 	 * @param d the origin date.
-	 * 
+	 *
 	 * @return the date obtained by adding this duration to the given date.
-	 * 
+	 *
 	 * @throws ArithmeticException if the resulting duration is too large.
 	 */
 	public Date after(Date d)
@@ -323,12 +323,12 @@ public final class Duration implements Comparable<Duration>
 	/**
 	 * Returns the date obtained by subtracting this duration from the given
 	 * date.
-	 * 
+	 *
 	 * @param d the origin date.
-	 * 
+	 *
 	 * @return the date obtained by subtracting this duration from the given
 	 * date.
-	 * 
+	 *
 	 * @throws ArithmeticException if the resulting duration is too large.
 	 */
 	public Date before(Date d)

@@ -26,7 +26,7 @@ import java.util.Arrays;
 
 /**
  * SCrypt Key Derivation Function as specified by the Internet Engineering Task
- * Force (http://tools.ietf.org/html/draft-josefsson-scrypt-kdf-01). 
+ * Force (http://tools.ietf.org/html/draft-josefsson-scrypt-kdf-01).
  * Thread-safe.
  *
  * @author Osman KOCAK
@@ -40,12 +40,12 @@ final class SCrypt implements KDF
 
 	/**
 	 * Creates a new {@code SCrypt} instance.
-	 * 
+	 *
 	 * @param r the block size parameter.
 	 * @param n the CPU/Memory cost parameter.
 	 * @param p the parallelization parameter.
 	 * @param dkLen the desired length for derived keys, in bytes.
-	 * 
+	 *
 	 * @throws IllegalArgumentException if {@code r, dkLen} or {@code p} is
 	 *	negative, or if {@code n} is not greater than 1 or if it is not
 	 *	a power of 2 or if it is not less than 2 ^ (128 * r / 8), or if

@@ -65,7 +65,7 @@ public final class KDFsTest
 	{
 		KDF scrypt = KDFs.scrypt(8, 512, 16, 20);
 		assertArrayEquals(
-			hex("567C46E015DFCC5F2A14096DC1A851E5196C06EF"), 
+			hex("567C46E015DFCC5F2A14096DC1A851E5196C06EF"),
 			scrypt.deriveKey(ascii("password"), ascii("salt"))
 		);
 	}

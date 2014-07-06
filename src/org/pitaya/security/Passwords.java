@@ -59,7 +59,7 @@ public final class Passwords
 	}
 
 	/**
-	 * Hashes the given password (using {@linkplain KDFs#scrypt SCrypt}). 
+	 * Hashes the given password (using {@linkplain KDFs#scrypt SCrypt}).
 	 * Hashing parameters are appended to the returned result.
 	 *
 	 * @param password the password to hash.

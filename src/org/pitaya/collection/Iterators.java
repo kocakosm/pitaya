@@ -38,7 +38,7 @@ public final class Iterators
 
 	/**
 	 * Returns the empty {@link Iterator} for a particular type (type-safe).
-	 * Note that unlike this method, the like-named field does not provide 
+	 * Note that unlike this method, the like-named field does not provide
 	 * type safety.
 	 *
 	 * @param <E> the type of the {@link Iterator}'s elements.
@@ -53,7 +53,7 @@ public final class Iterators
 	/**
 	 * Concatenates the given {@link Iterator}s into a single one. The
 	 * source {@link Iterator}s aren't polled until necessary. The returned
-	 * {@link Iterator} supports {@link Iterator#remove()} if the 
+	 * {@link Iterator} supports {@link Iterator#remove()} if the
 	 * corresponding input {@link Iterator} supports it.
 	 *
 	 * @param <E> the type of the returned {@link Iterator}'s elements.
@@ -72,7 +72,7 @@ public final class Iterators
 	/**
 	 * Concatenates the given {@link Iterator}s into a single one. The
 	 * source {@link Iterator}s aren't polled until necessary. The returned
-	 * {@link Iterator} supports {@link Iterator#remove()} if the 
+	 * {@link Iterator} supports {@link Iterator#remove()} if the
 	 * corresponding input {@link Iterator} supports it.
 	 *
 	 * @param <E> the type of the returned {@link Iterator}'s elements.
@@ -89,17 +89,17 @@ public final class Iterators
 	}
 
 	/**
-	 * Returns an {@link Iterator} that cycles indefinitely over the 
-	 * elements returned by the given source {@link Iterator}. The source 
-	 * {@link Iterator} isn't polled until necessary. The returned 
-	 * {@link Iterator} supports {@link Iterator#remove()}. Use with 
+	 * Returns an {@link Iterator} that cycles indefinitely over the
+	 * elements returned by the given source {@link Iterator}. The source
+	 * {@link Iterator} isn't polled until necessary. The returned
+	 * {@link Iterator} supports {@link Iterator#remove()}. Use with
 	 * caution.
-	 * 
+	 *
 	 * @param <E> the type of the returned {@link Iterator}'s elements.
 	 * @param iterator the source {@link Iterator}.
-	 * 
+	 *
 	 * @return the cyclic {@link Iterator}.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code iterator} is {@code null}.
 	 */
 	public static <E> Iterator<E> cycle(Iterator<? extends E> iterator)
@@ -108,15 +108,15 @@ public final class Iterators
 	}
 
 	/**
-	 * Returns an {@link Iterator} that cycles indefinitely over the given 
-	 * elements. The returned {@link Iterator} supports 
+	 * Returns an {@link Iterator} that cycles indefinitely over the given
+	 * elements. The returned {@link Iterator} supports
 	 * {@link Iterator#remove()}. Use with caution.
-	 * 
+	 *
 	 * @param <E> the type of the returned {@link Iterator}'s elements.
 	 * @param elements the elements to cycle over.
-	 * 
+	 *
 	 * @return the cyclic {@link Iterator}.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code elements} is {@code null}.
 	 */
 	public static <E> Iterator<E> cycle(E... elements)
@@ -125,21 +125,21 @@ public final class Iterators
 	}
 
 	/**
-	 * Creates an {@link Iterator} returning only the first {@code limit} 
-	 * elements of the given {@link Iterator}. The source {@link Iterator} 
+	 * Creates an {@link Iterator} returning only the first {@code limit}
+	 * elements of the given {@link Iterator}. The source {@link Iterator}
 	 * isn't polled until necessary. The returned {@link Iterator} supports
 	 * {@link Iterator#remove()} if the source {@link Iterator} supports it.
-	 * 
+	 *
 	 * @param <E> the type of the returned {@link Iterator}'s elements.
 	 * @param iterator the {@link Iterator} to limit.
 	 * @param limit the number of elements in the returned {@link Iterator}.
-	 * 
+	 *
 	 * @return the limited {@link Iterator}.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code iterator} is {@code null}.
 	 * @throws IllegalArgumentException if ({@code limit} is negative.
 	 */
-	public static <E> Iterator<E> limit(Iterator<? extends E> iterator, 
+	public static <E> Iterator<E> limit(Iterator<? extends E> iterator,
 		int limit)
 	{
 		return new LimitIteror<E>(iterator, limit);
@@ -147,12 +147,12 @@ public final class Iterators
 
 	/**
 	 * Skips {@code n} elements from the given {@link Iterator}.
-	 * 
+	 *
 	 * @param iterator the {@link Iterator}.
 	 * @param n the number of items to skip.
-	 * 
+	 *
 	 * @return the actual number of elements that has been skipped.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code iterator} is {@code null}.
 	 * @throws IllegalArgumentException if ({@code n} is negative.
 	 */
@@ -168,16 +168,16 @@ public final class Iterators
 	}
 
 	/**
-	 * Returns a {@link List} containing all the given {@link Iterator}'s 
-	 * elements. This method consumes entirely the {@link Iterator} (after 
-	 * this method call, its {@link Iterator#hasNext()} method will return 
+	 * Returns a {@link List} containing all the given {@link Iterator}'s
+	 * elements. This method consumes entirely the {@link Iterator} (after
+	 * this method call, its {@link Iterator#hasNext()} method will return
 	 * {@code false}).
-	 * 
+	 *
 	 * @param <E> the type of the returned {@link List}'s elements.
 	 * @param iterator the {@link Iterator} to consume.
-	 * 
+	 *
 	 * @return the {@link List} created from the given {@link Iterator}.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code iterator} is {@code null}.
 	 */
 	public static <E> List<E> toList(Iterator<? extends E> iterator)
@@ -190,16 +190,16 @@ public final class Iterators
 	}
 
 	/**
-	 * Returns a {@link Set} containing all the given {@link Iterator}'s 
-	 * elements. This method consumes entirely the {@link Iterator} (after 
-	 * this method call, its {@link Iterator#hasNext()} method will return 
+	 * Returns a {@link Set} containing all the given {@link Iterator}'s
+	 * elements. This method consumes entirely the {@link Iterator} (after
+	 * this method call, its {@link Iterator#hasNext()} method will return
 	 * {@code false}).
-	 * 
+	 *
 	 * @param <E> the type of the returned {@link Set}'s elements.
 	 * @param iterator the {@link Iterator} to consume.
-	 * 
+	 *
 	 * @return the {@link Set} created from the given {@link Iterator}.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code iterator} is {@code null}.
 	 */
 	public static <E> Set<E> toSet(Iterator<? extends E> iterator)
@@ -212,16 +212,16 @@ public final class Iterators
 	}
 
 	/**
-	 * Returns a {@link Bag} containing all the given {@link Iterator}'s 
-	 * elements. This method consumes entirely the {@link Iterator} (after 
-	 * this method call, its {@link Iterator#hasNext()} method will return 
+	 * Returns a {@link Bag} containing all the given {@link Iterator}'s
+	 * elements. This method consumes entirely the {@link Iterator} (after
+	 * this method call, its {@link Iterator#hasNext()} method will return
 	 * {@code false}).
-	 * 
+	 *
 	 * @param <E> the type of the returned {@link Bag}'s elements.
 	 * @param iterator the {@link Iterator} to consume.
-	 * 
+	 *
 	 * @return the {@link Bag} created from the given {@link Iterator}.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code iterator} is {@code null}.
 	 */
 	public static <E> Bag<E> toBag(Iterator<? extends E> iterator)
@@ -234,15 +234,15 @@ public final class Iterators
 	}
 
 	/**
-	 * Returns a {@link String} representation of the given 
-	 * {@link Iterator}, with the format [e1, e2, ..., en]. This method 
-	 * consumes entirely the {@link Iterator} (after this method call, its 
+	 * Returns a {@link String} representation of the given
+	 * {@link Iterator}, with the format [e1, e2, ..., en]. This method
+	 * consumes entirely the {@link Iterator} (after this method call, its
 	 * {@link Iterator#hasNext()} method will return {@code false}).
-	 * 
+	 *
 	 * @param iterator the {@link Iterator}.
-	 * 
+	 *
 	 * @return the {@link String} created from the given {@link Iterator}.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code iterator} is {@code null}.
 	 */
 	public static String toString(Iterator<?> iterator)

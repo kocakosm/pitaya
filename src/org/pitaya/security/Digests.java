@@ -22,8 +22,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Somme commonly used digest algorithms. None of the {@link Digest} instances 
- * returned by this class is thread-safe. Also, be careful: some of these 
+ * Somme commonly used digest algorithms. None of the {@link Digest} instances
+ * returned by this class is thread-safe. Also, be careful: some of these
  * algorithms may not be suitable for security related applications.
  *
  * @author Osman KOCAK

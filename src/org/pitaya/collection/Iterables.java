@@ -51,9 +51,9 @@ public final class Iterables
 
 	/**
 	 * Concatenates the given {@link Iterable}s into a single one. The
-	 * source {@link Iterable}s' {@link Iterator}s are not polled until 
-	 * necessary. The returned {@link Iterable}'s {@link Iterator}s support 
-	 * {@link Iterator#remove()} if the corresponding input 
+	 * source {@link Iterable}s' {@link Iterator}s are not polled until
+	 * necessary. The returned {@link Iterable}'s {@link Iterator}s support
+	 * {@link Iterator#remove()} if the corresponding input
 	 * {@link Iterable}'s {@link Iterator}s support it.
 	 *
 	 * @param <T> the type of the returned {@link Iterable}s' elements.
@@ -71,9 +71,9 @@ public final class Iterables
 
 	/**
 	 * Concatenates the given {@link Iterable}s into a single one. The
-	 * source {@link Iterable}s' {@link Iterator}s are not polled until 
+	 * source {@link Iterable}s' {@link Iterator}s are not polled until
 	 * necessary. The returned {@link Iterable}'s {@link Iterator}s support
-	 * {@link Iterator#remove()} if the corresponding input 
+	 * {@link Iterator#remove()} if the corresponding input
 	 * {@link Iterable}'s {@link Iterator}s support it.
 	 *
 	 * @param <T> the type of the returned {@link Iterable}s' elements.
@@ -90,16 +90,16 @@ public final class Iterables
 	}
 
 	/**
-	 * Returns an {@link Iterable} whose {@link Iterator}s cycle 
-	 * indefinitely over the elements returned by the {@link Iterable}'s 
-	 * {@link Iterator}s. The returned {@link Iterable}'s {@link Iterator}s 
-	 * support {@link Iterator#remove()} if the source {@link Iterable}'s 
+	 * Returns an {@link Iterable} whose {@link Iterator}s cycle
+	 * indefinitely over the elements returned by the {@link Iterable}'s
+	 * {@link Iterator}s. The returned {@link Iterable}'s {@link Iterator}s
+	 * support {@link Iterator#remove()} if the source {@link Iterable}'s
 	 * {@link Iterator}s support it. The returned {@link Iterable} is only a
 	 * view, any modifications made to the source {@link Iterable} will also
 	 * affect the returned view. Use with caution.
 	 *
 	 * @param <T> the type of the returned {@link Iterable}'s elements.
-	 * @param iterable the {@link Iterable} containing the elements to 
+	 * @param iterable the {@link Iterable} containing the elements to
 	 *	cycle over.
 	 *
 	 * @return the cyclic {@link Iterable}.
@@ -112,9 +112,9 @@ public final class Iterables
 	}
 
 	/**
-	 * Returns an {@link Iterable} whose {@link Iterator}s cycle 
-	 * indefinitely over the given elements. The returned {@link Iterable}'s  
-	 * {@link Iterator}s support {@link Iterator#remove()}. Use with 
+	 * Returns an {@link Iterable} whose {@link Iterator}s cycle
+	 * indefinitely over the given elements. The returned {@link Iterable}'s
+	 * {@link Iterator}s support {@link Iterator#remove()}. Use with
 	 * caution.
 	 *
 	 * @param <T> the type of the returned {@link Iterable}'s elements.
@@ -130,8 +130,8 @@ public final class Iterables
 	}
 
 	/**
-	 * Creates an {@link Iterable} whose {@link Iterator}s return the first 
-	 * {@code limit} elements returned by the given {@link Iterable}'s 
+	 * Creates an {@link Iterable} whose {@link Iterator}s return the first
+	 * {@code limit} elements returned by the given {@link Iterable}'s
 	 * {@link Iterator}. The returned {@link Iterable} is only a view, any
 	 * modifications made to the source {@link Iterable} will also affect
 	 * the returned view.
@@ -151,9 +151,9 @@ public final class Iterables
 	}
 
 	/**
-	 * Returns an {@link Iterable} whose {@link Iterator}s skip {@code n} 
-	 * elements from the given {@link Iterable}'s {@link Iterator}s. The 
-	 * returned {@link Iterable} is only a view, any modifications made to 
+	 * Returns an {@link Iterable} whose {@link Iterator}s skip {@code n}
+	 * elements from the given {@link Iterable}'s {@link Iterator}s. The
+	 * returned {@link Iterable} is only a view, any modifications made to
 	 * the source {@link Iterable} will also affect the returned view.
 	 *
 	 * @param <T> the type of the {@link Iterable}'s elements.
@@ -171,7 +171,7 @@ public final class Iterables
 	}
 
 	/**
-	 * Returns a {@link List} containing all the given {@link Iterable}'s 
+	 * Returns a {@link List} containing all the given {@link Iterable}'s
 	 * elements.
 	 *
 	 * @param <T> the type of the returned {@link List}'s elements.
@@ -191,7 +191,7 @@ public final class Iterables
 	}
 
 	/**
-	 * Returns a {@link Set} containing all the given {@link Iterable}'s 
+	 * Returns a {@link Set} containing all the given {@link Iterable}'s
 	 * elements.
 	 *
 	 * @param <T> the type of the returned {@link Set}'s elements.
@@ -211,7 +211,7 @@ public final class Iterables
 	}
 
 	/**
-	 * Returns a {@link Bag} containing all the given {@link Iterable}'s 
+	 * Returns a {@link Bag} containing all the given {@link Iterable}'s
 	 * elements.
 	 *
 	 * @param <T> the type of the returned {@link Bag}'s elements.
@@ -227,7 +227,7 @@ public final class Iterables
 	}
 
 	/**
-	 * Returns a {@link String} representation of the given 
+	 * Returns a {@link String} representation of the given
 	 * {@link Iterable}, with the format [e1, e2, ..., en].
 	 *
 	 * @param iterable the {@link Iterable}.

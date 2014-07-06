@@ -62,11 +62,11 @@ public final class StringReaderTest
 		buf = new char[5];
 		assertEquals(5, reader.read(buf));
 		assertArrayEquals("Hello".toCharArray(), buf);
-		
+
 		buf = new char[1];
 		assertEquals(1, reader.read(buf, 0, 1));
 		assertArrayEquals(" ".toCharArray(), buf);
-		
+
 		buf = new char[10];
 		assertEquals(7, reader.read(buf, 1, 9));
 		for (int i = 0; i < 7; i++) {

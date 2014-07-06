@@ -20,7 +20,7 @@ package org.pitaya.security;
  * Algorithm identifier.
  *
  * @param <T> the category of the algorithm.
- * 
+ *
  * @author Osman KOCAK
  */
 public final class Algorithm<T>

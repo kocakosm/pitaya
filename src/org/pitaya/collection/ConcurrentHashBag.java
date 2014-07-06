@@ -63,7 +63,7 @@ public final class ConcurrentHashBag<E> extends AbstractBag<E>
 	 *
 	 * @param c the collection to use to populate the created bag.
 	 *
-	 * @throws NullPointerException if {@code c} is {@code null} or if it 
+	 * @throws NullPointerException if {@code c} is {@code null} or if it
 	 *	contains a {@code null} reference.
 	 */
 	public ConcurrentHashBag(Collection<? extends E> c)
@@ -78,7 +78,7 @@ public final class ConcurrentHashBag<E> extends AbstractBag<E>
 	 *
 	 * @param i the iterable to use to populate the created bag.
 	 *
-	 * @throws NullPointerException if {@code i} is {@code null} or if it 
+	 * @throws NullPointerException if {@code i} is {@code null} or if it
 	 *	contains a {@code null} reference.
 	 */
 	public ConcurrentHashBag(Iterable<? extends E> i)
@@ -95,7 +95,7 @@ public final class ConcurrentHashBag<E> extends AbstractBag<E>
 	 *
 	 * @param i the iterator to use to populate the created bag.
 	 *
-	 * @throws NullPointerException if {@code i} is {@code null} or if it 
+	 * @throws NullPointerException if {@code i} is {@code null} or if it
 	 *	contains a {@code null} reference.
 	 */
 	public ConcurrentHashBag(Iterator<? extends E> i)
@@ -112,7 +112,7 @@ public final class ConcurrentHashBag<E> extends AbstractBag<E>
 	 *
 	 * @param elements the elements to use to populate the created bag.
 	 *
-	 * @throws NullPointerException if {@code elements} is {@code null} or 
+	 * @throws NullPointerException if {@code elements} is {@code null} or
 	 *	if it contains a {@code null} reference.
 	 */
 	public ConcurrentHashBag(E... elements)
@@ -154,7 +154,7 @@ public final class ConcurrentHashBag<E> extends AbstractBag<E>
 	 * @param e the element to be added to this bag, if absent.
 	 *
 	 * @return {@code true} if the element was added.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code e} is {@code null}.
 	 */
 	public boolean addIfAbsent(E e)

@@ -34,15 +34,15 @@ final class PBKDF1 implements KDF
 
 	/**
 	 * Creates a new {@code PBKDF1} instance.
-	 * 
+	 *
 	 * @param algorithm the digest algorithm to use.
 	 * @param iterationCount the desired number of iterations.
 	 * @param dkLen the desired length for derived keys, in bytes.
-	 * 
+	 *
 	 * @throws NullPointerException if {@code algorithm} is {@code null}.
-	 * @throws IllegalArgumentException if {@code iterationCount} or 
-	 *	{@code dkLen} is negative, or if {@code dkLen} is greater than 
-	 *	the digest algorithm's output length, or if the digest algorithm 
+	 * @throws IllegalArgumentException if {@code iterationCount} or
+	 *	{@code dkLen} is negative, or if {@code dkLen} is greater than
+	 *	the digest algorithm's output length, or if the digest algorithm
 	 *	is unknown.
 	 */
 	PBKDF1(Algorithm<Digest> algorithm, int iterationCount, int dkLen)

@@ -134,37 +134,37 @@ public final class ObjectsTest
 	@Test
 	public void testToStringBuilder()
 	{
-		assertEquals("Test (1, 2)", 
+		assertEquals("Test (1, 2)",
 			Objects.toStringBuilder("Test")
 				.append(1L).append(2).toString());
-		assertEquals("Test (1, A)", 
+		assertEquals("Test (1, A)",
 			Objects.toStringBuilder("Test")
 				.append((short) 1).append('A').toString());
-		assertEquals("Test (1, true)", 
+		assertEquals("Test (1, true)",
 			Objects.toStringBuilder("Test")
 				.append((byte) 1).append(true).toString());
-		assertEquals("Test (1.0, 2.0)", 
+		assertEquals("Test (1.0, 2.0)",
 			Objects.toStringBuilder("Test")
 				.append((float) 1.0).append(2.0).toString());
-		assertEquals("ObjectsTest (Hello, World)", 
+		assertEquals("ObjectsTest (Hello, World)",
 			Objects.toStringBuilder(this)
 				.append("Hello").append("World").toString());
-		assertEquals("Test (one=1, two=2)", 
+		assertEquals("Test (one=1, two=2)",
 			Objects.toStringBuilder("Test")
 				.append("one", 1L).append("two", 2).toString());
-		assertEquals("Test (one=1, A=A)", 
+		assertEquals("Test (one=1, A=A)",
 			Objects.toStringBuilder("Test")
 				.append("one", (short) 1).append("A", 'A').toString());
-		assertEquals("Test (one=1, T=true)", 
+		assertEquals("Test (one=1, T=true)",
 			Objects.toStringBuilder("Test")
 				.append("one", (byte) 1).append("T", true).toString());
-		assertEquals("Test (one=1.0, two=2.0)", 
+		assertEquals("Test (one=1.0, two=2.0)",
 			Objects.toStringBuilder("Test")
 				.append("one", (float) 1.0).append("two", 2.0).toString());
-		assertEquals("ObjectsTest (h=Hello, w=World)", 
+		assertEquals("ObjectsTest (h=Hello, w=World)",
 			Objects.toStringBuilder(this)
 				.append("h", "Hello").append("w", "World").toString());
-		assertEquals("Test ([1, 2, 3])", 
+		assertEquals("Test ([1, 2, 3])",
 			Objects.toStringBuilder("Test")
 				.append(new int[] {1, 2, 3}).toString());
 	}

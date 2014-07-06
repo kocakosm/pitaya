@@ -28,7 +28,7 @@ public final class Objects
 	/**
 	 * Returns a default value if the given reference is {@code null}, or
 	 * the reference itself if it is not {@code null}.
-	 * 
+	 *
 	 * @param <T> the type of the given reference.
 	 * @param ref the reference to test for {@code null}ity.
 	 * @param defaultValue the default value.
@@ -43,7 +43,7 @@ public final class Objects
 	/**
 	 * Returns the first of the given references that is not {@code null}.
 	 * If all are {@code null}, {@code null} is returned.
-	 * 
+	 *
 	 * @param <T> the type of the given references.
 	 * @param refs the references to test for {@code null}ity.
 	 *
@@ -61,7 +61,7 @@ public final class Objects
 
 	/**
 	 * Returns {@code true} if the given objects are both {@code null} or if
-	 * they are equal, {@code false} in all other cases. If {@code a} and 
+	 * they are equal, {@code false} in all other cases. If {@code a} and
 	 * {@code b} are arrays, they are compared using the appropriate
 	 * {@link Arrays}' {@code equals} method.
 	 *
@@ -121,15 +121,15 @@ public final class Objects
 
 	/**
 	 * Returns a hash code for the given {@code Object}s.
-	 * 
+	 *
 	 * @param objects the {@code Object}s to compute a hash code for.
 	 *
 	 * @return a hash code for the given {@code Object}s.
 	 */
 	public static int hashCode(Object... objects)
 	{
-		return objects == null 
-			? 0 : objects.length == 1 
+		return objects == null
+			? 0 : objects.length == 1
 			? hashCode(objects[0]) : Arrays.hashCode(objects);
 	}
 
@@ -140,10 +140,10 @@ public final class Objects
 
 	/**
 	 * Returns a {@code String} representation of the given object obtained
-	 * by calling its {@link Object#toString()} method if it's a "regular" 
+	 * by calling its {@link Object#toString()} method if it's a "regular"
 	 * object or by calling the appropriate {@link Arrays}' {@code toString}
 	 * method if it is an array, returns {@code "null"} if it is {@code null}.
-	 * 
+	 *
 	 * @param o the object to translate into a {@link String}.
 	 *
 	 * @return a {@link String} representation of the given {@link Object}.
@@ -155,10 +155,10 @@ public final class Objects
 
 	/**
 	 * Returns a {@code String} representation of the given object obtained
-	 * by calling its {@link Object#toString()} method if it's a "regular" 
+	 * by calling its {@link Object#toString()} method if it's a "regular"
 	 * object or by calling the appropriate {@link Arrays}' {@code toString}
 	 * method if it is an array, returns {@code ifNull} if it is {@code null}.
-	 * 
+	 *
 	 * @param o the object to translate into a {@link String}.
 	 * @param ifNull the value to return if {@code o} is {@code null}.
 	 *
@@ -166,8 +166,8 @@ public final class Objects
 	 */
 	public static String toString(Object o, String ifNull)
 	{
-		return o == null 
-			? ifNull : o.getClass().isArray() 
+		return o == null
+			? ifNull : o.getClass().isArray()
 			? arrayToString(o) : o.toString();
 	}
 
