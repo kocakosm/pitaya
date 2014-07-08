@@ -27,20 +27,20 @@ import org.junit.Test;
  */
 public final class ChronometerTest
 {
-	@Test(expected=IllegalStateException.class)
+	@Test(expected = IllegalStateException.class)
 	public void testStopAlreadyIdle()
 	{
-		Chronometer sw = new Chronometer();
-		assertFalse(sw.isRunning());
-		sw.stop();
+		Chronometer chronometer = new Chronometer();
+		assertFalse(chronometer.isRunning());
+		chronometer.stop();
 	}
 
-	@Test(expected=IllegalStateException.class)
+	@Test(expected = IllegalStateException.class)
 	public void testStartAlreadyRunning()
 	{
-		Chronometer sw = new Chronometer().start();
-		assertTrue(sw.isRunning());
-		sw.start();
+		Chronometer chronometer = new Chronometer().start();
+		assertTrue(chronometer.isRunning());
+		chronometer.start();
 	}
 
 	@Test

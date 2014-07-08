@@ -79,17 +79,18 @@ public final class CountingWriter extends Writer
 	@Override
 	public Writer append(CharSequence csq) throws IOException
 	{
-		out.append(csq);
 		CharSequence sequence = csq == null ? "null" : csq;
+		out.append(sequence);
 		counter.addAndGet(sequence.length());
 		return this;
 	}
 
 	@Override
-	public Writer append(CharSequence csq, int start, int end) throws IOException
+	public Writer append(CharSequence csq, int start, int end)
+		throws IOException
 	{
-		out.append(csq, start, end);
 		CharSequence sequence = csq == null ? "null" : csq;
+		out.append(sequence.subSequence(start, end));
 		counter.addAndGet(sequence.subSequence(start, end).length());
 		return this;
 	}
@@ -112,7 +113,7 @@ public final class CountingWriter extends Writer
 	public void write(char[] cbuf, int off, int len) throws IOException
 	{
 		out.write(cbuf, off, len);
-		counter.addAndGet(Math.min(cbuf.length, len));
+		counter.addAndGet(Math.min(cbuf.length - off, len));
 	}
 
 	@Override
@@ -126,7 +127,7 @@ public final class CountingWriter extends Writer
 	public void write(String str, int off, int len) throws IOException
 	{
 		out.write(str, off, len);
-		counter.addAndGet(Math.min(str.length(), len));
+		counter.addAndGet(Math.min(str.length() - off, len));
 	}
 
 	@Override
