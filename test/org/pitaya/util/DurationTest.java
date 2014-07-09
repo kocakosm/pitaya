@@ -98,8 +98,8 @@ public final class DurationTest
 		Date now = new Date();
 		Date yesterday = new Date(now.getTime() - 86400000L);
 		Date tomorrow = new Date(now.getTime() + 86400000L);
-		assertTrue(until(yesterday).toMilliseconds() >= -ONE_DAY.toMilliseconds());
-		assertTrue(until(tomorrow).toMilliseconds() >= ONE_DAY.toMilliseconds());
+		assertTrue(until(yesterday).toMilliseconds() <= -ONE_DAY.toMilliseconds());
+		assertTrue(until(tomorrow).toMilliseconds() <= ONE_DAY.toMilliseconds());
 	}
 
 	@Test
