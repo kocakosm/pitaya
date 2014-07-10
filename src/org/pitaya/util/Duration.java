@@ -60,7 +60,8 @@ public final class Duration implements Comparable<Duration>
 	 * "milliseconds", "millisecond", "millis" and "ms" for milliseconds,
 	 * "seconds", "second", "sec", "secs" and "s" for seconds, "minutes",
 	 * "minute", "min", "mins" and "m" for minutes, "hours", "hour" and "h"
-	 * for hours, "days", "day" and "d" for days. Parsing is not case
+	 * for hours, "days", "day" and "d" for days. Values must be separated
+	 * from their unit by a whitespace character. Parsing is not case
 	 * sensitive.
 	 *
 	 * @param duration the {@code String} to parse into a {@code Duration}.
@@ -75,9 +76,8 @@ public final class Duration implements Comparable<Duration>
 	public static Duration valueOf(String duration)
 	{
 		String[] tokens = duration.toLowerCase().replace("and", "")
-			.replace(",", "").replace("&", "").replace("+", "")
-			.replaceAll("-\\s+", "-").replace("--", "")
-			.replaceAll("[\n\t\r]", "").trim()
+			.replaceAll("[,&\\+]", "").replaceAll("-\\s+", "-")
+			.replace("--", "").replaceAll("[\n\t\r]", "").trim()
 			.replaceAll("\\s+", " ").split("\\s");
 		Parameters.checkCondition(tokens.length % 2 == 0);
 		long ms = 0L;

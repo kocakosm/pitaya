@@ -41,6 +41,7 @@ public final class DurationTest
 		assertEquals(999, valueOf("1000 millis - 1 ms").toMilliseconds());
 		assertEquals(1000, valueOf("1 s").toMilliseconds());
 		assertEquals(1000, valueOf("1 second").toMilliseconds());
+		assertEquals(1001, valueOf("1 s + 1 ms").toMilliseconds());
 		assertEquals(10000, valueOf(" -- 10 sec").toMilliseconds());
 		assertEquals(-10000, valueOf(" - - - 10 sec").toMilliseconds());
 		assertEquals(60000, valueOf("1 min").toMilliseconds());
