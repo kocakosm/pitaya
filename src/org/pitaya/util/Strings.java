@@ -109,7 +109,7 @@ public final class Strings
 
 	/**
 	 * Abbreviates the given {@link String} using "..." so that the returned
-	 * {@code String}'s length equals to {@code length}.
+	 * {@code String}'s length is equal to {@code length}.
 	 *
 	 * @param str the {@code String} to abbreviate.
 	 * @param length the desired length for the abbreviated {@code String}.
@@ -121,11 +121,29 @@ public final class Strings
 	 */
 	public static String abbreviate(String str, int length)
 	{
-		Parameters.checkCondition(length > 3);
+		return abbreviate(str, length, "...");
+	}
+
+	/**
+	 * Abbreviates the given {@link String} using the specified ellipsis so
+	 * that the returned {@code String}'s length is equal to {@code length}.
+	 *
+	 * @param str the {@code String} to abbreviate.
+	 * @param length the desired length for the abbreviated {@code String}.
+	 * @param ellipsis the ellipsis to use to mark abbreviation.
+	 *
+	 * @return the abbreviated {@code String}.
+	 *
+	 * @throws NullPointerException if {@code str} is {@code null}.
+	 * @throws IllegalArgumentException if {@code length} is too small.
+	 */
+	public static String abbreviate(String str, int length, String ellipsis)
+	{
+		Parameters.checkCondition(length > ellipsis.length());
 		if (str.length() <= length) {
 			return str;
 		}
-		return str.substring(0, length - 3) + "...";
+		return str.substring(0, length - ellipsis.length()) + ellipsis;
 	}
 
 	/**
@@ -496,12 +514,12 @@ public final class Strings
 	}
 
 	/**
-	 * Counts the occurrences of the substring {@code sub} in {@code s}.
+	 * Counts the occurrences of the substring {@code sub} in {@code str}.
 	 *
 	 * @param str {@code String} to search in.
 	 * @param sub {@code String} to search for.
 	 *
-	 * @return the number of occurrences of {@code sub} in {@code s}.
+	 * @return the number of occurrences of {@code sub} in {@code str}.
 	 *
 	 * @throws NullPointerException if one of the arguments is {@code null}.
 	 */

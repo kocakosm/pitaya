@@ -93,6 +93,17 @@ public final class StringsTest
 	}
 
 	@Test
+	public void testAbbreviateWithCustomEllipsis()
+	{
+		assertEquals("", abbreviate("", 4, ".."));
+		assertEquals("ab", abbreviate("ab", 4, ".."));
+		assertEquals("abcd", abbreviate("abcd", 4, ".."));
+		assertEquals("ab##", abbreviate("abcde", 4, "##"));
+		assertEquals("abcd", abbreviate("abcde", 4, ""));
+		assertEquals("Hello --", abbreviate("Hello world!", 8, "--"));
+	}
+
+	@Test
 	public void testConcat()
 	{
 		assertEquals("", concat());
