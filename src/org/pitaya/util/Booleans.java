@@ -135,10 +135,7 @@ public final class Booleans
 	 */
 	public static boolean isFalse(Boolean bool)
 	{
-		if (bool != null) {
-			return !bool.booleanValue();
-		}
-		return false;
+		return bool == null ? false : !bool.booleanValue();
 	}
 
 	/**
@@ -151,10 +148,7 @@ public final class Booleans
 	 */
 	public static boolean isNotFalse(Boolean bool)
 	{
-		if (bool != null) {
-			return bool.booleanValue();
-		}
-		return true;
+		return bool == null ? true : bool.booleanValue();
 	}
 
 	/**
@@ -167,10 +161,7 @@ public final class Booleans
 	 */
 	public static boolean isTrue(Boolean bool)
 	{
-		if (bool != null) {
-			return bool.booleanValue();
-		}
-		return false;
+		return bool == null ? false : bool.booleanValue();
 	}
 
 	/**
@@ -183,10 +174,7 @@ public final class Booleans
 	 */
 	public static boolean isNotTrue(Boolean bool)
 	{
-		if (bool != null) {
-			return !bool.booleanValue();
-		}
-		return true;
+		return bool == null ? true : !bool.booleanValue();
 	}
 
 	/**
