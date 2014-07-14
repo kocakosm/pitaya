@@ -16,7 +16,6 @@
 
 package org.pitaya.collection;
 
-import org.pitaya.util.Objects;
 import org.pitaya.util.Parameters;
 
 import java.util.AbstractMap;
@@ -39,7 +38,7 @@ import java.util.Set;
  *
  * @author Osman KOCAK
  */
-public final class ChainMap<K, V> extends AbstractMap<K, V> implements Map<K, V>
+public final class ChainMap<K, V> extends AbstractMap<K, V>
 {
 	private final List<Map<K, V>> maps;
 
@@ -114,9 +113,8 @@ public final class ChainMap<K, V> extends AbstractMap<K, V> implements Map<K, V>
 	public V get(Object key)
 	{
 		for (Map<K, V> map : maps) {
-			V value = map.get(key);
-			if (value != null) {
-				return value;
+			if (map.containsKey(key)) {
+				return map.get(key);
 			}
 		}
 		return null;
@@ -131,10 +129,9 @@ public final class ChainMap<K, V> extends AbstractMap<K, V> implements Map<K, V>
 	@Override
 	public V remove(Object key)
 	{
-		V value = null;
+		V value = get(key);
 		for (Map<K, V> map : maps) {
-			V v = map.remove(key);
-			value = Objects.firstNonNull(value, v);
+			map.remove(key);
 		}
 		return value;
 	}
