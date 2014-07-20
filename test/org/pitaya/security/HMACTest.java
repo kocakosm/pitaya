@@ -21,6 +21,8 @@ import static org.junit.Assert.assertArrayEquals;
 import org.pitaya.charset.ASCII;
 import org.pitaya.util.Base16;
 
+import java.io.ByteArrayInputStream;
+
 import org.junit.Test;
 
 /**
@@ -203,6 +205,15 @@ public final class HMACTest
 				+ "a9a7a9d852312a743bef0a55148e5a1b8a"),
 			hmac.mac(ascii(PANGRAM))
 		);
+	}
+
+	@Test
+	public void testMacInputStream() throws Exception
+	{
+		MAC hmac = HMAC.sha1(ascii("key"));
+		assertArrayEquals(
+			hex("de7c9b85b8b78aa6bc8a7a36f70a90701c9db4d9"),
+			hmac.mac(new ByteArrayInputStream(ascii(PANGRAM))));
 	}
 
 	private byte[] hex(String hex)

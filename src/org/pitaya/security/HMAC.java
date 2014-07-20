@@ -16,6 +16,8 @@
 
 package org.pitaya.security;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 
 /**
@@ -228,6 +230,13 @@ public final class HMAC
 		}
 
 		@Override
+		public MAC update(InputStream input) throws IOException
+		{
+			digest.update(input);
+			return this;
+		}
+
+		@Override
 		public byte[] mac()
 		{
 			byte[] hash = digest.digest();
@@ -250,6 +259,13 @@ public final class HMAC
 		public byte[] mac(byte[] input, int off, int len)
 		{
 			update(input, off, len);
+			return mac();
+		}
+
+		@Override
+		public byte[] mac(InputStream input) throws IOException
+		{
+			update(input);
 			return mac();
 		}
 
