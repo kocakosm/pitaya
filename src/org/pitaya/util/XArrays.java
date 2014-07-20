@@ -1795,6 +1795,358 @@ public final class XArrays
 	}
 
 	/**
+	 * Converts an array of {@code Long}s to an array of {@code long}s.
+	 * Returns {@code null} if the given array is {@code null}. Does not
+	 * modify the input array.
+	 *
+	 * @param a the {@code Long} array to convert.
+	 *
+	 * @return the corresponding {@code long} array.
+	 *
+	 * @throws NullPointerException if {@code a} contains a {@code null} value.
+	 */
+	public static long[] toPrimitive(Long... a)
+	{
+		if (a != null) {
+			long[] p = new long[a.length];
+			for (int i = 0; i < a.length; i++) {
+				p[i] = a[i].longValue();
+			}
+			return p;
+		}
+		return null;
+	}
+
+	/**
+	 * Converts an array of {@code Integer}s to an array of {@code int}s.
+	 * Returns {@code null} if the given array is {@code null}. Does not
+	 * modify the input array.
+	 *
+	 * @param a the {@code Integer} array to convert.
+	 *
+	 * @return the corresponding {@code int} array.
+	 *
+	 * @throws NullPointerException if {@code a} contains a {@code null} value.
+	 */
+	public static int[] toPrimitive(Integer... a)
+	{
+		if (a != null) {
+			int[] p = new int[a.length];
+			for (int i = 0; i < a.length; i++) {
+				p[i] = a[i].intValue();
+			}
+			return p;
+		}
+		return null;
+	}
+
+	/**
+	 * Converts an array of {@code Short}s to an array of {@code short}s.
+	 * Returns {@code null} if the given array is {@code null}. Does not
+	 * modify the input array.
+	 *
+	 * @param a the {@code Short} array to convert.
+	 *
+	 * @return the corresponding {@code short} array.
+	 *
+	 * @throws NullPointerException if {@code a} contains a {@code null} value.
+	 */
+	public static short[] toPrimitive(Short... a)
+	{
+		if (a != null) {
+			short[] p = new short[a.length];
+			for (int i = 0; i < a.length; i++) {
+				p[i] = a[i].shortValue();
+			}
+			return p;
+		}
+		return null;
+	}
+
+	/**
+	 * Converts an array of {@code Character}s to an array of {@code char}s.
+	 * Returns {@code null} if the given array is {@code null}. Does not
+	 * modify the input array.
+	 *
+	 * @param a the {@code Character} array to convert.
+	 *
+	 * @return the corresponding {@code char} array.
+	 *
+	 * @throws NullPointerException if {@code a} contains a {@code null} value.
+	 */
+	public static char[] toPrimitive(Character... a)
+	{
+		if (a != null) {
+			char[] p = new char[a.length];
+			for (int i = 0; i < a.length; i++) {
+				p[i] = a[i].charValue();
+			}
+			return p;
+		}
+		return null;
+	}
+
+	/**
+	 * Converts an array of {@code Byte}s to an array of {@code byte}s.
+	 * Returns {@code null} if the given array is {@code null}. Does not
+	 * modify the input array.
+	 *
+	 * @param a the {@code Byte} array to convert.
+	 *
+	 * @return the corresponding {@code byte} array.
+	 *
+	 * @throws NullPointerException if {@code a} contains a {@code null} value.
+	 */
+	public static byte[] toPrimitive(Byte... a)
+	{
+		if (a != null) {
+			byte[] p = new byte[a.length];
+			for (int i = 0; i < a.length; i++) {
+				p[i] = a[i].byteValue();
+			}
+			return p;
+		}
+		return null;
+	}
+
+	/**
+	 * Converts an array of {@code Boolean}s to an array of {@code boolean}s.
+	 * Returns {@code null} if the given array is {@code null}. Does not
+	 * modify the input array.
+	 *
+	 * @param a the {@code Boolean} array to convert.
+	 *
+	 * @return the corresponding {@code boolean} array.
+	 *
+	 * @throws NullPointerException if {@code a} contains a {@code null} value.
+	 */
+	public static boolean[] toPrimitive(Boolean... a)
+	{
+		if (a != null) {
+			boolean[] p = new boolean[a.length];
+			for (int i = 0; i < a.length; i++) {
+				p[i] = a[i].booleanValue();
+			}
+			return p;
+		}
+		return null;
+	}
+
+	/**
+	 * Converts an array of {@code Float}s to an array of {@code float}s.
+	 * Returns {@code null} if the given array is {@code null}. Does not
+	 * modify the input array.
+	 *
+	 * @param a the {@code Float} array to convert.
+	 *
+	 * @return the corresponding {@code float} array.
+	 *
+	 * @throws NullPointerException if {@code a} contains a {@code null} value.
+	 */
+	public static float[] toPrimitive(Float... a)
+	{
+		if (a != null) {
+			float[] p = new float[a.length];
+			for (int i = 0; i < a.length; i++) {
+				p[i] = a[i].floatValue();
+			}
+			return p;
+		}
+		return null;
+	}
+
+	/**
+	 * Converts an array of {@code Double}s to an array of {@code double}s.
+	 * Returns {@code null} if the given array is {@code null}. Does not
+	 * modify the input array.
+	 *
+	 * @param a the {@code Double} array to convert.
+	 *
+	 * @return the corresponding {@code double} array.
+	 *
+	 * @throws NullPointerException if {@code a} contains a {@code null} value.
+	 */
+	public static double[] toPrimitive(Double... a)
+	{
+		if (a != null) {
+			double[] p = new double[a.length];
+			for (int i = 0; i < a.length; i++) {
+				p[i] = a[i].doubleValue();
+			}
+			return p;
+		}
+		return null;
+	}
+
+	/**
+	 * Converts an array of {@code long}s to an array of {@code Long}s.
+	 * Returns {@code null} if the given array is {@code null}. Does not
+	 * modify the input array.
+	 *
+	 * @param a the {@code long} array to convert.
+	 *
+	 * @return the corresponding {@code Long} array.
+	 */
+	public static Long[] toWrapper(long... a)
+	{
+		if (a != null) {
+			Long[] w = new Long[a.length];
+			for (int i = 0; i < a.length; i++) {
+				w[i] = Long.valueOf(a[i]);
+			}
+			return w;
+		}
+		return null;
+	}
+
+	/**
+	 * Converts an array of {@code int}s to an array of {@code Integer}s.
+	 * Returns {@code null} if the given array is {@code null}. Does not
+	 * modify the input array.
+	 *
+	 * @param a the {@code int} array to convert.
+	 *
+	 * @return the corresponding {@code Integer} array.
+	 */
+	public static Integer[] toWrapper(int... a)
+	{
+		if (a != null) {
+			Integer[] w = new Integer[a.length];
+			for (int i = 0; i < a.length; i++) {
+				w[i] = Integer.valueOf(a[i]);
+			}
+			return w;
+		}
+		return null;
+	}
+
+	/**
+	 * Converts an array of {@code short}s to an array of {@code Short}s.
+	 * Returns {@code null} if the given array is {@code null}. Does not
+	 * modify the input array.
+	 *
+	 * @param a the {@code short} array to convert.
+	 *
+	 * @return the corresponding {@code Short} array.
+	 */
+	public static Short[] toWrapper(short... a)
+	{
+		if (a != null) {
+			Short[] w = new Short[a.length];
+			for (int i = 0; i < a.length; i++) {
+				w[i] = Short.valueOf(a[i]);
+			}
+			return w;
+		}
+		return null;
+	}
+
+	/**
+	 * Converts an array of {@code char}s to an array of {@code Character}s.
+	 * Returns {@code null} if the given array is {@code null}. Does not
+	 * modify the input array.
+	 *
+	 * @param a the {@code char} array to convert.
+	 *
+	 * @return the corresponding {@code Character} array.
+	 */
+	public static Character[] toWrapper(char... a)
+	{
+		if (a != null) {
+			Character[] w = new Character[a.length];
+			for (int i = 0; i < a.length; i++) {
+				w[i] = Character.valueOf(a[i]);
+			}
+			return w;
+		}
+		return null;
+	}
+
+	/**
+	 * Converts an array of {@code byte}s to an array of {@code Byte}s.
+	 * Returns {@code null} if the given array is {@code null}. Does not
+	 * modify the input array.
+	 *
+	 * @param a the {@code byte} array to convert.
+	 *
+	 * @return the corresponding {@code Byte} array.
+	 */
+	public static Byte[] toWrapper(byte... a)
+	{
+		if (a != null) {
+			Byte[] w = new Byte[a.length];
+			for (int i = 0; i < a.length; i++) {
+				w[i] = Byte.valueOf(a[i]);
+			}
+			return w;
+		}
+		return null;
+	}
+
+	/**
+	 * Converts an array of {@code boolean}s to an array of {@code Boolean}s.
+	 * Returns {@code null} if the given array is {@code null}. Does not
+	 * modify the input array.
+	 *
+	 * @param a the {@code boolean} array to convert.
+	 *
+	 * @return the corresponding {@code Boolean} array.
+	 */
+	public static Boolean[] toWrapper(boolean... a)
+	{
+		if (a != null) {
+			Boolean[] w = new Boolean[a.length];
+			for (int i = 0; i < a.length; i++) {
+				w[i] = Boolean.valueOf(a[i]);
+			}
+			return w;
+		}
+		return null;
+	}
+
+	/**
+	 * Converts an array of {@code float}s to an array of {@code Float}s.
+	 * Returns {@code null} if the given array is {@code null}. Does not
+	 * modify the input array.
+	 *
+	 * @param a the {@code Float} array to convert.
+	 *
+	 * @return the corresponding {@code Short} array.
+	 */
+	public static Float[] toWrapper(float... a)
+	{
+		if (a != null) {
+			Float[] w = new Float[a.length];
+			for (int i = 0; i < a.length; i++) {
+				w[i] = Float.valueOf(a[i]);
+			}
+			return w;
+		}
+		return null;
+	}
+
+	/**
+	 * Converts an array of {@code double}s to an array of {@code Double}s.
+	 * Returns {@code null} if the given array is {@code null}. Does not
+	 * modify the input array.
+	 *
+	 * @param a the {@code double} array to convert.
+	 *
+	 * @return the corresponding {@code Double} array.
+	 */
+	public static Double[] toWrapper(double... a)
+	{
+		if (a != null) {
+			Double[] w = new Double[a.length];
+			for (int i = 0; i < a.length; i++) {
+				w[i] = Double.valueOf(a[i]);
+			}
+			return w;
+		}
+		return null;
+	}
+
+	/**
 	 * Returns a {@code String} representation of the contents of the given
 	 * array. Returns {@code "null"} if {@code a} is {@code null}.
 	 *
