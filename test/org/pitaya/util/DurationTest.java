@@ -167,6 +167,12 @@ public final class DurationTest
 	}
 
 	@Test
+	public void testAbsoluteValue()
+	{
+		assertEquals(ONE_DAY, ONE_DAY.negated().absoluteValue());
+	}
+
+	@Test
 	public void testAfter()
 	{
 		Date now = new Date();

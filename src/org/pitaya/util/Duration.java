@@ -16,6 +16,7 @@
 
 package org.pitaya.util;
 
+import static org.pitaya.util.Numbers.*;
 import static java.util.concurrent.TimeUnit.*;
 
 import java.util.Date;
@@ -84,7 +85,7 @@ public final class Duration implements Comparable<Duration>
 		for (int i = 0; i < tokens.length; i += 2) {
 			long v = Long.parseLong(tokens[i]);
 			TimeUnit u = parseTimeUnit(tokens[i + 1]);
-			ms = Numbers.safeAdd(ms, MILLISECONDS.convert(v, u));
+			ms = safeAdd(ms, MILLISECONDS.convert(v, u));
 		}
 		return new Duration(ms);
 	}
@@ -98,7 +99,25 @@ public final class Duration implements Comparable<Duration>
 				}
 			}
 		}
-		throw new IllegalArgumentException("Unknown time unit: " + unit);
+		throw new IllegalArgumentException("Unknown unit: " + unit);
+	}
+
+	private enum Unit
+	{
+		MS(MILLISECONDS, "milliseconds", "millisecond", "millis", "ms"),
+		S(SECONDS, "seconds", "second", "sec", "secs", "s"),
+		M(MINUTES, "minutes", "minute", "min", "mins", "m"),
+		H(HOURS, "hours", "hour", "h"),
+		D(DAYS, "days", "day", "d");
+
+		private final TimeUnit unit;
+		private final String[] names;
+
+		private Unit(TimeUnit unit, String... names)
+		{
+			this.unit = unit;
+			this.names = names;
+		}
 	}
 
 	/**
@@ -132,11 +151,11 @@ public final class Duration implements Comparable<Duration>
 	public static Duration of(Duration... durations)
 	{
 		if (durations.length == 0) {
-			return new Duration(0);
+			return new Duration(0L);
 		}
 		long ms = durations[0].milliseconds;
 		for (int i = 1; i < durations.length; i++) {
-			ms = Numbers.safeAdd(ms, durations[i].milliseconds);
+			ms = safeAdd(ms, durations[i].milliseconds);
 		}
 		return new Duration(ms);
 	}
@@ -200,6 +219,130 @@ public final class Duration implements Comparable<Duration>
 	}
 
 	/**
+	 * Returns the result of adding the given duration to this duration.
+	 *
+	 * @param d the duration to add.
+	 *
+	 * @return the sum of this duration and the given one.
+	 *
+	 * @throws NullPointerException if {@code d} is {@code null}.
+	 * @throws ArithmeticException if the resulting duration is too large.
+	 */
+	public Duration plus(Duration d)
+	{
+		return new Duration(safeAdd(milliseconds, d.milliseconds));
+	}
+
+	/**
+	 * Returns the result of subtracting the given duration from this one.
+	 *
+	 * @param d the duration to subtract.
+	 *
+	 * @return the difference between this duration and the given one.
+	 *
+	 * @throws NullPointerException if {@code d} is {@code null}.
+	 * @throws ArithmeticException if the resulting duration is too large.
+	 */
+	public Duration minus(Duration d)
+	{
+		return new Duration(safeSubtract(milliseconds, d.milliseconds));
+	}
+
+	/**
+	 * Returns the result of multiplying this duration by the given factor.
+	 *
+	 * @param factor the multiplication factor.
+	 *
+	 * @return the product of this duration by the given factor.
+	 *
+	 * @throws ArithmeticException if the resulting duration is too large.
+	 */
+	public Duration multipliedBy(int factor)
+	{
+		return new Duration(safeMultiply(milliseconds, factor));
+	}
+
+	/**
+	 * Returns the result of dividing this duration by the given divisor.
+	 *
+	 * @param divisor the divisor.
+	 *
+	 * @return the resulting duration.
+	 *
+	 * @throws ArithmeticException if the resulting duration is too large.
+	 */
+	public Duration dividedBy(int divisor)
+	{
+		return new Duration(safeDivide(milliseconds, divisor));
+	}
+
+	/**
+	 * Returns the sign of this duration, namely it returns {@code 1} if
+	 * this duration is positive, {@code 0} if it is equal to {@code 0}, and
+	 * {@code -1} if it is negative.
+	 *
+	 * @return the sign of this duration.
+	 */
+	public int sign()
+	{
+		return milliseconds > 0L ? 1 : milliseconds < 0L ? -1 : 0;
+	}
+
+	/**
+	 * Returns the result of negating this duration.
+	 *
+	 * @return the negated duration.
+	 *
+	 * @throws ArithmeticException if the resulting duration is too large.
+	 */
+	public Duration negated()
+	{
+		return new Duration(safeNegate(milliseconds));
+	}
+
+	/**
+	 * Returns a copy of this duration with a positive length.
+	 *
+	 * @return a copy of this duration with a positive length.
+	 *
+	 * @throws ArithmeticException if the resulting duration is too large.
+	 */
+	public Duration absoluteValue()
+	{
+		return new Duration(safeAbs(milliseconds));
+	}
+
+	/**
+	 * Returns the date obtained by adding this duration to the given date.
+	 *
+	 * @param d the origin date.
+	 *
+	 * @return the date obtained by adding this duration to the given date.
+	 *
+	 * @throws ArithmeticException if the resulting duration is too large.
+	 */
+	public Date after(Date d)
+	{
+		return new Date(safeAdd(d.getTime(), milliseconds));
+	}
+
+	/**
+	 * Returns the date obtained by subtracting this duration from the given
+	 * date.
+	 *
+	 * @param d the origin date.
+	 *
+	 * @return the date obtained by subtracting this duration from the given
+	 * date.
+	 *
+	 * @throws ArithmeticException if the resulting duration is too large.
+	 */
+	public Date before(Date d)
+	{
+		return new Date(safeSubtract(d.getTime(), milliseconds));
+	}
+
+	/**
 	 * Converts this duration into the given unit. Beware of possible
 	 * precision loss.
 	 *
@@ -224,167 +367,14 @@ public final class Duration implements Comparable<Duration>
 		return milliseconds;
 	}
 
-	/**
-	 * Returns the result of adding the given duration to this duration.
-	 *
-	 * @param d the duration to add.
-	 *
-	 * @return the sum of this duration and the given one.
-	 *
-	 * @throws NullPointerException if {@code d} is {@code null}.
-	 * @throws ArithmeticException if the resulting duration is too large.
-	 */
-	public Duration plus(Duration d)
-	{
-		return new Duration(Numbers.safeAdd(milliseconds, d.milliseconds));
-	}
-
-	/**
-	 * Returns the result of subtracting the given duration from this one.
-	 *
-	 * @param d the duration to subtract.
-	 *
-	 * @return the difference between this duration and the given one.
-	 *
-	 * @throws NullPointerException if {@code d} is {@code null}.
-	 * @throws ArithmeticException if the resulting duration is too large.
-	 */
-	public Duration minus(Duration d)
-	{
-		return new Duration(Numbers.safeSubtract(milliseconds, d.milliseconds));
-	}
-
-	/**
-	 * Returns the result of multiplying this duration by the given factor.
-	 *
-	 * @param factor the multiplication factor.
-	 *
-	 * @return the product of this duration by the given factor.
-	 *
-	 * @throws ArithmeticException if the resulting duration is too large.
-	 */
-	public Duration multipliedBy(int factor)
-	{
-		return new Duration(Numbers.safeMultiply(milliseconds, factor));
-	}
-
-	/**
-	 * Returns the result of dividing this duration by the given divisor.
-	 *
-	 * @param divisor the divisor.
-	 *
-	 * @return the resulting duration.
-	 *
-	 * @throws ArithmeticException if the resulting duration is too large.
-	 */
-	public Duration dividedBy(int divisor)
-	{
-		return new Duration(Numbers.safeDivide(milliseconds, divisor));
-	}
-
-	/**
-	 * Returns the result of negating this duration.
-	 *
-	 * @return the negated duration.
-	 *
-	 * @throws ArithmeticException if the resulting duration is too large.
-	 */
-	public Duration negated()
-	{
-		return new Duration(Numbers.safeNegate(milliseconds));
-	}
-
-	/**
-	 * Returns the sign of this duration, namely it returns {@code 1} if
-	 * this duration is positive, {@code 0} if it is equal to {@code 0}, and
-	 * {@code -1} if it is negative.
-	 *
-	 * @return the sign of this duration.
-	 */
-	public int sign()
-	{
-		return milliseconds > 0 ? 1 : milliseconds < 0 ? -1 : 0;
-	}
-
-	/**
-	 * Returns the date obtained by adding this duration to the given date.
-	 *
-	 * @param d the origin date.
-	 *
-	 * @return the date obtained by adding this duration to the given date.
-	 *
-	 * @throws ArithmeticException if the resulting duration is too large.
-	 */
-	public Date after(Date d)
-	{
-		return new Date(Numbers.safeAdd(d.getTime(), milliseconds));
-	}
-
-	/**
-	 * Returns the date obtained by subtracting this duration from the given
-	 * date.
-	 *
-	 * @param d the origin date.
-	 *
-	 * @return the date obtained by subtracting this duration from the given
-	 * date.
-	 *
-	 * @throws ArithmeticException if the resulting duration is too large.
-	 */
-	public Date before(Date d)
-	{
-		return new Date(Numbers.safeSubtract(d.getTime(), milliseconds));
-	}
-
 	@Override
 	public int compareTo(Duration d)
 	{
 		try {
-			long c = Numbers.safeSubtract(milliseconds, d.milliseconds);
-			return c > 0 ? 1 : c < 0 ? -1 : 0;
+			long c = safeSubtract(milliseconds, d.milliseconds);
+			return c > 0L ? 1 : c < 0L ? -1 : 0;
 		} catch (ArithmeticException e) {
 			return sign();
-		}
-	}
-
-	@Override
-	public String toString()
-	{
-		if (milliseconds == 0L) {
-			return "0 millisecond";
-		}
-		StringBuilder sb = new StringBuilder();
-		long time = Numbers.safeAbs(milliseconds);
-		long days = MILLISECONDS.toDays(time);
-		time -= DAYS.toMillis(days);
-		append(sb, days, "day");
-		long hours = MILLISECONDS.toHours(time);
-		time -= HOURS.toMillis(hours);
-		append(sb, hours, "hour");
-		long minutes = MILLISECONDS.toMinutes(time);
-		time -= MINUTES.toMillis(minutes);
-		append(sb, minutes, "minute");
-		long seconds = MILLISECONDS.toSeconds(time);
-		time -= SECONDS.toMillis(seconds);
-		append(sb, seconds, "second");
-		append(sb, time, "millisecond");
-		if (milliseconds < 0) {
-			sb.insert(0, "-(");
-			sb.append(")");
-		}
-		return sb.toString();
-	}
-
-	private void append(StringBuilder sb, long value, String unit)
-	{
-		if (value > 0L) {
-			if (sb.length() > 0) {
-				sb.append(", ");
-			}
-			sb.append(value).append(' ').append(unit);
-			if (value > 1L) {
-				sb.append('s');
-			}
 		}
 	}
 
@@ -407,21 +397,44 @@ public final class Duration implements Comparable<Duration>
 		return (int) (milliseconds ^ (milliseconds >>> 32));
 	}
 
-	private enum Unit
+	@Override
+	public String toString()
 	{
-		MILLISECOND(MILLISECONDS, "milliseconds", "millisecond", "millis", "ms"),
-		SECOND(SECONDS, "seconds", "second", "sec", "secs", "s"),
-		MINUTE(MINUTES, "minutes", "minute", "min", "mins", "m"),
-		HOUR(HOURS, "hours", "hour", "h"),
-		DAY(DAYS, "days", "day", "d");
+		if (milliseconds == 0L) {
+			return "0 millisecond";
+		}
+		StringBuilder sb = new StringBuilder();
+		long time = safeAbs(milliseconds);
+		long days = MILLISECONDS.toDays(time);
+		time -= DAYS.toMillis(days);
+		append(sb, days, "day");
+		long hours = MILLISECONDS.toHours(time);
+		time -= HOURS.toMillis(hours);
+		append(sb, hours, "hour");
+		long minutes = MILLISECONDS.toMinutes(time);
+		time -= MINUTES.toMillis(minutes);
+		append(sb, minutes, "minute");
+		long seconds = MILLISECONDS.toSeconds(time);
+		time -= SECONDS.toMillis(seconds);
+		append(sb, seconds, "second");
+		append(sb, time, "millisecond");
+		if (milliseconds < 0L) {
+			sb.insert(0, "-(");
+			sb.append(")");
+		}
+		return sb.toString();
+	}
 
-		private final TimeUnit unit;
-		private final String[] names;
-
-		private Unit(TimeUnit unit, String... names)
-		{
-			this.unit = unit;
-			this.names = names;
+	private void append(StringBuilder sb, long value, String unit)
+	{
+		if (value > 0L) {
+			if (sb.length() > 0) {
+				sb.append(", ");
+			}
+			sb.append(value).append(' ').append(unit);
+			if (value > 1L) {
+				sb.append('s');
+			}
 		}
 	}
 }
