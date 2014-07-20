@@ -21,6 +21,8 @@ import static org.junit.Assert.*;
 import org.pitaya.charset.ASCII;
 import org.pitaya.util.Base16;
 
+import java.io.ByteArrayInputStream;
+
 import org.junit.Test;
 
 /**
@@ -173,6 +175,15 @@ public final class DigestsTest
 				+ "c449ea94d0a8f05f62130fda612da53c79659f609");
 		assertEquals(64, keccak512.length());
 		assertEquals("Keccak-512", keccak512.toString());
+	}
+
+	@Test
+	public void testDigestInputStream() throws Exception
+	{
+		Digest sha1 = Digests.sha1();
+		assertArrayEquals(
+			Base16.decode("2fd4e1c67a2d28fced849ee1bb76e7391b93eb12"),
+			sha1.digest(new ByteArrayInputStream(ASCII.encode(PANGRAM))));
 	}
 
 	private static Input assertThat(String input)

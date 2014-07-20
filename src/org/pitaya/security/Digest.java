@@ -16,6 +16,9 @@
 
 package org.pitaya.security;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 /**
  * A digest engine. Implementations of this interface are not meant to be
  * thread-safe.
@@ -77,6 +80,19 @@ public interface Digest
 	Digest update(byte[] input, int off, int len);
 
 	/**
+	 * Updates the digest using the content of the specified stream.
+	 *
+	 * @param input the stream to process.
+	 *
+	 * @return this object.
+	 *
+	 * @throws NullPointerException if {@code input} is {@code null}.
+	 * @throws IOException if {@code input} can't be read or if it has been
+	 *	closed, or if some other I/O error occurs.
+	 */
+	Digest update(InputStream input) throws IOException;
+
+	/**
 	 * Completes the hash computation. Note that the engine is reset after
 	 * this call is made.
 	 *
@@ -117,4 +133,21 @@ public interface Digest
 	 *	{@code off + len} is greater than {@code input}'s length.
 	 */
 	byte[] digest(byte[] input, int off, int len);
+
+	/**
+	 * Performs a final update on the digest using the specified stream,
+	 * then completes the digest computation. That is, this method first
+	 * calls {@link #update(InputStream)}, passing the input stream to the
+	 * update method, then calls {@link #digest()}. Note that the engine is
+	 * reset after this call is made.
+	 *
+	 * @param input the stream to process.
+	 *
+	 * @return the resulting digest.
+	 *
+	 * @throws NullPointerException if {@code input} is {@code null}.
+	 * @throws IOException if {@code input} can't be read or if it has been
+	 *	closed, or if some other I/O error occurs.
+	 */
+	byte[] digest(InputStream input) throws IOException;
 }

@@ -57,7 +57,7 @@ public final class Digests
 	 */
 	public static Digest md5()
 	{
-		return new BuiltInDigest("MD5");
+		return BuiltInDigest.create("MD5");
 	}
 
 	/**
@@ -67,7 +67,7 @@ public final class Digests
 	 */
 	public static Digest sha1()
 	{
-		return new BuiltInDigest("SHA1");
+		return BuiltInDigest.create("SHA1");
 	}
 
 	/**
@@ -77,7 +77,7 @@ public final class Digests
 	 */
 	public static Digest sha256()
 	{
-		return new BuiltInDigest("SHA-256");
+		return BuiltInDigest.create("SHA-256");
 	}
 
 	/**
@@ -87,7 +87,7 @@ public final class Digests
 	 */
 	public static Digest sha512()
 	{
-		return new BuiltInDigest("SHA-512");
+		return BuiltInDigest.create("SHA-512");
 	}
 
 	/**
@@ -130,25 +130,25 @@ public final class Digests
 		return new Keccak(64);
 	}
 
-	private static final class BuiltInDigest implements Digest
+	private static final class BuiltInDigest extends AbstractDigest
 	{
-		private final String algorithm;
-		private final MessageDigest md;
-
-		BuiltInDigest(String algorithm)
+		static Digest create(String algorithm)
 		{
-			this.algorithm = algorithm;
+			MessageDigest md;
 			try {
-				this.md = MessageDigest.getInstance(algorithm);
+				md = MessageDigest.getInstance(algorithm);
 			} catch (NoSuchAlgorithmException ex) {
 				throw new CannotHappenException(ex);
 			}
+			return new BuiltInDigest(md);
 		}
 
-		@Override
-		public int length()
+		private final MessageDigest md;
+
+		private BuiltInDigest(MessageDigest md)
 		{
-			return md.getDigestLength();
+			super(md.getAlgorithm(), md.getDigestLength());
+			this.md = md;
 		}
 
 		@Override
@@ -196,12 +196,6 @@ public final class Digests
 		{
 			md.update(input, off, len);
 			return md.digest();
-		}
-
-		@Override
-		public String toString()
-		{
-			return algorithm;
 		}
 	}
 
