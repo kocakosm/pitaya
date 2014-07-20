@@ -164,23 +164,8 @@ public final class Fraction extends Number implements Comparable<Fraction>
 	 */
 	public Fraction plus(Fraction f)
 	{
-		return add(f);
-	}
-
-	/**
-	 * Adds the given value to this one and returns the result in reduced
-	 * form.
-	 *
-	 * @param f the fraction to add to this one.
-	 *
-	 * @return {@code this + f} in reduced form.
-	 *
-	 * @throws NullPointerException if {@code f} is {@code null}.
-	 */
-	public Fraction add(Fraction f)
-	{
 		return new Fraction(n.multiply(f.d).add(f.n.multiply(d)),
-			d.multiply(f.d)).reduce();
+			d.multiply(f.d)).reduced();
 	}
 
 	/**
@@ -195,23 +180,8 @@ public final class Fraction extends Number implements Comparable<Fraction>
 	 */
 	public Fraction minus(Fraction f)
 	{
-		return subtract(f);
-	}
-
-	/**
-	 * Subtracts the given value from this one and returns the result in
-	 * reduced form.
-	 *
-	 * @param f the fraction to subtract from this one.
-	 *
-	 * @return {@code this - f} in reduced form.
-	 *
-	 * @throws NullPointerException if {@code f} is {@code null}.
-	 */
-	public Fraction subtract(Fraction f)
-	{
 		return new Fraction(n.multiply(f.d).subtract(f.n.multiply(d)),
-			d.multiply(f.d)).reduce();
+			d.multiply(f.d)).reduced();
 	}
 
 	/**
@@ -224,24 +194,9 @@ public final class Fraction extends Number implements Comparable<Fraction>
 	 *
 	 * @throws NullPointerException if {@code f} is {@code null}.
 	 */
-	public Fraction times(Fraction f)
+	public Fraction multipliedBy(Fraction f)
 	{
-		return multiply(f);
-	}
-
-	/**
-	 * Multiplies this value by the given one and returns the result in
-	 * reduced form.
-	 *
-	 * @param f the fraction to multiply this one with.
-	 *
-	 * @return {@code this * f} in reduced form.
-	 *
-	 * @throws NullPointerException if {@code f} is {@code null}.
-	 */
-	public Fraction multiply(Fraction f)
-	{
-		return new Fraction(n.multiply(f.n), d.multiply(f.d)).reduce();
+		return new Fraction(n.multiply(f.n), d.multiply(f.d)).reduced();
 	}
 
 	/**
@@ -255,28 +210,12 @@ public final class Fraction extends Number implements Comparable<Fraction>
 	 * @throws NullPointerException if {@code f} is {@code null}.
 	 * @throws ArithmeticException if {@code f} equals zero.
 	 */
-	public Fraction over(Fraction f)
-	{
-		return divide(f);
-	}
-
-	/**
-	 * Divides this value by the given one and returns the result in reduced
-	 * form.
-	 *
-	 * @param f the fraction to divide this one with.
-	 *
-	 * @return {@code this / f} in reduced form.
-	 *
-	 * @throws NullPointerException if {@code f} is {@code null}.
-	 * @throws ArithmeticException if {@code f} equals zero.
-	 */
-	public Fraction divide(Fraction f)
+	public Fraction dividedBy(Fraction f)
 	{
 		if (ZERO.equals(f)) {
 			throw new ArithmeticException("Division by zero");
 		}
-		return new Fraction(n.multiply(f.d), d.multiply(f.n)).reduce();
+		return new Fraction(n.multiply(f.d), d.multiply(f.n)).reduced();
 	}
 
 	/**
@@ -289,9 +228,35 @@ public final class Fraction extends Number implements Comparable<Fraction>
 	 *
 	 * @throws ArithmeticException if {@code exponent} is negative.
 	 */
-	public Fraction pow(int exponent)
+	public Fraction power(int exponent)
 	{
-		return new Fraction(n.pow(exponent), d.pow(exponent)).reduce();
+		return new Fraction(n.pow(exponent), d.pow(exponent)).reduced();
+	}
+
+	/**
+	 * Returns the sign of this {@code Fraction}, that is, this method
+	 * returns {@code 1} if this fraction is positive, {@code 0} if it is
+	 * equal to {@code 0}, and {@code -1} if it is negative.
+	 *
+	 * @return the sign of this {@code Fraction}.
+	 */
+	public int sign()
+	{
+		return n.signum() * d.signum();
+	}
+
+	/**
+	 * Returns the opposite of this {@code Fraction}. The result is not
+	 * reduced before being returned.
+	 *
+	 * @return {@code -this}.
+	 */
+	public Fraction negated()
+	{
+		if (d.signum() < 0) {
+			return new Fraction(n, d.negate());
+		}
+		return new Fraction(n.negate(), d);
 	}
 
 	/**
@@ -299,7 +264,7 @@ public final class Fraction extends Number implements Comparable<Fraction>
 	 *
 	 * @return the absolute value of this {@code Fraction}.
 	 */
-	public Fraction abs()
+	public Fraction absoluteValue()
 	{
 		return new Fraction(n.abs(), d.abs());
 	}
@@ -310,23 +275,9 @@ public final class Fraction extends Number implements Comparable<Fraction>
 	 *
 	 * @return {@code 1 / this}.
 	 */
-	public Fraction invert()
+	public Fraction inverted()
 	{
 		return new Fraction(d, n);
-	}
-
-	/**
-	 * Returns the opposite of this {@code Fraction}. The result is not
-	 * reduced before being returned.
-	 *
-	 * @return {@code -this}.
-	 */
-	public Fraction negate()
-	{
-		if (d.signum() < 0) {
-			return new Fraction(n, d.negate());
-		}
-		return new Fraction(n.negate(), d);
 	}
 
 	/**
@@ -335,7 +286,7 @@ public final class Fraction extends Number implements Comparable<Fraction>
 	 *
 	 * @return the reduced form of this {@code Fraction}.
 	 */
-	public Fraction reduce()
+	public Fraction reduced()
 	{
 		BigInteger gcd = n.gcd(d);
 		if (d.signum() < 0) {
@@ -344,17 +295,6 @@ public final class Fraction extends Number implements Comparable<Fraction>
 			return new Fraction(numerator, denominator);
 		}
 		return new Fraction(n.divide(gcd), d.divide(gcd));
-	}
-
-	/**
-	 * Returns the signum function of this {@code Fraction}.
-	 *
-	 * @return -1, 0 or 1 as the value of this {@code Fraction} is negative,
-	 *	zero or positive
-	 */
-	public int signum()
-	{
-		return n.signum() * d.signum();
 	}
 
 	/**
@@ -419,12 +359,6 @@ public final class Fraction extends Number implements Comparable<Fraction>
 	}
 
 	@Override
-	public String toString()
-	{
-		return n + " / " + d;
-	}
-
-	@Override
 	public boolean equals(Object o)
 	{
 		if (o == this) {
@@ -433,18 +367,24 @@ public final class Fraction extends Number implements Comparable<Fraction>
 		if (!(o instanceof Fraction)) {
 			return false;
 		}
-		Fraction f1 = reduce();
-		Fraction f2 = ((Fraction) o).reduce();
+		Fraction f1 = reduced();
+		Fraction f2 = ((Fraction) o).reduced();
 		return f1.n.equals(f2.n) && f1.d.equals(f2.d);
 	}
 
 	@Override
 	public int hashCode()
 	{
-		Fraction f = reduce();
+		Fraction f = reduced();
 		int hash = 7;
 		hash = 71 * hash + f.n.hashCode();
 		hash = 71 * hash + f.d.hashCode();
 		return hash;
+	}
+
+	@Override
+	public String toString()
+	{
+		return n + " / " + d;
 	}
 }

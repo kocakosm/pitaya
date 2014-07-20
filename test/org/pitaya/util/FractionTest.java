@@ -36,30 +36,31 @@ public final class FractionTest
 	public void testValueOfInt()
 	{
 		assertEquals(ONE, valueOf(1));
-		assertEquals(ONE.negate(), valueOf(-1));
+		assertEquals(ONE.negated(), valueOf(-1));
 	}
 
 	@Test
 	public void testValueOfInteger()
 	{
 		assertEquals(ONE, valueOf(Integer.valueOf(1)));
-		assertEquals(ONE.negate(), valueOf(Integer.valueOf(-1)));
+		assertEquals(ONE.negated(), valueOf(Integer.valueOf(-1)));
 	}
 
 	@Test
 	public void testValueOfBigInteger()
 	{
 		assertEquals(ONE, valueOf(BigInteger.ONE));
-		assertEquals(ONE.negate(), valueOf(BigInteger.ONE.negate()));
+		assertEquals(ONE.negated(), valueOf(BigInteger.ONE.negate()));
 	}
 
 	@Test
 	public void testValueOfString()
 	{
+		assertEquals(ONE, valueOf(" + 1 "));
 		assertEquals(ONE, valueOf("   1 "));
-		assertEquals(ONE_THIRD, valueOf("1/3"));
+		assertEquals(ONE_THIRD, valueOf("1/+3"));
 		assertEquals(ONE_THIRD, valueOf("  -1   /   -3"));
-		assertEquals(ONE_THIRD.negate(), valueOf("1/-3"));
+		assertEquals(ONE_THIRD.negated(), valueOf("1/-3"));
 	}
 
 	@Test
@@ -68,99 +69,99 @@ public final class FractionTest
 		assertEquals(ONE_QUARTER, new Fraction(1, 4));
 	}
 
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testInstanciationWithInvalidDenominator()
 	{
 		new Fraction(42, 0);
 	}
 
 	@Test
-	public void testAddition()
+	public void testPlus()
 	{
 		assertEquals(ONE, ONE_HALF.plus(TWO_QUARTERS));
-		assertEquals(ONE, ONE_THIRD.add(TWO_THIRDS));
-		assertEquals(ZERO, ONE_THIRD.plus(ONE_THIRD.negate()));
+		assertEquals(ONE, ONE_THIRD.plus(TWO_THIRDS));
+		assertEquals(ZERO, ONE_THIRD.plus(ONE_THIRD.negated()));
 	}
 
 	@Test
-	public void testSubtraction()
+	public void testMinus()
 	{
 		assertEquals(ZERO, ONE_HALF.minus(TWO_QUARTERS));
-		assertEquals(ONE_THIRD.negate(), ONE_THIRD.minus(TWO_THIRDS));
-		assertEquals(ONE, ONE_THIRD.subtract(TWO_THIRDS.negate()));
+		assertEquals(ONE_THIRD.negated(), ONE_THIRD.minus(TWO_THIRDS));
+		assertEquals(ONE, ONE_THIRD.minus(TWO_THIRDS.negated()));
 	}
 
 	@Test
-	public void testMultiplication()
+	public void testMultipliedBy()
 	{
-		assertEquals(ONE_QUARTER, ONE_HALF.times(TWO_QUARTERS));
-		assertEquals(ONE, ONE_HALF.multiply(valueOf(2)));
-		assertEquals(ONE.negate(), ONE_THIRD.times(valueOf(-3)));
+		assertEquals(ONE_QUARTER, ONE_HALF.multipliedBy(TWO_QUARTERS));
+		assertEquals(ONE, ONE_HALF.multipliedBy(valueOf(2)));
+		assertEquals(ONE.negated(), ONE_THIRD.multipliedBy(valueOf(-3)));
 	}
 
 	@Test
-	public void testDivision()
+	public void testDividedBy()
 	{
-		assertEquals(ONE_QUARTER, ONE_HALF.over(valueOf(2)));
-		assertEquals(THREE_QUARTERS, ONE_HALF.divide(TWO_THIRDS));
-		assertEquals(valueOf(-2), ONE.over(ONE_HALF.negate()));
+		assertEquals(ONE_QUARTER, ONE_HALF.dividedBy(valueOf(2)));
+		assertEquals(THREE_QUARTERS, ONE_HALF.dividedBy(TWO_THIRDS));
+		assertEquals(valueOf(-2), ONE.dividedBy(ONE_HALF.negated()));
 	}
 
 	@Test(expected = ArithmeticException.class)
-	public void testDivisionByZero()
+	public void testDividedByZero()
 	{
-		ONE.over(ZERO);
+		ONE.dividedBy(ZERO);
 	}
 
 	@Test
 	public void testPower()
 	{
-		assertEquals(ONE_QUARTER, ONE_HALF.pow(2));
-		assertEquals(valueOf("1/27"), ONE_THIRD.pow(3));
-		assertEquals(ONE_QUARTER, ONE_HALF.negate().pow(2));
+		assertEquals(ONE_QUARTER, ONE_HALF.power(2));
+		assertEquals(valueOf("1/27"), ONE_THIRD.power(3));
+		assertEquals(ONE_QUARTER, ONE_HALF.negated().power(2));
 	}
 
-	@Test(expected=ArithmeticException.class)
+	@Test(expected = ArithmeticException.class)
 	public void testPowerWithNegativeExponent()
 	{
-		ONE_QUARTER.pow(-3);
+		ONE_QUARTER.power(-3);
 	}
 
 	@Test
-	public void testAbs()
+	public void testAbsoluteValue()
 	{
-		assertEquals(ONE_HALF, valueOf("-1/2").abs());
-		assertEquals(ONE_HALF, valueOf("1/-2").abs());
-		assertEquals(ONE_HALF, valueOf("1/2").abs());
+		assertEquals(ONE_HALF, valueOf("-1/2").absoluteValue());
+		assertEquals(ONE_HALF, valueOf("1/-2").absoluteValue());
+		assertEquals(ONE_HALF, valueOf("1/2").absoluteValue());
 	}
 
 	@Test
-	public void testInvert()
+	public void testInverted()
 	{
-		assertEquals(valueOf(2), ONE_HALF.invert());
-		assertEquals(valueOf(-3), ONE_THIRD.negate().invert());
+		assertEquals(valueOf(2), ONE_HALF.inverted());
+		assertEquals(valueOf(-3), ONE_THIRD.negated().inverted());
 	}
 
 	@Test
-	public void testNegate()
+	public void testNegated()
 	{
-		assertEquals(valueOf("-1/3"), ONE_THIRD.negate());
-		assertEquals(ONE_THIRD, valueOf("1/-3").negate());
+		assertEquals(valueOf("-1/3"), ONE_THIRD.negated());
+		assertEquals(ONE_THIRD, valueOf("1/-3").negated());
 	}
 
 	@Test
-	public void testReduce()
+	public void testReduced()
 	{
-		assertEquals(1, TWO_QUARTERS.reduce().numerator().intValue());
-		assertEquals(2, TWO_QUARTERS.reduce().denominator().intValue());
+		assertEquals(1, TWO_QUARTERS.reduced().numerator().intValue());
+		assertEquals(2, TWO_QUARTERS.reduced().denominator().intValue());
 	}
 
 	@Test
-	public void testSignum()
+	public void testSign()
 	{
-		assertEquals(0, ZERO.signum());
-		assertEquals(1, TWO_QUARTERS.signum());
-		assertEquals(-1, TWO_THIRDS.negate().signum());
+		assertEquals(0, ZERO.sign());
+		assertEquals(1, TWO_QUARTERS.sign());
+		assertEquals(-1, TWO_THIRDS.negated().sign());
 	}
 
 	@Test
@@ -201,7 +202,7 @@ public final class FractionTest
 	@Test
 	public void testFloatValue()
 	{
-		assertTrue((float)(1.0 / 3.0) == ONE_THIRD.floatValue());
+		assertTrue((float) (1.0 / 3.0) == ONE_THIRD.floatValue());
 	}
 
 	@Test
@@ -216,14 +217,14 @@ public final class FractionTest
 		assertEquals(0, ONE_HALF.compareTo(TWO_QUARTERS));
 		assertTrue(ONE_HALF.compareTo(ONE_THIRD) > 0);
 		assertTrue(ONE_HALF.compareTo(TWO_THIRDS) < 0);
-		assertTrue(ONE_HALF.negate().compareTo(ONE_THIRD) < 0);
+		assertTrue(ONE_HALF.negated().compareTo(ONE_THIRD) < 0);
 	}
 
 	@Test
 	public void testToString()
 	{
 		assertEquals("2 / 4", TWO_QUARTERS.toString());
-		assertEquals("-2 / 3", TWO_THIRDS.negate().toString());
+		assertEquals("-2 / 3", TWO_THIRDS.negated().toString());
 	}
 
 	@Test
@@ -231,7 +232,7 @@ public final class FractionTest
 	{
 		assertEquals(ONE, ONE);
 		assertEquals(ONE.hashCode(), ONE.hashCode());
-		assertFalse(ONE.equals((Fraction)null));
+		assertFalse(ONE.equals((Fraction) null));
 		assertEquals(ONE_HALF, TWO_QUARTERS);
 		assertEquals(ONE_HALF.hashCode(), TWO_QUARTERS.hashCode());
 		assertFalse(ONE_HALF.equals(ONE_THIRD));
