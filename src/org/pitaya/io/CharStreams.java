@@ -26,6 +26,7 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.nio.charset.Charset;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Character streams utilities.
@@ -34,7 +35,7 @@ import java.util.List;
  */
 public final class CharStreams
 {
-	private static final Writer NULL_WRITER = new NullWriter();
+	private static final Random PRNG = new Random();
 
 	/**
 	 * Concatenates the given {@code Reader}s into a single one. The given
@@ -188,7 +189,36 @@ public final class CharStreams
 	 */
 	public static Writer nullWriter()
 	{
-		return NULL_WRITER;
+		return new NullWriter();
+	}
+
+	/**
+	 * Returns an infinite {@code Reader} that (pseudo) randomly returns
+	 * characters from the specified array. Note that closing the returned
+	 * stream has no effect and that it never throws {@code IOException}s.
+	 *
+	 * @param chars the source array of characters.
+	 *
+	 * @return a new 'random' {@code Reader}.
+	 */
+	public static Reader random(char... chars)
+	{
+		return random(PRNG, chars);
+	}
+
+	/**
+	 * Returns an infinite {@code Reader} that (pseudo) randomly returns
+	 * characters from the specified array. Note that closing the returned
+	 * stream has no effect and that it never throws {@code IOException}s.
+	 *
+	 * @param prng the source of randomness to use.
+	 * @param chars the source array of characters.
+	 *
+	 * @return a new 'random' {@code Reader}.
+	 */
+	public static Reader random(Random prng, char... chars)
+	{
+		return new RandomReader(prng, chars);
 	}
 
 	/**

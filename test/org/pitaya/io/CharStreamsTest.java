@@ -19,10 +19,10 @@ package org.pitaya.io;
 import static org.junit.Assert.*;
 
 import org.pitaya.charset.Charsets;
+import org.pitaya.util.XArrays;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.io.StringWriter;
@@ -137,7 +137,16 @@ public final class CharStreamsTest
 	}
 
 	@Test
-	public void testReadReader() throws IOException
+	public void testRandom() throws Exception
+	{
+		char[] chars = "Yesterday".toCharArray();
+		Reader in = CharStreams.random(chars);
+		Character rnd = (char) in.read();
+		assertTrue(Arrays.asList(XArrays.toWrapper(chars)).contains(rnd));
+	}
+
+	@Test
+	public void testReadReader() throws Exception
 	{
 		String data = "Blue Jay Way";
 		Reader in = new StringReader(data);
@@ -145,7 +154,7 @@ public final class CharStreamsTest
 	}
 
 	@Test
-	public void testReadInputStream() throws IOException
+	public void testReadInputStream() throws Exception
 	{
 		String data = "Blue Jay Way";
 		InputStream in = new ByteArrayInputStream(data.getBytes());
@@ -153,7 +162,7 @@ public final class CharStreamsTest
 	}
 
 	@Test
-	public void testReadInputStreamWithCharset() throws IOException
+	public void testReadInputStreamWithCharset() throws Exception
 	{
 		String data = "Blue Jay Way";
 		Charset charset = Charsets.US_ASCII;
