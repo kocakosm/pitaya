@@ -215,7 +215,7 @@ public final class Strings
 	 * randomness is fair.
 	 *
 	 * @param length the length of the {@link String} to produce.
-	 * @param rnd the source of randomness to use
+	 * @param rnd the source of randomness to use.
 	 * @param chars the characters to use to build the {@link String}.
 	 *
 	 * @return a random {@link String}.
