@@ -88,6 +88,14 @@ public final class ByteStreamsTest
 	}
 
 	@Test
+	public void testRandom() throws Exception
+	{
+		InputStream in = ByteStreams.random();
+		assertTrue(in.read() > -1);
+		assertTrue(in.read() < 256);
+	}
+
+	@Test
 	public void testRead() throws Exception
 	{
 		InputStream in = new ByteArrayInputStream(DATA);

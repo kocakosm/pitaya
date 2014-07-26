@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Byte streams utilities.
@@ -29,7 +30,7 @@ import java.util.List;
  */
 public final class ByteStreams
 {
-	private static final OutputStream NULL_OUTPUT_STREAM = new NullOutputStream();
+	private static final Random PRNG = new Random();
 
 	/**
 	 * Concatenates the given {@code InputStream}s into a single one. The
@@ -120,7 +121,33 @@ public final class ByteStreams
 	 */
 	public static OutputStream nullOutputStream()
 	{
-		return NULL_OUTPUT_STREAM;
+		return new NullOutputStream();
+	}
+
+	/**
+	 * Returns an infinite {@code InputStream} that reads data from a
+	 * (pseudo) random number generator. Note that closing the returned
+	 * stream has no effect and that it never throws {@code IOException}s.
+	 *
+	 * @return a new 'random' {@code InputStream}.
+	 */
+	public static InputStream random()
+	{
+		return random(PRNG);
+	}
+
+	/**
+	 * Returns an infinite {@code InputStream} that reads data from the
+	 * specified source of random numbers. Note that closing the returned
+	 * stream has no effect and that it never throws {@code IOException}s.
+	 *
+	 * @param prng the source of randomness to use.
+	 *
+	 * @return a new 'random' {@code InputStream}.
+	 */
+	public static InputStream random(Random prng)
+	{
+		return new RandomInputStream(prng);
 	}
 
 	/**
