@@ -16,8 +16,6 @@
 
 package org.pitaya.util;
 
-import org.pitaya.collection.Iterables;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -46,7 +44,11 @@ public final class Comparators
 	 */
 	public static <T> Comparator<T> compose(Iterable<Comparator<? super T>> comparators)
 	{
-		return new CompositeComparator<T>(Iterables.toList(comparators));
+		List<Comparator<? super T>> l = new ArrayList<Comparator<? super T>>();
+		for (Comparator<? super T> comparator : comparators) {
+			l.add(comparator);
+		}
+		return new CompositeComparator<T>(l);
 	}
 
 	/**

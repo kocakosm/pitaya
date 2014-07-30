@@ -41,7 +41,7 @@ final class RandomInputStream extends InputStream
 	@Override
 	public int read()
 	{
-		return Math.abs(prng.nextInt() % 256);
+		return prng.nextInt(256);
 	}
 
 	@Override
