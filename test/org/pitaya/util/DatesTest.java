@@ -18,6 +18,9 @@ package org.pitaya.util;
 
 import static org.junit.Assert.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.junit.Test;
@@ -37,5 +40,109 @@ public final class DatesTest
 		Date now = new Date();
 		assertEquals(now, Dates.copy(now));
 		assertNotSame(now, Dates.copy(now));
+	}
+
+	@Test
+	public void testNow()
+	{
+		assertTrue(new Date().getTime() - Dates.now().getTime() <= 20);
+	}
+
+	@Test
+	public void testIsSameInstant()
+	{
+		Date now = new Date();
+		assertTrue(Dates.isSameInstant(now, now));
+		assertTrue(Dates.isSameInstant(toCalendar(now), toCalendar(now)));
+	}
+
+	@Test
+	public void testIsSameLocalTime() throws Exception
+	{
+		Date d1 = toDate("2010-08-10 08:38:51 -0700", "yyyy-MM-dd HH:mm:ss Z");
+		Date d2 = toDate("2010-08-10 15:38:51 -0000", "yyyy-MM-dd HH:mm:ss Z");
+
+		assertTrue(Dates.isSameLocalTime(d1, d2));
+		assertTrue(Dates.isSameLocalTime(toCalendar(d1), toCalendar(d2)));
+	}
+
+	@Test
+	public void testIsSameDay() throws Exception
+	{
+		Date d1 = toDate("2012-10-20 08:38:51", "yyyy-MM-dd HH:mm:ss");
+		Date d2 = toDate("2012-10-20 15:08:11", "yyyy-MM-dd HH:mm:ss");
+
+		assertTrue(Dates.isSameDay(d1, d2));
+		assertTrue(Dates.isSameDay(toCalendar(d1), toCalendar(d2)));
+	}
+
+	@Test
+	public void testIsSameWeek() throws Exception
+	{
+		Date d1 = toDate("2014-08-05 08:38:51", "yyyy-MM-dd HH:mm:ss");
+		Date d2 = toDate("2014-08-09 15:08:11", "yyyy-MM-dd HH:mm:ss");
+
+		assertTrue(Dates.isSameWeek(d1, d2));
+		assertTrue(Dates.isSameWeek(toCalendar(d1), toCalendar(d2)));
+	}
+
+	@Test
+	public void testIsSameMonth() throws Exception
+	{
+		Date d1 = toDate("2014-08-05 08:38:51", "yyyy-MM-dd HH:mm:ss");
+		Date d2 = toDate("2014-08-15 15:08:11", "yyyy-MM-dd HH:mm:ss");
+
+		assertTrue(Dates.isSameMonth(d1, d2));
+		assertTrue(Dates.isSameMonth(toCalendar(d1), toCalendar(d2)));
+	}
+
+	@Test
+	public void testIsSameYear() throws Exception
+	{
+		Date d1 = toDate("2014-08-05 08:38:51", "yyyy-MM-dd HH:mm:ss");
+		Date d2 = toDate("2014-02-15 15:08:11", "yyyy-MM-dd HH:mm:ss");
+
+		assertTrue(Dates.isSameYear(d1, d2));
+		assertTrue(Dates.isSameYear(toCalendar(d1), toCalendar(d2)));
+	}
+
+	@Test
+	public void testParse() throws Exception
+	{
+		Date d = Dates.parse("2014-08-05 08:38:51", "yyyy-MM-dd", "yyyy-MM-dd HH:mm:ss");
+		Date expected = toDate("2014-08-05 08:38:51", "yyyy-MM-dd HH:mm:ss");
+		assertEquals(expected, d);
+	}
+
+	@Test(expected = ParseException.class)
+	public void testParseError() throws Exception
+	{
+		Dates.parse("2014-08-05 08:38:51", "yyyy-MM-dd");
+	}
+
+	@Test
+	public void testFormat() throws Exception
+	{
+		Date d = toDate("2014-08-05", "yyyy-MM-dd");
+		assertEquals("2014-08-05", Dates.format(d, "yyyy-MM-dd"));
+	}
+
+	@Test
+	public void testToCalendar()
+	{
+		Date d = new Date();
+		assertEquals(d, Dates.toCalendar(d).getTime());
+	}
+
+	private Calendar toCalendar(Date date)
+	{
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		return cal;
+	}
+
+	private Date toDate(String date, String format) throws Exception
+	{
+		return new SimpleDateFormat(format).parse(date);
 	}
 }
