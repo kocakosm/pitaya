@@ -134,7 +134,7 @@ public final class Strings
 	 *
 	 * @return the abbreviated {@code String}.
 	 *
-	 * @throws NullPointerException if {@code str} is {@code null}.
+	 * @throws NullPointerException if one of the arguments is {@code null}.
 	 * @throws IllegalArgumentException if {@code length} is too small.
 	 */
 	public static String abbreviate(String str, int length, String ellipsis)
