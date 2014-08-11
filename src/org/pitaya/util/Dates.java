@@ -18,7 +18,7 @@ package org.pitaya.util;
 
 import static java.util.Calendar.*;
 
-import java.text.ParseException;
+import java.text.DateFormat;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -252,9 +252,7 @@ public final class Dates
 	 * Parses a {@code String} representing a date into a {@code Date}
 	 * instance. The given formats will be used sequentially until a
 	 * successful parsing is obtained. A parsing is considered successful
-	 * if it parses the whole input {@code String}. If none of the given
-	 * formats leads to a successful parsing, a {@code ParseException} is
-	 * thrown.
+	 * if it parses the whole input {@code String}.
 	 *
 	 * @param date the {@code String} to parse.
 	 * @param formats the date format patterns to use.
@@ -263,11 +261,10 @@ public final class Dates
 	 *
 	 * @throws NullPointerException if one of the arguments is {@code null}
 	 *	or if {@code formats} contains a {@code null} reference.
-	 * @throws IllegalArgumentException if {@code formats} is empty.
-	 * @throws ParseException if {@code date} can't be parsed.
+	 * @throws IllegalArgumentException if {@code formats} is empty or if
+	 *	{@code date} can't be parsed with any of the specified formats.
 	 */
 	public static Date parse(String date, String... formats)
-		throws ParseException
 	{
 		return parse(date, Locale.getDefault(), formats);
 	}
@@ -276,9 +273,7 @@ public final class Dates
 	 * Parses a {@code String} representing a date into a {@code Date}
 	 * instance. The given formats will be used sequentially until a
 	 * successful parsing is obtained. A parsing is considered successful
-	 * if it parses the whole input {@code String}. If none of the given
-	 * formats leads to a successful parsing, a {@code ParseException} is
-	 * thrown.
+	 * if it parses the whole input {@code String}.
 	 *
 	 * @param date the {@code String} to parse.
 	 * @param locale the {@code Locale} to use.
@@ -288,26 +283,23 @@ public final class Dates
 	 *
 	 * @throws NullPointerException if one of the arguments is {@code null}
 	 *	or if {@code formats} contains a {@code null} reference.
-	 * @throws IllegalArgumentException if {@code formats} is empty.
-	 * @throws ParseException if {@code date} can't be parsed.
+	 * @throws IllegalArgumentException if {@code formats} is empty or if
+	 *	{@code date} can't be parsed with any of the specified formats.
 	 */
 	public static Date parse(String date, Locale locale, String... formats)
-		throws ParseException
 	{
 		Parameters.checkNotNull(date);
 		Parameters.checkCondition(formats.length > 0);
-		SimpleDateFormat df = new SimpleDateFormat("", locale);
-		df.setLenient(true);
-		ParsePosition position = new ParsePosition(0);
 		for (String format : formats) {
-			df.applyPattern(format);
-			position.setIndex(0);
+			DateFormat df = new SimpleDateFormat(format, locale);
+			df.setLenient(true);
+			ParsePosition position = new ParsePosition(0);
 			Date d = df.parse(date, position);
 			if (d != null && position.getIndex() == date.length()) {
 				return d;
 			}
 		}
-		throw new ParseException("Unparseable date: " + date, -1);
+		throw new IllegalArgumentException("Unparseable date: " + date);
 	}
 
 	/**

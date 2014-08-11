@@ -18,7 +18,6 @@ package org.pitaya.util;
 
 import static org.junit.Assert.*;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -52,8 +51,11 @@ public final class DatesTest
 	public void testIsSameInstant()
 	{
 		Date now = new Date();
+		Date yesterday = new Date(now.getTime() - 86400000L);
 		assertTrue(Dates.isSameInstant(now, now));
 		assertTrue(Dates.isSameInstant(toCalendar(now), toCalendar(now)));
+		assertFalse(Dates.isSameInstant(yesterday, now));
+		assertFalse(Dates.isSameInstant(toCalendar(yesterday), toCalendar(now)));
 	}
 
 	@Test
@@ -61,9 +63,12 @@ public final class DatesTest
 	{
 		Date d1 = toDate("2010-08-10 08:38:51 -0700", "yyyy-MM-dd HH:mm:ss Z");
 		Date d2 = toDate("2010-08-10 15:38:51 -0000", "yyyy-MM-dd HH:mm:ss Z");
+		Date d3 = toDate("2010-08-10 08:38:51 -0000", "yyyy-MM-dd HH:mm:ss Z");
 
 		assertTrue(Dates.isSameLocalTime(d1, d2));
 		assertTrue(Dates.isSameLocalTime(toCalendar(d1), toCalendar(d2)));
+		assertFalse(Dates.isSameLocalTime(d1, d3));
+		assertFalse(Dates.isSameLocalTime(toCalendar(d1), toCalendar(d3)));
 	}
 
 	@Test
@@ -71,9 +76,12 @@ public final class DatesTest
 	{
 		Date d1 = toDate("2012-10-20 08:38:51", "yyyy-MM-dd HH:mm:ss");
 		Date d2 = toDate("2012-10-20 15:08:11", "yyyy-MM-dd HH:mm:ss");
+		Date d3 = toDate("2012-10-21 15:08:11", "yyyy-MM-dd HH:mm:ss");
 
 		assertTrue(Dates.isSameDay(d1, d2));
 		assertTrue(Dates.isSameDay(toCalendar(d1), toCalendar(d2)));
+		assertFalse(Dates.isSameDay(d1, d3));
+		assertFalse(Dates.isSameDay(toCalendar(d1), toCalendar(d3)));
 	}
 
 	@Test
@@ -81,9 +89,12 @@ public final class DatesTest
 	{
 		Date d1 = toDate("2014-08-05 08:38:51", "yyyy-MM-dd HH:mm:ss");
 		Date d2 = toDate("2014-08-09 15:08:11", "yyyy-MM-dd HH:mm:ss");
+		Date d3 = toDate("2014-08-12 15:08:11", "yyyy-MM-dd HH:mm:ss");
 
 		assertTrue(Dates.isSameWeek(d1, d2));
 		assertTrue(Dates.isSameWeek(toCalendar(d1), toCalendar(d2)));
+		assertFalse(Dates.isSameWeek(d1, d3));
+		assertFalse(Dates.isSameWeek(toCalendar(d1), toCalendar(d3)));
 	}
 
 	@Test
@@ -91,9 +102,12 @@ public final class DatesTest
 	{
 		Date d1 = toDate("2014-08-05 08:38:51", "yyyy-MM-dd HH:mm:ss");
 		Date d2 = toDate("2014-08-15 15:08:11", "yyyy-MM-dd HH:mm:ss");
+		Date d3 = toDate("2014-09-15 15:08:11", "yyyy-MM-dd HH:mm:ss");
 
 		assertTrue(Dates.isSameMonth(d1, d2));
 		assertTrue(Dates.isSameMonth(toCalendar(d1), toCalendar(d2)));
+		assertFalse(Dates.isSameMonth(d1, d3));
+		assertFalse(Dates.isSameMonth(toCalendar(d1), toCalendar(d3)));
 	}
 
 	@Test
@@ -101,9 +115,12 @@ public final class DatesTest
 	{
 		Date d1 = toDate("2014-08-05 08:38:51", "yyyy-MM-dd HH:mm:ss");
 		Date d2 = toDate("2014-02-15 15:08:11", "yyyy-MM-dd HH:mm:ss");
+		Date d3 = toDate("2015-02-15 15:08:11", "yyyy-MM-dd HH:mm:ss");
 
 		assertTrue(Dates.isSameYear(d1, d2));
 		assertTrue(Dates.isSameYear(toCalendar(d1), toCalendar(d2)));
+		assertFalse(Dates.isSameYear(d1, d3));
+		assertFalse(Dates.isSameYear(toCalendar(d1), toCalendar(d3)));
 	}
 
 	@Test
@@ -114,8 +131,8 @@ public final class DatesTest
 		assertEquals(expected, d);
 	}
 
-	@Test(expected = ParseException.class)
-	public void testParseError() throws Exception
+	@Test(expected = IllegalArgumentException.class)
+	public void testParseError()
 	{
 		Dates.parse("2014-08-05 08:38:51", "yyyy-MM-dd");
 	}

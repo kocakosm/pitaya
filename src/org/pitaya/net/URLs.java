@@ -55,7 +55,7 @@ public final class URLs
 
 	/**
 	 * Relativizes the specified full {@code URL} against the given base.
-	 * Behaves as @{link java.net.URI#relativize(URL)}.
+	 * Behaves as {@link java.net.URI#relativize(java.net.URI)}.
 	 *
 	 * @param base the base {@code URL}.
 	 * @param full the full {@code URL}.
@@ -77,6 +77,7 @@ public final class URLs
 
 	/**
 	 * Resolves the specified path against the given base {@code URL}.
+	 * Behaves as {@link java.net.URI#resolve(java.lang.String)}.
 	 *
 	 * @param base the base {@code URL}.
 	 * @param path the path to resolve.
