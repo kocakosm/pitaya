@@ -14,9 +14,9 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.       *
  *----------------------------------------------------------------------------*/
 
-package org.pitaya.util;
+package org.pitaya.time;
 
-import static org.pitaya.util.Duration.*;
+import static org.pitaya.time.Duration.*;
 import static org.junit.Assert.*;
 
 import java.util.Date;

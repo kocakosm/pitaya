@@ -14,9 +14,9 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.       *
  *----------------------------------------------------------------------------*/
 
-package org.pitaya.util;
+package org.pitaya.math;
 
-import static org.pitaya.util.Fraction.*;
+import static org.pitaya.math.Fraction.*;
 import static org.junit.Assert.*;
 
 import java.math.BigDecimal;

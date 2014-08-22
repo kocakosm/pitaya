@@ -14,9 +14,11 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.       *
  *----------------------------------------------------------------------------*/
 
-package org.pitaya.util;
+package org.pitaya.time;
 
 import static java.util.Calendar.*;
+
+import org.pitaya.util.Parameters;
 
 import java.text.DateFormat;
 import java.text.ParsePosition;

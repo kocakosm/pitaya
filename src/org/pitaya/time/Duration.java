@@ -14,10 +14,12 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.       *
  *----------------------------------------------------------------------------*/
 
-package org.pitaya.util;
+package org.pitaya.time;
 
-import static org.pitaya.util.Numbers.*;
+import static org.pitaya.math.Numbers.*;
 import static java.util.concurrent.TimeUnit.*;
+
+import org.pitaya.util.Parameters;
 
 import java.util.Date;
 import java.util.concurrent.TimeUnit;

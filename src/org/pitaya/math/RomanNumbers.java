@@ -14,9 +14,10 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.       *
  *----------------------------------------------------------------------------*/
 
-package org.pitaya.util;
+package org.pitaya.math;
 
 import org.pitaya.charset.ASCII;
+import org.pitaya.util.Parameters;
 
 /**
  * Roman numbers conversion utilities.
