@@ -295,7 +295,8 @@ public final class StringsTest
 		assertEquals("", joiner.join(map().build()));
 		assertEquals("null=null", joiner.join(map().put(null, null).build()));
 		Map<?, ?> m = map().put("one", 1).put("two", 2).build();
-		assertEquals("one=1, two=2", joiner.join(m));
+		assertTrue("one=1, two=2".equals(joiner.join(m))
+			|| "two=2, one=1".equals(joiner.join(m)));
 	}
 
 	@Test
@@ -305,7 +306,8 @@ public final class StringsTest
 			.withPrefix("{").withSuffix("}");
 		assertEquals("{}", joiner.join(map().build()));
 		Map<?, ?> m = map().put("one", 1).put("two", 2).build();
-		assertEquals("{one=1, two=2}", joiner.join(m));
+		assertTrue("{one=1, two=2}".equals(joiner.join(m))
+			|| "{two=2, one=1}".equals(joiner.join(m)));
 	}
 
 	@Test
