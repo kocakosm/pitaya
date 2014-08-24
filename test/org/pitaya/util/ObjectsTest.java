@@ -30,14 +30,6 @@ import org.junit.Test;
 public final class ObjectsTest
 {
 	@Test
-	public void testDefaultIfNull()
-	{
-		assertNull(Objects.defaultIfNull(null, null));
-		assertEquals("default", Objects.defaultIfNull(null, "default"));
-		assertEquals("Hey", Objects.defaultIfNull("Hey", "default"));
-	}
-
-	@Test
 	public void testFirstNonNull()
 	{
 		assertNull(Objects.firstNonNull(null, null));

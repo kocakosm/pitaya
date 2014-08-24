@@ -26,21 +26,6 @@ import java.util.Arrays;
 public final class Objects
 {
 	/**
-	 * Returns a default value if the given reference is {@code null}, or
-	 * the reference itself if it is not {@code null}.
-	 *
-	 * @param <T> the type of the given reference.
-	 * @param ref the reference to test for {@code null}ity.
-	 * @param defaultValue the default value.
-	 *
-	 * @return {@code ref} if non-{@code null}, the default value otherwise.
-	 */
-	public static <T> T defaultIfNull(T ref, T defaultValue)
-	{
-		return ref == null ? defaultValue : ref;
-	}
-
-	/**
 	 * Returns the first of the given references that is not {@code null}.
 	 * If all are {@code null}, {@code null} is returned.
 	 *
