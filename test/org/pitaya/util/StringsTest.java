@@ -19,7 +19,10 @@ package org.pitaya.util;
 import static org.pitaya.util.Strings.*;
 import static org.junit.Assert.*;
 
+import org.pitaya.collection.ImmutableMap;
+
 import java.util.Arrays;
+import java.util.Map;
 
 import org.junit.Test;
 
@@ -256,5 +259,67 @@ public final class StringsTest
 		assertEquals(3, countOccurrences("abcegiabmosuab", "ab"));
 		assertEquals(7, countOccurrences("ababababababab", "ab"));
 		assertEquals(1, countOccurrences("hello", "hello"));
+	}
+
+	@Test
+	public void testJoinWithDefaultJoiner()
+	{
+		Joiner joiner = joinWith(", ");
+		assertEquals("", joiner.join());
+		assertEquals("1, 2, 3", joiner.join(1, 2, 3));
+		assertEquals("1, 2, 3", joiner.join(Arrays.asList(1, 2, 3)));
+		assertEquals("null, null", joiner.join("null", null));
+	}
+
+	@Test
+	public void testJoinWithPrefixAndSuffix()
+	{
+		Joiner joiner = joinWith(", ").withPrefix("[").withSuffix("]");
+		assertEquals("[]", joiner.join());
+		assertEquals("[1, 2, 3]", joiner.join(1, 2, 3));
+		assertEquals("[1, 2, 3]", joiner.join(Arrays.asList(1, 2, 3)));
+	}
+
+	@Test
+	public void testJoinWithNullReplacement()
+	{
+		Joiner joiner = joinWith(", ").withDefaultValueForNull("");
+		assertEquals("one, , two", joiner.join("one", null, "two"));
+		assertEquals("one, , two", joiner.join(Arrays.asList("one", null, "two")));
+	}
+
+	@Test
+	public void testJoinMapWithDefaultJoiner()
+	{
+		MapJoiner joiner = joinWith(", ").withKeyValueSeparator("=");
+		assertEquals("", joiner.join(map().build()));
+		assertEquals("null=null", joiner.join(map().put(null, null).build()));
+		Map<?, ?> m = map().put("one", 1).put("two", 2).build();
+		assertEquals("one=1, two=2", joiner.join(m));
+	}
+
+	@Test
+	public void testJoinMapWithPrefixAndSuffix()
+	{
+		MapJoiner joiner = joinWith(", ").withKeyValueSeparator("=")
+			.withPrefix("{").withSuffix("}");
+		assertEquals("{}", joiner.join(map().build()));
+		Map<?, ?> m = map().put("one", 1).put("two", 2).build();
+		assertEquals("{one=1, two=2}", joiner.join(m));
+	}
+
+	@Test
+	public void testJoinMapWithNullReplacement()
+	{
+		MapJoiner joiner = joinWith(", ").withKeyValueSeparator("=")
+			.withDefaultValueForNull("X");
+		assertEquals("", joiner.join(map().build()));
+		assertEquals("X=3", joiner.join(map().put(null, 3).build()));
+		assertEquals("four=X", joiner.join(map().put("four", null).build()));
+	}
+
+	private <K, V> ImmutableMap.Builder<K, V> map()
+	{
+		return new ImmutableMap.Builder<K, V>();
 	}
 }

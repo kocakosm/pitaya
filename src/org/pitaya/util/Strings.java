@@ -16,6 +16,10 @@
 
 package org.pitaya.util;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -539,6 +543,232 @@ public final class Strings
 			}
 		}
 		return n;
+	}
+
+	/**
+	 * Returns a new {@code Joiner} that will use the specified separator,
+	 * no prefix, no suffix and {@code "null"} as default replacement for
+	 * {@code null} values.
+	 *
+	 * @param separator the separator.
+	 *
+	 * @return the created {@code Joiner}.
+	 *
+	 * @throws NullPointerException if {@code separator} is {@code null}.
+	 */
+	public static Joiner joinWith(String separator)
+	{
+		return new DefaultJoiner(separator, "", "", "null", null);
+	}
+
+	/**
+	 * Joins multiple {@code Strings} into a single one with a predefined
+	 * separator and optional prefix and suffix.
+	 */
+	public static interface Joiner
+	{
+		/**
+		 * Returns a new {@code Joiner} that will use the specified
+		 * prefix when joining {@code String}s.
+		 *
+		 * @param prefix the prefix.
+		 *
+		 * @return a new {@code Joiner} that will use the given prefix.
+		 *
+		 * @throws NullPointerException if {@code prefix} is {@code null}.
+		 */
+		Joiner withPrefix(String prefix);
+
+		/**
+		 * Returns a new {@code Joiner} that will use the specified
+		 * suffix when joining {@code String}s.
+		 *
+		 * @param suffix the suffix.
+		 *
+		 * @return a new {@code Joiner} that will use the given suffix.
+		 *
+		 * @throws NullPointerException if {@code suffix} is {@code null}.
+		 */
+		Joiner withSuffix(String suffix);
+
+		/**
+		 * Returns a new {@code Joiner} that will use the specified
+		 * {@code String} as a replacement for {@code null} values.
+		 *
+		 * @param forNull the {@code String} to use for {@code null}s.
+		 *
+		 * @return a new {@code Joiner} that will use {@code forNull}
+		 *	in replacement of {@code null} values.
+		 *
+		 * @throws NullPointerException if {@code forNull} is {@code null}.
+		 */
+		Joiner withDefaultValueForNull(String forNull);
+
+		/**
+		 * Returns a new {@code MapJoiner} that will use the specified
+		 * separator for key-value pairs.
+		 *
+		 * @param keyValueSeparator the key-value separator.
+		 *
+		 * @return a new {@code MapJoiner} that will use the specified
+		 *	key-value separator.
+		 *
+		 * @throws NullPointerException if {@code keyValueSeparator} is
+		 *	{@code null}.
+		 */
+		MapJoiner withKeyValueSeparator(String keyValueSeparator);
+
+		/**
+		 * Returns a {@code String} built from the given parts and the
+		 * previously sepecified separator, prefix, suffix and default
+		 * {@code null} values replacement.
+		 *
+		 * @param parts the parts to join.
+		 *
+		 * @return the created {@code String}.
+		 *
+		 * @throws NullPointerException if {@code parts} is {@code null}.
+		 */
+		String join(Object... parts);
+
+		/**
+		 * Returns a {@code String} built from the given parts and the
+		 * previously sepecified separator, prefix, suffix and default
+		 * {@code null} values replacement.
+		 *
+		 * @param parts the parts to join.
+		 *
+		 * @return the created {@code String}.
+		 *
+		 * @throws NullPointerException if {@code parts} is {@code null}.
+		 */
+		String join(Iterable<?> parts);
+	}
+
+	/**
+	 * Joins {@code Map} content into a single {@code String} using
+	 * predefined separators for entries and key-value pairs.
+	 */
+	public static interface MapJoiner extends Joiner
+	{
+		/**
+		 * Returns a {@code String} representation of the specified
+		 * {@code Map} using the previously configured separator and
+		 * key-value separator.
+		 *
+		 * @param map the map to join.
+		 *
+		 * @return the given {@code Map}'s {@code String} representation.
+		 *
+		 * @throws NullPointerException if {@code map} is {@code null}.
+		 */
+		String join(Map<?, ?> map);
+
+		@Override
+		MapJoiner withPrefix(String prefix);
+
+		@Override
+		MapJoiner withSuffix(String suffix);
+
+		@Override
+		MapJoiner withDefaultValueForNull(String forNull);
+
+		@Override
+		MapJoiner withKeyValueSeparator(String keyValueSeparator);
+	}
+
+	private static final class DefaultJoiner implements MapJoiner
+	{
+		private final String separator;
+		private final String prefix;
+		private final String suffix;
+		private final String forNull;
+		private final String keyValueSeparator;
+
+		DefaultJoiner(String separator, String prefix, String suffix,
+			String forNull, String keyValueSeparator)
+		{
+			Parameters.checkNotNull(separator);
+			Parameters.checkNotNull(prefix);
+			Parameters.checkNotNull(suffix);
+			Parameters.checkNotNull(forNull);
+			this.separator = separator;
+			this.prefix = prefix;
+			this.suffix = suffix;
+			this.forNull = forNull;
+			this.keyValueSeparator = keyValueSeparator;
+		}
+
+		@Override
+		public MapJoiner withPrefix(String prefix)
+		{
+			return new DefaultJoiner(separator, prefix, suffix,
+				forNull, keyValueSeparator);
+		}
+
+		@Override
+		public MapJoiner withSuffix(String suffix)
+		{
+			return new DefaultJoiner(separator, prefix, suffix,
+				forNull, keyValueSeparator);
+		}
+
+		@Override
+		public MapJoiner withDefaultValueForNull(String forNull)
+		{
+			return new DefaultJoiner(separator, prefix, suffix,
+				forNull, keyValueSeparator);
+		}
+
+		@Override
+		public MapJoiner withKeyValueSeparator(String keyValueSeparator)
+		{
+			Parameters.checkNotNull(keyValueSeparator);
+			return new DefaultJoiner(separator, prefix, suffix,
+				forNull, keyValueSeparator);
+		}
+
+		@Override
+		public String join(Object... parts)
+		{
+			return join(Arrays.asList(parts));
+		}
+
+		@Override
+		public String join(Iterable<?> parts)
+		{
+			boolean first = true;
+			StringBuilder sb = new StringBuilder(prefix);
+			for (Object part : parts) {
+				if (first) {
+					first = false;
+				} else {
+					sb.append(separator);
+				}
+				sb.append(Objects.toString(part, forNull));
+			}
+			return sb.append(suffix).toString();
+		}
+
+		@Override
+		public String join(Map<?, ?> map)
+		{
+			if (keyValueSeparator == null) {
+				throw new IllegalStateException();
+			}
+			List<String> parts = new ArrayList<String>(map.size());
+			for (Map.Entry<?, ?> entry : map.entrySet()) {
+				parts.add(join(entry));
+			}
+			return join(parts);
+		}
+
+		private String join(Map.Entry<?, ?> entry)
+		{
+			return Objects.toString(entry.getKey(), forNull)
+				+ keyValueSeparator
+				+ Objects.toString(entry.getValue(), forNull);
+		}
 	}
 
 	private Strings()
