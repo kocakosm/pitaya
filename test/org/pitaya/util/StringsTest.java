@@ -264,11 +264,11 @@ public final class StringsTest
 	@Test
 	public void testJoinWithDefaultJoiner()
 	{
-		Joiner joiner = joinWith(", ");
+		Joiner joiner = joinWith(',');
 		assertEquals("", joiner.join());
-		assertEquals("1, 2, 3", joiner.join(1, 2, 3));
-		assertEquals("1, 2, 3", joiner.join(Arrays.asList(1, 2, 3)));
-		assertEquals("null, null", joiner.join("null", null));
+		assertEquals("1,2,3", joiner.join(1, 2, 3));
+		assertEquals("1,2,3", joiner.join(Arrays.asList(1, 2, 3)));
+		assertEquals("null,null", joiner.join("null", null));
 	}
 
 	@Test
@@ -281,11 +281,35 @@ public final class StringsTest
 	}
 
 	@Test
+	public void testJoinIgnoringNullValues()
+	{
+		Joiner joiner = joinWith(", ").ignoreNulls();
+		assertEquals("1, 2, 3", joiner.join(1, null, 2, 3, null));
+		assertEquals("1, 2, 3", joiner.join(Arrays.asList(1, null, 2, 3, null)));
+	}
+
+	@Test
 	public void testJoinWithNullReplacement()
 	{
-		Joiner joiner = joinWith(", ").withDefaultValueForNull("");
+		Joiner joiner = joinWith(", ").replaceNullWith("");
 		assertEquals("one, , two", joiner.join("one", null, "two"));
 		assertEquals("one, , two", joiner.join(Arrays.asList("one", null, "two")));
+	}
+
+	@Test
+	public void testJoinIgnoringEmptyStrings()
+	{
+		Joiner joiner = joinWith(", ").ignoreEmptyStrings();
+		assertEquals("1, 2, 3", joiner.join(1, "", 2, 3, ""));
+		assertEquals("1, 2, 3", joiner.join(Arrays.asList("1", "", "2", "3")));
+	}
+
+	@Test
+	public void testJoinWithEmptyStringReplacement()
+	{
+		Joiner joiner = joinWith(", ").replaceEmptyStringWith("X");
+		assertEquals("1, X, 2", joiner.join("1", "", "2"));
+		assertEquals("1, X, 2", joiner.join(Arrays.asList("1", "", "2")));
 	}
 
 	@Test
@@ -314,10 +338,20 @@ public final class StringsTest
 	public void testJoinMapWithNullReplacement()
 	{
 		MapJoiner joiner = joinWith(", ").withKeyValueSeparator("=")
-			.withDefaultValueForNull("X");
+			.replaceNullWith("X");
 		assertEquals("", joiner.join(map().build()));
 		assertEquals("X=3", joiner.join(map().put(null, 3).build()));
-		assertEquals("four=X", joiner.join(map().put("four", null).build()));
+		assertEquals("4=X", joiner.join(map().put(4, null).build()));
+	}
+
+	@Test
+	public void testJoinMapWithEmptyStringReplacement()
+	{
+		MapJoiner joiner = joinWith(", ").withKeyValueSeparator("=")
+			.replaceEmptyStringWith("X");
+		assertEquals("", joiner.join(map().build()));
+		assertEquals("X=3", joiner.join(map().put("", 3).build()));
+		assertEquals("4=X", joiner.join(map().put(4, "").build()));
 	}
 
 	private <K, V> ImmutableMap.Builder<K, V> map()

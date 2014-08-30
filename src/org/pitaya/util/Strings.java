@@ -548,7 +548,23 @@ public final class Strings
 	/**
 	 * Returns a new {@code Joiner} that will use the specified separator,
 	 * no prefix, no suffix and {@code "null"} as default replacement for
-	 * {@code null} values.
+	 * {@code null} values. Note that the returned {@code Joiner} instance
+	 * is immutable.
+	 *
+	 * @param separator the separator.
+	 *
+	 * @return the created {@code Joiner}.
+	 */
+	public static Joiner joinWith(char separator)
+	{
+		return joinWith(Character.toString(separator));
+	}
+
+	/**
+	 * Returns a new {@code Joiner} that will use the specified separator,
+	 * no prefix, no suffix and {@code "null"} as default replacement for
+	 * {@code null} values. Note that the returned {@code Joiner} instance
+	 * is immutable.
 	 *
 	 * @param separator the separator.
 	 *
@@ -558,7 +574,8 @@ public final class Strings
 	 */
 	public static Joiner joinWith(String separator)
 	{
-		return new DefaultJoiner(separator, "", "", "null", null);
+		return new DefaultJoiner(separator, "", "", false, false,
+			"null", "", null);
 	}
 
 	/**
@@ -567,6 +584,46 @@ public final class Strings
 	 */
 	public static interface Joiner
 	{
+		/**
+		 * Returns a new {@code Joiner} ignoring {@code null} values.
+		 *
+		 * @return a new {@code Joiner} ignoring {@code null} values.
+		 */
+		Joiner ignoreNulls();
+
+		/**
+		 * Returns a new {@code Joiner} ignoring empty {@code String}s.
+		 *
+		 * @return a new {@code Joiner} ignoring empty {@code String}s.
+		 */
+		Joiner ignoreEmptyStrings();
+
+		/**
+		 * Returns a new {@code Joiner} that will use the specified
+		 * {@code String} as a replacement for {@code null} values.
+		 *
+		 * @param forNull the {@code String} to use for {@code null}s.
+		 *
+		 * @return a new {@code Joiner} that will use {@code forNull}
+		 *	in replacement of {@code null} values.
+		 *
+		 * @throws NullPointerException if {@code forNull} is {@code null}.
+		 */
+		Joiner replaceNullWith(String forNull);
+
+		/**
+		 * Returns a new {@code Joiner} that will use the specified
+		 * value as a replacement for empty {@code String}s.
+		 *
+		 * @param forEmpty the value to use for empty {@code String}s.
+		 *
+		 * @return a new {@code Joiner} that will use {@code forEmpty}
+		 *	in replacement of empty {@code String}s.
+		 *
+		 * @throws NullPointerException if {@code forEmpty} is {@code null}.
+		 */
+		Joiner replaceEmptyStringWith(String forEmpty);
+
 		/**
 		 * Returns a new {@code Joiner} that will use the specified
 		 * prefix when joining {@code String}s.
@@ -590,19 +647,6 @@ public final class Strings
 		 * @throws NullPointerException if {@code suffix} is {@code null}.
 		 */
 		Joiner withSuffix(String suffix);
-
-		/**
-		 * Returns a new {@code Joiner} that will use the specified
-		 * {@code String} as a replacement for {@code null} values.
-		 *
-		 * @param forNull the {@code String} to use for {@code null}s.
-		 *
-		 * @return a new {@code Joiner} that will use {@code forNull}
-		 *	in replacement of {@code null} values.
-		 *
-		 * @throws NullPointerException if {@code forNull} is {@code null}.
-		 */
-		Joiner withDefaultValueForNull(String forNull);
 
 		/**
 		 * Returns a new {@code MapJoiner} that will use the specified
@@ -658,23 +702,29 @@ public final class Strings
 		 *
 		 * @param map the map to join.
 		 *
-		 * @return the given {@code Map}'s {@code String} representation.
+		 * @return {@code map}'s {@code String} representation.
 		 *
 		 * @throws NullPointerException if {@code map} is {@code null}.
 		 */
 		String join(Map<?, ?> map);
 
 		@Override
+		MapJoiner ignoreNulls();
+
+		@Override
+		MapJoiner ignoreEmptyStrings();
+
+		@Override
+		MapJoiner replaceNullWith(String forNull);
+
+		@Override
+		MapJoiner replaceEmptyStringWith(String forEmpty);
+
+		@Override
 		MapJoiner withPrefix(String prefix);
 
 		@Override
 		MapJoiner withSuffix(String suffix);
-
-		@Override
-		MapJoiner withDefaultValueForNull(String forNull);
-
-		@Override
-		MapJoiner withKeyValueSeparator(String keyValueSeparator);
 	}
 
 	private static final class DefaultJoiner implements MapJoiner
@@ -682,42 +732,77 @@ public final class Strings
 		private final String separator;
 		private final String prefix;
 		private final String suffix;
+		private final boolean ignoreNull;
+		private final boolean ignoreEmpty;
 		private final String forNull;
+		private final String forEmpty;
 		private final String keyValueSeparator;
 
 		DefaultJoiner(String separator, String prefix, String suffix,
-			String forNull, String keyValueSeparator)
+			boolean ignoreNull, boolean ignoreEmpty, String forNull,
+			String forEmpty, String keyValueSeparator)
 		{
 			Parameters.checkNotNull(separator);
 			Parameters.checkNotNull(prefix);
 			Parameters.checkNotNull(suffix);
 			Parameters.checkNotNull(forNull);
+			Parameters.checkNotNull(forEmpty);
+			this.ignoreNull = ignoreNull;
+			this.ignoreEmpty = ignoreEmpty;
 			this.separator = separator;
 			this.prefix = prefix;
 			this.suffix = suffix;
 			this.forNull = forNull;
+			this.forEmpty = forEmpty;
 			this.keyValueSeparator = keyValueSeparator;
+		}
+
+		@Override
+		public MapJoiner ignoreNulls()
+		{
+			return new DefaultJoiner(separator, prefix, suffix,
+				true, ignoreEmpty, forNull, forEmpty,
+				keyValueSeparator);
+		}
+
+		@Override
+		public MapJoiner ignoreEmptyStrings()
+		{
+			return new DefaultJoiner(separator, prefix, suffix,
+				ignoreNull, true, forNull, forEmpty,
+				keyValueSeparator);
+		}
+
+		@Override
+		public MapJoiner replaceNullWith(String forNull)
+		{
+			return new DefaultJoiner(separator, prefix, suffix,
+				false, ignoreEmpty, forNull, forEmpty,
+				keyValueSeparator);
+		}
+
+		@Override
+		public MapJoiner replaceEmptyStringWith(String forEmpty)
+		{
+			return new DefaultJoiner(separator, prefix, suffix,
+				ignoreNull, false, forNull, forEmpty,
+				keyValueSeparator);
 		}
 
 		@Override
 		public MapJoiner withPrefix(String prefix)
 		{
 			return new DefaultJoiner(separator, prefix, suffix,
-				forNull, keyValueSeparator);
+				ignoreNull, ignoreEmpty, forNull, forEmpty,
+				keyValueSeparator);
 		}
 
 		@Override
 		public MapJoiner withSuffix(String suffix)
 		{
 			return new DefaultJoiner(separator, prefix, suffix,
-				forNull, keyValueSeparator);
-		}
-
-		@Override
-		public MapJoiner withDefaultValueForNull(String forNull)
-		{
-			return new DefaultJoiner(separator, prefix, suffix,
-				forNull, keyValueSeparator);
+				ignoreNull, ignoreEmpty, forNull, forEmpty,
+				keyValueSeparator);
 		}
 
 		@Override
@@ -725,7 +810,8 @@ public final class Strings
 		{
 			Parameters.checkNotNull(keyValueSeparator);
 			return new DefaultJoiner(separator, prefix, suffix,
-				forNull, keyValueSeparator);
+				ignoreNull, ignoreEmpty, forNull, forEmpty,
+				keyValueSeparator);
 		}
 
 		@Override
@@ -740,22 +826,34 @@ public final class Strings
 			boolean first = true;
 			StringBuilder sb = new StringBuilder(prefix);
 			for (Object part : parts) {
-				if (first) {
-					first = false;
-				} else {
-					sb.append(separator);
+				String s = format(part);
+				if (s != null) {
+					if (first) {
+						first = false;
+					} else {
+						sb.append(separator);
+					}
+					sb.append(s);
 				}
-				sb.append(Objects.toString(part, forNull));
 			}
 			return sb.append(suffix).toString();
+		}
+
+		private String format(Object o)
+		{
+			if (ignoreNull && o == null) {
+				return null;
+			}
+			String s = Objects.toString(o, forNull);
+			if (ignoreEmpty && s.isEmpty()) {
+				return null;
+			}
+			return s.isEmpty() ? forEmpty : s;
 		}
 
 		@Override
 		public String join(Map<?, ?> map)
 		{
-			if (keyValueSeparator == null) {
-				throw new IllegalStateException();
-			}
 			List<String> parts = new ArrayList<String>(map.size());
 			for (Map.Entry<?, ?> entry : map.entrySet()) {
 				parts.add(join(entry));
@@ -765,9 +863,10 @@ public final class Strings
 
 		private String join(Map.Entry<?, ?> entry)
 		{
-			return Objects.toString(entry.getKey(), forNull)
-				+ keyValueSeparator
-				+ Objects.toString(entry.getValue(), forNull);
+			String k = Objects.toString(entry.getKey(), forNull);
+			String v = Objects.toString(entry.getValue(), forNull);
+			return (k.isEmpty() ? forEmpty : k) + keyValueSeparator
+				+ (v.isEmpty() ? forEmpty : v);
 		}
 	}
 
