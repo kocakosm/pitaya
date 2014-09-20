@@ -19,15 +19,12 @@ package org.pitaya.util;
 import static org.pitaya.util.Strings.*;
 import static org.junit.Assert.*;
 
-import org.pitaya.collection.ImmutableMap;
-
 import java.util.Arrays;
-import java.util.Map;
 
 import org.junit.Test;
 
 /**
- * {@code Strings}'s unit tests.
+ * {@link Strings}'s unit tests.
  *
  * @author Osman KOCAK
  */
@@ -259,103 +256,5 @@ public final class StringsTest
 		assertEquals(3, countOccurrences("abcegiabmosuab", "ab"));
 		assertEquals(7, countOccurrences("ababababababab", "ab"));
 		assertEquals(1, countOccurrences("hello", "hello"));
-	}
-
-	@Test
-	public void testJoinWithDefaultJoiner()
-	{
-		Joiner joiner = joinWith(',');
-		assertEquals("", joiner.join());
-		assertEquals("1,2,3", joiner.join(1, 2, 3));
-		assertEquals("1,2,3", joiner.join(Arrays.asList(1, 2, 3)));
-		assertEquals("null,null", joiner.join("null", null));
-	}
-
-	@Test
-	public void testJoinWithPrefixAndSuffix()
-	{
-		Joiner joiner = joinWith(", ").withPrefix("[").withSuffix("]");
-		assertEquals("[]", joiner.join());
-		assertEquals("[1, 2, 3]", joiner.join(1, 2, 3));
-		assertEquals("[1, 2, 3]", joiner.join(Arrays.asList(1, 2, 3)));
-	}
-
-	@Test
-	public void testJoinIgnoringNullValues()
-	{
-		Joiner joiner = joinWith(", ").ignoreNulls();
-		assertEquals("1, 2, 3", joiner.join(1, null, 2, 3, null));
-		assertEquals("1, 2, 3", joiner.join(Arrays.asList(1, null, 2, 3, null)));
-	}
-
-	@Test
-	public void testJoinWithNullReplacement()
-	{
-		Joiner joiner = joinWith(", ").replaceNullWith("");
-		assertEquals("one, , two", joiner.join("one", null, "two"));
-		assertEquals("one, , two", joiner.join(Arrays.asList("one", null, "two")));
-	}
-
-	@Test
-	public void testJoinIgnoringEmptyStrings()
-	{
-		Joiner joiner = joinWith(", ").ignoreEmptyStrings();
-		assertEquals("1, 2, 3", joiner.join(1, "", 2, 3, ""));
-		assertEquals("1, 2, 3", joiner.join(Arrays.asList("1", "", "2", "3")));
-	}
-
-	@Test
-	public void testJoinWithEmptyStringReplacement()
-	{
-		Joiner joiner = joinWith(", ").replaceEmptyStringWith("X");
-		assertEquals("1, X, 2", joiner.join("1", "", "2"));
-		assertEquals("1, X, 2", joiner.join(Arrays.asList("1", "", "2")));
-	}
-
-	@Test
-	public void testJoinMapWithDefaultJoiner()
-	{
-		MapJoiner joiner = joinWith(", ").withKeyValueSeparator("=");
-		assertEquals("", joiner.join(map().build()));
-		assertEquals("null=null", joiner.join(map().put(null, null).build()));
-		Map<?, ?> m = map().put("one", 1).put("two", 2).build();
-		assertTrue("one=1, two=2".equals(joiner.join(m))
-			|| "two=2, one=1".equals(joiner.join(m)));
-	}
-
-	@Test
-	public void testJoinMapWithPrefixAndSuffix()
-	{
-		MapJoiner joiner = joinWith(", ").withKeyValueSeparator("=")
-			.withPrefix("{").withSuffix("}");
-		assertEquals("{}", joiner.join(map().build()));
-		Map<?, ?> m = map().put("one", 1).put("two", 2).build();
-		assertTrue("{one=1, two=2}".equals(joiner.join(m))
-			|| "{two=2, one=1}".equals(joiner.join(m)));
-	}
-
-	@Test
-	public void testJoinMapWithNullReplacement()
-	{
-		MapJoiner joiner = joinWith(", ").withKeyValueSeparator("=")
-			.replaceNullWith("X");
-		assertEquals("", joiner.join(map().build()));
-		assertEquals("X=3", joiner.join(map().put(null, 3).build()));
-		assertEquals("4=X", joiner.join(map().put(4, null).build()));
-	}
-
-	@Test
-	public void testJoinMapWithEmptyStringReplacement()
-	{
-		MapJoiner joiner = joinWith(", ").withKeyValueSeparator("=")
-			.replaceEmptyStringWith("X");
-		assertEquals("", joiner.join(map().build()));
-		assertEquals("X=3", joiner.join(map().put("", 3).build()));
-		assertEquals("4=X", joiner.join(map().put(4, "").build()));
-	}
-
-	private <K, V> ImmutableMap.Builder<K, V> map()
-	{
-		return new ImmutableMap.Builder<K, V>();
 	}
 }
