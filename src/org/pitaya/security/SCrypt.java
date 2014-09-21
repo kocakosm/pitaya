@@ -19,15 +19,15 @@ package org.pitaya.security;
 import org.pitaya.util.Bits;
 import org.pitaya.util.ByteBuffer;
 import org.pitaya.util.LittleEndian;
-import org.pitaya.util.Objects;
 import org.pitaya.util.Parameters;
+import org.pitaya.util.XObjects;
 
 import java.util.Arrays;
 
 /**
  * SCrypt Key Derivation Function as specified by the Internet Engineering Task
- * Force (http://tools.ietf.org/html/draft-josefsson-scrypt-kdf-01).
- * Thread-safe.
+ * Force (http://tools.ietf.org/html/draft-josefsson-scrypt-kdf-01). Instances
+ * of this class are immutable.
  *
  * @author Osman KOCAK
  */
@@ -79,7 +79,7 @@ final class SCrypt implements KDF
 	@Override
 	public String toString()
 	{
-		return Objects.toStringBuilder("SCrypt").append("r", r)
+		return XObjects.toStringBuilder("SCrypt").append("r", r)
 			.append("n", n).append("p", p).append("dkLen", dkLen)
 			.toString();
 	}

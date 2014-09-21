@@ -18,13 +18,13 @@ package org.pitaya.security;
 
 import org.pitaya.util.Base16;
 import org.pitaya.util.ByteBuffer;
-import org.pitaya.util.Objects;
 import org.pitaya.util.Parameters;
-
-import java.util.Arrays;
+import org.pitaya.util.XArrays;
+import org.pitaya.util.XObjects;
 
 /**
- * HMAC-based Key Derivation Function (RFC 5869). Thread-safe.
+ * HMAC-based Key Derivation Function (RFC 5869). Instances of this class are
+ * immutable.
  *
  * @author Osman KOCAK
  */
@@ -54,7 +54,7 @@ final class HKDF implements KDF
 		Parameters.checkCondition(dkLen <= 255 * mac.length());
 		this.algorithm = algorithm;
 		this.dkLen = dkLen;
-		this.info = info == null ? new byte[0] : Arrays.copyOf(info, info.length);
+		this.info = info == null ? new byte[0] : XArrays.copyOf(info);
 	}
 
 	@Override
@@ -66,10 +66,9 @@ final class HKDF implements KDF
 	@Override
 	public String toString()
 	{
-		return Objects.toStringBuilder("HKDF").append("MAC", algorithm)
+		return XObjects.toStringBuilder("HKDF").append("MAC", algorithm)
 			.append("info", "0x" + Base16.encode(info))
-			.append("dkLen", dkLen)
-			.toString();
+			.append("dkLen", dkLen).toString();
 	}
 
 	private byte[] extract(byte[] key, byte[] salt)

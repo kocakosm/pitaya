@@ -16,13 +16,14 @@
 
 package org.pitaya.security;
 
-import org.pitaya.util.Objects;
 import org.pitaya.util.Parameters;
+import org.pitaya.util.XObjects;
 
 import java.util.Arrays;
 
 /**
- * PBKDF1 Key Derivation Function (RFC 2898). Thread-safe.
+ * PBKDF1 Key Derivation Function (RFC 2898). Instances of this class are
+ * immutable.
  *
  * @author Osman KOCAK
  */
@@ -70,7 +71,7 @@ final class PBKDF1 implements KDF
 	@Override
 	public String toString()
 	{
-		return Objects.toStringBuilder("PBKDF1")
+		return XObjects.toStringBuilder("PBKDF1")
 			.append("digest", algorithm)
 			.append("iterationCount", iterationCount)
 			.append("dkLen", dkLen).toString();

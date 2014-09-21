@@ -19,11 +19,11 @@ package org.pitaya.util;
 import java.util.Arrays;
 
 /**
- * Various utility methods for {@code Object}s.
+ * Various extra utility methods for {@code Object}s.
  *
  * @author Osman KOCAK
  */
-public final class Objects
+public final class XObjects
 {
 	/**
 	 * Returns the first of the given references that is not {@code null}.
@@ -247,7 +247,7 @@ public final class Objects
 		{
 			Parameters.checkNotNull(name);
 			appendSeparator().append(name)
-				.append('=').append(Objects.toString(value));
+				.append('=').append(XObjects.toString(value));
 			return this;
 		}
 
@@ -388,7 +388,7 @@ public final class Objects
 		 */
 		public ToStringBuilder append(Object value)
 		{
-			appendSeparator().append(Objects.toString(value));
+			appendSeparator().append(XObjects.toString(value));
 			return this;
 		}
 
@@ -502,7 +502,7 @@ public final class Objects
 		}
 	}
 
-	private Objects()
+	private XObjects()
 	{
 		/* ... */
 	}

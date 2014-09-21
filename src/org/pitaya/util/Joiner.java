@@ -219,7 +219,7 @@ public final class Joiner
 		if (ignoreNull && o == null) {
 			return null;
 		}
-		String s = Objects.toString(o, forNull);
+		String s = XObjects.toString(o, forNull);
 		s = trim ? s.trim() : s;
 		if (s.isEmpty()) {
 			return ignoreEmpty ? null : forEmpty;

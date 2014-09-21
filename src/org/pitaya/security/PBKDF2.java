@@ -18,11 +18,12 @@ package org.pitaya.security;
 
 import org.pitaya.util.BigEndian;
 import org.pitaya.util.ByteBuffer;
-import org.pitaya.util.Objects;
 import org.pitaya.util.Parameters;
+import org.pitaya.util.XObjects;
 
 /**
- * PBKDF2 Key Derivation Function (RFC 2898). Thread-safe.
+ * PBKDF2 Key Derivation Function (RFC 2898). Instances of this class are
+ * immutable.
  *
  * @author Osman KOCAK
  */
@@ -76,7 +77,7 @@ final class PBKDF2 implements KDF
 	@Override
 	public String toString()
 	{
-		return Objects.toStringBuilder("PBKDF2")
+		return XObjects.toStringBuilder("PBKDF2")
 			.append("MAC", algorithm)
 			.append("iterationCount", iterationCount)
 			.append("dkLen", dkLen).toString();
