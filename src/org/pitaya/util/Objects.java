@@ -50,8 +50,8 @@ public final class Objects
 	 * {@code b} are arrays, they are compared using the appropriate
 	 * {@link Arrays}' {@code equals} method.
 	 *
-	 * @param a the first to object.
-	 * @param b the second to object.
+	 * @param a the first object.
+	 * @param b the second object.
 	 *
 	 * @return whether the given possibly {@code null} objects are equal.
 	 */
@@ -127,7 +127,7 @@ public final class Objects
 	 * Returns a {@code String} representation of the given object obtained
 	 * by calling its {@link Object#toString()} method if it's a "regular"
 	 * object or by calling the appropriate {@link Arrays}' {@code toString}
-	 * method if it is an array, returns {@code "null"} if it is {@code null}.
+	 * method if it's an array, returns {@code "null"} if it's {@code null}.
 	 *
 	 * @param o the object to translate into a {@link String}.
 	 *
@@ -142,7 +142,7 @@ public final class Objects
 	 * Returns a {@code String} representation of the given object obtained
 	 * by calling its {@link Object#toString()} method if it's a "regular"
 	 * object or by calling the appropriate {@link Arrays}' {@code toString}
-	 * method if it is an array, returns {@code ifNull} if it is {@code null}.
+	 * method if it's an array, returns {@code ifNull} if it's {@code null}.
 	 *
 	 * @param o the object to translate into a {@link String}.
 	 * @param ifNull the value to return if {@code o} is {@code null}.
@@ -217,7 +217,10 @@ public final class Objects
 		return new ToStringBuilder(name);
 	}
 
-	/** Helper class for {@code toString()}'s implementations. */
+	/**
+	 * Helper class for {@link Object#toString()}'s implementations. Not
+	 * thread-safe.
+	 */
 	public static final class ToStringBuilder
 	{
 		private final StringBuilder sb;
