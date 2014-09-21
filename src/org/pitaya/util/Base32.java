@@ -32,7 +32,7 @@ public final class Base32
 	static {
 		BASE32_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567".toCharArray();
 		PADDING_CHAR = Character.valueOf('=');
-		BASE32_VALUES = new HashMap<Character, Integer>();
+		BASE32_VALUES = new HashMap<Character, Integer>(32);
 		for (int i = 0; i < 32; i++) {
 			BASE32_VALUES.put(BASE32_CHARS[i], Integer.valueOf(i));
 		}

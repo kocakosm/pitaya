@@ -36,7 +36,7 @@ public final class Base64
 			"0123456789+/"
 		).toCharArray();
 		PADDING_CHAR = Character.valueOf('=');
-		BASE64_VALUES = new HashMap<Character, Integer>();
+		BASE64_VALUES = new HashMap<Character, Integer>(64);
 		for (int i = 0; i < 64; i++) {
 			BASE64_VALUES.put(BASE64_CHARS[i], Integer.valueOf(i));
 		}
