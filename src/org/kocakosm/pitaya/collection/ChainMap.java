@@ -30,8 +30,8 @@ import java.util.Set;
  * {@code Map}s until the value for the looked up key is found. Writes and
  * updates only modify the first {@code Map}. Deletions are applied on all
  * underlying {@code Map}s. Note that only references to the input {@code Map}s
- * are stored, so, if one of one of these {@code Map}s gets updated, those
- * changes will be reflected in the {@code ChainMap}. Not thread safe.
+ * are stored, so, if one of these {@code Map}s gets updated, those changes will
+ * be reflected in the {@code ChainMap}. Not thread safe.
  *
  * @param <K> the type of the {@code Map}'s keys.
  * @param <V> the type of the {@code Map}'s values.
