@@ -28,6 +28,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.RandomAccessFile;
 import java.util.Arrays;
 
 /**
@@ -123,9 +124,8 @@ public final class Files
 	 */
 	public static void cp(File src, OutputStream dst) throws IOException
 	{
-		InputStream in = null;
+		InputStream in = getReader(src);
 		try {
-			in = getReader(src);
 			ByteStreams.copy(in, dst);
 		} finally {
 			IO.close(in);
@@ -148,104 +148,11 @@ public final class Files
 	 */
 	public static void cp(InputStream src, File dst) throws IOException
 	{
-		OutputStream out = null;
+		OutputStream out = getWriter(dst);
 		try {
-			out = getWriter(dst);
 			ByteStreams.copy(src, out);
 		} finally {
 			IO.close(out);
-		}
-	}
-
-	/**
-	 * Returns whether the given {@code File}s have the same content. Two
-	 * regular files are considered equal if they contain the same bytes.
-	 * Two directories are considered equal if they both contain the same
-	 * items where an item is either a directory or a regular file (items
-	 * must have the same name and content in both directories).
-	 *
-	 * @param f1 the first {@code File}.
-	 * @param f2 the second {@code File}.
-	 *
-	 * @return whether the given {@code File}s have the same content.
-	 *
-	 * @throws IOException if the content of the {@code File}s can't be read.
-	 */
-	public static boolean equals(File f1, File f2) throws IOException
-	{
-		if (f1 == null ^ f2 == null) {
-			return false;
-		}
-		if (f1 != null && f2 != null) {
-			if (f1.equals(f2)) {
-				return true;
-			}
-			if (f1.isFile() != f2.isFile()
-				|| f1.isDirectory() != f2.isDirectory())
-			{
-				return false;
-			}
-			if (f1.isFile()) {
-				return Arrays.equals(read(f1), read(f2));
-			}
-			File[] files = f1.listFiles();
-			if (files.length != f2.listFiles().length) {
-				return false;
-			}
-			for (File f : files) {
-				if (!equals(f, new File(f2, f.getName()))) {
-					return false;
-				}
-			}
-		}
-		return true;
-	}
-
-	/**
-	 * Reads the first (up to {@code 512}) bytes of the given {@code File}.
-	 * Named after the Unix command of the same name.
-	 *
-	 * @param f the file to read.
-	 *
-	 * @return the first bytes of the given {@code File}.
-	 *
-	 * @throws NullPointerException if {@code f} is {@code null}.
-	 * @throws IOException if {@code f} does not exist, or if it is a
-	 *	directory rather than a regular file, or if it can't be read.
-	 * @throws SecurityException if a security manager exists and denies
-	 *	read access to {@code f}.
-	 */
-	public static byte[] head(File f) throws IOException
-	{
-		return head(f, 512);
-	}
-
-	/**
-	 * Reads the first (up to {@code n}) bytes of the given {@code File}.
-	 * Named after the Unix command of the same name.
-	 *
-	 * @param f the file to read.
-	 * @param n the maximum number of bytes to read.
-	 *
-	 * @return the first bytes of the given {@code File}.
-	 *
-	 * @throws NullPointerException if {@code f} is {@code null}.
-	 * @throws IllegalArgumentException if {@code n} is negative.
-	 * @throws IOException if {@code f} does not exist, or if it is a
-	 *	directory rather than a regular file, or if it can't be read.
-	 * @throws SecurityException if a security manager exists and denies
-	 *	read access to {@code f}.
-	 */
-	public static byte[] head(File f, int n) throws IOException
-	{
-		Parameters.checkCondition(n >= 0);
-		InputStream in = null;
-		try {
-			in = getReader(f);
-			byte[] buf = new byte[n];
-			return XArrays.copyOf(buf, 0, in.read(buf));
-		} finally {
-			IO.close(in);
 		}
 	}
 
@@ -330,6 +237,76 @@ public final class Files
 	}
 
 	/**
+	 * Creates an empty file at the specified path or updates the last
+	 * modification time of the file at the specified path. Named after the
+	 * Unix command of the same name.
+	 *
+	 * @param f the file to touch.
+	 *
+	 * @throws IOException if an I/O error occurs during the process.
+	 * @throws SecurityException if a security manager exists and denies
+	 *	read/write access to {@code f}.
+	 */
+	public static void touch(File f) throws IOException
+	{
+		if (!f.createNewFile() && !f.setLastModified(now())) {
+			throw new IOException("Failed to touch " + f);
+		}
+	}
+
+	private static long now()
+	{
+		return System.currentTimeMillis();
+	}
+
+	/**
+	 * Reads the first (up to {@code 512}) bytes of the given {@code File}.
+	 * Named after the Unix command of the same name.
+	 *
+	 * @param f the file to read.
+	 *
+	 * @return the first bytes of the given {@code File}.
+	 *
+	 * @throws NullPointerException if {@code f} is {@code null}.
+	 * @throws IOException if {@code f} does not exist, or if it is a
+	 *	directory rather than a regular file, or if it can't be read.
+	 * @throws SecurityException if a security manager exists and denies
+	 *	read access to {@code f}.
+	 */
+	public static byte[] head(File f) throws IOException
+	{
+		return head(f, 512);
+	}
+
+	/**
+	 * Reads the first (up to {@code n}) bytes of the given {@code File}.
+	 * Named after the Unix command of the same name.
+	 *
+	 * @param f the file to read.
+	 * @param n the maximum number of bytes to read.
+	 *
+	 * @return the first bytes of the given {@code File}.
+	 *
+	 * @throws NullPointerException if {@code f} is {@code null}.
+	 * @throws IllegalArgumentException if {@code n} is negative.
+	 * @throws IOException if {@code f} does not exist, or if it is a
+	 *	directory rather than a regular file, or if it can't be read.
+	 * @throws SecurityException if a security manager exists and denies
+	 *	read access to {@code f}.
+	 */
+	public static byte[] head(File f, int n) throws IOException
+	{
+		Parameters.checkCondition(n >= 0);
+		InputStream in = getReader(f);
+		byte[] buf = new byte[n];
+		try {
+			return XArrays.copyOf(buf, 0, in.read(buf));
+		} finally {
+			IO.close(in);
+		}
+	}
+
+	/**
 	 * Reads the last (up to {@code 512}) bytes of the given {@code File}.
 	 * Named after the Unix command of the same name.
 	 *
@@ -366,34 +343,55 @@ public final class Files
 	public static byte[] tail(File f, int n) throws IOException
 	{
 		Parameters.checkCondition(n >= 0);
-		byte[] data = read(f);
-		if (data.length <= n) {
-			return data;
-		}
-		return XArrays.copyOf(data, data.length - n, n);
+		RandomAccessFile file = new RandomAccessFile(f, "r");
+		file.seek(file.length() - n);
+		byte[] data = new byte[n];
+		file.read(data);
+		return data;
 	}
 
 	/**
-	 * Creates an empty file at the specified path or updates the last
-	 * modification time of the file at the specified path. Named after the
-	 * Unix command of the same name.
+	 * Returns whether the given {@code File}s have the same content. Two
+	 * regular files are considered equal if they contain the same bytes.
+	 * Two directories are considered equal if they both contain the same
+	 * items where an item is either a directory or a regular file (items
+	 * must have the same name and content in both directories).
 	 *
-	 * @param f the file to touch.
+	 * @param f1 the first {@code File}.
+	 * @param f2 the second {@code File}.
 	 *
-	 * @throws IOException if an I/O error occurs during the process.
-	 * @throws SecurityException if a security manager exists and denies
-	 *	read/write access to {@code f}.
+	 * @return whether the given {@code File}s have the same content.
+	 *
+	 * @throws IOException if the content of the {@code File}s can't be read.
 	 */
-	public static void touch(File f) throws IOException
+	public static boolean equals(File f1, File f2) throws IOException
 	{
-		if (!f.createNewFile() && !f.setLastModified(now())) {
-			throw new IOException("Failed to touch " + f);
+		if (f1 == null ^ f2 == null) {
+			return false;
 		}
-	}
-
-	private static long now()
-	{
-		return System.currentTimeMillis();
+		if (f1 != null) {
+			if (f1.equals(f2)) {
+				return true;
+			}
+			if (f1.isFile() != f2.isFile()
+				|| f1.isDirectory() != f2.isDirectory())
+			{
+				return false;
+			}
+			if (f1.isFile()) {
+				return Arrays.equals(read(f1), read(f2));
+			}
+			File[] files = f1.listFiles();
+			if (files.length != f2.listFiles().length) {
+				return false;
+			}
+			for (File f : files) {
+				if (!equals(f, new File(f2, f.getName()))) {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 
 	/**
@@ -474,15 +472,13 @@ public final class Files
 	}
 
 	/**
-	 * Returns an {@code OutputStream} to write to the given {@code File}
-	 * with the specified mode.
+	 * Returns an {@code OutputStream} to append data to the given {@code File}.
 	 * Implementation note: the returned {@code OutputStream} is an instance
 	 * of {@link BufferedOutputStream}.
 	 *
-	 * @param f the file to write to.
-	 * @param mode the write mode to the file.
+	 * @param f the file to append to.
 	 *
-	 * @return an {@code OutputStream} to write to the given {@code File}.
+	 * @return an {@code OutputStream} to append to the given {@code File}.
 	 *
 	 * @throws NullPointerException if one of the arguments is {@code null}.
 	 * @throws FileNotFoundException if {@code f} exists but is a directory
@@ -491,12 +487,9 @@ public final class Files
 	 * @throws SecurityException if a security manager exists and denies
 	 *	write access to {@code f}.
 	 */
-	public static OutputStream getWriter(File f, WriteMode mode)
-		throws FileNotFoundException
+	public static OutputStream getAppender(File f) throws FileNotFoundException
 	{
-		Parameters.checkNotNull(mode);
-		boolean append = mode == WriteMode.APPEND;
-		return new BufferedOutputStream(new FileOutputStream(f, append));
+		return new BufferedOutputStream(new FileOutputStream(f, true));
 	}
 
 	/**
@@ -514,9 +507,8 @@ public final class Files
 	 */
 	public static byte[] read(File f) throws IOException
 	{
-		InputStream in = null;
+		InputStream in = getReader(f);
 		try {
-			in = getReader(f);
 			return ByteStreams.read(in);
 		} finally {
 			IO.close(in);
@@ -536,18 +528,16 @@ public final class Files
 	 * @throws SecurityException if a security manager exists and denies
 	 *	write access to {@code f}.
 	 */
-	public static void write(File f, byte[] data) throws IOException
+	public static void write(File f, byte... data) throws IOException
 	{
-		write(f, WriteMode.OVERWRITE, data);
+		write(getWriter(f), data);
 	}
 
 	/**
-	 * Writes the given data to the given {@code File} with the specified
-	 * mode.
+	 * Appends the given data to the specified {@code File}.
 	 *
-	 * @param f the file to write to.
-	 * @param mode the write mode to file.
-	 * @param data the data to write.
+	 * @param f the file to append to.
+	 * @param data the data to append.
 	 *
 	 * @throws NullPointerException if one of the arguments is {@code null}.
 	 * @throws IOException if {@code f} exists but is a directory rather
@@ -556,12 +546,14 @@ public final class Files
 	 * @throws SecurityException if a security manager exists and denies
 	 *	write access to {@code f}.
 	 */
-	public static void write(File f, WriteMode mode, byte[] data)
-		throws IOException
+	public static void append(File f, byte... data) throws IOException
 	{
-		OutputStream out = null;
+		write(getAppender(f), data);
+	}
+
+	private static void write(OutputStream out, byte... data) throws IOException
+	{
 		try {
-			out = getWriter(f, mode);
 			out.write(data);
 		} finally {
 			IO.flush(out);

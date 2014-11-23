@@ -389,7 +389,7 @@ public final class FilesTest
 	{
 		File test = tmp.newFolder();
 		File txt = createFile(test, "hello.txt", ascii("Hello"));
-		OutputStream out = Files.getWriter(txt, WriteMode.APPEND);
+		OutputStream out = Files.getAppender(txt);
 		out.write(ascii(" "));
 		out.write(ascii("World"));
 		out.flush();
@@ -419,8 +419,8 @@ public final class FilesTest
 	{
 		File test = tmp.newFolder();
 		File txt = createFile(test, "hello.txt", ascii("Hello"));
-		Files.write(txt, WriteMode.APPEND, ascii(" "));
-		Files.write(txt, WriteMode.APPEND, ascii("World"));
+		Files.append(txt, ascii(" "));
+		Files.append(txt, ascii("World"));
 		assertArrayEquals(ascii("Hello World"), read(txt));
 	}
 
