@@ -267,7 +267,7 @@ public final class FilesTest
 		File test = tmp.newFolder();
 		File src = createFile(test, "42.txt", ascii("42"));
 		assertTrue(src.exists());
-		assertTrue(Files.rm(src));
+		Files.rm(src);
 		assertFalse(src.exists());
 	}
 
@@ -281,7 +281,7 @@ public final class FilesTest
 		createFile(src, "world.txt", ascii("World"));
 		assertTrue(src.exists());
 		assertTrue(src.listFiles().length > 0);
-		assertTrue(Files.rm(src));
+		Files.rm(src);
 		assertFalse(src.exists());
 	}
 

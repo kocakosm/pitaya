@@ -157,21 +157,28 @@ public final class Files
 	}
 
 	/**
-	 * Creates the directory specified by the given path. This method will
-	 * also create any necessary parent directories. If the specified
-	 * directory already exists, this method does nothing. Named after the
-	 * Unix command of the same name.
+	 * Creates the directories specified by the given paths. This method
+	 * will also create any necessary parent directories for a particular
+	 * path. Named after the Unix command of the same name.
 	 *
-	 * @param f the directory to create.
+	 * @param paths the directories to create.
 	 *
-	 * @throws NullPointerException if {@code f} is {@code null}.
-	 * @throws IOException if the object at the specified path already
-	 *	exists and is a regular file, or if the requested directory can
-	 *	not be created.
+	 * @throws NullPointerException if {@code paths} is {@code null}, or if
+	 *	it contains a {@code null} reference.
+	 * @throws IOException if one of the specified path already exists and
+	 *	represents a regular file, or if the requested directory can't
+	 *	be created.
 	 * @throws SecurityException if a security manager exists and denies
-	 *	read/write access to {@code f}.
+	 *	read/write access to one of the specified paths.
 	 */
-	public static void mkdir(File f) throws IOException
+	public static void mkdir(File... paths) throws IOException
+	{
+		for (File path : paths) {
+			createDirectory(path);
+		}
+	}
+
+	private static void createDirectory(File f) throws IOException
 	{
 		if (f.exists()) {
 			if (!f.isDirectory()) {
@@ -202,61 +209,61 @@ public final class Files
 		Parameters.checkNotNull(dst);
 		if (!src.equals(dst)) {
 			cp(src, dst);
-			if (!rm(src)) {
+			try {
+				rm(src);
+			} catch (IOException e) {
 				rm(dst);
-				throw new IOException("Can't move " + src);
+				throw new IOException("Can't move " + src, e);
 			}
 		}
 	}
 
 	/**
-	 * Deletes the given {@code File}. If {@code f} represents a directory,
-	 * this method will recursively delete any nested directories or files
-	 * as well. Named after the Unix command of the same name.
+	 * Deletes the given {@code File}s. Directories will be recursively
+	 * deleted. Named after the Unix command of the same name.
 	 *
-	 * @param f the {@code File} to delete.
+	 * @param files the {@code File}s to delete.
 	 *
-	 * @return {@code true} if {@code f} has been deleted, {@code false}
-	 *	otherwise.
-	 *
-	 * @throws NullPointerException if {@code f} is {@code null}.
+	 * @throws NullPointerException if {@code files} is {@code null} or if
+	 *	it contains a {@code null} reference.
+	 * @throws IOException if one of the specified {@code File}s can't be
+	 *	deleted.
 	 * @throws SecurityException if a security manager exists and denies
-	 *	read/write access to {@code f} or its children.
+	 *	read/write access to one of the specified files or its children.
 	 */
-	public static boolean rm(File f)
+	public static void rm(File... files) throws IOException
 	{
-		if (f.exists()) {
-			if (f.isDirectory()) {
-				for (File child : f.listFiles()) {
-					rm(child);
+		for (File f : files) {
+			if (f.exists()) {
+				if (f.isDirectory()) {
+					rm(f.listFiles());
+				}
+				if (!f.delete()) {
+					throw new IOException("Can't delete " + f);
 				}
 			}
-			return f.delete();
 		}
-		return false;
 	}
 
 	/**
-	 * Creates an empty file at the specified path or updates the last
-	 * modification time of the file at the specified path. Named after the
-	 * Unix command of the same name.
+	 * Creates empty files at the specified paths or updates the last
+	 * modification time of the files at the specified paths. Named after
+	 * the Unix command of the same name.
 	 *
-	 * @param f the file to touch.
+	 * @param files the files to touch.
 	 *
 	 * @throws IOException if an I/O error occurs during the process.
 	 * @throws SecurityException if a security manager exists and denies
-	 *	read/write access to {@code f}.
+	 *	read/write access to one of the specified files.
 	 */
-	public static void touch(File f) throws IOException
+	public static void touch(File... files) throws IOException
 	{
-		if (!f.createNewFile() && !f.setLastModified(now())) {
-			throw new IOException("Failed to touch " + f);
+		long now = System.currentTimeMillis();
+		for (File f : files) {
+			if (!f.createNewFile() && !f.setLastModified(now)) {
+				throw new IOException("Failed to touch " + f);
+			}
 		}
-	}
-
-	private static long now()
-	{
-		return System.currentTimeMillis();
 	}
 
 	/**
