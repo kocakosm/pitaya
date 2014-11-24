@@ -25,7 +25,6 @@ import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.StringWriter;
@@ -183,7 +182,7 @@ public final class CharStreamsTest
 		writer.write("George");	writer.newLine();
 		writer.write("Ringo");	writer.flush();
 		byte[] data = out.toByteArray();
-		Reader in = new InputStreamReader(new ByteArrayInputStream(data));
+		InputStream in = new ByteArrayInputStream(data);
 		List<String> beatles = Arrays.asList("John", "Paul", "George", "Ringo");
 		assertEquals(beatles, CharStreams.readLines(in));
 	}
