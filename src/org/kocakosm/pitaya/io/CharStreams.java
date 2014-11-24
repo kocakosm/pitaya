@@ -16,6 +16,7 @@
 
 package org.kocakosm.pitaya.io;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -25,6 +26,8 @@ import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -271,6 +274,64 @@ public final class CharStreams
 		throws IOException
 	{
 		return read(new InputStreamReader(in, charset));
+	}
+
+	/**
+	 * Reads all the lines from the given source {@code Reader}. Note that
+	 * the returned {@code List} is immutable.
+	 *
+	 * @param in the stream to read.
+	 *
+	 * @return the stream's lines.
+	 *
+	 * @throws NullPointerException if {@code in} is {@code null}.
+	 * @throws IOException if the stream cannot be read.
+	 */
+	public static List<String> readLines(Reader in) throws IOException
+	{
+		BufferedReader reader = new BufferedReader(in);
+		List<String> lines = new ArrayList<String>();
+		String line = reader.readLine();
+		while (line != null) {
+			lines.add(line);
+			line = reader.readLine();
+		}
+		return Collections.unmodifiableList(lines);
+	}
+
+	/**
+	 * Reads all the lines from the given source {@code InputStream} using
+	 * the system's default charset. Note that the returned {@code List} is
+	 * immutable.
+	 *
+	 * @param in the stream to read.
+	 *
+	 * @return the stream's lines.
+	 *
+	 * @throws NullPointerException if {@code in} is {@code null}.
+	 * @throws IOException if the stream cannot be read.
+	 */
+	public static List<String> readLines(InputStream in) throws IOException
+	{
+		return readLines(in, Charset.defaultCharset());
+	}
+
+	/**
+	 * Reads all the lines from the given source {@code InputStream} using
+	 * the specified charset. Note that the returned {@code List} is immutable.
+	 *
+	 * @param in the stream to read.
+	 * @param charset the charset to use.
+	 *
+	 * @return the stream's lines.
+	 *
+	 * @throws NullPointerException if one of the arguments is {@code null}.
+	 * @throws IOException if the stream cannot be read.
+	 */
+	public static List<String> readLines(InputStream in, Charset charset)
+		throws IOException
+	{
+		return readLines(new InputStreamReader(in, charset));
 	}
 
 	/**

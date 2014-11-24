@@ -21,9 +21,12 @@ import static org.junit.Assert.*;
 import org.kocakosm.pitaya.charset.Charsets;
 import org.kocakosm.pitaya.util.XArrays;
 
+import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -168,6 +171,21 @@ public final class CharStreamsTest
 		Charset charset = Charsets.US_ASCII;
 		InputStream in = new ByteArrayInputStream(data.getBytes(charset));
 		assertEquals(data, CharStreams.read(in, charset));
+	}
+
+	@Test
+	public void testReadLines() throws Exception
+	{
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out));
+		writer.write("John");	writer.newLine();
+		writer.write("Paul");	writer.newLine();
+		writer.write("George");	writer.newLine();
+		writer.write("Ringo");	writer.flush();
+		byte[] data = out.toByteArray();
+		Reader in = new InputStreamReader(new ByteArrayInputStream(data));
+		List<String> beatles = Arrays.asList("John", "Paul", "George", "Ringo");
+		assertEquals(beatles, CharStreams.readLines(in));
 	}
 
 	@Test
