@@ -487,7 +487,7 @@ public final class Files
 	 *
 	 * @return an {@code OutputStream} to append to the given {@code File}.
 	 *
-	 * @throws NullPointerException if one of the arguments is {@code null}.
+	 * @throws NullPointerException if {@code f} is {@code null}.
 	 * @throws FileNotFoundException if {@code f} exists but is a directory
 	 *	rather than a regular file, or if it does not exist but cannot
 	 *	be created, or if it cannot be opened for any other reason.
