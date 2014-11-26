@@ -37,6 +37,7 @@ final class RandomReader extends Reader
 	RandomReader(Random prng, char... chars)
 	{
 		Parameters.checkNotNull(prng);
+		Parameters.checkCondition(chars.length > 0);
 		this.prng = prng;
 		this.chars = Arrays.copyOf(chars, chars.length);
 	}

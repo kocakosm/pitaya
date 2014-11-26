@@ -203,6 +203,9 @@ public final class CharStreams
 	 * @param chars the source array of characters.
 	 *
 	 * @return a new 'random' {@code Reader}.
+	 *
+	 * @throws NullPointerException if {@code chars} is {@code null}.
+	 * @throws IllegalArgumentException if {@code chars} is empty.
 	 */
 	public static Reader random(char... chars)
 	{
@@ -218,6 +221,9 @@ public final class CharStreams
 	 * @param chars the source array of characters.
 	 *
 	 * @return a new 'random' {@code Reader}.
+	 *
+	 * @throws NullPointerException if one of the arguments is {@code null}.
+	 * @throws IllegalArgumentException if {@code chars} is empty.
 	 */
 	public static Reader random(Random prng, char... chars)
 	{
@@ -267,7 +273,7 @@ public final class CharStreams
 	 *
 	 * @return the stream's content as a {@code String}.
 	 *
-	 * @throws NullPointerException if {@code in} is {@code null}.
+	 * @throws NullPointerException if one of the arguments is {@code null}.
 	 * @throws IOException if the stream cannot be read.
 	 */
 	public static String read(InputStream in, Charset charset)

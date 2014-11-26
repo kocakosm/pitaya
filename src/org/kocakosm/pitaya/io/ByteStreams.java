@@ -144,6 +144,8 @@ public final class ByteStreams
 	 * @param prng the source of randomness to use.
 	 *
 	 * @return a new 'random' {@code InputStream}.
+	 *
+	 * @throws NullPointerException if {@code prng} is {@code null}.
 	 */
 	public static InputStream random(Random prng)
 	{
