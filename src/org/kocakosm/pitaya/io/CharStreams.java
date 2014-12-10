@@ -16,6 +16,8 @@
 
 package org.kocakosm.pitaya.io;
 
+import org.kocakosm.pitaya.charset.Charsets;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -113,7 +115,7 @@ public final class CharStreams
 	 */
 	public static void copy(InputStream in, Writer out) throws IOException
 	{
-		copy(new InputStreamReader(in, Charset.defaultCharset()), out);
+		copy(new InputStreamReader(in, Charsets.DEFAULT), out);
 	}
 
 	/**
@@ -145,7 +147,7 @@ public final class CharStreams
 	 */
 	public static void copy(Reader in, OutputStream out) throws IOException
 	{
-		copy(in, new OutputStreamWriter(out, Charset.defaultCharset()));
+		copy(in, new OutputStreamWriter(out, Charsets.DEFAULT));
 	}
 
 	/**
@@ -261,7 +263,7 @@ public final class CharStreams
 	 */
 	public static String read(InputStream in) throws IOException
 	{
-		return read(new InputStreamReader(in, Charset.defaultCharset()));
+		return read(new InputStreamReader(in, Charsets.DEFAULT));
 	}
 
 	/**
@@ -319,7 +321,7 @@ public final class CharStreams
 	 */
 	public static List<String> readLines(InputStream in) throws IOException
 	{
-		return readLines(in, Charset.defaultCharset());
+		return readLines(in, Charsets.DEFAULT);
 	}
 
 	/**

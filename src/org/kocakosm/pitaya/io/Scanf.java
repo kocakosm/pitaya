@@ -16,6 +16,7 @@
 
 package org.kocakosm.pitaya.io;
 
+import org.kocakosm.pitaya.charset.Charsets;
 import org.kocakosm.pitaya.util.Booleans;
 
 import java.io.BufferedReader;
@@ -44,7 +45,7 @@ public final class Scanf
 	 */
 	public static String readString() throws IOException
 	{
-		return readString(Charset.defaultCharset());
+		return readString(Charsets.DEFAULT);
 	}
 
 	/**
