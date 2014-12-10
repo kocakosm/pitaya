@@ -16,41 +16,58 @@
 
 package org.kocakosm.pitaya.charset;
 
+import static org.junit.Assert.assertEquals;
+
 import java.nio.charset.Charset;
 
+import org.junit.Test;
+
 /**
- * Charsets guaranteed to be supported by all Java platform implementations.
+ * {@link Charsets}' unit tests.
  *
  * @author Osman KOCAK
  */
-public final class Charsets
+public final class CharsetsTest
 {
-	/** @see Charset#defaultCharset() */
-	public static final Charset DEFAULT = Charset.defaultCharset();
-
-	/** 7-bit ASCII (ISO646-US). */
-	public static final Charset US_ASCII = Charset.forName("US-ASCII");
-
-	/** ISO Latin Alphabet 1 (ISO-LATIN-1). */
-	public static final Charset ISO_8859_1 = Charset.forName("ISO-8859-1");
-
-	/** 8-bit UCS Transformation Format. */
-	public static final Charset UTF_8 = Charset.forName("UTF-8");
-
-	/**
-	 * 16-bit UCS Transformation Format, byte order identified by an
-	 * optional byte-order mark.
-	 */
-	public static final Charset UTF_16 = Charset.forName("UTF-16");
-
-	/** 16-bit UCS Transformation Format, big-endian byte order. */
-	public static final Charset UTF_16BE = Charset.forName("UTF-16BE");
-
-	/** 16-bit UCS Transformation Format, little-endian byte order. */
-	public static final Charset UTF_16LE = Charset.forName("UTF-16LE");
-
-	private Charsets()
+	@Test
+	public void testDefault()
 	{
-		/* ... */
+		assertEquals(Charset.defaultCharset(), Charsets.DEFAULT);
+	}
+
+	@Test
+	public void testASCII()
+	{
+		assertEquals("US-ASCII", Charsets.US_ASCII.toString());
+	}
+
+	@Test
+	public void testLatin1()
+	{
+		assertEquals("ISO-8859-1", Charsets.ISO_8859_1.toString());
+	}
+
+	@Test
+	public void testUTF8()
+	{
+		assertEquals("UTF-8", Charsets.UTF_8.toString());
+	}
+
+	@Test
+	public void testUTF16()
+	{
+		assertEquals("UTF-16", Charsets.UTF_16.toString());
+	}
+
+	@Test
+	public void testUTF16BE()
+	{
+		assertEquals("UTF-16BE", Charsets.UTF_16BE.toString());
+	}
+
+	@Test
+	public void testUTF16LE()
+	{
+		assertEquals("UTF-16LE", Charsets.UTF_16LE.toString());
 	}
 }
