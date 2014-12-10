@@ -111,6 +111,17 @@ public final class StringsTest
 	}
 
 	@Test
+	public void testDistance()
+	{
+		assertEquals(0, distance("", ""));
+		assertEquals(0, distance("abc", "abc"));
+		assertEquals(1, distance("abc", "acb"));
+		assertEquals(2, distance("abc", "cba"));
+		assertEquals(2, distance("10011", "00101"));
+		assertEquals(3, distance("hello", "lelot"));
+	}
+
+	@Test
 	public void testEmptyToNull()
 	{
 		assertNull(emptyToNull(""));

@@ -16,6 +16,8 @@
 
 package org.kocakosm.pitaya.util;
 
+import org.kocakosm.pitaya.math.Numbers;
+
 import java.util.Random;
 
 /**
@@ -162,6 +164,51 @@ public final class Strings
 			sb.append(string);
 		}
 		return sb.toString();
+	}
+
+	/**
+	 * Computes and returns the Damerau-Levenshtein distance between the
+	 * given {@code String}s. This distance is obtained  by counting the
+	 * minimum number of operations needed to transform one {@code String}
+	 * into the other, where an operation is defined as an insertion,
+	 * deletion, or substitution of a single character, or a transposition
+	 * of two adjacent characters.
+	 *
+	 * @param str1 the first {@code String}.
+	 * @param str2 the second {@code String}.
+	 *
+	 * @return the distance between {@code str1} and {@code str2}.
+	 *
+	 * @throws NullPointerException if one of the arguments is {@code null}.
+	 */
+	public static int distance(String str1, String str2)
+	{
+		char[] s1 = str1.toCharArray();
+		char[] s2 = str2.toCharArray();
+		int[][] d = new int[s1.length + 1][s2.length + 1];
+		for (int i = 0; i <= s1.length; i++) {
+			d[i][0] = i;
+		}
+		for (int i = 0; i <= s2.length; i++) {
+			d[0][i] = i;
+		}
+		for (int i = 1; i <= s1.length; i++) {
+			for (int j = 1; j <= s2.length; j++) {
+				int c = s1[i - 1] == s2[j - 1] ? 0 : 1;
+				d[i][j] = Numbers.min(
+					d[i - 1][j] + 1,
+					d[i][j - 1] + 1,
+					d[i - 1][j - 1] + c);
+				if (i > 1 && j > 1
+					&& s1[i - 1] == s2[j - 2]
+					&& s1[i - 2] == s2[j - 1])
+				{
+					d[i][j] = Numbers.min(
+						d[i][j], d[i - 2][j - 2] + c);
+				}
+			}
+		}
+		return d[s1.length][s2.length];
 	}
 
 	/**
