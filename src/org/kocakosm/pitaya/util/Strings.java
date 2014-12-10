@@ -16,8 +16,6 @@
 
 package org.kocakosm.pitaya.util;
 
-import org.kocakosm.pitaya.math.Numbers;
-
 import java.util.Random;
 
 /**
@@ -195,7 +193,7 @@ public final class Strings
 		for (int i = 1; i <= s1.length; i++) {
 			for (int j = 1; j <= s2.length; j++) {
 				int c = s1[i - 1] == s2[j - 1] ? 0 : 1;
-				d[i][j] = Numbers.min(
+				d[i][j] = min(
 					d[i - 1][j] + 1,
 					d[i][j - 1] + 1,
 					d[i - 1][j - 1] + c);
@@ -203,12 +201,21 @@ public final class Strings
 					&& s1[i - 1] == s2[j - 2]
 					&& s1[i - 2] == s2[j - 1])
 				{
-					d[i][j] = Numbers.min(
+					d[i][j] = min(
 						d[i][j], d[i - 2][j - 2] + c);
 				}
 			}
 		}
 		return d[s1.length][s2.length];
+	}
+
+	private static int min(int... values)
+	{
+		int min = values[0];
+		for (int i = 1; i < values.length; i++) {
+			min = Math.min(min, values[i]);
+		}
+		return min;
 	}
 
 	/**
