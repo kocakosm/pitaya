@@ -17,6 +17,7 @@
 package org.kocakosm.pitaya.net;
 
 import org.kocakosm.pitaya.io.ByteStreams;
+import org.kocakosm.pitaya.io.CharStreams;
 import org.kocakosm.pitaya.io.IO;
 import org.kocakosm.pitaya.util.Parameters;
 
@@ -25,6 +26,8 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.charset.Charset;
+import java.util.List;
 
 /**
  * URLs utilities.
@@ -106,13 +109,57 @@ public final class URLs
 	 * @return the resource's content.
 	 *
 	 * @throws NullPointerException if {@code url} is {@code null}.
-	 * @throws IOException if the resource can't be retrieved.
+	 * @throws IOException if the resource can't be read.
 	 */
-	public static byte[] wget(URL url) throws IOException
+	public static byte[] read(URL url) throws IOException
 	{
 		InputStream in = url.openStream();
 		try {
 			return ByteStreams.read(in);
+		} finally {
+			IO.close(in);
+		}
+	}
+
+	/**
+	 * Returns the content of the resource pointed by the given {@code URL}.
+	 *
+	 * @param url the {@code URL} of the resource to retrieve.
+	 * @param charset the charset to use.
+	 *
+	 * @return the resource's content.
+	 *
+	 * @throws NullPointerException if one of the arguments is {@code null}.
+	 * @throws IOException if the resource can't be read.
+	 */
+	public static String read(URL url, Charset charset) throws IOException
+	{
+		InputStream in = url.openStream();
+		try {
+			return CharStreams.read(in, charset);
+		} finally {
+			IO.close(in);
+		}
+	}
+
+	/**
+	 * Returns the lines of the resource pointed by the given {@code URL}.
+	 * Note that the returned {@code List} is immutable.
+	 *
+	 * @param url the {@code URL} of the resource to retrieve.
+	 * @param charset the charset to use.
+	 *
+	 * @return the resource's lines.
+	 *
+	 * @throws NullPointerException if one of the arguments is {@code null}.
+	 * @throws IOException if the resource can't be read.
+	 */
+	public static List<String> readLines(URL url, Charset charset)
+		throws IOException
+	{
+		InputStream in = url.openStream();
+		try {
+			return CharStreams.readLines(in, charset);
 		} finally {
 			IO.close(in);
 		}

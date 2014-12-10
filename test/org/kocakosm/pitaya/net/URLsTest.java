@@ -20,8 +20,13 @@ import static org.junit.Assert.*;
 
 import org.kocakosm.pitaya.io.Files;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.StringWriter;
 import java.net.URL;
+import java.nio.charset.Charset;
+import java.util.Arrays;
+import java.util.List;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -69,12 +74,37 @@ public final class URLsTest
 	}
 
 	@Test
-	public void testWget() throws Exception
+	public void testReadAsByteArray() throws Exception
 	{
 		byte[] data = "Hello World".getBytes("ASCII");
 		File f = tmp.newFile();
 		Files.write(f, data);
-		assertArrayEquals(data, URLs.wget(f.toURI().toURL()));
+		assertArrayEquals(data, URLs.read(f.toURI().toURL()));
+	}
+
+	@Test
+	public void testReadAsString() throws Exception
+	{
+		String data = "Hello World";
+		Charset ascii = Charset.forName("ASCII");
+		File f = tmp.newFile();
+		Files.write(f, data.getBytes(ascii));
+		assertEquals(data, URLs.read(f.toURI().toURL(), ascii));
+	}
+
+	@Test
+	public void testReadLines() throws Exception
+	{
+		List<String> lines = Arrays.asList("Hello", "World", "!!!!!");
+		StringWriter out = new StringWriter();
+		BufferedWriter writer = new BufferedWriter(out);
+		writer.write(lines.get(0));	writer.newLine();
+		writer.write(lines.get(1));	writer.newLine();
+		writer.write(lines.get(2));	writer.flush();
+		Charset ascii = Charset.forName("ASCII");
+		File f = tmp.newFile();
+		Files.write(f, out.toString().getBytes(ascii));
+		assertEquals(lines, URLs.readLines(f.toURI().toURL(), ascii));
 	}
 
 	private URL toURL(String url) throws Exception
