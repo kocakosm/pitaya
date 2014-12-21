@@ -1,7 +1,7 @@
 Pitaya
 ======
 
-[![Build Status](https://secure.travis-ci.org/kocakosm/pitaya.png?branch=master)](http://travis-ci.org/kocakosm/pitaya) [![Coverage Status](https://coveralls.io/repos/kocakosm/pitaya/badge.png)](https://coveralls.io/r/kocakosm/pitaya) [![Dependency Status](https://www.versioneye.com/user/projects/52f3a3a1ec1375381f000083/badge.png)](https://www.versioneye.com/user/projects/52f3a3a1ec1375381f000083)
+[![Build Status](https://secure.travis-ci.org/kocakosm/pitaya.png?branch=master)](http://travis-ci.org/kocakosm/pitaya) [![Coverage Status](https://coveralls.io/repos/kocakosm/pitaya/badge.png)](https://coveralls.io/r/kocakosm/pitaya) [![Dependency Status](https://www.versioneye.com/user/projects/549756169bc626b6d2000356/badge.svg?style=flat)](https://www.versioneye.com/user/projects/549756169bc626b6d2000356)
 
 
 Overview
