@@ -203,7 +203,7 @@ public final class ByteBuffer implements Iterable<Byte>
 	@Override
 	public String toString()
 	{
-		return Base16.encode(buf, 0, count);
+		return BaseEncoding.BASE_16.encode(buf, 0, count);
 	}
 
 	@Override
@@ -267,7 +267,7 @@ public final class ByteBuffer implements Iterable<Byte>
 			if (index >= count) {
 				throw new NoSuchElementException();
 			}
-			return Byte.valueOf(buf[index++]);
+			return buf[index++];
 		}
 
 		@Override

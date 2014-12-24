@@ -19,7 +19,7 @@ package org.kocakosm.pitaya.security;
 import static org.junit.Assert.assertArrayEquals;
 
 import org.kocakosm.pitaya.charset.ASCII;
-import org.kocakosm.pitaya.util.Base16;
+import org.kocakosm.pitaya.util.BaseEncoding;
 
 import org.junit.Test;
 
@@ -72,7 +72,7 @@ public final class KDFsTest
 
 	private byte[] hex(String hex)
 	{
-		return Base16.decode(hex);
+		return BaseEncoding.BASE_16.decode(hex);
 	}
 
 	private byte[] ascii(String str)

@@ -18,7 +18,7 @@ package org.kocakosm.pitaya.net;
 
 import org.kocakosm.pitaya.charset.ASCII;
 import org.kocakosm.pitaya.charset.Charsets;
-import org.kocakosm.pitaya.util.Base16;
+import org.kocakosm.pitaya.util.BaseEncoding;
 import org.kocakosm.pitaya.util.Parameters;
 
 import java.io.Serializable;
@@ -158,7 +158,7 @@ public final class URN implements Serializable
 	private byte[] decodeBase16(String hex) throws URNSyntaxException
 	{
 		try {
-			return Base16.decode(hex);
+			return BaseEncoding.BASE_16.decode(hex);
 		} catch (IllegalArgumentException e) {
 			throw new URNSyntaxException(
 				"Invalid NSS: Invalid hex character found", e);

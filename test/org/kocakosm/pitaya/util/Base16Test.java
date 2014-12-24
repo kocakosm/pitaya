@@ -16,7 +16,6 @@
 
 package org.kocakosm.pitaya.util;
 
-import static org.kocakosm.pitaya.util.Base16.*;
 import static org.junit.Assert.*;
 
 import org.kocakosm.pitaya.charset.ASCII;
@@ -79,6 +78,16 @@ public final class Base16Test
 	public void testInvalidCharacter()
 	{
 		decode("E1F0HA");
+	}
+
+	private String encode(byte... data)
+	{
+		return BaseEncoding.BASE_16.encode(data);
+	}
+
+	private byte[] decode(String base)
+	{
+		return BaseEncoding.BASE_16.decode(base, 0, base.length());
 	}
 
 	private byte[] ascii(String str)

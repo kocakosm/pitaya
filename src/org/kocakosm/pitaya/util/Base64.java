@@ -20,66 +20,37 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Basic Base64 encoding and decoding (RFC 4648).
+ * Base64 encoding scheme (RFC 4648).
  *
  * @author Osman KOCAK
  */
-public final class Base64
+final class Base64 extends AbstractBaseEncoding
 {
+	private static final char PADDING_CHAR;
 	private static final char[] BASE64_CHARS;
-	private static final Character PADDING_CHAR;
 	private static final Map<Character, Integer> BASE64_VALUES;
 	static {
-		BASE64_CHARS = (
-			"ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
-			"abcdefghijklmnopqrstuvwxyz" +
-			"0123456789+/"
-		).toCharArray();
-		PADDING_CHAR = Character.valueOf('=');
+		PADDING_CHAR = '=';
+		BASE64_CHARS = ("ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+			+ "abcdefghijklmnopqrstuvwxyz"
+			+ "0123456789+/").toCharArray();
 		BASE64_VALUES = new HashMap<Character, Integer>(64);
 		for (int i = 0; i < 64; i++) {
-			BASE64_VALUES.put(BASE64_CHARS[i], Integer.valueOf(i));
+			BASE64_VALUES.put(BASE64_CHARS[i], i);
 		}
 	}
 
-	/**
-	 * Encodes the given data bytes into a Base64 {@code String}.
-	 *
-	 * @param bytes the bytes to encode.
-	 *
-	 * @return the encoded {@code String}.
-	 *
-	 * @throws NullPointerException if {@code bytes} is {@code null}.
-	 */
-	public static String encode(byte... bytes)
+	@Override
+	public String encode(byte[] in, int off, int len)
 	{
-		return encode(bytes, 0, bytes.length);
-	}
-
-	/**
-	 * Encodes the given data bytes into a Base64 {@code String}.
-	 *
-	 * @param buf the input buffer.
-	 * @param off the input buffer's offset.
-	 * @param len the number of bytes to encode.
-	 *
-	 * @return the encoded {@code String}.
-	 *
-	 * @throws NullPointerException if {@code buf} is {@code null}.
-	 * @throws IndexOutOfBoundsException if {@code off} or {@code len} is
-	 *	negative or if {@code off + len} is greater than {@code buf}'s
-	 *	length.
-	 */
-	public static String encode(byte[] buf, int off, int len)
-	{
-		if (off < 0 || len < 0) {
+		if (off < 0 || len < 0 || off + len > in.length) {
 			throw new IndexOutOfBoundsException();
 		}
 		StringBuilder sb = new StringBuilder(4 * ((len + 2) / 3));
 		int accu = 0;
 		int count = 0;
 		for (int i = off; i < off + len; i++) {
-			accu = (accu << 8) | (buf[i] & 0xFF);
+			accu = (accu << 8) | (in[i] & 0xFF);
 			count += 8;
 			while (count >= 6) {
 				count -= 6;
@@ -97,34 +68,21 @@ public final class Base64
 		return sb.toString();
 	}
 
-	/**
-	 * Decodes a Base64-encoded {@code String}. Decoding is stopped at the
-	 * first {@code '='} character found. Whitespace characters, namely
-	 * {@code '\t', ' ', '\n'} and {@code '\r'}, are ignored.
-	 *
-	 * @param base64 the Base64 {@code String} to decode.
-	 *
-	 * @return the decoded data.
-	 *
-	 * @throws NullPointerException if {@code base64} is {@code null}.
-	 * @throws IllegalArgumentException if {@code base64} is not a valid
-	 *	Base64 {@code String}.
-	 */
-	public static byte[] decode(String base64)
+	@Override
+	public byte[] decode(String in)
 	{
-		String encoded = base64.replaceAll("[\\s\n\t\r]", "");
-		int len = encoded.length();
+		String base64 = in.replaceAll("[\\s\n\t\r]", "");
+		int len = base64.length();
 		Parameters.checkCondition(len % 4 == 0);
 		ByteBuffer buf = new ByteBuffer((len * 3) / 4);
 		int accu = 0;
 		int count = 0;
-		for (int i = 0; i < len; i++) {
-			Character c = Character.valueOf(encoded.charAt(i));
-			if (PADDING_CHAR.equals(c)) {
+		for (char c : base64.toCharArray()) {
+			if (c == PADDING_CHAR) {
 				break;
 			}
 			Parameters.checkCondition(BASE64_VALUES.containsKey(c));
-			accu = (accu << 6) | BASE64_VALUES.get(c).intValue();
+			accu = (accu << 6) | BASE64_VALUES.get(c);
 			count += 6;
 			while (count >= 8) {
 				count -= 8;
@@ -132,10 +90,5 @@ public final class Base64
 			}
 		}
 		return buf.toByteArray();
-	}
-
-	private Base64()
-	{
-		/* ... */
 	}
 }

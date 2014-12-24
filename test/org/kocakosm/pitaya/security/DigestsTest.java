@@ -19,7 +19,7 @@ package org.kocakosm.pitaya.security;
 import static org.junit.Assert.*;
 
 import org.kocakosm.pitaya.charset.ASCII;
-import org.kocakosm.pitaya.util.Base16;
+import org.kocakosm.pitaya.util.BaseEncoding;
 
 import java.io.ByteArrayInputStream;
 
@@ -182,7 +182,7 @@ public final class DigestsTest
 	{
 		Digest sha1 = Digests.sha1();
 		assertArrayEquals(
-			Base16.decode("2fd4e1c67a2d28fced849ee1bb76e7391b93eb12"),
+			BaseEncoding.BASE_16.decode("2fd4e1c67a2d28fced849ee1bb76e7391b93eb12"),
 			sha1.digest(new ByteArrayInputStream(ASCII.encode(PANGRAM))));
 	}
 
@@ -217,7 +217,7 @@ public final class DigestsTest
 
 		void isEqualTo(String expected)
 		{
-			assertArrayEquals(Base16.decode(expected), digest);
+			assertArrayEquals(BaseEncoding.BASE_16.decode(expected), digest);
 		}
 	}
 }

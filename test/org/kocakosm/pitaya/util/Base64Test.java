@@ -16,7 +16,6 @@
 
 package org.kocakosm.pitaya.util;
 
-import static org.kocakosm.pitaya.util.Base64.*;
 import static org.junit.Assert.*;
 
 import org.kocakosm.pitaya.charset.ASCII;
@@ -79,6 +78,16 @@ public final class Base64Test
 	public void testInvalidCharacter()
 	{
 		decode("Zm9v_mFy");
+	}
+
+	private String encode(byte... data)
+	{
+		return BaseEncoding.BASE_64.encode(data);
+	}
+
+	private byte[] decode(String base)
+	{
+		return BaseEncoding.BASE_64.decode(base, 0, base.length());
 	}
 
 	private byte[] ascii(String str)

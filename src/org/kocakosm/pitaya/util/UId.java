@@ -55,7 +55,7 @@ public final class UId
 	 */
 	public static UId valueOf(String hex)
 	{
-		return new UId(Base16.decode(hex));
+		return new UId(BaseEncoding.BASE_16.decode(hex));
 	}
 
 	/**
@@ -94,7 +94,7 @@ public final class UId
 	@Override
 	public String toString()
 	{
-		return Base16.encode(bytes);
+		return BaseEncoding.BASE_16.encode(bytes);
 	}
 
 	@Override

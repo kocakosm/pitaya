@@ -16,7 +16,7 @@
 
 package org.kocakosm.pitaya.security;
 
-import org.kocakosm.pitaya.util.Base16;
+import org.kocakosm.pitaya.util.BaseEncoding;
 import org.kocakosm.pitaya.util.ByteBuffer;
 import org.kocakosm.pitaya.util.Parameters;
 import org.kocakosm.pitaya.util.XArrays;
@@ -67,7 +67,7 @@ final class HKDF implements KDF
 	public String toString()
 	{
 		return XObjects.toStringBuilder("HKDF").append("MAC", algorithm)
-			.append("info", "0x" + Base16.encode(info))
+			.append("info", "0x" + BaseEncoding.BASE_16.encode(info))
 			.append("dkLen", dkLen).toString();
 	}
 
