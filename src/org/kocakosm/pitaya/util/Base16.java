@@ -31,6 +31,12 @@ final class Base16 extends AbstractBaseEncoding
 	};
 
 	@Override
+	public BaseEncoding withoutPadding()
+	{
+		return this;
+	}
+
+	@Override
 	public String encode(byte[] in, int off, int len)
 	{
 		if (off < 0 || len < 0 || off + len > in.length) {

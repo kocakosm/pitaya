@@ -17,7 +17,8 @@
 package org.kocakosm.pitaya.util;
 
 /**
- * RFC 4648 encoding scheme.
+ * RFC 4648 encoding scheme. Provided implementations of this interface are all
+ * immutable.
  *
  * @see <a href="https://www.ietf.org/rfc/rfc4648.txt">RFC 4648</a>
  *
@@ -25,14 +26,39 @@ package org.kocakosm.pitaya.util;
  */
 public interface BaseEncoding
 {
-	/** Base64 encoding scheme. Returned instance is immutable. */
+	/** Base64 encoding scheme. */
 	public static final BaseEncoding BASE_64 = new Base64();
 
-	/** Base32 encoding scheme. Returned instance is immutable. */
+	/** Base64 encoding scheme with URL and filename safe alphabet. */
+	public static final BaseEncoding BASE_64_URL = new Base64(
+		'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+		'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+		'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+		'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+		'0', '1', '2', '3', '4','5', '6', '7', '8', '9', '-', '_'
+	);
+
+	/** Base32 encoding scheme. */
 	public static final BaseEncoding BASE_32 = new Base32();
 
-	/** Base16 encoding scheme. Returned instance is immutable. */
+	/** Base32 encoding scheme with extended Hex alphabet. */
+	public static final BaseEncoding BASE_32_HEX = new Base32(
+		'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C',
+		'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
+		'Q', 'R', 'S', 'T', 'U', 'V'
+	);
+
+	/** Base16 encoding scheme. */
 	public static final BaseEncoding BASE_16 = new Base16();
+
+	/**
+	 * Returns a {@code BaseEncoding} that will behave as this one except
+	 * that it won't add padding when encoding data and will accept unpadded
+	 * encoded {@code String}s.
+	 *
+	 * @return a {@code BaseEncoding} with the desired configuration.
+	 */
+	BaseEncoding withoutPadding();
 
 	/**
 	 * Encodes the given data bytes.

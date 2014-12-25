@@ -31,63 +31,90 @@ import org.junit.Test;
  */
 public final class Base64Test
 {
-	@Test
-	public void testRFC4648TestVectors()
-	{
-		assertEquals("", encode(ascii("")));
-		assertEquals("Zg==", encode(ascii("f")));
-		assertEquals("Zm8=", encode(ascii("fo")));
-		assertEquals("Zm9v", encode(ascii("foo")));
-		assertEquals("Zm9vYg==", encode(ascii("foob")));
-		assertEquals("Zm9vYmE=", encode(ascii("fooba")));
-		assertEquals("Zm9vYmFy", encode(ascii("foobar")));
+	private static final Random RND = new Random();
 
-		assertArrayEquals(ascii("foobar"), decode("Zm9vYmFy"));
-		assertArrayEquals(ascii("fooba"), decode("Zm9vYmE="));
-		assertArrayEquals(ascii("foob"), decode("Zm9vYg=="));
-		assertArrayEquals(ascii("foo"), decode("Zm9v"));
-		assertArrayEquals(ascii("fo"), decode("Zm8="));
-		assertArrayEquals(ascii("f"), decode("Zg=="));
-		assertArrayEquals(ascii(""), decode(""));
+	@Test
+	public void testRFC4648TestVectorsWithPadding()
+	{
+		BaseEncoding e = BaseEncoding.BASE_64;
+		assertEquals("", e.encode(ascii("")));
+		assertEquals("Zg==", e.encode(ascii("f")));
+		assertEquals("Zm8=", e.encode(ascii("fo")));
+		assertEquals("Zm9v", e.encode(ascii("foo")));
+		assertEquals("Zm9vYg==", e.encode(ascii("foob")));
+		assertEquals("Zm9vYmE=", e.encode(ascii("fooba")));
+		assertEquals("Zm9vYmFy", e.encode(ascii("foobar")));
+
+		assertArrayEquals(ascii("foobar"), e.decode("Zm9vYmFy"));
+		assertArrayEquals(ascii("fooba"), e.decode("Zm9vYmE="));
+		assertArrayEquals(ascii("foob"), e.decode("Zm9vYg=="));
+		assertArrayEquals(ascii("foo"), e.decode("Zm9v"));
+		assertArrayEquals(ascii("fo"), e.decode("Zm8="));
+		assertArrayEquals(ascii("f"), e.decode("Zg=="));
+		assertArrayEquals(ascii(""), e.decode(""));
 	}
 
 	@Test
-	public void testRandomData()
+	public void testRFC4648TestVectorsWithoutPadding()
 	{
-		Random rnd = new Random();
+		BaseEncoding e = BaseEncoding.BASE_64.withoutPadding();
+		assertEquals("", e.encode(ascii("")));
+		assertEquals("Zg", e.encode(ascii("f")));
+		assertEquals("Zm8", e.encode(ascii("fo")));
+		assertEquals("Zm9v", e.encode(ascii("foo")));
+		assertEquals("Zm9vYg", e.encode(ascii("foob")));
+		assertEquals("Zm9vYmE", e.encode(ascii("fooba")));
+		assertEquals("Zm9vYmFy", e.encode(ascii("foobar")));
+
+		assertArrayEquals(ascii("foobar"), e.decode("Zm9vYmFy"));
+		assertArrayEquals(ascii("fooba"), e.decode("Zm9vYmE"));
+		assertArrayEquals(ascii("foob"), e.decode("Zm9vYg"));
+		assertArrayEquals(ascii("foo"), e.decode("Zm9v"));
+		assertArrayEquals(ascii("fo"), e.decode("Zm8"));
+		assertArrayEquals(ascii("f"), e.decode("Zg"));
+		assertArrayEquals(ascii(""), e.decode(""));
+	}
+
+	@Test
+	public void testEncodeAndDecodeRandomDataWithPadding()
+	{
+		BaseEncoding e = BaseEncoding.BASE_64;
 		for (int i = 0; i < 100; i++) {
-			byte[] bytes = new byte[rnd.nextInt(2049)];
-			assertArrayEquals(bytes, decode(encode(bytes)));
+			byte[] bytes = new byte[RND.nextInt(2049)];
+			RND.nextBytes(bytes);
+			assertArrayEquals(bytes, e.decode(e.encode(bytes)));
+		}
+	}
+
+	@Test
+	public void testEncodeAndDecodeRandomDataWithoutPadding()
+	{
+		BaseEncoding e = BaseEncoding.BASE_64.withoutPadding();
+		for (int i = 0; i < 100; i++) {
+			byte[] bytes = new byte[RND.nextInt(2049)];
+			RND.nextBytes(bytes);
+			assertArrayEquals(bytes, e.decode(e.encode(bytes)));
 		}
 	}
 
 	@Test
 	public void testDecodeWithWhitespaces()
 	{
-		assertArrayEquals(ascii(""), decode(" \t  \r\n"));
-		assertArrayEquals(ascii("hello"), decode("  a\nGV\ts \rbG8= "));
+		BaseEncoding e = BaseEncoding.BASE_64;
+		assertArrayEquals(ascii(""), e.decode(" \t  \r\n"));
+		assertArrayEquals(ascii("hello"), e.decode(" a\nGV\ts \rbG8="));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testInvalidLength()
+	public void testDecodeWithInvalidLength()
 	{
-		decode("Zg");
+		BaseEncoding.BASE_64.decode("Zg");
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testInvalidCharacter()
+	public void testDecodeWithInvalidCharacter()
 	{
-		decode("Zm9v_mFy");
-	}
-
-	private String encode(byte... data)
-	{
-		return BaseEncoding.BASE_64.encode(data);
-	}
-
-	private byte[] decode(String base)
-	{
-		return BaseEncoding.BASE_64.decode(base, 0, base.length());
+		BaseEncoding.BASE_64.decode("Zm9v_mFy");
 	}
 
 	private byte[] ascii(String str)

@@ -25,60 +25,60 @@ import java.util.Random;
 import org.junit.Test;
 
 /**
- * Base32 unit tests.
+ * Base32Hex unit tests.
  *
  * @author Osman KOCAK
  */
-public final class Base32Test
+public final class Base32HexTest
 {
 	private static final Random RND = new Random();
 
 	@Test
 	public void testRFC4648TestVectorsWithPadding()
 	{
-		BaseEncoding e = BaseEncoding.BASE_32;
+		BaseEncoding e = BaseEncoding.BASE_32_HEX;
 		assertEquals("", e.encode(ascii("")));
-		assertEquals("MY======", e.encode(ascii("f")));
-		assertEquals("MZXQ====", e.encode(ascii("fo")));
-		assertEquals("MZXW6===", e.encode(ascii("foo")));
-		assertEquals("MZXW6YQ=", e.encode(ascii("foob")));
-		assertEquals("MZXW6YTB", e.encode(ascii("fooba")));
-		assertEquals("MZXW6YTBOI======", e.encode(ascii("foobar")));
+		assertEquals("CO======", e.encode(ascii("f")));
+		assertEquals("CPNG====", e.encode(ascii("fo")));
+		assertEquals("CPNMU===", e.encode(ascii("foo")));
+		assertEquals("CPNMUOG=", e.encode(ascii("foob")));
+		assertEquals("CPNMUOJ1", e.encode(ascii("fooba")));
+		assertEquals("CPNMUOJ1E8======", e.encode(ascii("foobar")));
 
-		assertArrayEquals(ascii("foobar"), e.decode("MZXW6YTBOI======"));
-		assertArrayEquals(ascii("fooba"), e.decode("MZXW6YTB"));
-		assertArrayEquals(ascii("foob"), e.decode("MZXW6YQ="));
-		assertArrayEquals(ascii("foo"), e.decode("MZXW6==="));
-		assertArrayEquals(ascii("fo"), e.decode("MZXQ===="));
-		assertArrayEquals(ascii("f"), e.decode("MY======"));
+		assertArrayEquals(ascii("foobar"), e.decode("CPNMUOJ1E8======"));
+		assertArrayEquals(ascii("fooba"), e.decode("CPNMUOJ1"));
+		assertArrayEquals(ascii("foob"), e.decode("CPNMUOG="));
+		assertArrayEquals(ascii("foo"), e.decode("CPNMU==="));
+		assertArrayEquals(ascii("fo"), e.decode("CPNG===="));
+		assertArrayEquals(ascii("f"), e.decode("CO======"));
 		assertArrayEquals(ascii(""), e.decode(""));
 	}
 
 	@Test
 	public void testRFC4648TestVectorsWithoutPadding()
 	{
-		BaseEncoding e = BaseEncoding.BASE_32.withoutPadding();
+		BaseEncoding e = BaseEncoding.BASE_32_HEX.withoutPadding();
 		assertEquals("", e.encode(ascii("")));
-		assertEquals("MY", e.encode(ascii("f")));
-		assertEquals("MZXQ", e.encode(ascii("fo")));
-		assertEquals("MZXW6", e.encode(ascii("foo")));
-		assertEquals("MZXW6YQ", e.encode(ascii("foob")));
-		assertEquals("MZXW6YTB", e.encode(ascii("fooba")));
-		assertEquals("MZXW6YTBOI", e.encode(ascii("foobar")));
+		assertEquals("CO", e.encode(ascii("f")));
+		assertEquals("CPNG", e.encode(ascii("fo")));
+		assertEquals("CPNMU", e.encode(ascii("foo")));
+		assertEquals("CPNMUOG", e.encode(ascii("foob")));
+		assertEquals("CPNMUOJ1", e.encode(ascii("fooba")));
+		assertEquals("CPNMUOJ1E8", e.encode(ascii("foobar")));
 
-		assertArrayEquals(ascii("foobar"), e.decode("MZXW6YTBOI"));
-		assertArrayEquals(ascii("fooba"), e.decode("MZXW6YTB"));
-		assertArrayEquals(ascii("foob"), e.decode("MZXW6YQ"));
-		assertArrayEquals(ascii("foo"), e.decode("MZXW6"));
-		assertArrayEquals(ascii("fo"), e.decode("MZXQ"));
-		assertArrayEquals(ascii("f"), e.decode("MY"));
+		assertArrayEquals(ascii("foobar"), e.decode("CPNMUOJ1E8"));
+		assertArrayEquals(ascii("fooba"), e.decode("CPNMUOJ1"));
+		assertArrayEquals(ascii("foob"), e.decode("CPNMUOG"));
+		assertArrayEquals(ascii("foo"), e.decode("CPNMU"));
+		assertArrayEquals(ascii("fo"), e.decode("CPNG"));
+		assertArrayEquals(ascii("f"), e.decode("CO"));
 		assertArrayEquals(ascii(""), e.decode(""));
 	}
 
 	@Test
 	public void testEncodeAndDecodeRandomDataWithPadding()
 	{
-		BaseEncoding e = BaseEncoding.BASE_32;
+		BaseEncoding e = BaseEncoding.BASE_32_HEX;
 		for (int i = 0; i < 100; i++) {
 			byte[] bytes = new byte[RND.nextInt(2049)];
 			RND.nextBytes(bytes);
@@ -89,7 +89,7 @@ public final class Base32Test
 	@Test
 	public void testEncodeAndDecodeRandomDataWithoutPadding()
 	{
-		BaseEncoding e = BaseEncoding.BASE_32.withoutPadding();
+		BaseEncoding e = BaseEncoding.BASE_32_HEX.withoutPadding();
 		for (int i = 0; i < 100; i++) {
 			byte[] bytes = new byte[RND.nextInt(2049)];
 			RND.nextBytes(bytes);
@@ -100,21 +100,21 @@ public final class Base32Test
 	@Test
 	public void testDecodeWithWhitespaces()
 	{
-		BaseEncoding e = BaseEncoding.BASE_32;
+		BaseEncoding e = BaseEncoding.BASE_32_HEX;
 		assertArrayEquals(ascii(""), e.decode(" \t  \r\n"));
-		assertArrayEquals(ascii("hello"), e.decode("\nNB\t SWY3\rDP "));
+		assertArrayEquals(ascii("hello"), e.decode("\nD1\t  IMOR3F\r"));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testDecodeWithInvalidLength()
 	{
-		BaseEncoding.BASE_32.decode("mzxq");
+		BaseEncoding.BASE_32_HEX.decode("abcd");
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testDecodeWithInvalidCharacter()
 	{
-		BaseEncoding.BASE_32.decode("MZXW8===");
+		BaseEncoding.BASE_32_HEX.decode("MAXB8===");
 	}
 
 	private byte[] ascii(String str)

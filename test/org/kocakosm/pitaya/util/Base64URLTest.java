@@ -25,60 +25,60 @@ import java.util.Random;
 import org.junit.Test;
 
 /**
- * Base32 unit tests.
+ * Base64URL unit tests.
  *
  * @author Osman KOCAK
  */
-public final class Base32Test
+public final class Base64URLTest
 {
 	private static final Random RND = new Random();
 
 	@Test
 	public void testRFC4648TestVectorsWithPadding()
 	{
-		BaseEncoding e = BaseEncoding.BASE_32;
+		BaseEncoding e = BaseEncoding.BASE_64_URL;
 		assertEquals("", e.encode(ascii("")));
-		assertEquals("MY======", e.encode(ascii("f")));
-		assertEquals("MZXQ====", e.encode(ascii("fo")));
-		assertEquals("MZXW6===", e.encode(ascii("foo")));
-		assertEquals("MZXW6YQ=", e.encode(ascii("foob")));
-		assertEquals("MZXW6YTB", e.encode(ascii("fooba")));
-		assertEquals("MZXW6YTBOI======", e.encode(ascii("foobar")));
+		assertEquals("Zg==", e.encode(ascii("f")));
+		assertEquals("Zm8=", e.encode(ascii("fo")));
+		assertEquals("Zm9v", e.encode(ascii("foo")));
+		assertEquals("Zm9vYg==", e.encode(ascii("foob")));
+		assertEquals("Zm9vYmE=", e.encode(ascii("fooba")));
+		assertEquals("Zm9vYmFy", e.encode(ascii("foobar")));
 
-		assertArrayEquals(ascii("foobar"), e.decode("MZXW6YTBOI======"));
-		assertArrayEquals(ascii("fooba"), e.decode("MZXW6YTB"));
-		assertArrayEquals(ascii("foob"), e.decode("MZXW6YQ="));
-		assertArrayEquals(ascii("foo"), e.decode("MZXW6==="));
-		assertArrayEquals(ascii("fo"), e.decode("MZXQ===="));
-		assertArrayEquals(ascii("f"), e.decode("MY======"));
+		assertArrayEquals(ascii("foobar"), e.decode("Zm9vYmFy"));
+		assertArrayEquals(ascii("fooba"), e.decode("Zm9vYmE="));
+		assertArrayEquals(ascii("foob"), e.decode("Zm9vYg=="));
+		assertArrayEquals(ascii("foo"), e.decode("Zm9v"));
+		assertArrayEquals(ascii("fo"), e.decode("Zm8="));
+		assertArrayEquals(ascii("f"), e.decode("Zg=="));
 		assertArrayEquals(ascii(""), e.decode(""));
 	}
 
 	@Test
 	public void testRFC4648TestVectorsWithoutPadding()
 	{
-		BaseEncoding e = BaseEncoding.BASE_32.withoutPadding();
+		BaseEncoding e = BaseEncoding.BASE_64_URL.withoutPadding();
 		assertEquals("", e.encode(ascii("")));
-		assertEquals("MY", e.encode(ascii("f")));
-		assertEquals("MZXQ", e.encode(ascii("fo")));
-		assertEquals("MZXW6", e.encode(ascii("foo")));
-		assertEquals("MZXW6YQ", e.encode(ascii("foob")));
-		assertEquals("MZXW6YTB", e.encode(ascii("fooba")));
-		assertEquals("MZXW6YTBOI", e.encode(ascii("foobar")));
+		assertEquals("Zg", e.encode(ascii("f")));
+		assertEquals("Zm8", e.encode(ascii("fo")));
+		assertEquals("Zm9v", e.encode(ascii("foo")));
+		assertEquals("Zm9vYg", e.encode(ascii("foob")));
+		assertEquals("Zm9vYmE", e.encode(ascii("fooba")));
+		assertEquals("Zm9vYmFy", e.encode(ascii("foobar")));
 
-		assertArrayEquals(ascii("foobar"), e.decode("MZXW6YTBOI"));
-		assertArrayEquals(ascii("fooba"), e.decode("MZXW6YTB"));
-		assertArrayEquals(ascii("foob"), e.decode("MZXW6YQ"));
-		assertArrayEquals(ascii("foo"), e.decode("MZXW6"));
-		assertArrayEquals(ascii("fo"), e.decode("MZXQ"));
-		assertArrayEquals(ascii("f"), e.decode("MY"));
+		assertArrayEquals(ascii("foobar"), e.decode("Zm9vYmFy"));
+		assertArrayEquals(ascii("fooba"), e.decode("Zm9vYmE"));
+		assertArrayEquals(ascii("foob"), e.decode("Zm9vYg"));
+		assertArrayEquals(ascii("foo"), e.decode("Zm9v"));
+		assertArrayEquals(ascii("fo"), e.decode("Zm8"));
+		assertArrayEquals(ascii("f"), e.decode("Zg"));
 		assertArrayEquals(ascii(""), e.decode(""));
 	}
 
 	@Test
 	public void testEncodeAndDecodeRandomDataWithPadding()
 	{
-		BaseEncoding e = BaseEncoding.BASE_32;
+		BaseEncoding e = BaseEncoding.BASE_64_URL;
 		for (int i = 0; i < 100; i++) {
 			byte[] bytes = new byte[RND.nextInt(2049)];
 			RND.nextBytes(bytes);
@@ -89,7 +89,7 @@ public final class Base32Test
 	@Test
 	public void testEncodeAndDecodeRandomDataWithoutPadding()
 	{
-		BaseEncoding e = BaseEncoding.BASE_32.withoutPadding();
+		BaseEncoding e = BaseEncoding.BASE_64_URL.withoutPadding();
 		for (int i = 0; i < 100; i++) {
 			byte[] bytes = new byte[RND.nextInt(2049)];
 			RND.nextBytes(bytes);
@@ -100,21 +100,21 @@ public final class Base32Test
 	@Test
 	public void testDecodeWithWhitespaces()
 	{
-		BaseEncoding e = BaseEncoding.BASE_32;
+		BaseEncoding e = BaseEncoding.BASE_64_URL;
 		assertArrayEquals(ascii(""), e.decode(" \t  \r\n"));
-		assertArrayEquals(ascii("hello"), e.decode("\nNB\t SWY3\rDP "));
+		assertArrayEquals(ascii("hello"), e.decode(" a\nGV\ts \rbG8="));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testDecodeWithInvalidLength()
 	{
-		BaseEncoding.BASE_32.decode("mzxq");
+		BaseEncoding.BASE_64_URL.decode("Zg");
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testDecodeWithInvalidCharacter()
 	{
-		BaseEncoding.BASE_32.decode("MZXW8===");
+		BaseEncoding.BASE_64_URL.decode("Zm9v+mFy");
 	}
 
 	private byte[] ascii(String str)

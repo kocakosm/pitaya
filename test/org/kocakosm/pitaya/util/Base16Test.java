@@ -31,63 +31,65 @@ import org.junit.Test;
  */
 public final class Base16Test
 {
+	private static final Random RND = new Random();
+
 	@Test
 	public void testRFC4648TestVectors()
 	{
-		assertEquals("", encode(ascii("")));
-		assertEquals("66", encode(ascii("f")));
-		assertEquals("666F", encode(ascii("fo")));
-		assertEquals("666F6F", encode(ascii("foo")));
-		assertEquals("666F6F62", encode(ascii("foob")));
-		assertEquals("666F6F6261", encode(ascii("fooba")));
-		assertEquals("666F6F626172", encode(ascii("foobar")));
+		BaseEncoding e = BaseEncoding.BASE_16;
+		assertEquals("", e.encode(ascii("")));
+		assertEquals("66", e.encode(ascii("f")));
+		assertEquals("666F", e.encode(ascii("fo")));
+		assertEquals("666F6F", e.encode(ascii("foo")));
+		assertEquals("666F6F62", e.encode(ascii("foob")));
+		assertEquals("666F6F6261", e.encode(ascii("fooba")));
+		assertEquals("666F6F626172", e.encode(ascii("foobar")));
 
-		assertArrayEquals(ascii("foobar"), decode("666F6F626172"));
-		assertArrayEquals(ascii("fooba"), decode("666F6F6261"));
-		assertArrayEquals(ascii("foob"), decode("666F6F62"));
-		assertArrayEquals(ascii("foo"), decode("666F6F"));
-		assertArrayEquals(ascii("fo"), decode("666F"));
-		assertArrayEquals(ascii("f"), decode("66"));
-		assertArrayEquals(ascii(""), decode(""));
+		assertArrayEquals(ascii("foobar"), e.decode("666F6F626172"));
+		assertArrayEquals(ascii("fooba"), e.decode("666F6F6261"));
+		assertArrayEquals(ascii("foob"), e.decode("666F6F62"));
+		assertArrayEquals(ascii("foo"), e.decode("666F6F"));
+		assertArrayEquals(ascii("fo"), e.decode("666F"));
+		assertArrayEquals(ascii("f"), e.decode("66"));
+		assertArrayEquals(ascii(""), e.decode(""));
 	}
 
 	@Test
-	public void testRandomData()
+	public void testEncodeAndDecodeRandomData()
 	{
-		Random rnd = new Random();
+		BaseEncoding e = BaseEncoding.BASE_16;
 		for (int i = 0; i < 100; i++) {
-			byte[] bytes = new byte[rnd.nextInt(2049)];
-			assertArrayEquals(bytes, decode(encode(bytes)));
+			byte[] bytes = new byte[RND.nextInt(2049)];
+			RND.nextBytes(bytes);
+			assertArrayEquals(bytes, e.decode(e.encode(bytes)));
 		}
 	}
 
 	@Test
 	public void testDecodeWithWhitespaces()
 	{
-		assertArrayEquals(ascii(""), decode(" \t  \r\n"));
-		assertArrayEquals(ascii("hello"), decode("\t68 656C 6C\n6F\r"));
+		BaseEncoding e = BaseEncoding.BASE_16;
+		assertArrayEquals(ascii(""), e.decode(" \t  \r\n"));
+		assertArrayEquals(ascii("hello"), e.decode("\t68 656C\r6C\n6F"));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testInvalidLength()
+	public void testDecodeWithInvalidLength()
 	{
-		decode("E1F0C");
+		BaseEncoding.BASE_16.decode("E1F0C");
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testInvalidCharacter()
+	public void testDecodeWithInvalidCharacter()
 	{
-		decode("E1F0HA");
+		BaseEncoding.BASE_16.decode("E1F0HA");
 	}
 
-	private String encode(byte... data)
+	@Test
+	public void testPadding()
 	{
-		return BaseEncoding.BASE_16.encode(data);
-	}
-
-	private byte[] decode(String base)
-	{
-		return BaseEncoding.BASE_16.decode(base, 0, base.length());
+		BaseEncoding e = BaseEncoding.BASE_16;
+		assertSame(e, e.withoutPadding());
 	}
 
 	private byte[] ascii(String str)

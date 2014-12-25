@@ -18,6 +18,7 @@ package org.kocakosm.pitaya.util;
 
 import org.kocakosm.pitaya.charset.ASCII;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,16 +29,41 @@ import java.util.Map;
  */
 final class Base32 extends AbstractBaseEncoding
 {
-	private static final char PADDING_CHAR;
-	private static final char[] BASE32_CHARS;
-	private static final Map<Character, Integer> BASE32_VALUES;
-	static {
-		PADDING_CHAR = '=';
-		BASE32_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567".toCharArray();
-		BASE32_VALUES = new HashMap<Character, Integer>(32);
+	private static final char PADDING_CHAR = '=';
+
+	private final boolean padding;
+	private final char[] alphabet;
+	private final Map<Character, Integer> values;
+
+	Base32()
+	{
+		this("ABCDEFGHIJKLMNOPQRSTUVWXYZ234567".toCharArray());
+	}
+
+	Base32(char... alphabet)
+	{
+		Parameters.checkCondition(alphabet.length == 32);
+		this.padding = true;
+		this.alphabet = Arrays.copyOf(alphabet, alphabet.length);
+		this.values = new HashMap<Character, Integer>(32);
 		for (int i = 0; i < 32; i++) {
-			BASE32_VALUES.put(BASE32_CHARS[i], i);
+			values.put(this.alphabet[i], i);
 		}
+		Parameters.checkCondition(!values.containsKey(PADDING_CHAR));
+	}
+
+	private Base32(boolean padding, Map<Character, Integer> values,
+		char... alphabet)
+	{
+		this.padding = padding;
+		this.values = values;
+		this.alphabet = alphabet;
+	}
+
+	@Override
+	public BaseEncoding withoutPadding()
+	{
+		return new Base32(false, values, alphabet);
 	}
 
 	@Override
@@ -54,15 +80,17 @@ final class Base32 extends AbstractBaseEncoding
 			count += 8;
 			while (count >= 5) {
 				count -= 5;
-				sb.append(BASE32_CHARS[(accu >>> count) & 31]);
+				sb.append(alphabet[(accu >>> count) & 31]);
 			}
 		}
 		if (count > 0) {
 			accu = (accu & (0xFF >>> (8 - count))) << (5 - count);
-			sb.append(BASE32_CHARS[accu]);
-			int pad = 8 - (sb.length() % 8);
-			for (int i = 0; i < pad; i++) {
-				sb.append(PADDING_CHAR);
+			sb.append(alphabet[accu]);
+			if (padding) {
+				int pad = 8 - (sb.length() % 8);
+				for (int i = 0; i < pad; i++) {
+					sb.append(PADDING_CHAR);
+				}
 			}
 		}
 		return sb.toString();
@@ -73,7 +101,7 @@ final class Base32 extends AbstractBaseEncoding
 	{
 		String base32 = formatInput(in);
 		int len = base32.length();
-		Parameters.checkCondition(len % 8 == 0);
+		Parameters.checkCondition(padding ? len % 8 == 0 : true);
 		ByteBuffer buf = new ByteBuffer((len * 5) / 8);
 		int accu = 0;
 		int count = 0;
@@ -81,8 +109,8 @@ final class Base32 extends AbstractBaseEncoding
 			if (c == PADDING_CHAR) {
 				break;
 			}
-			Parameters.checkCondition(BASE32_VALUES.containsKey(c));
-			accu = (accu << 5) | BASE32_VALUES.get(c);
+			Parameters.checkCondition(values.containsKey(c));
+			accu = (accu << 5) | values.get(c);
 			count += 5;
 			while (count >= 8) {
 				count -= 8;

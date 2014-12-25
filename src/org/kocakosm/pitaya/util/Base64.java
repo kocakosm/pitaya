@@ -16,6 +16,7 @@
 
 package org.kocakosm.pitaya.util;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,18 +27,42 @@ import java.util.Map;
  */
 final class Base64 extends AbstractBaseEncoding
 {
-	private static final char PADDING_CHAR;
-	private static final char[] BASE64_CHARS;
-	private static final Map<Character, Integer> BASE64_VALUES;
-	static {
-		PADDING_CHAR = '=';
-		BASE64_CHARS = ("ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-			+ "abcdefghijklmnopqrstuvwxyz"
-			+ "0123456789+/").toCharArray();
-		BASE64_VALUES = new HashMap<Character, Integer>(64);
+	private static final char PADDING_CHAR = '=';
+
+	private final boolean padding;
+	private final char[] alphabet;
+	private final Map<Character, Integer> values;
+
+	Base64()
+	{
+		this(("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+			+ "0123456789+/").toCharArray());
+	}
+
+	Base64(char... alphabet)
+	{
+		Parameters.checkCondition(alphabet.length == 64);
+		this.padding = true;
+		this.alphabet = Arrays.copyOf(alphabet, alphabet.length);
+		this.values = new HashMap<Character, Integer>(64);
 		for (int i = 0; i < 64; i++) {
-			BASE64_VALUES.put(BASE64_CHARS[i], i);
+			values.put(this.alphabet[i], i);
 		}
+		Parameters.checkCondition(!values.containsKey(PADDING_CHAR));
+	}
+
+	private Base64(boolean padding, Map<Character, Integer> values,
+		char... alphabet)
+	{
+		this.padding = padding;
+		this.values = values;
+		this.alphabet = alphabet;
+	}
+
+	@Override
+	public BaseEncoding withoutPadding()
+	{
+		return new Base64(false, values, alphabet);
 	}
 
 	@Override
@@ -54,15 +79,17 @@ final class Base64 extends AbstractBaseEncoding
 			count += 8;
 			while (count >= 6) {
 				count -= 6;
-				sb.append(BASE64_CHARS[(accu >>> count) & 63]);
+				sb.append(alphabet[(accu >>> count) & 63]);
 			}
 		}
 		if (count > 0) {
 			accu = (accu & (0xFF >>> (8 - count))) << (6 - count);
-			sb.append(BASE64_CHARS[accu]);
-			int pad = 4 - (sb.length() % 4);
-			for (int i = 0; i < pad; i++) {
-				sb.append(PADDING_CHAR);
+			sb.append(alphabet[accu]);
+			if (padding) {
+				int pad = 4 - (sb.length() % 4);
+				for (int i = 0; i < pad; i++) {
+					sb.append(PADDING_CHAR);
+				}
 			}
 		}
 		return sb.toString();
@@ -73,7 +100,7 @@ final class Base64 extends AbstractBaseEncoding
 	{
 		String base64 = in.replaceAll("[\\s\n\t\r]", "");
 		int len = base64.length();
-		Parameters.checkCondition(len % 4 == 0);
+		Parameters.checkCondition(padding ? len % 4 == 0 : true);
 		ByteBuffer buf = new ByteBuffer((len * 3) / 4);
 		int accu = 0;
 		int count = 0;
@@ -81,8 +108,8 @@ final class Base64 extends AbstractBaseEncoding
 			if (c == PADDING_CHAR) {
 				break;
 			}
-			Parameters.checkCondition(BASE64_VALUES.containsKey(c));
-			accu = (accu << 6) | BASE64_VALUES.get(c);
+			Parameters.checkCondition(values.containsKey(c));
+			accu = (accu << 6) | values.get(c);
 			count += 6;
 			while (count >= 8) {
 				count -= 8;
