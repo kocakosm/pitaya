@@ -57,11 +57,10 @@ public final class Throwables
 	 *
 	 * @throws NullPointerException if {@code t} is {@code null}.
 	 */
-	public static List<Throwable> getChain(Throwable t)
+	public static List<Throwable> getCauseChain(Throwable t)
 	{
-		Parameters.checkNotNull(t);
 		List<Throwable> chain = new ArrayList<Throwable>();
-		chain.add(t);
+		chain.add(Parameters.checkNotNull(t));
 		Throwable cause = t.getCause();
 		while (cause != null) {
 			chain.add(cause);
@@ -82,7 +81,6 @@ public final class Throwables
 	 */
 	public static String getStackTrace(Throwable t)
 	{
-		Parameters.checkNotNull(t);
 		StringWriter out = new StringWriter();
 		PrintWriter writer = new PrintWriter(out);
 		t.printStackTrace(writer);

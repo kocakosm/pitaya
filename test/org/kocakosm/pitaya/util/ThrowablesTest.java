@@ -43,13 +43,13 @@ public final class ThrowablesTest
 	}
 
 	@Test
-	public void testGetChain()
+	public void testGetCauseChain()
 	{
 		Throwable root = new Throwable();
-		assertEquals(Arrays.asList(root), Throwables.getChain(root));
+		assertEquals(Arrays.asList(root), Throwables.getCauseChain(root));
 
 		Throwable t = new Throwable(new Throwable(root));
-		assertEquals(Arrays.asList(t, t.getCause(), root), Throwables.getChain(t));
+		assertEquals(Arrays.asList(t, t.getCause(), root), Throwables.getCauseChain(t));
 	}
 
 	@Test

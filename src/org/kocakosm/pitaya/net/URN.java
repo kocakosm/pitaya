@@ -42,14 +42,14 @@ public final class URN implements Serializable
 	private static final long serialVersionUID = 1L;
 	private static final Pattern PATTERN;
 	static {
-		String regex = "(^urn):" + "([a-z0-9][a-z0-9\\-]{0,31}):"
+		String regex = "(^urn):([a-z0-9][a-z0-9\\-]{0,31}):"
 			+ "(([a-z0-9()+,\\-.:=@;$_!*']|%[0-9a-f]{2})+$)";
 		PATTERN = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
 	}
 
 	/**
 	 * Creates a new {@code URN} by parsing the given {@code String}. This
-	 * convenience calls the {@link URN#URN(java.lang.String)} constructor;
+	 * function invokes the {@link URN#URN(java.lang.String)} constructor;
 	 * any {@code URNSyntaxException} thrown by the constructor is caught
 	 * and wrapped in a new {@code IllegalArgumentException}, which is then
 	 * thrown. This method is provided for use in situations where it is

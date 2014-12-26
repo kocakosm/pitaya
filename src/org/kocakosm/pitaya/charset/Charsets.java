@@ -25,7 +25,11 @@ import java.nio.charset.Charset;
  */
 public final class Charsets
 {
-	/** @see Charset#defaultCharset() */
+	/**
+	 * Default charset of this Java virtual machine. The default charset is
+	 * determined during virtual-machine startup and typically depends upon
+	 * the locale and charset of the underlying operating system.
+	 */
 	public static final Charset DEFAULT = Charset.defaultCharset();
 
 	/** 7-bit ASCII (ISO646-US). */
