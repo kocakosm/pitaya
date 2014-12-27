@@ -16,6 +16,7 @@
 
 package org.kocakosm.pitaya.collection;
 
+import java.io.Serializable;
 import java.util.AbstractSet;
 import java.util.Arrays;
 import java.util.Collection;
@@ -30,8 +31,10 @@ import java.util.Set;
  *
  * @author Osman KOCAK
  */
-public final class ImmutableSet<E> extends AbstractSet<E>
+public final class ImmutableSet<E> extends AbstractSet<E> implements Serializable
 {
+	private static final long serialVersionUID = 6744093868687684286L;
+
 	/**
 	 * {@code ImmutableSet} builder. Not thread-safe.
 	 *

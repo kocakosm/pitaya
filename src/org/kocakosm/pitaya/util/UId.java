@@ -16,6 +16,7 @@
 
 package org.kocakosm.pitaya.util;
 
+import java.io.Serializable;
 import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Random;
@@ -26,8 +27,9 @@ import java.util.Random;
  *
  * @author Osman KOCAK
  */
-public final class UId
+public final class UId implements Serializable
 {
+	private static final long serialVersionUID = 5275246947751153805L;
 	private static final Random PRNG = new SecureRandom();
 	private static final int LENGTH = 16;
 

@@ -16,6 +16,7 @@
 
 package org.kocakosm.pitaya.util;
 
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -24,8 +25,9 @@ import java.util.NoSuchElementException;
  *
  * @author Osman KOCAK
  */
-public final class ByteBuffer implements Iterable<Byte>
+public final class ByteBuffer implements Iterable<Byte>, Serializable
 {
+	private static final long serialVersionUID = 5183155512871175888L;
 	private static final int DEFAULT_CAPACITY = 512;
 
 	private byte[] buf;

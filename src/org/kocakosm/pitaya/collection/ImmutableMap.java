@@ -16,6 +16,7 @@
 
 package org.kocakosm.pitaya.collection;
 
+import java.io.Serializable;
 import java.util.AbstractMap;
 import java.util.Collection;
 import java.util.HashMap;
@@ -31,8 +32,10 @@ import java.util.Set;
  *
  * @author Osman KOCAK
  */
-public final class ImmutableMap<K, V> extends AbstractMap<K, V>
+public final class ImmutableMap<K, V> extends AbstractMap<K, V> implements Serializable
 {
+	private static final long serialVersionUID = 458645004066047051L;
+
 	/**
 	 * {@code ImmutableMap} builder. Not thread-safe.
 	 *

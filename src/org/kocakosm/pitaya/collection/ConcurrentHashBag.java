@@ -18,6 +18,7 @@ package org.kocakosm.pitaya.collection;
 
 import org.kocakosm.pitaya.util.Parameters;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
@@ -33,8 +34,10 @@ import java.util.concurrent.CopyOnWriteArrayList;
  *
  * @author Osman KOCAK
  */
-public final class ConcurrentHashBag<E> extends AbstractBag<E>
+public final class ConcurrentHashBag<E> extends AbstractBag<E> implements Serializable
 {
+	private static final long serialVersionUID = 7336345430492192446L;
+
 	private final ConcurrentHashMap<E, CopyOnWriteArrayList<E>> entries;
 
 	/** Creates a new empty {@code ConcurrentHashBag}. */

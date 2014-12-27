@@ -18,6 +18,7 @@ package org.kocakosm.pitaya.collection;
 
 import org.kocakosm.pitaya.util.Parameters;
 
+import java.io.Serializable;
 import java.util.AbstractMap;
 import java.util.Collection;
 import java.util.List;
@@ -38,8 +39,10 @@ import java.util.Set;
  *
  * @author Osman KOCAK
  */
-public final class ChainMap<K, V> extends AbstractMap<K, V>
+public final class ChainMap<K, V> extends AbstractMap<K, V> implements Serializable
 {
+	private static final long serialVersionUID = 7407441956357495938L;
+
 	private final List<Map<K, V>> maps;
 
 	/**

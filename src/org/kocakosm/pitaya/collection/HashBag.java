@@ -18,6 +18,7 @@ package org.kocakosm.pitaya.collection;
 
 import org.kocakosm.pitaya.util.Parameters;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -34,8 +35,10 @@ import java.util.Map;
  *
  * @author Osman KOCAK
  */
-public final class HashBag<E> extends AbstractBag<E>
+public final class HashBag<E> extends AbstractBag<E> implements Serializable
 {
+	private static final long serialVersionUID = 3651678489121314654L;
+
 	private final Map<E, List<E>> entries;
 
 	/** Creates a new empty {@code HashBag}. */

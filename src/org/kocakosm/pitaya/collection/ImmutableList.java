@@ -16,6 +16,7 @@
 
 package org.kocakosm.pitaya.collection;
 
+import java.io.Serializable;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,8 +37,10 @@ import java.util.RandomAccess;
  *
  * @author Osman KOCAK
  */
-public final class ImmutableList<E> extends AbstractList<E> implements RandomAccess
+public final class ImmutableList<E> extends AbstractList<E> implements RandomAccess, Serializable
 {
+	private static final long serialVersionUID = 5355899738233743694L;
+
 	/**
 	 * {@code ImmutableList} builder. Not thread-safe.
 	 *

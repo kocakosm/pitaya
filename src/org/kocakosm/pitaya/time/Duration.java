@@ -21,6 +21,7 @@ import static java.util.concurrent.TimeUnit.*;
 
 import org.kocakosm.pitaya.util.Parameters;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -31,8 +32,10 @@ import java.util.concurrent.TimeUnit;
  *
  * @author Osman KOCAK
  */
-public final class Duration implements Comparable<Duration>
+public final class Duration implements Comparable<Duration>, Serializable
 {
+	private static final long serialVersionUID = 2629881563004939761L;
+
 	/** Zero millisecond. */
 	public static final Duration ZERO = new Duration(0L);
 

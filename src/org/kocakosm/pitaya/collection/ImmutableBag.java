@@ -16,6 +16,7 @@
 
 package org.kocakosm.pitaya.collection;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
@@ -27,8 +28,10 @@ import java.util.Iterator;
  *
  * @author Osman KOCAK
  */
-public final class ImmutableBag<E> extends AbstractBag<E>
+public final class ImmutableBag<E> extends AbstractBag<E> implements Serializable
 {
+	private static final long serialVersionUID = 194306588498543706L;
+
 	/**
 	 * {@code ImmutableBag} builder. Not thread-safe.
 	 *
