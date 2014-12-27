@@ -39,7 +39,7 @@ import java.util.regex.Pattern;
  */
 public final class URN implements Serializable
 {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 6295350526747423877L;
 	private static final Pattern PATTERN;
 	static {
 		String regex = "(^urn):([a-z0-9][a-z0-9\\-]{0,31}):"

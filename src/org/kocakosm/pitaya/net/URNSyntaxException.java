@@ -26,7 +26,7 @@ package org.kocakosm.pitaya.net;
  */
 public final class URNSyntaxException extends Exception
 {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 106807221764107977L;
 
 	/**
 	 * Creates a new {@code URNSyntaxException}.
