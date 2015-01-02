@@ -135,10 +135,16 @@ public final class Duration implements Comparable<Duration>, Serializable
 	 * @return the created {@code Duration} instance.
 	 *
 	 * @throws NullPointerException if {@code unit} is {@code null}.
+	 * @throws ArithmeticException if the resulting duration is too large.
 	 */
-	public static Duration of(int amount, TimeUnit unit)
+	public static Duration of(long amount, TimeUnit unit)
 	{
-		return new Duration(MILLISECONDS.convert(amount, unit));
+		long duration = MILLISECONDS.convert(amount, unit);
+		if (unit.convert(duration, MILLISECONDS) != amount) {
+			throw new ArithmeticException(
+				"Too large duration: " + amount + " " + unit);
+		}
+		return new Duration(duration);
 	}
 
 	/**

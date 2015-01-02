@@ -63,6 +63,13 @@ public final class DurationTest
 		assertEquals(ONE_HOUR, of(1, TimeUnit.HOURS));
 		assertEquals(ONE_DAY, of(1, TimeUnit.DAYS));
 		assertEquals(ONE_WEEK, of(7, TimeUnit.DAYS));
+		assertEquals(Long.MAX_VALUE, of(Long.MAX_VALUE, TimeUnit.MILLISECONDS).toMilliseconds());
+	}
+
+	@Test(expected = ArithmeticException.class)
+	public void testOfAmoutAndUnitOverflow()
+	{
+		of(Long.MAX_VALUE, TimeUnit.MINUTES);
 	}
 
 	@Test
