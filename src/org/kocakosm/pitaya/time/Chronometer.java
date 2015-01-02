@@ -16,7 +16,7 @@
 
 package org.kocakosm.pitaya.time;
 
-import static java.util.concurrent.TimeUnit.*;
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
 /**
  * Utility class to measure elapsed time between specific instants. Note that
@@ -30,14 +30,14 @@ public final class Chronometer
 {
 	private long referenceTime;
 	private long elapsedTime;
-	private boolean isRunning;
+	private boolean running;
 
 	/** Creates a new (unstarted) {@code Chronometer}. */
 	public Chronometer()
 	{
 		this.referenceTime = now();
 		this.elapsedTime = 0L;
-		this.isRunning = false;
+		this.running = false;
 	}
 
 	/**
@@ -49,7 +49,7 @@ public final class Chronometer
 	 */
 	public boolean isRunning()
 	{
-		return isRunning;
+		return running;
 	}
 
 	/**
@@ -61,11 +61,11 @@ public final class Chronometer
 	 */
 	public Chronometer start()
 	{
-		if (isRunning) {
+		if (running) {
 			throw new IllegalStateException("Already running...");
 		}
 		referenceTime = now();
-		isRunning = true;
+		running = true;
 		return this;
 	}
 
@@ -78,11 +78,11 @@ public final class Chronometer
 	 */
 	public Chronometer stop()
 	{
-		if (!isRunning) {
+		if (!running) {
 			throw new IllegalStateException("Already idle...");
 		}
 		elapsedTime += now() - referenceTime;
-		isRunning = false;
+		running = false;
 		return this;
 	}
 
@@ -107,7 +107,7 @@ public final class Chronometer
 	 */
 	public long elapsedTime()
 	{
-		if (isRunning) {
+		if (running) {
 			return (elapsedTime + now() - referenceTime) / 1000000L;
 		}
 		return elapsedTime / 1000000L;
@@ -116,38 +116,7 @@ public final class Chronometer
 	@Override
 	public String toString()
 	{
-		long time = elapsedTime();
-		if (time == 0L) {
-			return "0 millisecond";
-		}
-		StringBuilder sb = new StringBuilder();
-		long days = MILLISECONDS.toDays(time);
-		time -= DAYS.toMillis(days);
-		append(sb, days, "day");
-		long hours = MILLISECONDS.toHours(time);
-		time -= HOURS.toMillis(hours);
-		append(sb, hours, "hour");
-		long minutes = MILLISECONDS.toMinutes(time);
-		time -= MINUTES.toMillis(minutes);
-		append(sb, minutes, "minute");
-		long seconds = MILLISECONDS.toSeconds(time);
-		time -= SECONDS.toMillis(seconds);
-		append(sb, seconds, "second");
-		append(sb, time, "millisecond");
-		return sb.toString();
-	}
-
-	private void append(StringBuilder sb, long value, String unit)
-	{
-		if (value > 0L) {
-			if (sb.length() > 0) {
-				sb.append(", ");
-			}
-			sb.append(value).append(' ').append(unit);
-			if (value > 1L) {
-				sb.append('s');
-			}
-		}
+		return Duration.of(elapsedTime(), MILLISECONDS).toString();
 	}
 
 	private long now()

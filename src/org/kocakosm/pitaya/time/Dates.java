@@ -35,7 +35,7 @@ import java.util.Locale;
 public final class Dates
 {
 	/**
-	 * Returns a copy of the given {@link Date}.
+	 * Returns a copy of the given {@code Date}.
 	 *
 	 * @param date the {@code Date} to copy.
 	 *
@@ -305,16 +305,19 @@ public final class Dates
 	}
 
 	/**
-	 * Returns the {@code String} represntation of the given {@code Date}
+	 * Returns the {@code String} representation of the given {@code Date}
 	 * according to the specified format pattern.
 	 *
 	 * @param date the {@code Date} to format.
 	 * @param format the format pattern to use.
 	 *
-	 * @return the {@code String} represntation of {@code date}.
+	 * @return the {@code String} representation of {@code date}.
+	 *
+	 * @throws NullPointerException if one of the arguments is {@code null}.
 	 */
 	public static String format(Date date, String format)
 	{
+		Parameters.checkNotNull(date);
 		return new SimpleDateFormat(format).format(date);
 	}
 
