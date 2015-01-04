@@ -76,9 +76,8 @@ public final class URN implements Serializable
 	private final String nss;
 
 	/**
-	 * Creates a new {@code URN} by parsing the given {@code String}. This
-	 * constructor parses the given {@code String} exactly as specified by
-	 * the grammar in RFC 2141.
+	 * Creates a new {@code URN} by parsing the given {@code String} as
+	 * specified by the grammar in RFC 2141.
 	 *
 	 * @param urn the {@code String} to be parsed into a {@code URN}.
 	 *
@@ -100,7 +99,8 @@ public final class URN implements Serializable
 	}
 
 	/**
-	 * Creates a new {@code URN}.
+	 * Creates a new {@code URN} with the specified Namespace Identifier and
+	 * Namespace Specific String.
 	 *
 	 * @param nid the Namespace Identifier.
 	 * @param nss the Namespace Specific String.
@@ -187,17 +187,17 @@ public final class URN implements Serializable
 
 	/**
 	 * Returns the normalized equivalent of this {@code URN}. Normalizing a
-	 * {@code URN} consists in lower-casing the scheme (the leading "urn"),
-	 * NID and percent encoded parts of a {@code URN}.
+	 * {@code URN} consists in lower-casing its scheme (the leading "urn"),
+	 * NID and percent encoded parts.
 	 *
 	 * @return the normalized equivalent of this {@code URN}.
 	 */
 	public URN normalized()
 	{
-		return new URN("urn", ASCII.toLowerCase(nid), normalize(nss));
+		return new URN("urn", ASCII.toLowerCase(nid), normalizeNSS(nss));
 	}
 
-	private String normalize(String nss)
+	private String normalizeNSS(String nss)
 	{
 		char[] chars = nss.toCharArray();
 		StringBuilder sb = new StringBuilder(chars.length);
@@ -215,8 +215,6 @@ public final class URN implements Serializable
 
 	/**
 	 * Returns the {@code URI} equivalent to this {@code URN}.
-	 *
-	 * @see URI#create(java.lang.String)
 	 *
 	 * @return the {@code URI} equivalent to this {@code URN}.
 	 */
