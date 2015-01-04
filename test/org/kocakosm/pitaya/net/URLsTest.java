@@ -16,21 +16,11 @@
 
 package org.kocakosm.pitaya.net;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-import org.kocakosm.pitaya.io.Files;
-
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.StringWriter;
 import java.net.URL;
-import java.nio.charset.Charset;
-import java.util.Arrays;
-import java.util.List;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
 
 /**
  * {@link URLs}' unit tests.
@@ -39,9 +29,6 @@ import org.junit.rules.TemporaryFolder;
  */
 public final class URLsTest
 {
-	@Rule
-	public TemporaryFolder tmp = new TemporaryFolder();
-
 	@Test
 	public void testCreate() throws Exception
 	{
@@ -60,8 +47,7 @@ public final class URLsTest
 	{
 		URL base = toURL("http://localhost/test");
 		URL full = toURL("http://localhost/test/hello/world");
-		String relative = "hello/world";
-		assertEquals(relative, URLs.relativize(base, full));
+		assertEquals("hello/world", URLs.relativize(base, full));
 	}
 
 	@Test
@@ -71,40 +57,6 @@ public final class URLsTest
 		String path = "/hello/world";
 		URL resolved = toURL("http://localhost/hello/world");
 		assertEquals(resolved, URLs.resolve(base, path));
-	}
-
-	@Test
-	public void testReadAsByteArray() throws Exception
-	{
-		byte[] data = "Hello World".getBytes("ASCII");
-		File f = tmp.newFile();
-		Files.write(f, data);
-		assertArrayEquals(data, URLs.read(f.toURI().toURL()));
-	}
-
-	@Test
-	public void testReadAsString() throws Exception
-	{
-		String data = "Hello World";
-		Charset ascii = Charset.forName("ASCII");
-		File f = tmp.newFile();
-		Files.write(f, data.getBytes(ascii));
-		assertEquals(data, URLs.read(f.toURI().toURL(), ascii));
-	}
-
-	@Test
-	public void testReadLines() throws Exception
-	{
-		List<String> lines = Arrays.asList("Hello", "World", "!!!!!");
-		StringWriter out = new StringWriter();
-		BufferedWriter writer = new BufferedWriter(out);
-		writer.write(lines.get(0));	writer.newLine();
-		writer.write(lines.get(1));	writer.newLine();
-		writer.write(lines.get(2));	writer.flush();
-		Charset ascii = Charset.forName("ASCII");
-		File f = tmp.newFile();
-		Files.write(f, out.toString().getBytes(ascii));
-		assertEquals(lines, URLs.readLines(f.toURI().toURL(), ascii));
 	}
 
 	private URL toURL(String url) throws Exception

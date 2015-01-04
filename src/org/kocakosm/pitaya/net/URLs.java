@@ -16,18 +16,11 @@
 
 package org.kocakosm.pitaya.net;
 
-import org.kocakosm.pitaya.io.ByteStreams;
-import org.kocakosm.pitaya.io.CharStreams;
-import org.kocakosm.pitaya.io.IO;
 import org.kocakosm.pitaya.util.Parameters;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.charset.Charset;
-import java.util.List;
 
 /**
  * URLs utilities.
@@ -37,9 +30,14 @@ import java.util.List;
 public final class URLs
 {
 	/**
-	 * Creates a new {@code URL} from the given {@code String}.
+	 * Creates a new {@code URL} by parsing the given {@code String}. This
+	 * function invokes the {@link URL#URL(java.lang.String)} constructor;
+	 * any {@code MalformedURLException} thrown by the constructor is caught
+	 * and wrapped in a new {@code IllegalArgumentException}, which is then
+	 * thrown. This method is provided for use in situations where it is
+	 * known that the given {@code String} is a legal {@code URL}.
 	 *
-	 * @param url the {@code String} to convert into an {@code URL}.
+	 * @param url the {@code String} to be parsed into a {@code URL}.
 	 *
 	 * @return the created {@code URL}.
 	 *
@@ -98,70 +96,6 @@ public final class URLs
 			throw new IllegalArgumentException(ex);
 		} catch (MalformedURLException ex) {
 			throw new IllegalArgumentException(ex);
-		}
-	}
-
-	/**
-	 * Returns the content of the resource pointed by the given {@code URL}.
-	 *
-	 * @param url the {@code URL} of the resource to retrieve.
-	 *
-	 * @return the resource's content.
-	 *
-	 * @throws NullPointerException if {@code url} is {@code null}.
-	 * @throws IOException if the resource can't be read.
-	 */
-	public static byte[] read(URL url) throws IOException
-	{
-		InputStream in = url.openStream();
-		try {
-			return ByteStreams.read(in);
-		} finally {
-			IO.close(in);
-		}
-	}
-
-	/**
-	 * Returns the content of the resource pointed by the given {@code URL}.
-	 *
-	 * @param url the {@code URL} of the resource to retrieve.
-	 * @param charset the charset to use.
-	 *
-	 * @return the resource's content.
-	 *
-	 * @throws NullPointerException if one of the arguments is {@code null}.
-	 * @throws IOException if the resource can't be read.
-	 */
-	public static String read(URL url, Charset charset) throws IOException
-	{
-		InputStream in = url.openStream();
-		try {
-			return CharStreams.read(in, charset);
-		} finally {
-			IO.close(in);
-		}
-	}
-
-	/**
-	 * Returns the lines of the resource pointed by the given {@code URL}.
-	 * Note that the returned {@code List} is immutable.
-	 *
-	 * @param url the {@code URL} of the resource to retrieve.
-	 * @param charset the charset to use.
-	 *
-	 * @return the resource's lines.
-	 *
-	 * @throws NullPointerException if one of the arguments is {@code null}.
-	 * @throws IOException if the resource can't be read.
-	 */
-	public static List<String> readLines(URL url, Charset charset)
-		throws IOException
-	{
-		InputStream in = url.openStream();
-		try {
-			return CharStreams.readLines(in, charset);
-		} finally {
-			IO.close(in);
 		}
 	}
 
