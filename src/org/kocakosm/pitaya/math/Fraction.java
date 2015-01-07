@@ -24,8 +24,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 /**
- * {@code Fraction} is a {@link Number} implementation that represents fractions
- * accurately. Instances of this class are immutable.
+ * {@link Number} implementation that represents fractions accurately. Instances
+ * of this class are immutable.
  *
  * @author Osman KOCAK
  */
@@ -248,6 +248,16 @@ public final class Fraction extends Number implements Comparable<Fraction>
 	}
 
 	/**
+	 * Returns a {@code Fraction} which is the absolute value of this one.
+	 *
+	 * @return the absolute value of this {@code Fraction}.
+	 */
+	public Fraction absoluteValue()
+	{
+		return new Fraction(n.abs(), d.abs());
+	}
+
+	/**
 	 * Returns the opposite of this {@code Fraction}. The result is not
 	 * reduced before being returned.
 	 *
@@ -259,16 +269,6 @@ public final class Fraction extends Number implements Comparable<Fraction>
 			return new Fraction(n, d.negate());
 		}
 		return new Fraction(n.negate(), d);
-	}
-
-	/**
-	 * Returns a {@code Fraction} which is the absolute value of this one.
-	 *
-	 * @return the absolute value of this {@code Fraction}.
-	 */
-	public Fraction absoluteValue()
-	{
-		return new Fraction(n.abs(), d.abs());
 	}
 
 	/**

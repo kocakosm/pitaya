@@ -276,13 +276,13 @@ public final class Numbers
 	}
 
 	/**
-	 * Returns whether the given value is a real value. Namely, it returns
+	 * Returns whether the given value is a "real" value. Namely, it returns
 	 * {@code false} if the given value is infinite or NaN, and {@code true}
 	 * in all other cases.
 	 *
 	 * @param f the value to test.
 	 *
-	 * @return whether the given value is a real value.
+	 * @return whether the given value is a "real" value.
 	 */
 	public static boolean isFinite(float f)
 	{
@@ -290,13 +290,13 @@ public final class Numbers
 	}
 
 	/**
-	 * Returns whether the given value is a real value. Namely, it returns
+	 * Returns whether the given value is a "real" value. Namely, it returns
 	 * {@code false} if the given value is infinite or NaN, and {@code true}
 	 * in all other cases.
 	 *
 	 * @param d the value to test.
 	 *
-	 * @return whether the given value is a real value.
+	 * @return whether the given value is a "real" value.
 	 */
 	public static boolean isFinite(double d)
 	{
@@ -332,7 +332,7 @@ public final class Numbers
 	 * @return the absolute value of {@code a}.
 	 *
 	 * @throws ArithmeticException if the absolute value of {@code a} can't
-	 *	be represented by a {@code int}.
+	 *	be represented by an {@code int}.
 	 */
 	public static int safeAbs(int a)
 	{
@@ -471,7 +471,7 @@ public final class Numbers
 
 	/**
 	 * Returns the product of {@code a} and {@code b}, provided the result
-	 * fits into into a {@code long}.
+	 * fits into a {@code long}.
 	 *
 	 * @param a the first operand.
 	 * @param b the second operand.
@@ -496,7 +496,7 @@ public final class Numbers
 
 	/**
 	 * Returns the product of {@code a} and {@code b}, provided the result
-	 * fits into into an {@code int}.
+	 * fits into an {@code int}.
 	 *
 	 * @param a the first operand.
 	 * @param b the second operand.
