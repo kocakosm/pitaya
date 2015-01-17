@@ -25,8 +25,8 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * A decorating {@link Writer} implementation that writes all data written to it
- * to its underlying writers. Named after the Unix 'tee' command.
+ * A decorating {@code Writer} that writes all characters written to it to its
+ * underlying streams. Named after the Unix 'tee' command. Not thread safe.
  *
  * @author Osman KOCAK
  */
@@ -136,10 +136,10 @@ final class TeeWriter extends Writer
 	}
 
 	@Override
-	public void close() throws IOException
+	public void close()
 	{
 		for (Writer writer : writers) {
-			writer.close();
+			IO.close(writer);
 		}
 	}
 }

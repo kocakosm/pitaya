@@ -23,7 +23,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * A {@link Reader} whose source are {@link String}s. Instances of this class
+ * A {@code Reader} whose source are {@link String}s. Instances of this class
  * behave exactly as {@link java.io.StringReader} instances except that they
  * never throw {@link java.io.IOException}s. Not thread-safe.
  *
@@ -39,7 +39,7 @@ public final class StringReader extends Reader
 	/**
 	 * Creates a new {@code StringReader}.
 	 *
-	 * @param strings the input {@link String}s.
+	 * @param strings the input {@code String}s.
 	 *
 	 * @throws NullPointerException if {@code strings} is {@code null} or if
 	 *	it contains a {@code null} reference.

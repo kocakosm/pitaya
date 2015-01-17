@@ -21,8 +21,8 @@ import org.kocakosm.pitaya.util.Parameters;
 import java.io.Writer;
 
 /**
- * {@link Writer} implementation that simply discards all data written to it
- * (similar to /dev/null on Unix systems).
+ * {@code Writer} that simply discards all characters written to it (similar to
+ * /dev/null on Unix systems). Instances of this class are immutable.
  *
  * @author Osman KOCAK
  */
@@ -76,7 +76,9 @@ final class NullWriter extends Writer
 	@Override
 	public void write(String str, int off, int len)
 	{
-		str.substring(off, off + len);
+		if (off < 0 || len < 0 || off + len > str.length()) {
+			throw new IndexOutOfBoundsException();
+		}
 	}
 
 	@Override

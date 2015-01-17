@@ -25,8 +25,8 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * A decorating {@code OutputStream} that writes all bytes written to it to the
- * given underlying streams. Named after the Unix 'tee' command. Not thread-safe.
+ * A decorating {@code OutputStream} that writes all bytes written to it to its
+ * underlying streams. Named after the Unix 'tee' command. Not thread-safe.
  *
  * @author Osman KOCAK
  */
@@ -65,10 +65,10 @@ final class TeeOutputStream extends OutputStream
 	}
 
 	@Override
-	public void close() throws IOException
+	public void close()
 	{
 		for (OutputStream out : streams) {
-			out.close();
+			IO.close(out);
 		}
 	}
 

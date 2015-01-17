@@ -23,8 +23,8 @@ import java.io.OutputStream;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * A decorating {@link OutputStream} that counts the number of bytes that have
- * been written to the underlying stream.
+ * A decorating {@code OutputStream} that counts the number of bytes that have
+ * been written to its underlying stream.
  *
  * @author Osman KOCAK
  */

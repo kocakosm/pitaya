@@ -22,8 +22,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * A decorating {@link InputStream} that will only supply bytes up to a certain
- * length.
+ * A decorating {@code InputStream} that will only supply bytes up to a certain
+ * length. Thread safe.
  *
  * @author Osman KOCAK
  */

@@ -23,9 +23,9 @@ import java.io.InputStream;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * A decorating {@link InputStream} that counts the number of bytes that have
+ * A decorating {@code InputStream} that counts the number of bytes that have
  * been read from the underlying stream. Bytes read multiple times are counted
- * as many times they have been read. Also, skipped bytes are not counted.
+ * as many times as they have been read. Skipped bytes are not counted.
  *
  * @author Osman KOCAK
  */

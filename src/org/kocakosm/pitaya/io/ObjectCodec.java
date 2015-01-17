@@ -33,8 +33,8 @@ import java.io.Serializable;
 public final class ObjectCodec
 {
 	/**
-	 * Serializes the given {@code Serializable} object into a {@code byte}
-	 * array.
+	 * Serializes the given {@code Serializable} object into an array of
+	 * {@code byte}s.
 	 *
 	 * @param object the object to encode.
 	 *
@@ -61,40 +61,40 @@ public final class ObjectCodec
 	}
 
 	/**
-	 * Deserializes the given {@code byte} array into an object.
+	 * Deserializes the given array of {@code byte}s into an object.
 	 *
-	 * @param object the object's encoding.
+	 * @param bytes the object's encoding.
 	 *
 	 * @return the deserialized object.
 	 *
-	 * @throws NullPointerException if {@code object} is {@code null}.
-	 * @throws DecodingException if the given object cannot be deserialized.
+	 * @throws NullPointerException if {@code bytes} is {@code null}.
+	 * @throws DecodingException if the deserialization fails.
 	 */
-	public static Serializable decode(byte[] object)
+	public static Serializable decode(byte[] bytes)
 	{
-		return decode(object, Serializable.class);
+		return decode(bytes, Serializable.class);
 	}
 
 	/**
-	 * Deserializes the given {@code byte} array into an object.
+	 * Deserializes the given array of {@code byte}s into an object.
 	 *
 	 * @param <T> the object's expected type.
-	 * @param object the object's encoding.
+	 * @param bytes the object's encoding.
 	 * @param t the object's expected type's {@code Class}.
 	 *
 	 * @return the deserialized object.
 	 *
 	 * @throws NullPointerException if one of the arguments is {@code null}.
-	 * @throws DecodingException if the given object cannot be deserialized.
+	 * @throws DecodingException if the deserialization fails.
 	 * @throws ClassCastException if the deserialized object is not an
 	 *	instance of the expected class.
 	 */
-	public static <T extends Serializable> T decode(byte[] object, Class<T> t)
+	public static <T extends Serializable> T decode(byte[] bytes, Class<T> t)
 	{
 		Parameters.checkNotNull(t);
-		Parameters.checkNotNull(object);
+		Parameters.checkNotNull(bytes);
 		ObjectInputStream ois = null;
-		ByteArrayInputStream in = new ByteArrayInputStream(object);
+		ByteArrayInputStream in = new ByteArrayInputStream(bytes);
 		try {
 			ois = new ObjectInputStream(in);
 			return Parameters.checkType(ois.readObject(), t);
@@ -112,7 +112,7 @@ public final class ObjectCodec
 	{
 		private static final long serialVersionUID = 27396917846938764L;
 
-		EncodingException(Throwable cause)
+		private EncodingException(Throwable cause)
 		{
 			super(cause);
 		}
@@ -123,7 +123,7 @@ public final class ObjectCodec
 	{
 		private static final long serialVersionUID = 39875873692107851L;
 
-		DecodingException(Throwable cause)
+		private DecodingException(Throwable cause)
 		{
 			super(cause);
 		}

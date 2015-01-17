@@ -24,28 +24,37 @@ import java.util.Random;
 
 /**
  * {@code Reader} that (pseudo) randomly returns characters from a specified
- * source. This stream has no end of file. Closing a {@code RandomReader} has no
- * effect. Never throws {@code IOException}s.
+ * alphabet. This stream has no end of file. Closing a {@code RandomReader} has
+ * no effect. Never throws {@code IOException}s. Thread safe.
  *
  * @author Osman KOCAK
  */
 final class RandomReader extends Reader
 {
 	private final Random prng;
-	private final char[] chars;
+	private final char[] alphabet;
 
-	RandomReader(Random prng, char... chars)
+	/**
+	 * Creates a new {@code RandomReader}.
+	 *
+	 * @param prng the source of randomness to use.
+	 * @param alphabet the source alphabet to use.
+	 *
+	 * @throws NullPointerException if one of the arguments is {@code null}.
+	 * @throws IllegalArgumentException if {@code alphabet} is empty.
+	 */
+	RandomReader(Random prng, char... alphabet)
 	{
 		Parameters.checkNotNull(prng);
-		Parameters.checkCondition(chars.length > 0);
+		Parameters.checkCondition(alphabet.length > 0);
 		this.prng = prng;
-		this.chars = Arrays.copyOf(chars, chars.length);
+		this.alphabet = Arrays.copyOf(alphabet, alphabet.length);
 	}
 
 	@Override
 	public int read()
 	{
-		return chars[prng.nextInt(chars.length)];
+		return alphabet[prng.nextInt(alphabet.length)];
 	}
 
 	@Override

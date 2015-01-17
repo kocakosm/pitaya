@@ -25,9 +25,8 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * A decorating {@link Reader} which reads sequentially from multiple sources.
- * Does not support {@code mark()} and {@code reset()} operations. Not thread
- * safe.
+ * A {@code Reader} which reads sequentially from multiple sources. Does not
+ * support {@code mark()} and {@code reset()} operations. Not thread safe.
  *
  * @author Osman KOCAK
  */
@@ -122,10 +121,10 @@ final class ConcatReader extends Reader
 	}
 
 	@Override
-	public void close() throws IOException
+	public void close()
 	{
 		for (Reader reader : readers) {
-			reader.close();
+			IO.close(reader);
 		}
 	}
 

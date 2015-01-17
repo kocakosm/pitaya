@@ -23,10 +23,10 @@ import java.io.Reader;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * A decorating {@link Reader} that counts the number of characters that have
- * been read from its underlying {@link Reader}. Characters read multiple times
- * are counted as many times they have been read. Also, skipped characters are
- * not counted.
+ * A decorating {@code Reader} that counts the number of characters that have
+ * been read from its underlying {@code Reader}. Characters read multiple times
+ * are counted as many times as they have been read. Skipped characters are not
+ * counted.
  *
  * @author Osman KOCAK
  */
@@ -50,7 +50,8 @@ public final class CountingReader extends Reader
 	}
 
 	/**
-	 * Returns the number of characters that have been read so far.
+	 * Returns the number of characters that have been read from the
+	 * underlying stream so far.
 	 *
 	 * @return the number of characters that have been read so far.
 	 */

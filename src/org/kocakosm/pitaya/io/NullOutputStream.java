@@ -21,8 +21,8 @@ import org.kocakosm.pitaya.util.Parameters;
 import java.io.OutputStream;
 
 /**
- * {@code OutputStream} that simply discards all written bytes (similar to
- * /dev/null on Unix systems).
+ * {@code OutputStream} that simply discards all data written to it (similar to
+ * /dev/null on Unix systems). Instances of this class are immutable.
  *
  * @author Osman KOCAK
  */

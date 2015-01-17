@@ -144,7 +144,7 @@ public final class ScanfTest
 	@Test
 	public void testReadDouble() throws IOException
 	{
-		Double n = Double.valueOf(Math.random() * 1000);
+		Double n = Math.random() * 1000;
 		write(Double.toString(n));
 		assertEquals(n, Double.valueOf(Scanf.readDouble()));
 	}

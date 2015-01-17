@@ -24,7 +24,7 @@ import java.util.Random;
 /**
  * {@code InputStream} that reads data from a (pseudo) random number generator.
  * This stream has no end of file. Closing a {@code RandomInputStream} has no
- * effect. Never throws {@code IOException}s.
+ * effect. Never throws {@code IOException}s. Thread safe.
  *
  * @author Osman KOCAK
  */
@@ -32,6 +32,13 @@ final class RandomInputStream extends InputStream
 {
 	private final Random prng;
 
+	/**
+	 * Creates a new {@code RandomInputStream}.
+	 *
+	 * @param prng the source of randomness to use.
+	 *
+	 * @throws NullPointerException if {@code prng} is {@code null}.
+	 */
 	RandomInputStream(Random prng)
 	{
 		Parameters.checkNotNull(prng);

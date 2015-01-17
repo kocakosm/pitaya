@@ -22,8 +22,8 @@ import java.io.IOException;
 import java.io.Reader;
 
 /**
- * A decorating {@link Reader} that will only supply characters up to a certain
- * length.
+ * A decorating {@code Reader} that will only supply characters up to a certain
+ * length. Thread safe.
  *
  * @author Osman KOCAK
  */
@@ -41,8 +41,7 @@ final class LimitReader extends Reader
 	 * Creates a new {@code LimitReader}.
 	 *
 	 * @param reader the underlying reader.
-	 * @param limit the maximum number of characters to provide from
-	 *	{@code reader}.
+	 * @param limit the maximum number of characters to provide from {@code reader}.
 	 *
 	 * @throws NullPointerException if {@code reader} is {@code null}.
 	 * @throws IllegalArgumentException if {@code limit} is negative.

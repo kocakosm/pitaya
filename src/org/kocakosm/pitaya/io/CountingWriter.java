@@ -23,7 +23,7 @@ import java.io.Writer;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * A decorating {@link Writer} that counts the number of characters that have
+ * A decorating {@code Writer} that counts the number of characters that have
  * been written to its underlying {@link Writer}.
  *
  * @author Osman KOCAK
