@@ -21,7 +21,6 @@ import static org.junit.Assert.*;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.List;
 
@@ -35,9 +34,8 @@ import org.junit.Test;
 public final class ByteStreamsTest
 {
 	private static final byte[] DATA = {
-		(byte) 0x00, (byte) 0xFF,
-		(byte) 0x00, (byte) 0xFF,
-		(byte) 0x00, (byte) 0xFF
+		(byte) 0x00, (byte) 0xFF, (byte) 0x00,
+		(byte) 0xFF, (byte) 0x00, (byte) 0xFF
 	};
 
 	@Test
@@ -74,25 +72,6 @@ public final class ByteStreamsTest
 		InputStream in = new ByteArrayInputStream(DATA);
 		InputStream limited = ByteStreams.limit(in, 2);
 		assertArrayEquals(new byte[]{(byte) 0x00, (byte) 0xFF}, read(limited));
-	}
-
-	@Test
-	public void testNullOutputStream() throws Exception
-	{
-		OutputStream nullOut = ByteStreams.nullOutputStream();
-		nullOut.write(DATA);
-		nullOut.write(5);
-		nullOut.write(DATA, 0, 2);
-		nullOut.flush();
-		nullOut.close();
-	}
-
-	@Test
-	public void testRandom() throws Exception
-	{
-		InputStream in = ByteStreams.random();
-		assertTrue(in.read() > -1);
-		assertTrue(in.read() < 256);
 	}
 
 	@Test

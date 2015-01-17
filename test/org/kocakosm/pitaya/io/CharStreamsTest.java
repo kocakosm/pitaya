@@ -19,7 +19,6 @@ package org.kocakosm.pitaya.io;
 import static org.junit.Assert.*;
 
 import org.kocakosm.pitaya.charset.Charsets;
-import org.kocakosm.pitaya.util.XArrays;
 
 import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
@@ -120,31 +119,6 @@ public final class CharStreamsTest
 		Reader in = new StringReader(data, data);
 		Reader limited = CharStreams.limit(in, data.length());
 		assertEquals(data, read(limited));
-	}
-
-	@Test
-	public void testNullWriter() throws Exception
-	{
-		Writer nullWriter = CharStreams.nullWriter();
-		nullWriter.write(5);
-		nullWriter.write("I Am the Walrus");
-		nullWriter.write("I Am the Walrus".toCharArray());
-		nullWriter.write("I Am the Walrus", 0, 15);
-		nullWriter.write("I Am the Walrus".toCharArray(), 0, 15);
-		nullWriter.append('5');
-		nullWriter.append(new StringBuilder("I Am the Walrus"));
-		nullWriter.append(new StringBuilder("I Am the Walrus"), 0, 15);
-		nullWriter.flush();
-		nullWriter.close();
-	}
-
-	@Test
-	public void testRandom() throws Exception
-	{
-		char[] chars = "Yesterday".toCharArray();
-		Reader in = CharStreams.random(chars);
-		Character rnd = (char) in.read();
-		assertTrue(Arrays.asList(XArrays.toWrapper(chars)).contains(rnd));
 	}
 
 	@Test

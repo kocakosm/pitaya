@@ -28,9 +28,17 @@ import java.util.Random;
  *
  * @author Osman KOCAK
  */
-final class RandomInputStream extends InputStream
+public final class RandomInputStream extends InputStream
 {
+	private static final Random PRNG = new Random();
+
 	private final Random prng;
+
+	/** Creates a new {@code RandomInputStream}. */
+	public RandomInputStream()
+	{
+		this(PRNG);
+	}
 
 	/**
 	 * Creates a new {@code RandomInputStream}.
@@ -39,7 +47,7 @@ final class RandomInputStream extends InputStream
 	 *
 	 * @throws NullPointerException if {@code prng} is {@code null}.
 	 */
-	RandomInputStream(Random prng)
+	public RandomInputStream(Random prng)
 	{
 		Parameters.checkNotNull(prng);
 		this.prng = prng;

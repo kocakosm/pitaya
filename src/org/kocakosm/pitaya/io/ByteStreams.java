@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Byte streams utilities.
@@ -30,8 +29,6 @@ import java.util.Random;
  */
 public final class ByteStreams
 {
-	private static final Random PRNG = new Random();
-
 	/**
 	 * Concatenates the given {@code InputStream}s into a single one. The
 	 * given streams will be read sequentially. Closing the concatenated
@@ -82,8 +79,7 @@ public final class ByteStreams
 	 * @throws NullPointerException if one of the arguments is {@code null}.
 	 * @throws IOException if an I/O error occurs during the process.
 	 */
-	public static void copy(InputStream in, OutputStream out)
-		throws IOException
+	public static void copy(InputStream in, OutputStream out) throws IOException
 	{
 		byte[] buf = new byte[4096];
 		int len = in.read(buf);
@@ -110,46 +106,6 @@ public final class ByteStreams
 	public static InputStream limit(InputStream in, long limit)
 	{
 		return new LimitInputStream(in, limit);
-	}
-
-	/**
-	 * Returns an {@code OutputStream} that simply discards all written
-	 * bytes (as /dev/null on Unix systems). The returned instance is
-	 * immutable and thus thread-safe.
-	 *
-	 * @return the 'null' {@code OutputStream}.
-	 */
-	public static OutputStream nullOutputStream()
-	{
-		return new NullOutputStream();
-	}
-
-	/**
-	 * Returns an infinite {@code InputStream} that reads data from a
-	 * (pseudo) random number generator. Note that closing the returned
-	 * stream has no effect and that it never throws {@code IOException}s.
-	 *
-	 * @return a new 'random' {@code InputStream}.
-	 */
-	public static InputStream random()
-	{
-		return random(PRNG);
-	}
-
-	/**
-	 * Returns an infinite {@code InputStream} that reads data from the
-	 * specified source of random numbers. Note that closing the returned
-	 * stream has no effect and that it never throws {@code IOException}s.
-	 *
-	 * @param prng the source of randomness to use.
-	 *
-	 * @return a new 'random' {@code InputStream}.
-	 *
-	 * @throws NullPointerException if {@code prng} is {@code null}.
-	 */
-	public static InputStream random(Random prng)
-	{
-		return new RandomInputStream(prng);
 	}
 
 	/**

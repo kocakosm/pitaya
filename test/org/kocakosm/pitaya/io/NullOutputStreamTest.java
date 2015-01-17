@@ -16,80 +16,27 @@
 
 package org.kocakosm.pitaya.io;
 
-import org.kocakosm.pitaya.util.Parameters;
-
-import java.io.Writer;
+import org.junit.Test;
 
 /**
- * {@code Writer} that simply discards all characters written to it (similar to
- * /dev/null on Unix systems). Instances of this class are immutable.
+ * {@link NullOutputStream}'s unit tests.
  *
  * @author Osman KOCAK
  */
-public final class NullWriter extends Writer
+public final class NullOutputStreamTest
 {
-	@Override
-	public NullWriter append(char c)
-	{
-		return this;
-	}
+	private static final byte[] DATA = {
+		(byte) 0x00, (byte) 0xFF, (byte) 0x00, (byte) 0xFF
+	};
 
-	@Override
-	public NullWriter append(CharSequence sequence)
+	@Test
+	public void testNoExceptionIsThrown()
 	{
-		Parameters.checkNotNull(sequence);
-		return this;
-	}
-
-	@Override
-	public NullWriter append(CharSequence sequence, int start, int end)
-	{
-		return append(sequence.subSequence(start, end));
-	}
-
-	@Override
-	public void write(int c)
-	{
-		/* ... */
-	}
-
-	@Override
-	public void write(char[] buf)
-	{
-		Parameters.checkNotNull(buf);
-	}
-
-	@Override
-	public void write(char[] buf, int off, int len)
-	{
-		if (off < 0 || len < 0 || off + len > buf.length) {
-			throw new IndexOutOfBoundsException();
-		}
-	}
-
-	@Override
-	public void write(String str)
-	{
-		Parameters.checkNotNull(str);
-	}
-
-	@Override
-	public void write(String str, int off, int len)
-	{
-		if (off < 0 || len < 0 || off + len > str.length()) {
-			throw new IndexOutOfBoundsException();
-		}
-	}
-
-	@Override
-	public void flush()
-	{
-		/* ... */
-	}
-
-	@Override
-	public void close()
-	{
-		/* ... */
+		NullOutputStream out = new NullOutputStream();
+		out.write(DATA);
+		out.write(5);
+		out.write(DATA, 0, 2);
+		out.flush();
+		out.close();
 	}
 }

@@ -29,10 +29,25 @@ import java.util.Random;
  *
  * @author Osman KOCAK
  */
-final class RandomReader extends Reader
+public final class RandomReader extends Reader
 {
+	private static final Random PRNG = new Random();
+
 	private final Random prng;
 	private final char[] alphabet;
+
+	/**
+	 * Creates a new {@code RandomReader}.
+	 *
+	 * @param alphabet the source alphabet to use.
+	 *
+	 * @throws NullPointerException if {@code alphabet} is {@code null}.
+	 * @throws IllegalArgumentException if {@code alphabet} is empty.
+	 */
+	public RandomReader(char... alphabet)
+	{
+		this(PRNG, alphabet);
+	}
 
 	/**
 	 * Creates a new {@code RandomReader}.
@@ -43,7 +58,7 @@ final class RandomReader extends Reader
 	 * @throws NullPointerException if one of the arguments is {@code null}.
 	 * @throws IllegalArgumentException if {@code alphabet} is empty.
 	 */
-	RandomReader(Random prng, char... alphabet)
+	public RandomReader(Random prng, char... alphabet)
 	{
 		Parameters.checkNotNull(prng);
 		Parameters.checkCondition(alphabet.length > 0);

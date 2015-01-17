@@ -16,80 +16,28 @@
 
 package org.kocakosm.pitaya.io;
 
-import org.kocakosm.pitaya.util.Parameters;
-
-import java.io.Writer;
+import org.junit.Test;
 
 /**
- * {@code Writer} that simply discards all characters written to it (similar to
- * /dev/null on Unix systems). Instances of this class are immutable.
+ * {@link NullWriter}'s unit tests.
  *
  * @author Osman KOCAK
  */
-public final class NullWriter extends Writer
+public final class NullWriterTest
 {
-	@Override
-	public NullWriter append(char c)
+	@Test
+	public void testNoExceptionIsThrown()
 	{
-		return this;
-	}
-
-	@Override
-	public NullWriter append(CharSequence sequence)
-	{
-		Parameters.checkNotNull(sequence);
-		return this;
-	}
-
-	@Override
-	public NullWriter append(CharSequence sequence, int start, int end)
-	{
-		return append(sequence.subSequence(start, end));
-	}
-
-	@Override
-	public void write(int c)
-	{
-		/* ... */
-	}
-
-	@Override
-	public void write(char[] buf)
-	{
-		Parameters.checkNotNull(buf);
-	}
-
-	@Override
-	public void write(char[] buf, int off, int len)
-	{
-		if (off < 0 || len < 0 || off + len > buf.length) {
-			throw new IndexOutOfBoundsException();
-		}
-	}
-
-	@Override
-	public void write(String str)
-	{
-		Parameters.checkNotNull(str);
-	}
-
-	@Override
-	public void write(String str, int off, int len)
-	{
-		if (off < 0 || len < 0 || off + len > str.length()) {
-			throw new IndexOutOfBoundsException();
-		}
-	}
-
-	@Override
-	public void flush()
-	{
-		/* ... */
-	}
-
-	@Override
-	public void close()
-	{
-		/* ... */
+		NullWriter writer = new NullWriter();
+		writer.write(5);
+		writer.write("I Am the Walrus");
+		writer.write("I Am the Walrus".toCharArray());
+		writer.write("I Am the Walrus", 0, 15);
+		writer.write("I Am the Walrus".toCharArray(), 0, 15);
+		writer.append('5');
+		writer.append(new StringBuilder("I Am the Walrus"));
+		writer.append(new StringBuilder("I Am the Walrus"), 0, 15);
+		writer.flush();
+		writer.close();
 	}
 }

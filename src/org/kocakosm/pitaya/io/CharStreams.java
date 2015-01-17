@@ -31,7 +31,6 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Character streams utilities.
@@ -40,8 +39,6 @@ import java.util.Random;
  */
 public final class CharStreams
 {
-	private static final Random PRNG = new Random();
-
 	/**
 	 * Concatenates the given {@code Reader}s into a single one. The given
 	 * streams will be read sequentially. Closing the concatenated stream
@@ -183,53 +180,6 @@ public final class CharStreams
 	public static Reader limit(Reader in, long limit)
 	{
 		return new LimitReader(in, limit);
-	}
-
-	/**
-	 * Returns a {@code Writer} that simply discards all written characters
-	 * (as /dev/null on Unix systems). The returned instance is immutable
-	 * and thus thread-safe.
-	 *
-	 * @return the 'null' {@code Writer}.
-	 */
-	public static Writer nullWriter()
-	{
-		return new NullWriter();
-	}
-
-	/**
-	 * Returns an infinite {@code Reader} that (pseudo) randomly returns
-	 * characters from the specified array. Note that closing the returned
-	 * stream has no effect and that it never throws {@code IOException}s.
-	 *
-	 * @param chars the source array of characters.
-	 *
-	 * @return a new 'random' {@code Reader}.
-	 *
-	 * @throws NullPointerException if {@code chars} is {@code null}.
-	 * @throws IllegalArgumentException if {@code chars} is empty.
-	 */
-	public static Reader random(char... chars)
-	{
-		return random(PRNG, chars);
-	}
-
-	/**
-	 * Returns an infinite {@code Reader} that (pseudo) randomly returns
-	 * characters from the specified array. Note that closing the returned
-	 * stream has no effect and that it never throws {@code IOException}s.
-	 *
-	 * @param prng the source of randomness to use.
-	 * @param chars the source array of characters.
-	 *
-	 * @return a new 'random' {@code Reader}.
-	 *
-	 * @throws NullPointerException if one of the arguments is {@code null}.
-	 * @throws IllegalArgumentException if {@code chars} is empty.
-	 */
-	public static Reader random(Random prng, char... chars)
-	{
-		return new RandomReader(prng, chars);
 	}
 
 	/**
