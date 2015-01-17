@@ -108,6 +108,17 @@ public final class StringReader extends Reader
 		return true;
 	}
 
+	/**
+	 * Marks the current position in the stream. Subsequent calls to reset()
+	 * will reposition the stream to this point.
+	 *
+	 * @param readLimit limit on the number of characters that may be read
+	 *	while still preserving the mark. Because the stream's input
+	 *	comes from {@code String}s, there is no actual limit, so this
+	 *	argument must not be negative, but is otherwise ignored.
+	 *
+	 * @throws IllegalArgumentException if {@code readLimit} is negative.
+	 */
 	@Override
 	public void mark(int readLimit)
 	{
@@ -115,6 +126,10 @@ public final class StringReader extends Reader
 		mark = index;
 	}
 
+	/**
+	 * Resets the stream to the most recent mark, or to the beginning of the
+	 * stream if it has never been marked.
+	 */
 	@Override
 	public void reset()
 	{

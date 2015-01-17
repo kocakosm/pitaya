@@ -120,7 +120,7 @@ final class LimitReader extends Reader
 	public void reset() throws IOException
 	{
 		synchronized (innerLock) {
-			if (mark == -1) {
+			if (mark == -1 || (mark > -1 && position > markLimit)) {
 				throw new IOException("Missing mark");
 			}
 			reader.reset();
@@ -150,9 +150,6 @@ final class LimitReader extends Reader
 	{
 		if (n != -1) {
 			position += n;
-			if (mark > -1 && position > markLimit) {
-				mark = -1;
-			}
 		}
 	}
 }

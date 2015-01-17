@@ -132,7 +132,7 @@ final class LimitInputStream extends InputStream
 	public void reset() throws IOException
 	{
 		synchronized (lock) {
-			if (mark == -1) {
+			if (mark == -1 || (mark > -1 && position > markLimit)) {
 				throw new IOException("Missing mark");
 			}
 			in.reset();
@@ -154,9 +154,6 @@ final class LimitInputStream extends InputStream
 	{
 		if (n != -1) {
 			position += n;
-			if (mark > -1 && position > markLimit) {
-				mark = -1;
-			}
 		}
 	}
 }

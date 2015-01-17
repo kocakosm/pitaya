@@ -105,7 +105,7 @@ final class ConcatInputStream extends InputStream
 	@Override
 	public long skip(long n) throws IOException
 	{
-		return finished() ? 0 : current().read(new byte[(int) n]);
+		return finished() ? 0L : current().skip(n);
 	}
 
 	private InputStream current()
