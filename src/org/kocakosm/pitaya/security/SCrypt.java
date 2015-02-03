@@ -16,7 +16,6 @@
 
 package org.kocakosm.pitaya.security;
 
-import org.kocakosm.pitaya.util.Bits;
 import org.kocakosm.pitaya.util.ByteBuffer;
 import org.kocakosm.pitaya.util.LittleEndian;
 import org.kocakosm.pitaya.util.Parameters;
@@ -127,38 +126,38 @@ final class SCrypt implements KDF
 		}
 		int[] x = Arrays.copyOf(in, in.length);
 		for (int i = rounds; i > 0; i -= 2) {
-			x[ 4] ^= Bits.rotateLeft(x[ 0] + x[12], 7);
-			x[ 8] ^= Bits.rotateLeft(x[ 4] + x[ 0], 9);
-			x[12] ^= Bits.rotateLeft(x[ 8] + x[ 4], 13);
-			x[ 0] ^= Bits.rotateLeft(x[12] + x[ 8], 18);
-			x[ 9] ^= Bits.rotateLeft(x[ 5] + x[ 1], 7);
-			x[13] ^= Bits.rotateLeft(x[ 9] + x[ 5], 9);
-			x[ 1] ^= Bits.rotateLeft(x[13] + x[ 9], 13);
-			x[ 5] ^= Bits.rotateLeft(x[ 1] + x[13], 18);
-			x[14] ^= Bits.rotateLeft(x[10] + x[ 6], 7);
-			x[ 2] ^= Bits.rotateLeft(x[14] + x[10], 9);
-			x[ 6] ^= Bits.rotateLeft(x[ 2] + x[14], 13);
-			x[10] ^= Bits.rotateLeft(x[ 6] + x[ 2], 18);
-			x[ 3] ^= Bits.rotateLeft(x[15] + x[11], 7);
-			x[ 7] ^= Bits.rotateLeft(x[ 3] + x[15], 9);
-			x[11] ^= Bits.rotateLeft(x[ 7] + x[ 3], 13);
-			x[15] ^= Bits.rotateLeft(x[11] + x[ 7], 18);
-			x[ 1] ^= Bits.rotateLeft(x[ 0] + x[ 3], 7);
-			x[ 2] ^= Bits.rotateLeft(x[ 1] + x[ 0], 9);
-			x[ 3] ^= Bits.rotateLeft(x[ 2] + x[ 1], 13);
-			x[ 0] ^= Bits.rotateLeft(x[ 3] + x[ 2], 18);
-			x[ 6] ^= Bits.rotateLeft(x[ 5] + x[ 4], 7);
-			x[ 7] ^= Bits.rotateLeft(x[ 6] + x[ 5], 9);
-			x[ 4] ^= Bits.rotateLeft(x[ 7] + x[ 6], 13);
-			x[ 5] ^= Bits.rotateLeft(x[ 4] + x[ 7], 18);
-			x[11] ^= Bits.rotateLeft(x[10] + x[ 9], 7);
-			x[ 8] ^= Bits.rotateLeft(x[11] + x[10], 9);
-			x[ 9] ^= Bits.rotateLeft(x[ 8] + x[11], 13);
-			x[10] ^= Bits.rotateLeft(x[ 9] + x[ 8], 18);
-			x[12] ^= Bits.rotateLeft(x[15] + x[14], 7);
-			x[13] ^= Bits.rotateLeft(x[12] + x[15], 9);
-			x[14] ^= Bits.rotateLeft(x[13] + x[12], 13);
-			x[15] ^= Bits.rotateLeft(x[14] + x[13], 18);
+			x[ 4] ^= Integer.rotateLeft(x[ 0] + x[12], 7);
+			x[ 8] ^= Integer.rotateLeft(x[ 4] + x[ 0], 9);
+			x[12] ^= Integer.rotateLeft(x[ 8] + x[ 4], 13);
+			x[ 0] ^= Integer.rotateLeft(x[12] + x[ 8], 18);
+			x[ 9] ^= Integer.rotateLeft(x[ 5] + x[ 1], 7);
+			x[13] ^= Integer.rotateLeft(x[ 9] + x[ 5], 9);
+			x[ 1] ^= Integer.rotateLeft(x[13] + x[ 9], 13);
+			x[ 5] ^= Integer.rotateLeft(x[ 1] + x[13], 18);
+			x[14] ^= Integer.rotateLeft(x[10] + x[ 6], 7);
+			x[ 2] ^= Integer.rotateLeft(x[14] + x[10], 9);
+			x[ 6] ^= Integer.rotateLeft(x[ 2] + x[14], 13);
+			x[10] ^= Integer.rotateLeft(x[ 6] + x[ 2], 18);
+			x[ 3] ^= Integer.rotateLeft(x[15] + x[11], 7);
+			x[ 7] ^= Integer.rotateLeft(x[ 3] + x[15], 9);
+			x[11] ^= Integer.rotateLeft(x[ 7] + x[ 3], 13);
+			x[15] ^= Integer.rotateLeft(x[11] + x[ 7], 18);
+			x[ 1] ^= Integer.rotateLeft(x[ 0] + x[ 3], 7);
+			x[ 2] ^= Integer.rotateLeft(x[ 1] + x[ 0], 9);
+			x[ 3] ^= Integer.rotateLeft(x[ 2] + x[ 1], 13);
+			x[ 0] ^= Integer.rotateLeft(x[ 3] + x[ 2], 18);
+			x[ 6] ^= Integer.rotateLeft(x[ 5] + x[ 4], 7);
+			x[ 7] ^= Integer.rotateLeft(x[ 6] + x[ 5], 9);
+			x[ 4] ^= Integer.rotateLeft(x[ 7] + x[ 6], 13);
+			x[ 5] ^= Integer.rotateLeft(x[ 4] + x[ 7], 18);
+			x[11] ^= Integer.rotateLeft(x[10] + x[ 9], 7);
+			x[ 8] ^= Integer.rotateLeft(x[11] + x[10], 9);
+			x[ 9] ^= Integer.rotateLeft(x[ 8] + x[11], 13);
+			x[10] ^= Integer.rotateLeft(x[ 9] + x[ 8], 18);
+			x[12] ^= Integer.rotateLeft(x[15] + x[14], 7);
+			x[13] ^= Integer.rotateLeft(x[12] + x[15], 9);
+			x[14] ^= Integer.rotateLeft(x[13] + x[12], 13);
+			x[15] ^= Integer.rotateLeft(x[14] + x[13], 18);
 		}
 		byte[] out = new byte[64];
 		for (int i = 0; i < 16; i++) {

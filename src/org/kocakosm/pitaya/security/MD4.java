@@ -16,7 +16,6 @@
 
 package org.kocakosm.pitaya.security;
 
-import org.kocakosm.pitaya.util.Bits;
 import org.kocakosm.pitaya.util.LittleEndian;
 
 /**
@@ -195,17 +194,17 @@ final class MD4 extends AbstractDigest
 
 	private int FF(int a, int b, int c, int d, int x, int s)
 	{
-		return Bits.rotateLeft(a + F(b, c, d) + x, s);
+		return Integer.rotateLeft(a + F(b, c, d) + x, s);
 	}
 
 	private int GG(int a, int b, int c, int d, int x, int s)
 	{
-		return Bits.rotateLeft(a + G(b, c, d) + x + 0x5A827999, s);
+		return Integer.rotateLeft(a + G(b, c, d) + x + 0x5A827999, s);
 	}
 
 	private int HH(int a, int b, int c, int d, int x, int s)
 	{
-		return Bits.rotateLeft(a + H(b, c, d) + x + 0x6ED9EBA1, s);
+		return Integer.rotateLeft(a + H(b, c, d) + x + 0x6ED9EBA1, s);
 	}
 
 	private int F(int x, int y, int z)
