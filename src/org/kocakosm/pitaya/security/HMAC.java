@@ -16,8 +16,6 @@
 
 package org.kocakosm.pitaya.security;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Arrays;
 
 /**
@@ -25,12 +23,11 @@ import java.util.Arrays;
  * HMAC is a specific construction for calculating a {@link MAC} involving a
  * cryptographic hash function in combination with a secret key. As with any
  * MAC, it may be used to simultaneously verify both the data integrity and the
- * authenticity of a message. HMAC is specified in RFC 2104.
- * Careful: the cryptographic strength of a HMAC depends upon the cryptographic
- * strength of the underlying hash function, the size of its hash output length
- * in bits, and on the size and quality of the cryptographic key, so, some of
- * these HMAC engines may not be suitable for security related applications.
- * Also, note that instances returned by this class are not thread-safe.
+ * authenticity of a message. The cryptographic strength of a HMAC depends on
+ * the cryptographic strength of the underlying hash function, the length of its
+ * hash output in bits, and, on the size and quality of the key. HMAC is
+ * specified in RFC 2104. None of the {@link MAC} instances returned by this
+ * class is thread-safe.
  *
  * @author Osman KOCAK
  */
@@ -230,13 +227,6 @@ public final class HMAC
 		}
 
 		@Override
-		public MAC update(InputStream input) throws IOException
-		{
-			digest.update(input);
-			return this;
-		}
-
-		@Override
 		public byte[] mac()
 		{
 			byte[] hash = digest.digest();
@@ -259,13 +249,6 @@ public final class HMAC
 		public byte[] mac(byte[] input, int off, int len)
 		{
 			update(input, off, len);
-			return mac();
-		}
-
-		@Override
-		public byte[] mac(InputStream input) throws IOException
-		{
-			update(input);
 			return mac();
 		}
 

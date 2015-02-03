@@ -16,12 +16,9 @@
 
 package org.kocakosm.pitaya.security;
 
-import java.io.IOException;
-import java.io.InputStream;
-
 /**
- * A digest engine. Implementations of this interface are not meant to be
- * thread-safe.
+ * A digest engine. Note that implementations of this interface are not meant to
+ * be thread-safe.
  *
  * @see Digests
  *
@@ -68,7 +65,7 @@ public interface Digest
 	 * array of bytes, starting at the specified offset.
 	 *
 	 * @param input the array of bytes.
-	 * @param off the offset to start from in the array of bytes.
+	 * @param off the offset to start from in the array of bytes, inclusive.
 	 * @param len the number of bytes to use, starting at {@code off}.
 	 *
 	 * @return this object.
@@ -78,19 +75,6 @@ public interface Digest
 	 *	{@code off + len} is greater than {@code input}'s length.
 	 */
 	Digest update(byte[] input, int off, int len);
-
-	/**
-	 * Updates the digest using the content of the specified stream.
-	 *
-	 * @param input the stream to process.
-	 *
-	 * @return this object.
-	 *
-	 * @throws NullPointerException if {@code input} is {@code null}.
-	 * @throws IOException if {@code input} can't be read or if it has been
-	 *	closed, or if some other I/O error occurs.
-	 */
-	Digest update(InputStream input) throws IOException;
 
 	/**
 	 * Completes the hash computation. Note that the engine is reset after
@@ -107,7 +91,8 @@ public interface Digest
 	 * update method, then calls {@link #digest()}. Note that the engine is
 	 * reset after this call is made.
 	 *
-	 * @param input the input to be updated before the digest is completed.
+	 * @param input the array of bytes with which to update the digest
+	 *	before completing its computation.
 	 *
 	 * @return the resulting digest.
 	 *
@@ -122,8 +107,8 @@ public interface Digest
 	 * the update method, then calls {@link #digest()}. Note that the engine
 	 * is reset after this call is made.
 	 *
-	 * @param input the input array of bytes.
-	 * @param off the offset to start from in the array of bytes.
+	 * @param input the array of bytes.
+	 * @param off the offset to start from in the array of bytes, inclusive.
 	 * @param len the number of bytes to use, starting at {@code off}.
 	 *
 	 * @return the resulting digest.
@@ -133,21 +118,4 @@ public interface Digest
 	 *	{@code off + len} is greater than {@code input}'s length.
 	 */
 	byte[] digest(byte[] input, int off, int len);
-
-	/**
-	 * Performs a final update on the digest using the specified stream,
-	 * then completes the digest computation. That is, this method first
-	 * calls {@link #update(InputStream)}, passing the input stream to the
-	 * update method, then calls {@link #digest()}. Note that the engine is
-	 * reset after this call is made.
-	 *
-	 * @param input the stream to process.
-	 *
-	 * @return the resulting digest.
-	 *
-	 * @throws NullPointerException if {@code input} is {@code null}.
-	 * @throws IOException if {@code input} can't be read or if it has been
-	 *	closed, or if some other I/O error occurs.
-	 */
-	byte[] digest(InputStream input) throws IOException;
 }

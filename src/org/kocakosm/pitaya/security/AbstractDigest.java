@@ -16,9 +16,6 @@
 
 package org.kocakosm.pitaya.security;
 
-import java.io.IOException;
-import java.io.InputStream;
-
 /**
  * Abstract skeleton implementation of the {@link Digest} interface.
  *
@@ -54,18 +51,6 @@ abstract class AbstractDigest implements Digest
 	}
 
 	@Override
-	public Digest update(InputStream input) throws IOException
-	{
-		byte[] buf = new byte[2048];
-		int len = input.read(buf);
-		while (len >= 0) {
-			update(buf, 0, len);
-			len = input.read(buf);
-		}
-		return this;
-	}
-
-	@Override
 	public byte[] digest(byte... input)
 	{
 		return update(input, 0, input.length).digest();
@@ -75,12 +60,6 @@ abstract class AbstractDigest implements Digest
 	public byte[] digest(byte[] input, int off, int len)
 	{
 		return update(input, off, len).digest();
-	}
-
-	@Override
-	public byte[] digest(InputStream input) throws IOException
-	{
-		return update(input).digest();
 	}
 
 	@Override
