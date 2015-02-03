@@ -28,7 +28,7 @@ public interface KDF
 	/**
 	 * Derives a key from the given secret and salt.
 	 *
-	 * @param secret the secret key.
+	 * @param secret the secret.
 	 * @param salt the salt.
 	 *
 	 * @return the derived key.

@@ -16,7 +16,6 @@
 
 package org.kocakosm.pitaya.security;
 
-import org.kocakosm.pitaya.util.Bits;
 import org.kocakosm.pitaya.util.LittleEndian;
 import org.kocakosm.pitaya.util.Parameters;
 
@@ -24,8 +23,6 @@ import java.util.Arrays;
 
 /**
  * The Keccak digest algorithm. Instances of this class are not thread safe.
- * Note: this implementation is focused on readability instead of performance,
- * so it should not perform as well as other implementations.
  *
  * @author Osman KOCAK
  */
@@ -47,6 +44,9 @@ final class Keccak extends AbstractDigest
 	};
 
 	private final long[] A;
+	private final long[] B;
+	private final long[] C;
+	private final long[] D;
 	private final int blockLen;
 	private final byte[] buffer;
 	private int bufferLen;
@@ -62,8 +62,12 @@ final class Keccak extends AbstractDigest
 	Keccak(int length)
 	{
 		super("Keccak-" + length * 8, length);
-		Parameters.checkCondition(length == 28 || length == 32 || length == 48 || length == 64);
+		Parameters.checkCondition(length == 28 || length == 32
+			|| length == 48 || length == 64);
 		this.A = new long[25];
+		this.B = new long[25];
+		this.C = new long[5];
+		this.D = new long[5];
 		this.blockLen = 200 - 2 * length;
 		this.buffer = new byte[blockLen];
 		this.bufferLen = 0;
@@ -142,33 +146,41 @@ final class Keccak extends AbstractDigest
 
 	private void keccakf()
 	{
-		long[] B = new long[25];
-		long[] C = new long[5];
-		long[] D = new long[5];
 		for (int n = 0; n < 24; n++) {
-			for (int x = 0; x < 5; x++) {
-				C[x] = A[index(x, 0)] ^ A[index(x, 1)] ^ A[index(x, 2)] ^ A[index(x, 3)] ^ A[index(x, 4)];
-			}
-			for (int x = 0; x < 5; x++) {
-				D[x] = C[index(x - 1)] ^ Bits.rotateLeft(C[index(x + 1)], 1);
-				for (int y = 0; y < 5; y++) {
-					A[index(x, y)] ^= D[x];
-				}
-			}
-			for (int x = 0; x < 5; x++) {
-				for (int y = 0; y < 5; y++) {
-					int i = index(x, y);
-					B[index(y, x * 2 + 3 * y)] = Bits.rotateLeft(A[i], R[i]);
-				}
-			}
-			for (int x = 0; x < 5; x++) {
-				for (int y = 0; y < 5; y++) {
-					int i = index(x, y);
-					A[i] = B[i] ^ (~B[index(x + 1, y)] & B[index(x + 2, y)]);
-				}
-			}
-			A[0] ^= RC[n];
+			round(n);
 		}
+	}
+
+	private void round(int n)
+	{
+		for (int x = 0; x < 5; x++) {
+			C[x] = A[index(x, 0)] ^ A[index(x, 1)] ^ A[index(x, 2)]
+				^ A[index(x, 3)] ^ A[index(x, 4)];
+		}
+		for (int x = 0; x < 5; x++) {
+			D[x] = C[index(x - 1)] ^ rot(C[index(x + 1)], 1);
+			for (int y = 0; y < 5; y++) {
+				A[index(x, y)] ^= D[x];
+			}
+		}
+		for (int x = 0; x < 5; x++) {
+			for (int y = 0; y < 5; y++) {
+				int i = index(x, y);
+				B[index(y, x * 2 + 3 * y)] = rot(A[i], R[i]);
+			}
+		}
+		for (int x = 0; x < 5; x++) {
+			for (int y = 0; y < 5; y++) {
+				int i = index(x, y);
+				A[i] = B[i] ^ (~B[index(x + 1, y)] & B[index(x + 2, y)]);
+			}
+		}
+		A[0] ^= RC[n];
+	}
+
+	private long rot(long w, int r)
+	{
+		return Long.rotateLeft(w, r);
 	}
 
 	private int index(int x)

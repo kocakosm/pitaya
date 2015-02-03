@@ -50,7 +50,7 @@ final class HKDF implements KDF
 	HKDF(Algorithm<MAC> algorithm, byte[] info, int dkLen)
 	{
 		Parameters.checkCondition(dkLen > 0);
-		MAC mac = Factory.getMAC(algorithm, new byte[0]);
+		MAC mac = Factory.newMAC(algorithm, new byte[0]);
 		Parameters.checkCondition(dkLen <= 255 * mac.length());
 		this.algorithm = algorithm;
 		this.dkLen = dkLen;
@@ -63,22 +63,14 @@ final class HKDF implements KDF
 		return expand(extract(secret, salt));
 	}
 
-	@Override
-	public String toString()
-	{
-		return XObjects.toStringBuilder("HKDF").append("MAC", algorithm)
-			.append("info", "0x" + BaseEncoding.BASE_16.encode(info))
-			.append("dkLen", dkLen).toString();
-	}
-
 	private byte[] extract(byte[] key, byte[] salt)
 	{
-		return Factory.getMAC(algorithm, salt).mac(key);
+		return Factory.newMAC(algorithm, salt).mac(key);
 	}
 
 	private byte[] expand(byte[] key)
 	{
-		MAC mac = Factory.getMAC(algorithm, key);
+		MAC mac = Factory.newMAC(algorithm, key);
 		ByteBuffer t = new ByteBuffer(dkLen + mac.length());
 		int n = (int) Math.ceil((double) dkLen / mac.length());
 		byte[] u = new byte[0];
@@ -87,5 +79,13 @@ final class HKDF implements KDF
 			t.append(u);
 		}
 		return t.toByteArray(0, dkLen);
+	}
+
+	@Override
+	public String toString()
+	{
+		return XObjects.toStringBuilder("HKDF").append("MAC", algorithm)
+			.append("info", "0x" + BaseEncoding.BASE_16.encode(info))
+			.append("dkLen", dkLen).toString();
 	}
 }

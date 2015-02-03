@@ -23,17 +23,16 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  * Somme commonly used digest algorithms. None of the {@link Digest} instances
- * returned by this class is thread-safe. Also, be careful: some of these
- * algorithms may not be suitable for security related applications.
+ * returned by this class is thread-safe.
  *
  * @author Osman KOCAK
  */
 public final class Digests
 {
 	/**
-	 * Returns a new MD2 {@link Digest} instance.
+	 * Returns a new MD2 {@code Digest} instance.
 	 *
-	 * @return a new MD2 {@link Digest} instance.
+	 * @return a new MD2 {@code Digest} instance.
 	 */
 	public static Digest md2()
 	{
@@ -41,9 +40,9 @@ public final class Digests
 	}
 
 	/**
-	 * Returns a new MD4 {@link Digest} instance.
+	 * Returns a new MD4 {@code Digest} instance.
 	 *
-	 * @return a new MD4 {@link Digest} instance.
+	 * @return a new MD4 {@code Digest} instance.
 	 */
 	public static Digest md4()
 	{
@@ -51,9 +50,9 @@ public final class Digests
 	}
 
 	/**
-	 * Returns a new MD5 {@link Digest} instance.
+	 * Returns a new MD5 {@code Digest} instance.
 	 *
-	 * @return a new MD5 {@link Digest} instance.
+	 * @return a new MD5 {@code Digest} instance.
 	 */
 	public static Digest md5()
 	{
@@ -61,9 +60,9 @@ public final class Digests
 	}
 
 	/**
-	 * Returns a new SHA1 {@link Digest} instance.
+	 * Returns a new SHA1 {@code Digest} instance.
 	 *
-	 * @return a new SHA1 {@link Digest} instance.
+	 * @return a new SHA1 {@code Digest} instance.
 	 */
 	public static Digest sha1()
 	{
@@ -71,9 +70,9 @@ public final class Digests
 	}
 
 	/**
-	 * Returns a new SHA-256 {@link Digest} instance.
+	 * Returns a new SHA-256 {@code Digest} instance.
 	 *
-	 * @return a new SHA-256 {@link Digest} instance.
+	 * @return a new SHA-256 {@code Digest} instance.
 	 */
 	public static Digest sha256()
 	{
@@ -81,9 +80,9 @@ public final class Digests
 	}
 
 	/**
-	 * Returns a new SHA-512 {@link Digest} instance.
+	 * Returns a new SHA-512 {@code Digest} instance.
 	 *
-	 * @return a new SHA-512 {@link Digest} instance.
+	 * @return a new SHA-512 {@code Digest} instance.
 	 */
 	public static Digest sha512()
 	{
@@ -91,9 +90,9 @@ public final class Digests
 	}
 
 	/**
-	 * Returns a new Keccak-224 {@link Digest} instance.
+	 * Returns a new Keccak-224 {@code Digest} instance.
 	 *
-	 * @return a new Keccak-224 {@link Digest} instance.
+	 * @return a new Keccak-224 {@code Digest} instance.
 	 */
 	public static Digest keccak224()
 	{
@@ -101,9 +100,9 @@ public final class Digests
 	}
 
 	/**
-	 * Returns a new Keccak-256 {@link Digest} instance.
+	 * Returns a new Keccak-256 {@code Digest} instance.
 	 *
-	 * @return a new Keccak-256 {@link Digest} instance.
+	 * @return a new Keccak-256 {@code Digest} instance.
 	 */
 	public static Digest keccak256()
 	{
@@ -111,9 +110,9 @@ public final class Digests
 	}
 
 	/**
-	 * Returns a new Keccak-384 {@link Digest} instance.
+	 * Returns a new Keccak-384 {@code Digest} instance.
 	 *
-	 * @return a new Keccak-384 {@link Digest} instance.
+	 * @return a new Keccak-384 {@code Digest} instance.
 	 */
 	public static Digest keccak384()
 	{
@@ -121,9 +120,9 @@ public final class Digests
 	}
 
 	/**
-	 * Returns a new Keccak-512 {@link Digest} instance.
+	 * Returns a new Keccak-512 {@code Digest} instance.
 	 *
-	 * @return a new Keccak-512 {@link Digest} instance.
+	 * @return a new Keccak-512 {@code Digest} instance.
 	 */
 	public static Digest keccak512()
 	{

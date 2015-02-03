@@ -17,23 +17,21 @@
 package org.kocakosm.pitaya.security;
 
 /**
- * Somme commonly used key derivation function algorithms. Instances returned
- * by this class are all thread-safe. Careful: some of these algorithms may no
- * more be suitable for security related applications.
+ * Somme commonly used key derivation function algorithms.
  *
  * @author Osman KOCAK
  */
 public final class KDFs
 {
 	/**
-	 * Creates and returns a new {@link KDF} instance implementing the
-	 * PBKDF1 algorithm (RFC 2898).
+	 * Creates and returns a new immutable {@code KDF} instance implementing
+	 * the PBKDF1 algorithm (RFC 2898).
 	 *
 	 * @param digest the digest algorithm to use.
 	 * @param iterationCount the desired number of iterations.
 	 * @param dkLen the desired length for derived keys, in bytes.
 	 *
-	 * @return the created {@link KDF} instance.
+	 * @return the created {@code KDF} instance.
 	 *
 	 * @throws NullPointerException if {@code digest} is {@code null}.
 	 * @throws IllegalArgumentException if {@code iterationCount} or
@@ -48,14 +46,14 @@ public final class KDFs
 	}
 
 	/**
-	 * Creates and returns a new {@link KDF} instance implementing the
-	 * PBKDF2 algorithm (RFC 2898).
+	 * Creates and returns a new immutable {@code KDF} instance implementing
+	 * the PBKDF2 algorithm (RFC 2898).
 	 *
 	 * @param mac the MAC algorithm to use.
 	 * @param iterationCount the desired number of iterations.
 	 * @param dkLen the desired length for derived keys, in bytes.
 	 *
-	 * @return the created {@link KDF} instance.
+	 * @return the created {@code KDF} instance.
 	 *
 	 * @throws NullPointerException if {@code mac} is {@code null}.
 	 * @throws IllegalArgumentException if {@code iterationCount} or
@@ -68,17 +66,17 @@ public final class KDFs
 	}
 
 	/**
-	 * Creates and returns a new {@link KDF} instance implementing the
-	 * HKDF algorithm (RFC 5869).
+	 * Creates and returns a new immutable {@code KDF} instance implementing
+	 * the HKDF algorithm (RFC 5869).
 	 *
 	 * @param mac the MAC algorithm to use.
 	 * @param info optional context and application specific information,
 	 *	may be {@code null} or empty.
 	 * @param dkLen the desired length for derived keys, in bytes.
 	 *
-	 * @return the created {@link KDF} instance.
+	 * @return the created {@code KDF} instance.
 	 *
-	 * @throws NullPointerException if {@code algorithm} is {@code null}.
+	 * @throws NullPointerException if {@code mac} is {@code null}.
 	 * @throws IllegalArgumentException if {@code dkLen} is negative, or if
 	 *	the MAC algorithm is unknown, or if {@code dkLen} is greater
 	 *	than 255 * MAC algorithm's output length.
@@ -89,17 +87,17 @@ public final class KDFs
 	}
 
 	/**
-	 * Creates and returns a new {@link KDF} instance implementing the
-	 * SCrypt algorithm as specified by the Internet Engineering Task Force.
-	 * See http://tools.ietf.org/html/draft-josefsson-scrypt-kdf-01 for more
-	 * information.
+	 * Creates and returns a new immutable {@code KDF} instance implementing
+	 * the SCrypt algorithm as specified by the Internet Engineering Task
+	 * Force. See http://tools.ietf.org/html/draft-josefsson-scrypt-kdf-01
+	 * for more information.
 	 *
 	 * @param r the block size parameter.
 	 * @param n the CPU/Memory cost parameter.
 	 * @param p the parallelization parameter.
 	 * @param dkLen the desired length for derived keys, in bytes.
 	 *
-	 * @return the created {@link KDF} instance.
+	 * @return the created {@code KDF} instance.
 	 *
 	 * @throws IllegalArgumentException if {@code r, dkLen} or {@code p} is
 	 *	negative, or if {@code n} is not greater than 1 or if it is not

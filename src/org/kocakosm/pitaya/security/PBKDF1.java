@@ -50,7 +50,7 @@ final class PBKDF1 implements KDF
 	{
 		Parameters.checkCondition(dkLen > 0);
 		Parameters.checkCondition(iterationCount > 0);
-		Digest digest = Factory.getDigest(algorithm);
+		Digest digest = Factory.newDigest(algorithm);
 		Parameters.checkCondition(dkLen <= digest.length());
 		this.algorithm = algorithm;
 		this.iterationCount = iterationCount;
@@ -60,7 +60,7 @@ final class PBKDF1 implements KDF
 	@Override
 	public byte[] deriveKey(byte[] secret, byte[] salt)
 	{
-		Digest digest = Factory.getDigest(algorithm);
+		Digest digest = Factory.newDigest(algorithm);
 		byte[] hash = digest.update(secret).digest(salt);
 		for (int i = 1; i < iterationCount; i++) {
 			hash = digest.digest(hash);

@@ -48,7 +48,7 @@ final class PBKDF2 implements KDF
 	{
 		Parameters.checkCondition(dkLen > 0);
 		Parameters.checkCondition(iterationCount > 0);
-		Factory.getMAC(algorithm, new byte[0]);
+		Factory.newMAC(algorithm, new byte[0]);
 		this.algorithm = algorithm;
 		this.iterationCount = iterationCount;
 		this.dkLen = dkLen;
@@ -57,7 +57,7 @@ final class PBKDF2 implements KDF
 	@Override
 	public byte[] deriveKey(byte[] secret, byte[] salt)
 	{
-		MAC mac = Factory.getMAC(algorithm, secret);
+		MAC mac = Factory.newMAC(algorithm, secret);
 		int d = (int) Math.ceil((double) dkLen / mac.length());
 		ByteBuffer t = new ByteBuffer(d * mac.length());
 		for (int i = 1; i <= d; i++) {

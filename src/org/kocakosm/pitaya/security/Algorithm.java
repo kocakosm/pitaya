@@ -19,7 +19,7 @@ package org.kocakosm.pitaya.security;
 /**
  * Algorithm identifier.
  *
- * @param <T> the category of the algorithm.
+ * @param <T> the type of the algorithm.
  *
  * @author Osman KOCAK
  */

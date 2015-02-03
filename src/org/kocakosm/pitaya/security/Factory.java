@@ -19,7 +19,7 @@ package org.kocakosm.pitaya.security;
 import org.kocakosm.pitaya.util.Parameters;
 
 /**
- * Utility class to easily get instances of {@link Digest} and {@link MAC}.
+ * Utility class to easily create instances of {@link Digest} and {@link MAC}.
  *
  * @author Osman KOCAK
  */
@@ -36,7 +36,7 @@ final class Factory
 	 * @throws NullPointerException if {@code algorithm} is {@code null}.
 	 * @throws IllegalArgumentException if the given algorithm is unknown.
 	 */
-	static Digest getDigest(Algorithm<Digest> algorithm)
+	static Digest newDigest(Algorithm<Digest> algorithm)
 	{
 		Parameters.checkNotNull(algorithm);
 		Digest digest;
@@ -78,7 +78,7 @@ final class Factory
 	 * @throws NullPointerException if {@code algorithm} is {@code null}.
 	 * @throws IllegalArgumentException if the given algorithm is unknown.
 	 */
-	static MAC getMAC(Algorithm<MAC> algorithm, byte[] key)
+	static MAC newMAC(Algorithm<MAC> algorithm, byte[] key)
 	{
 		Parameters.checkNotNull(algorithm);
 		MAC mac;
