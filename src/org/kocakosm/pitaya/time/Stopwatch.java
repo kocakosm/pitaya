@@ -26,14 +26,14 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
  *
  * @author Osman KOCAK
  */
-public final class Chronometer
+public final class Stopwatch
 {
 	private long referenceTime;
 	private long elapsedTime;
 	private boolean running;
 
-	/** Creates a new (unstarted) {@code Chronometer}. */
-	public Chronometer()
+	/** Creates a new (unstarted) {@code Stopwatch}. */
+	public Stopwatch()
 	{
 		this.referenceTime = now();
 		this.elapsedTime = 0L;
@@ -45,7 +45,7 @@ public final class Chronometer
 	 * object, and {@link #stop()} hasn't been called since the last call
 	 * to {@code start()}.
 	 *
-	 * @return whether this chronometer is running.
+	 * @return whether this stopwatch is running.
 	 */
 	public boolean isRunning()
 	{
@@ -53,13 +53,13 @@ public final class Chronometer
 	}
 
 	/**
-	 * Starts this chronometer.
+	 * Starts this stopwatch.
 	 *
 	 * @return this object.
 	 *
-	 * @throws IllegalStateException if this chronometer is already running.
+	 * @throws IllegalStateException if this stopwatch is already running.
 	 */
-	public Chronometer start()
+	public Stopwatch start()
 	{
 		if (running) {
 			throw new IllegalStateException("Already running...");
@@ -70,13 +70,13 @@ public final class Chronometer
 	}
 
 	/**
-	 * Stops this chronometer.
+	 * Stops this stopwatch.
 	 *
 	 * @return this object.
 	 *
-	 * @throws IllegalStateException if this chronometer is already stopped.
+	 * @throws IllegalStateException if this stopwatch is already stopped.
 	 */
-	public Chronometer stop()
+	public Stopwatch stop()
 	{
 		if (!running) {
 			throw new IllegalStateException("Already idle...");
@@ -87,13 +87,12 @@ public final class Chronometer
 	}
 
 	/**
-	 * Resets this chronometer (sets the elapsed time for this chronometer
-	 * to zero). Calling this method does NOT modify this chronometer's
-	 * state (remains running if it was running, and, idle if it was idle).
+	 * Resets this stopwatch (sets the elapsed time for this stopwatch to
+	 * zero). Calling this method does NOT modify this stopwatch's state.
 	 *
 	 * @return this object.
 	 */
-	public Chronometer reset()
+	public Stopwatch reset()
 	{
 		elapsedTime = 0L;
 		referenceTime = now();
@@ -101,7 +100,8 @@ public final class Chronometer
 	}
 
 	/**
-	 * Returns the current elapsed time, expressed in milliseconds.
+	 * Returns the current elapsed time, expressed in milliseconds. Calling
+	 * this method does NOT modify this stopwatch's state.
 	 *
 	 * @return the current elapsed time.
 	 */

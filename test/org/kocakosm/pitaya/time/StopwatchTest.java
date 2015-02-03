@@ -21,67 +21,67 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * {@link Chronometer}'s unit tests.
+ * {@link Stopwatch}'s unit tests.
  *
  * @author Osman KOCAK
  */
-public final class ChronometerTest
+public final class StopwatchTest
 {
 	@Test(expected = IllegalStateException.class)
 	public void testStopAlreadyIdle()
 	{
-		Chronometer chronometer = new Chronometer();
-		assertFalse(chronometer.isRunning());
-		chronometer.stop();
+		Stopwatch stopwatch = new Stopwatch();
+		assertFalse(stopwatch.isRunning());
+		stopwatch.stop();
 	}
 
 	@Test(expected = IllegalStateException.class)
 	public void testStartAlreadyRunning()
 	{
-		Chronometer chronometer = new Chronometer().start();
-		assertTrue(chronometer.isRunning());
-		chronometer.start();
+		Stopwatch stopwatch = new Stopwatch().start();
+		assertTrue(stopwatch.isRunning());
+		stopwatch.start();
 	}
 
 	@Test
 	public void testElapsedTime() throws Exception
 	{
-		Chronometer chronometer = new Chronometer();
-		assertEquals(0, chronometer.elapsedTime());
-		chronometer.start();
+		Stopwatch stopwatch = new Stopwatch();
+		assertEquals(0, stopwatch.elapsedTime());
+		stopwatch.start();
 		Thread.sleep(50);
-		chronometer.stop();
-		assertTrue(Math.abs(chronometer.elapsedTime() - 50) < 10);
+		stopwatch.stop();
+		assertTrue(Math.abs(stopwatch.elapsedTime() - 50) < 10);
 		Thread.sleep(50);
-		chronometer.start();
+		stopwatch.start();
 		Thread.sleep(50);
-		chronometer.stop();
-		assertTrue(Math.abs(chronometer.elapsedTime() - 100) < 20);
+		stopwatch.stop();
+		assertTrue(Math.abs(stopwatch.elapsedTime() - 100) < 20);
 	}
 
 	@Test
 	public void testReset() throws Exception
 	{
-		Chronometer chronometer = new Chronometer().start();
+		Stopwatch stopwatch = new Stopwatch().start();
 		Thread.sleep(50);
-		chronometer.stop().reset();
-		assertEquals(0, chronometer.elapsedTime());
-		chronometer.start();
+		stopwatch.stop().reset();
+		assertEquals(0, stopwatch.elapsedTime());
+		stopwatch.start();
 		Thread.sleep(50);
-		chronometer.reset();
+		stopwatch.reset();
 		Thread.sleep(50);
-		chronometer.stop();
-		assertTrue(Math.abs(chronometer.elapsedTime() - 50) < 10);
+		stopwatch.stop();
+		assertTrue(Math.abs(stopwatch.elapsedTime() - 50) < 10);
 	}
 
 	@Test
 	public void testToString() throws Exception
 	{
-		Chronometer chronometer = new Chronometer();
-		assertEquals("0 millisecond", chronometer.toString());
-		chronometer.start();
+		Stopwatch stopwatch = new Stopwatch();
+		assertEquals("0 millisecond", stopwatch.toString());
+		stopwatch.start();
 		Thread.sleep(50);
-		long elapsed = chronometer.stop().elapsedTime();
-		assertEquals(elapsed + " milliseconds", chronometer.toString());
+		long elapsed = stopwatch.stop().elapsedTime();
+		assertEquals(elapsed + " milliseconds", stopwatch.toString());
 	}
 }
