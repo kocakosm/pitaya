@@ -86,13 +86,13 @@ public interface MAC
 	 *
 	 * @return the resulting MAC.
 	 */
-	byte[] mac();
+	byte[] digest();
 
 	/**
 	 * Performs a final update on the MAC using the specified array of
 	 * bytes, then completes the MAC computation. That is, this method first
 	 * calls {@link #update(byte...)}, passing the input array to the update
-	 * method, then calls {@link #mac()}. Note that the engine is reset
+	 * method, then calls {@link #digest()}. Note that the engine is reset
 	 * after this call is made.
 	 *
 	 * @param input the array of bytes with which to update the MAC before
@@ -102,13 +102,13 @@ public interface MAC
 	 *
 	 * @throws NullPointerException if {@code input} is {@code null}.
 	 */
-	byte[] mac(byte... input);
+	byte[] digest(byte... input);
 
 	/**
 	 * Performs a final update on the MAC using the specified data bytes,
 	 * then completes the MAC computation. That is, this method first calls
 	 * {@link #update(byte[], int, int)}, passing the input array to the
-	 * update method, then calls {@link #mac()}. Note that the engine is
+	 * update method, then calls {@link #digest()}. Note that the engine is
 	 * reset after this call is made.
 	 *
 	 * @param input the array of bytes.
@@ -121,5 +121,5 @@ public interface MAC
 	 * @throws IndexOutOfBoundsException if {@code off} is negative or if
 	 *	{@code off + len} is greater than {@code input}'s length.
 	 */
-	byte[] mac(byte[] input, int off, int len);
+	byte[] digest(byte[] input, int off, int len);
 }

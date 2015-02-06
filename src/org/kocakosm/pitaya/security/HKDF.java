@@ -65,7 +65,7 @@ final class HKDF implements KDF
 
 	private byte[] extract(byte[] key, byte[] salt)
 	{
-		return Factory.newMAC(algorithm, salt).mac(key);
+		return Factory.newMAC(algorithm, salt).digest(key);
 	}
 
 	private byte[] expand(byte[] key)
@@ -75,7 +75,7 @@ final class HKDF implements KDF
 		int n = (int) Math.ceil((double) dkLen / mac.length());
 		byte[] u = new byte[0];
 		for (int i = 1; i <= n; i++) {
-			u = mac.update(u).update(info).mac((byte) i);
+			u = mac.update(u).update(info).digest((byte) i);
 			t.append(u);
 		}
 		return t.toByteArray(0, dkLen);

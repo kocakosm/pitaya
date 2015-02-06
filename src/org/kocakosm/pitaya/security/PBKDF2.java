@@ -61,10 +61,10 @@ final class PBKDF2 implements KDF
 		int d = (int) Math.ceil((double) dkLen / mac.length());
 		ByteBuffer t = new ByteBuffer(d * mac.length());
 		for (int i = 1; i <= d; i++) {
-			byte[] f = mac.update(salt).mac(BigEndian.encode(i));
+			byte[] f = mac.update(salt).digest(BigEndian.encode(i));
 			byte[] u = f;
 			for (int j = 1; j < iterationCount; j++) {
-				u = mac.mac(u);
+				u = mac.digest(u);
 				for (int k = 0; k < f.length; k++) {
 					f[k] ^= u[k];
 				}

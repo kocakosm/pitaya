@@ -227,7 +227,7 @@ public final class HMAC
 		}
 
 		@Override
-		public byte[] mac()
+		public byte[] digest()
 		{
 			byte[] hash = digest.digest();
 			for (byte b : key) {
@@ -239,17 +239,15 @@ public final class HMAC
 		}
 
 		@Override
-		public byte[] mac(byte... input)
+		public byte[] digest(byte... input)
 		{
-			update(input);
-			return mac();
+			return update(input).digest();
 		}
 
 		@Override
-		public byte[] mac(byte[] input, int off, int len)
+		public byte[] digest(byte[] input, int off, int len)
 		{
-			update(input, off, len);
-			return mac();
+			return update(input, off, len).digest();
 		}
 
 		@Override
