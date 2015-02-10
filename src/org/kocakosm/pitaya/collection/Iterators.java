@@ -27,7 +27,7 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 
 /**
- * Contains static utility methods that operate on or return {@link Iterator}s.
+ * Static utility methods that operate on or return {@link Iterator}s.
  *
  * @author Osman KOCAK
  */
@@ -37,13 +37,13 @@ public final class Iterators
 	public static final Iterator EMPTY_ITERATOR = new EmptyIterator();
 
 	/**
-	 * Returns the empty {@link Iterator} for a particular type (type-safe).
-	 * Note that unlike this method, the like-named field does not provide
-	 * type safety.
+	 * Returns the empty {@code Iterator} for a particular type (type-safe).
+	 * Note that unlike this method, the like-named static field does not
+	 * provide type safety.
 	 *
-	 * @param <E> the type of the {@link Iterator}'s elements.
+	 * @param <E> the type of the {@code Iterator}'s elements.
 	 *
-	 * @return the empty {@link Iterator}.
+	 * @return the empty {@code Iterator}.
 	 */
 	public static <E> Iterator<E> emptyIterator()
 	{
@@ -51,15 +51,15 @@ public final class Iterators
 	}
 
 	/**
-	 * Concatenates the given {@link Iterator}s into a single one. The
-	 * source {@link Iterator}s aren't polled until necessary. The returned
-	 * {@link Iterator} supports {@link Iterator#remove()} if the
-	 * corresponding input {@link Iterator} supports it.
+	 * Concatenates all the given {@code Iterator}s into a single one. The
+	 * source {@code Iterator}s aren't polled until necessary. The returned
+	 * {@code Iterator} supports {@link Iterator#remove()} when the
+	 * corresponding input {@code Iterator} supports it.
 	 *
-	 * @param <E> the type of the returned {@link Iterator}'s elements.
-	 * @param iterators the {@link Iterator}s to concatenate.
+	 * @param <E> the type of the returned {@code Iterator}'s elements.
+	 * @param iterators the {@code Iterator}s to concatenate.
 	 *
-	 * @return the concatenated {@link Iterator}.
+	 * @return the concatenated {@code Iterator}.
 	 *
 	 * @throws NullPointerException if {@code iterators} is {@code null} or
 	 *	if it contains a {@code null} reference.
@@ -70,15 +70,15 @@ public final class Iterators
 	}
 
 	/**
-	 * Concatenates the given {@link Iterator}s into a single one. The
-	 * source {@link Iterator}s aren't polled until necessary. The returned
-	 * {@link Iterator} supports {@link Iterator#remove()} if the
-	 * corresponding input {@link Iterator} supports it.
+	 * Concatenates all the given {@code Iterator}s into a single one. The
+	 * source {@code Iterator}s aren't polled until necessary. The returned
+	 * {@code Iterator} supports {@link Iterator#remove()} when the
+	 * corresponding input {@code Iterator} supports it.
 	 *
-	 * @param <E> the type of the returned {@link Iterator}'s elements.
-	 * @param iterators the {@link Iterator}s to concatenate.
+	 * @param <E> the type of the returned {@code Iterator}'s elements.
+	 * @param iterators the {@code Iterator}s to concatenate.
 	 *
-	 * @return the concatenated {@link Iterator}.
+	 * @return the concatenated {@code Iterator}.
 	 *
 	 * @throws NullPointerException if {@code iterators} is {@code null} or
 	 *	if it contains a {@code null} reference.
@@ -89,52 +89,50 @@ public final class Iterators
 	}
 
 	/**
-	 * Returns an {@link Iterator} that cycles indefinitely over the
-	 * elements returned by the given source {@link Iterator}. The source
-	 * {@link Iterator} isn't polled until necessary. The returned
-	 * {@link Iterator} supports {@link Iterator#remove()}. Use with
-	 * caution.
+	 * Returns an {@code Iterator} that cycles indefinitely over the content
+	 * of the given source {@code Iterator}. The source {@code Iterator} is
+	 * not polled until necessary. The returned {@code Iterator} supports
+	 * {@link Iterator#remove()}.
 	 *
-	 * @param <E> the type of the returned {@link Iterator}'s elements.
-	 * @param iterator the source {@link Iterator}.
+	 * @param <E> the type of the returned {@code Iterator}'s elements.
+	 * @param iterator the source {@code Iterator}.
 	 *
-	 * @return the cyclic {@link Iterator}.
+	 * @return the cyclic {@code Iterator}.
 	 *
 	 * @throws NullPointerException if {@code iterator} is {@code null}.
 	 */
 	public static <E> Iterator<E> cycle(Iterator<? extends E> iterator)
 	{
-		return new LazyCyclicIteror<E>(iterator);
+		return new LazyCyclicIterator<E>(iterator);
 	}
 
 	/**
-	 * Returns an {@link Iterator} that cycles indefinitely over the given
-	 * elements. The returned {@link Iterator} supports
-	 * {@link Iterator#remove()}. Use with caution.
+	 * Returns an {@code Iterator} that cycles indefinitely over the given
+	 * elements. The returned {@code Iterator} supports {@link Iterator#remove()}.
 	 *
-	 * @param <E> the type of the returned {@link Iterator}'s elements.
+	 * @param <E> the type of the returned {@code Iterator}'s elements.
 	 * @param elements the elements to cycle over.
 	 *
-	 * @return the cyclic {@link Iterator}.
+	 * @return the cyclic {@code Iterator}.
 	 *
 	 * @throws NullPointerException if {@code elements} is {@code null}.
 	 */
 	public static <E> Iterator<E> cycle(E... elements)
 	{
-		return new CyclicIteror<E>(Arrays.asList(elements));
+		return new CyclicIterator<E>(Arrays.asList(elements));
 	}
 
 	/**
-	 * Creates an {@link Iterator} returning only the first {@code limit}
-	 * elements of the given {@link Iterator}. The source {@link Iterator}
-	 * isn't polled until necessary. The returned {@link Iterator} supports
-	 * {@link Iterator#remove()} if the source {@link Iterator} supports it.
+	 * Creates an {@code Iterator} returning only the first {@code limit}
+	 * elements of the given {@code Iterator}. The source {@code Iterator}
+	 * is not polled until necessary. The returned {@code Iterator} supports
+	 * {@link Iterator#remove()} if the source {@code Iterator} supports it.
 	 *
-	 * @param <E> the type of the returned {@link Iterator}'s elements.
-	 * @param iterator the {@link Iterator} to limit.
-	 * @param limit the number of elements in the returned {@link Iterator}.
+	 * @param <E> the type of the returned {@code Iterator}'s elements.
+	 * @param iterator the {@code Iterator} to limit.
+	 * @param limit the number of elements in the returned {@code Iterator}.
 	 *
-	 * @return the limited {@link Iterator}.
+	 * @return the limited {@code Iterator}.
 	 *
 	 * @throws NullPointerException if {@code iterator} is {@code null}.
 	 * @throws IllegalArgumentException if ({@code limit} is negative.
@@ -142,14 +140,14 @@ public final class Iterators
 	public static <E> Iterator<E> limit(Iterator<? extends E> iterator,
 		int limit)
 	{
-		return new LimitIteror<E>(iterator, limit);
+		return new LimitIterator<E>(iterator, limit);
 	}
 
 	/**
-	 * Skips {@code n} elements from the given {@link Iterator}.
+	 * Skips {@code n} elements from the given {@code Iterator}.
 	 *
-	 * @param iterator the {@link Iterator}.
-	 * @param n the number of items to skip.
+	 * @param iterator the {@code Iterator}.
+	 * @param n the number of elements to skip.
 	 *
 	 * @return the actual number of elements that has been skipped.
 	 *
@@ -168,15 +166,13 @@ public final class Iterators
 	}
 
 	/**
-	 * Returns a {@link List} containing all the given {@link Iterator}'s
-	 * elements. This method consumes entirely the {@link Iterator} (after
-	 * this method call, its {@link Iterator#hasNext()} method will return
-	 * {@code false}).
+	 * Returns a {@code List} containing all the given {@code Iterator}'s
+	 * elements. This method consumes entirely the input {@code Iterator}.
 	 *
-	 * @param <E> the type of the returned {@link List}'s elements.
-	 * @param iterator the {@link Iterator} to consume.
+	 * @param <E> the type of the returned {@code List}'s elements.
+	 * @param iterator the {@code Iterator} to consume.
 	 *
-	 * @return the {@link List} created from the given {@link Iterator}.
+	 * @return the {@code List} created from the given {@code Iterator}.
 	 *
 	 * @throws NullPointerException if {@code iterator} is {@code null}.
 	 */
@@ -190,15 +186,13 @@ public final class Iterators
 	}
 
 	/**
-	 * Returns a {@link Set} containing all the given {@link Iterator}'s
-	 * elements. This method consumes entirely the {@link Iterator} (after
-	 * this method call, its {@link Iterator#hasNext()} method will return
-	 * {@code false}).
+	 * Returns a {@code Set} containing all the given {@code Iterator}'s
+	 * elements. This method consumes entirely the input {@code Iterator}.
 	 *
-	 * @param <E> the type of the returned {@link Set}'s elements.
-	 * @param iterator the {@link Iterator} to consume.
+	 * @param <E> the type of the returned {@code Set}'s elements.
+	 * @param iterator the {@code Iterator} to consume.
 	 *
-	 * @return the {@link Set} created from the given {@link Iterator}.
+	 * @return the {@code Set} created from the given {@code Iterator}.
 	 *
 	 * @throws NullPointerException if {@code iterator} is {@code null}.
 	 */
@@ -212,36 +206,29 @@ public final class Iterators
 	}
 
 	/**
-	 * Returns a {@link Bag} containing all the given {@link Iterator}'s
-	 * elements. This method consumes entirely the {@link Iterator} (after
-	 * this method call, its {@link Iterator#hasNext()} method will return
-	 * {@code false}).
+	 * Returns a {@code Bag} containing all the given {@code Iterator}'s
+	 * elements. This method consumes entirely the input {@code Iterator}.
 	 *
-	 * @param <E> the type of the returned {@link Bag}'s elements.
-	 * @param iterator the {@link Iterator} to consume.
+	 * @param <E> the type of the returned {@code Bag}'s elements.
+	 * @param iterator the {@code Iterator} to consume.
 	 *
-	 * @return the {@link Bag} created from the given {@link Iterator}.
+	 * @return the {@code Bag} created from the given {@code Iterator}.
 	 *
 	 * @throws NullPointerException if {@code iterator} is {@code null}.
 	 */
 	public static <E> Bag<E> toBag(Iterator<? extends E> iterator)
 	{
-		Bag<E> bag = new HashBag<E>();
-		while (iterator.hasNext()) {
-			bag.add(iterator.next());
-		}
-		return bag;
+		return new HashBag<E>(iterator);
 	}
 
 	/**
-	 * Returns a {@link String} representation of the given
-	 * {@link Iterator}, with the format [e1, e2, ..., en]. This method
-	 * consumes entirely the {@link Iterator} (after this method call, its
-	 * {@link Iterator#hasNext()} method will return {@code false}).
+	 * Returns a {@code String} representation of the given {@code Iterator},
+	 * using the "[e1, e2, ..., en]" format. This method consumes entirely
+	 * the input {@code Iterator}.
 	 *
-	 * @param iterator the {@link Iterator}.
+	 * @param iterator the {@code Iterator}.
 	 *
-	 * @return the {@link String} created from the given {@link Iterator}.
+	 * @return the {@code String} created from the given {@code Iterator}.
 	 *
 	 * @throws NullPointerException if {@code iterator} is {@code null}.
 	 */
@@ -326,13 +313,13 @@ public final class Iterators
 		}
 	}
 
-	private static final class LazyCyclicIteror<E> implements Iterator<E>
+	private static final class LazyCyclicIterator<E> implements Iterator<E>
 	{
 		private final Iterator<? extends E> iterator;
 		private final List<E> elements;
 		private int index = -1;
 
-		LazyCyclicIteror(Iterator<? extends E> iterator)
+		LazyCyclicIterator(Iterator<? extends E> iterator)
 		{
 			Parameters.checkNotNull(iterator);
 			this.elements = new ArrayList<E>();
@@ -353,7 +340,8 @@ public final class Iterators
 				elements.add(element);
 				index++;
 				return element;
-			} else if (!elements.isEmpty()) {
+			}
+			if (!elements.isEmpty()) {
 				if (++index >= elements.size()) {
 					index = 0;
 				}
@@ -372,12 +360,12 @@ public final class Iterators
 		}
 	}
 
-	private static final class CyclicIteror<E> implements Iterator<E>
+	private static final class CyclicIterator<E> implements Iterator<E>
 	{
 		private final List<E> elements;
 		private int index = -1;
 
-		CyclicIteror(List<? extends E> elements)
+		CyclicIterator(List<? extends E> elements)
 		{
 			this.elements = new ArrayList<E>(elements);
 		}
@@ -415,13 +403,13 @@ public final class Iterators
 		}
 	}
 
-	private static final class LimitIteror<E> implements Iterator<E>
+	private static final class LimitIterator<E> implements Iterator<E>
 	{
 		private final Iterator<? extends E> iterator;
 		private final int limit;
 		private int index;
 
-		LimitIteror(Iterator<? extends E> iterator, int limit)
+		LimitIterator(Iterator<? extends E> iterator, int limit)
 		{
 			Parameters.checkNotNull(iterator);
 			Parameters.checkCondition(limit >= 0);

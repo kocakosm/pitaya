@@ -22,23 +22,23 @@ import java.util.Collection;
 import java.util.Iterator;
 
 /**
- * Contains static utility methods that operate on or return {@link Bag}s.
+ * Static utility methods that operate on or return {@link Bag}s.
  *
  * @author Osman KOCAK
  */
 public final class Bags
 {
-	/** The empty bag. */
+	/** The empty {@code Bag}. */
 	public static final Bag EMPTY_BAG = new EmptyBag();
 
 	/**
-	 * Returns the empty {@link Bag} for a particular type (type-safe). Note
-	 * that unlike this method, the like-named field does not provide type
-	 * safety.
+	 * Returns the empty {@code Bag} for a particular type (type-safe). Note
+	 * that unlike this method, the like-named static field does not provide
+	 * type safety.
 	 *
 	 * @param <E> the type of the bag's elements.
 	 *
-	 * @return the empty {@link Bag}.
+	 * @return the empty {@code Bag}.
 	 */
 	public static <E> Bag<E> emptyBag()
 	{

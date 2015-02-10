@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Contains static utility methods that operate on or return {@link Iterable}s.
+ * Static utility methods that operate on or return {@link Iterable}s.
  *
  * @author Osman KOCAK
  */
@@ -36,13 +36,13 @@ public final class Iterables
 	public static final Iterable EMPTY_ITERABLE = new EmptyIterable();
 
 	/**
-	 * Returns the empty {@link Iterable} for a particular type (type-safe).
-	 * Note that unlike this method, the like-named field does not provide
-	 * type safety.
+	 * Returns the empty {@code Iterable} for a particular type (type-safe).
+	 * Note that unlike this method, the like-named static field does not
+	 * provide type safety.
 	 *
-	 * @param <T> the type of the {@link Iterable}'s elements.
+	 * @param <T> the type of the {@code Iterable}'s elements.
 	 *
-	 * @return the empty {@link Iterable}.
+	 * @return the empty {@code Iterable}.
 	 */
 	public static <T> Iterable<T> emptyIterable()
 	{
@@ -50,16 +50,17 @@ public final class Iterables
 	}
 
 	/**
-	 * Concatenates the given {@link Iterable}s into a single one. The
-	 * source {@link Iterable}s' {@link Iterator}s are not polled until
-	 * necessary. The returned {@link Iterable}'s {@link Iterator}s support
-	 * {@link Iterator#remove()} if the corresponding input
-	 * {@link Iterable}'s {@link Iterator}s support it.
+	 * Concatenates the given {@code Iterable}s into a single one. Note that
+	 * the returned {@code Iterable} is only a view, that is, any subsequent
+	 * update on any of the input {@code Iterable}s will affect the returned
+	 * view. The input {@code Iterable}s will not be polled until necessary.
+	 * The returned view's {@code Iterator} supports {@link Iterator#remove()}
+	 * when the corresponding input {@code Iterator} supports it.
 	 *
-	 * @param <T> the type of the returned {@link Iterable}s' elements.
-	 * @param iterables the {@link Iterable}s to concatenate.
+	 * @param <T> the type of the returned {@code Iterable}s' elements.
+	 * @param iterables the {@code Iterable}s to concatenate.
 	 *
-	 * @return the concatenated {@link Iterable}.
+	 * @return the concatenated {@code Iterable}.
 	 *
 	 * @throws NullPointerException if {@code iterables} is {@code null} or
 	 *	if it contains a {@code null} reference.
@@ -70,16 +71,17 @@ public final class Iterables
 	}
 
 	/**
-	 * Concatenates the given {@link Iterable}s into a single one. The
-	 * source {@link Iterable}s' {@link Iterator}s are not polled until
-	 * necessary. The returned {@link Iterable}'s {@link Iterator}s support
-	 * {@link Iterator#remove()} if the corresponding input
-	 * {@link Iterable}'s {@link Iterator}s support it.
+	 * Concatenates the given {@code Iterable}s into a single one. Note that
+	 * the returned {@code Iterable} is only a view, that is, any subsequent
+	 * update on any of the input {@code Iterable}s will affect the returned
+	 * view. The input {@code Iterable}s will not be polled until necessary.
+	 * The returned view's {@code Iterator} supports {@link Iterator#remove()}
+	 * when the corresponding input {@code Iterator} supports it.
 	 *
-	 * @param <T> the type of the returned {@link Iterable}s' elements.
-	 * @param iterables the {@link Iterable}s to concatenate.
+	 * @param <T> the type of the returned {@code Iterable}s' elements.
+	 * @param iterables the {@code Iterable}s to concatenate.
 	 *
-	 * @return the concatenated {@link Iterable}.
+	 * @return the concatenated {@code Iterable}.
 	 *
 	 * @throws NullPointerException if {@code iterables} is {@code null} or
 	 *	if it contains a {@code null} reference.
@@ -90,19 +92,15 @@ public final class Iterables
 	}
 
 	/**
-	 * Returns an {@link Iterable} whose {@link Iterator}s cycle
-	 * indefinitely over the elements returned by the {@link Iterable}'s
-	 * {@link Iterator}s. The returned {@link Iterable}'s {@link Iterator}s
-	 * support {@link Iterator#remove()} if the source {@link Iterable}'s
-	 * {@link Iterator}s support it. The returned {@link Iterable} is only a
-	 * view, any modifications made to the source {@link Iterable} will also
-	 * affect the returned view. Use with caution.
+	 * Returns a cyclic {@code Iterable} that cycles indefinitely over the
+	 * given {@code Iterable}'s elements. The returned {@code Iterable}'s
+	 * {@code Iterator} supports {@code Iterator#remove()}.
 	 *
-	 * @param <T> the type of the returned {@link Iterable}'s elements.
-	 * @param iterable the {@link Iterable} containing the elements to
+	 * @param <T> the type of the returned {@code Iterable}'s elements.
+	 * @param iterable the {@code Iterable} containing the elements to
 	 *	cycle over.
 	 *
-	 * @return the cyclic {@link Iterable}.
+	 * @return the cyclic {@code Iterable}.
 	 *
 	 * @throws NullPointerException if {@code iterable} is {@code null}.
 	 */
@@ -112,35 +110,33 @@ public final class Iterables
 	}
 
 	/**
-	 * Returns an {@link Iterable} whose {@link Iterator}s cycle
-	 * indefinitely over the given elements. The returned {@link Iterable}'s
-	 * {@link Iterator}s support {@link Iterator#remove()}. Use with
-	 * caution.
+	 * Returns an {@code Iterable} that cycles indefinitely over the given
+	 * elements. The returned {@code Iterable}'s {@code Iterator} supports
+	 * {@link Iterator#remove()}.
 	 *
-	 * @param <T> the type of the returned {@link Iterable}'s elements.
+	 * @param <T> the type of the returned {@code Iterable}'s elements.
 	 * @param elements the elements to cycle over.
 	 *
-	 * @return the cyclic {@link Iterable}.
+	 * @return the cyclic {@code Iterable}.
 	 *
 	 * @throws NullPointerException if {@code iterable} is {@code null}.
 	 */
 	public static <T> Iterable<T> cycle(T... elements)
 	{
-		return new CyclicIterable<T>(new ArrayList(Arrays.asList(elements)));
+		return new CyclicIterable<T>(new ArrayList<T>(Arrays.asList(elements)));
 	}
 
 	/**
-	 * Creates an {@link Iterable} whose {@link Iterator}s return the first
-	 * {@code limit} elements returned by the given {@link Iterable}'s
-	 * {@link Iterator}. The returned {@link Iterable} is only a view, any
-	 * modifications made to the source {@link Iterable} will also affect
-	 * the returned view.
+	 * Returns an {@code Iterable} view of the given {@code Iterable} that
+	 * will only return its first {@code limit} items. The returned view's
+	 * {@code Iterator}s support {@link Iterator#remove()} if the original
+	 * {@code Iterator} does.
 	 *
-	 * @param <T> the type of the returned {@link Iterable}'s elements.
-	 * @param iterable the {@link Iterable} to limit.
-	 * @param limit the number of elements in the returned {@link Iterable}.
+	 * @param <T> the type of the returned {@code Iterable}'s elements.
+	 * @param iterable the {@code Iterable} to limit.
+	 * @param limit the number of elements in the returned {@code Iterable}.
 	 *
-	 * @return the limited {@link Iterable}.
+	 * @return the limited {@code Iterable}.
 	 *
 	 * @throws NullPointerException if {@code iterable} is {@code null}.
 	 * @throws IllegalArgumentException if ({@code limit} is negative.
@@ -151,16 +147,16 @@ public final class Iterables
 	}
 
 	/**
-	 * Returns an {@link Iterable} whose {@link Iterator}s skip {@code n}
-	 * elements from the given {@link Iterable}'s {@link Iterator}s. The
-	 * returned {@link Iterable} is only a view, any modifications made to
-	 * the source {@link Iterable} will also affect the returned view.
+	 * Returns an {@code Iterable} view of the given {@code Iterable} that
+	 * skips its first {@code n} elements. The returned {@code Iterable}'s
+	 * {@code Iterator} supports {@link Iterator#remove()} if the original
+	 * {@code Iterator} does.
 	 *
-	 * @param <T> the type of the {@link Iterable}'s elements.
-	 * @param iterable the {@link Iterable}.
+	 * @param <T> the type of the {@code Iterable}'s elements.
+	 * @param iterable the input {@code Iterable}.
 	 * @param n the number of items to skip.
 	 *
-	 * @return the skipping {@link Iterable}.
+	 * @return the skipping {@code Iterable}.
 	 *
 	 * @throws NullPointerException if {@code iterable} is {@code null}.
 	 * @throws IllegalArgumentException if ({@code n} is negative.
@@ -171,13 +167,13 @@ public final class Iterables
 	}
 
 	/**
-	 * Returns a {@link List} containing all the given {@link Iterable}'s
+	 * Returns a {@code List} containing all the given {@code Iterable}'s
 	 * elements.
 	 *
-	 * @param <T> the type of the returned {@link List}'s elements.
-	 * @param iterable the source {@link Iterable}.
+	 * @param <T> the type of the returned {@code List}'s elements.
+	 * @param iterable the source {@code Iterable}.
 	 *
-	 * @return the {@link List} created from the given {@link Iterable}.
+	 * @return the {@code List} created from the given {@code Iterable}.
 	 *
 	 * @throws NullPointerException if {@code iterable} is {@code null}.
 	 */
@@ -191,13 +187,13 @@ public final class Iterables
 	}
 
 	/**
-	 * Returns a {@link Set} containing all the given {@link Iterable}'s
+	 * Returns a {@code Set} containing all the given {@code Iterable}'s
 	 * elements.
 	 *
-	 * @param <T> the type of the returned {@link Set}'s elements.
-	 * @param iterable the source {@link Iterable}.
+	 * @param <T> the type of the returned {@code Set}'s elements.
+	 * @param iterable the source {@code Iterable}.
 	 *
-	 * @return the {@link Set} created from the given {@link Iterable}.
+	 * @return the {@code Set} created from the given {@code Iterable}.
 	 *
 	 * @throws NullPointerException if {@code iterable} is {@code null}.
 	 */
@@ -211,13 +207,13 @@ public final class Iterables
 	}
 
 	/**
-	 * Returns a {@link Bag} containing all the given {@link Iterable}'s
+	 * Returns a {@code Bag} containing all the given {@code Iterable}'s
 	 * elements.
 	 *
-	 * @param <T> the type of the returned {@link Bag}'s elements.
-	 * @param iterable the source {@link Iterable}.
+	 * @param <T> the type of the returned {@code Bag}'s elements.
+	 * @param iterable the source {@code Iterable}.
 	 *
-	 * @return the {@link Bag} created from the given {@link Iterable}.
+	 * @return the {@code Bag} created from the given {@code Iterable}.
 	 *
 	 * @throws NullPointerException if {@code iterable} is {@code null}.
 	 */
@@ -227,12 +223,12 @@ public final class Iterables
 	}
 
 	/**
-	 * Returns a {@link String} representation of the given
-	 * {@link Iterable}, with the format [e1, e2, ..., en].
+	 * Returns a {@code String} representation of the given {@code Iterable}
+	 * using the "[e1, e2, ..., en]" format.
 	 *
-	 * @param iterable the {@link Iterable}.
+	 * @param iterable the {@code Iterable}.
 	 *
-	 * @return the {@link String} created from the given {@link Iterable}.
+	 * @return the {@code String} created from the given {@code Iterable}.
 	 *
 	 * @throws NullPointerException if {@code iterable} is {@code null}.
 	 */
@@ -252,11 +248,15 @@ public final class Iterables
 
 	private static final class ConcatIterable<T> implements Iterable<T>
 	{
-		private final Iterable<? extends Iterable<? extends T>> iterables;
+		private final List<Iterable<? extends T>> iterables;
 
 		ConcatIterable(Iterable<? extends Iterable<? extends T>> iterables)
 		{
-			this.iterables = iterables;
+			this.iterables = new ArrayList<Iterable<? extends T>>();
+			for (Iterable<? extends T> iterable : iterables) {
+				Parameters.checkNotNull(iterable);
+				this.iterables.add(iterable);
+			}
 		}
 
 		@Override

@@ -20,8 +20,8 @@ import java.util.Collection;
 import java.util.Set;
 
 /**
- * A collection that supports order-independent equality, like {@link Set}, but
- * may have duplicate elements.
+ * A collection that supports order-independent equality, like {@link Set}, but,
+ * which may have duplicate elements.
  *
  * @param <E> the type of the elements in the bag.
  *
@@ -29,6 +29,7 @@ import java.util.Set;
  * @see AbstractBag
  * @see HashBag
  * @see ConcurrentHashBag
+ * @see ImmutableBag
  * @see Bags
  *
  * @author Osman KOCAK
@@ -40,7 +41,7 @@ public interface Bag<E> extends Collection<E>
 	 *
 	 * @param e the object to count.
 	 *
-	 * @return the number of occurrences of the element in this bag.
+	 * @return the number of occurrences of the {@code e} in this bag.
 	 */
 	int count(E e);
 }

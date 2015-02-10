@@ -62,7 +62,7 @@ public final class HashBag<E> extends AbstractBag<E> implements Serializable
 
 	/**
 	 * Creates a new {@code HashBag} using the elements contained in the
-	 * given {@link Collection}.
+	 * given {@code Collection}.
 	 *
 	 * @param c the collection to use to populate the created bag.
 	 *
@@ -76,7 +76,7 @@ public final class HashBag<E> extends AbstractBag<E> implements Serializable
 
 	/**
 	 * Creates a new {@code HashBag} using the elements contained in the
-	 * given {@link Iterable}.
+	 * given {@code Iterable}.
 	 *
 	 * @param i the iterable to use to populate the created bag.
 	 *
@@ -92,7 +92,7 @@ public final class HashBag<E> extends AbstractBag<E> implements Serializable
 
 	/**
 	 * Creates a new {@code HashBag} using the elements contained in the
-	 * given {@link Iterator}.
+	 * given {@code Iterator}.
 	 *
 	 * @param i the iterator to use to populate the created bag.
 	 *

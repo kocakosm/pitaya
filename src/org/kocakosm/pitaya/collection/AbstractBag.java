@@ -20,10 +20,8 @@ import java.util.AbstractCollection;
 
 /**
  * Abstract skeleton implementation of the {@link Bag} interface. If you want to
- * provide your own {@link Bag} implementation, it is more than highly adviced
- * that you extend this abstract base class and do not override its
- * {@link AbstractBag#equals(java.lang.Object)} and {@link AbstractBag#hashCode()}
- * methods.
+ * provide your own {@code Bag} implementation, it is more than highly adviced
+ * that you extend this abstract base class.
  *
  * @param <E> the type of the elements in the bag.
  *

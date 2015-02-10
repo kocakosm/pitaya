@@ -62,7 +62,7 @@ public final class ConcurrentHashBag<E> extends AbstractBag<E> implements Serial
 
 	/**
 	 * Creates a new {@code ConcurrentHashBag} using the elements contained
-	 * in the given {@link Collection}.
+	 * in the given {@code Collection}.
 	 *
 	 * @param c the collection to use to populate the created bag.
 	 *
@@ -77,7 +77,7 @@ public final class ConcurrentHashBag<E> extends AbstractBag<E> implements Serial
 
 	/**
 	 * Creates a new {@code ConcurrentHashBag} using the elements contained
-	 * in the given {@link Iterable}.
+	 * in the given {@code Iterable}.
 	 *
 	 * @param i the iterable to use to populate the created bag.
 	 *
@@ -94,7 +94,7 @@ public final class ConcurrentHashBag<E> extends AbstractBag<E> implements Serial
 
 	/**
 	 * Creates a new {@code ConcurrentHashBag} using the elements contained
-	 * in the given {@link Iterator}.
+	 * in the given {@code Iterator}.
 	 *
 	 * @param i the iterator to use to populate the created bag.
 	 *
