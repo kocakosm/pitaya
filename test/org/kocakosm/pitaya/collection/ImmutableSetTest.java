@@ -20,6 +20,7 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -42,6 +43,13 @@ public final class ImmutableSetTest
 			.add(Arrays.asList("B").iterator())
 			.add("C", "D").build();
 		assertEquals(asSet("A", "B", "C", "D"), set);
+	}
+
+	@Test
+	public void testCopyOfCollection()
+	{
+		Collection<String> collection = asSet("Hello");
+		assertEquals(collection, ImmutableSet.copyOf(collection));
 	}
 
 	@Test

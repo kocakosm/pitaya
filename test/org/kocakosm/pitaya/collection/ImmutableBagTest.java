@@ -20,6 +20,7 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -40,6 +41,14 @@ public final class ImmutableBagTest
 			.add(Arrays.asList("B").iterator())
 			.add("C", "D").build();
 		assertEquals(new HashBag<String>("A", "B", "C", "D"), bag);
+	}
+
+	@Test
+	public void testCopyOfCollection()
+	{
+		Collection<String> collection = new HashBag<String>("Hello");
+		Bag<String> bag = ImmutableBag.copyOf(collection);
+		assertEquals(collection, bag);
 	}
 
 	@Test

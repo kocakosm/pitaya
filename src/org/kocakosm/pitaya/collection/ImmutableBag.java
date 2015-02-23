@@ -104,6 +104,21 @@ public final class ImmutableBag<E> extends AbstractBag<E> implements Serializabl
 	}
 
 	/**
+	 * Creates a new {@code ImmutableBag} from the given {@code Collection}.
+	 *
+	 * @param <E> the type of the {@code Bag}'s elements.
+	 * @param c the source {@code Collection}.
+	 *
+	 * @return the created {@code ImmutableBag}.
+	 *
+	 * @throws NullPointerException if {@code c} is {@code null}.
+	 */
+	public static <E> Bag<E> copyOf(Collection<? extends E> c)
+	{
+		return new ImmutableBag<E>(new HashBag<E>(c));
+	}
+
+	/**
 	 * Creates a new {@code ImmutableBag} from the given {@code Iterable}.
 	 *
 	 * @param <E> the type of the {@code Bag}'s elements.

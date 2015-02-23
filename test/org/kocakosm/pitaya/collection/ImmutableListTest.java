@@ -20,6 +20,7 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
@@ -42,6 +43,13 @@ public final class ImmutableListTest
 			.add(Arrays.asList("D").iterator())
 			.reverse().rotate(1).build();
 		assertEquals(Arrays.asList("A", "D", "C", "B"), list);
+	}
+
+	@Test
+	public void testCopyOfCollection()
+	{
+		Collection<String> collection = Arrays.asList("Hello");
+		assertEquals(collection, ImmutableList.copyOf(collection));
 	}
 
 	@Test

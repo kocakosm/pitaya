@@ -134,6 +134,8 @@ public final class ImmutableList<E> extends AbstractList<E> implements RandomAcc
 		 * @throws ClassCastException if this builder contains elements
 		 *	that are not mutually comparable using the specified
 		 *	{@code Comparator}.
+		 * @throws IllegalArgumentException if the comparator is found
+		 *	to violate the {@code Comparator} contract.
 		 */
 		public Builder<E> sort(Comparator<? super E> c)
 		{
@@ -189,6 +191,8 @@ public final class ImmutableList<E> extends AbstractList<E> implements RandomAcc
 		 * @param random the source of randomness to use.
 		 *
 		 * @return this object.
+		 *
+		 * @throws NullPointerException if {@code random} is {@code null}.
 		 */
 		public Builder<E> shuffle(Random random)
 		{
@@ -205,6 +209,21 @@ public final class ImmutableList<E> extends AbstractList<E> implements RandomAcc
 		{
 			return new ImmutableList<E>(inner);
 		}
+	}
+
+	/**
+	 * Creates a new {@code ImmutableList} from the given {@code Collection}.
+	 *
+	 * @param <E> the type of the {@code List}'s elements.
+	 * @param c the source {@code Collection}.
+	 *
+	 * @return the created {@code ImmutableList}.
+	 *
+	 * @throws NullPointerException if {@code c} is {@code null}.
+	 */
+	public static <E> List<E> copyOf(Collection<? extends E> c)
+	{
+		return new ImmutableList<E>(new ArrayList<E>(c));
 	}
 
 	/**

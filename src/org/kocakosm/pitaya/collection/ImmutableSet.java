@@ -107,6 +107,21 @@ public final class ImmutableSet<E> extends AbstractSet<E> implements Serializabl
 	}
 
 	/**
+	 * Creates a new {@code ImmutableSet} from the given {@code Collection}.
+	 *
+	 * @param <E> the type of the {@code Set}'s elements.
+	 * @param c the source {@code Collection}.
+	 *
+	 * @return the created {@code ImmutableSet}.
+	 *
+	 * @throws NullPointerException if {@code c} is {@code null}.
+	 */
+	public static <E> Set<E> copyOf(Collection<? extends E> c)
+	{
+		return new ImmutableSet<E>(new HashSet<E>(c));
+	}
+
+	/**
 	 * Creates a new {@code ImmutableSet} from the given {@code Iterable}.
 	 *
 	 * @param <E> the type of the {@code Set}'s elements.
