@@ -17,6 +17,7 @@
 package org.kocakosm.pitaya.collection;
 
 import org.kocakosm.pitaya.util.Parameters;
+import org.kocakosm.pitaya.util.XObjects;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,7 +34,7 @@ import java.util.Set;
  */
 public final class Iterators
 {
-	/** The empty {@link Iterator}. */
+	/** The empty {@code Iterator}. */
 	public static final Iterator EMPTY_ITERATOR = new EmptyIterator();
 
 	/**
@@ -120,6 +121,32 @@ public final class Iterators
 	public static <E> Iterator<E> cycle(E... elements)
 	{
 		return new CyclicIterator<E>(Arrays.asList(elements));
+	}
+
+	/**
+	 * Returns whether the given {@code Iterator}s contain equal elements in
+	 * the same order. Note that this method consumes entirely the input
+	 * {@code Iterator}s.
+	 *
+	 * @param i1 the first {@code Iterator}.
+	 * @param i2 the second {@code Iterator}.
+	 *
+	 * @return whether the given {@code Iterator} have the same content.
+	 */
+	public static boolean equals(Iterator<?> i1, Iterator<?> i2)
+	{
+		if (i1 == i2) {
+			return true;
+		}
+		if (i1 == null || i2 == null) {
+			return false;
+		}
+		while (i1.hasNext() && i2.hasNext()) {
+			if (!XObjects.equals(i1.next(), i2.next())) {
+				return false;
+			}
+		}
+		return !(i1.hasNext() || i2.hasNext());
 	}
 
 	/**

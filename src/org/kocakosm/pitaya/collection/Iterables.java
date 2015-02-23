@@ -32,7 +32,7 @@ import java.util.Set;
  */
 public final class Iterables
 {
-	/** The empty {@link Iterable}. */
+	/** The empty {@code Iterable}. */
 	public static final Iterable EMPTY_ITERABLE = new EmptyIterable();
 
 	/**
@@ -124,6 +124,26 @@ public final class Iterables
 	public static <T> Iterable<T> cycle(T... elements)
 	{
 		return new CyclicIterable<T>(new ArrayList<T>(Arrays.asList(elements)));
+	}
+
+	/**
+	 * Returns whether the given {@code Iterable}s contain equal elements in
+	 * the same order.
+	 *
+	 * @param i1 the first {@code Iterable}.
+	 * @param i2 the second {@code Iterable}.
+	 *
+	 * @return whether the given {@code Iterables} have the same content.
+	 */
+	public static boolean equals(Iterable<?> i1, Iterable<?> i2)
+	{
+		if (i1 == i2) {
+			return true;
+		}
+		if (i1 == null || i2 == null) {
+			return false;
+		}
+		return Iterators.equals(i1.iterator(), i2.iterator());
 	}
 
 	/**
