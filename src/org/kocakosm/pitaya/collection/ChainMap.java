@@ -32,7 +32,7 @@ import java.util.Set;
  * updates only modify the first {@code Map}. Deletions are applied on all
  * underlying {@code Map}s. Note that only references to the input {@code Map}s
  * are stored, so, if one of these {@code Map}s gets updated, those changes will
- * be reflected in the {@code ChainMap}. Not thread safe.
+ * also be reflected in the {@code ChainMap}. Not thread safe.
  *
  * @param <K> the type of the {@code Map}'s keys.
  * @param <V> the type of the {@code Map}'s values.
@@ -50,13 +50,17 @@ public final class ChainMap<K, V> extends AbstractMap<K, V> implements Serializa
 	 *
 	 * @param maps the input {@code Map}s.
 	 *
-	 * @throws NullPointerException if {@code maps} is {@code null}.
+	 * @throws NullPointerException if {@code maps} is {@code null} or if it
+	 *	contains a {@code null} reference.
 	 * @throws IllegalArgumentException if {@code maps} is empty.
 	 */
 	public ChainMap(Map<K, V>... maps)
 	{
 		Parameters.checkCondition(maps.length > 0);
 		this.maps = ImmutableList.copyOf(maps);
+		for (Map<K, V> map : this.maps) {
+			Parameters.checkNotNull(map);
+		}
 	}
 
 	/**
@@ -64,13 +68,17 @@ public final class ChainMap<K, V> extends AbstractMap<K, V> implements Serializa
 	 *
 	 * @param maps the input {@code Map}s.
 	 *
-	 * @throws NullPointerException if {@code maps} is {@code null}.
+	 * @throws NullPointerException if {@code maps} is {@code null} or if it
+	 *	contains a {@code null} reference.
 	 * @throws IllegalArgumentException if {@code maps} is empty.
 	 */
 	public ChainMap(List<Map<K, V>> maps)
 	{
 		Parameters.checkCondition(!maps.isEmpty());
 		this.maps = ImmutableList.copyOf(maps);
+		for (Map<K, V> map : this.maps) {
+			Parameters.checkNotNull(map);
+		}
 	}
 
 	@Override
