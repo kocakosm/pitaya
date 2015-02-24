@@ -113,6 +113,26 @@ public final class CharStreamsTest
 	}
 
 	@Test
+	public void testEquals() throws Exception
+	{
+		Reader in1 = new StringReader("Apple Records");
+		Reader in2 = new StringReader("Apple Records");
+		assertFalse(CharStreams.equals(in1, null));
+		assertFalse(CharStreams.equals(null, in2));
+		assertTrue(CharStreams.equals(null, null));
+		assertTrue(CharStreams.equals(in1, in2));
+		assertTrue(CharStreams.equals(in1, in2));
+
+		in1 = new StringReader("Apple");
+		in2 = new StringReader("Apple Records");
+		assertFalse(CharStreams.equals(in1, in2));
+
+		in1 = new StringReader("Apple Records");
+		in2 = new StringReader("Apple");
+		assertFalse(CharStreams.equals(in1, in2));
+	}
+
+	@Test
 	public void testLimit() throws Exception
 	{
 		String data = "All You Need Is Love";

@@ -165,6 +165,43 @@ public final class CharStreams
 	}
 
 	/**
+	 * Returns whether the given streams have the same content.
+	 *
+	 * @param in1 the first stream.
+	 * @param in2 the second stream.
+	 *
+	 * @return {@code true} if the streams have the same content.
+	 *
+	 * @throws IOException if an I/O error occurs during the process.
+	 */
+	public static boolean equals(Reader in1, Reader in2) throws IOException
+	{
+		if (in1 == in2) {
+			return true;
+		}
+		if (in1 == null || in2 == null) {
+			return false;
+		}
+		in1 = buffer(in1);
+		in2 = buffer(in2);
+		int c1 = in1.read();
+		int c2 = in2.read();
+		while (c1 != -1 && c2 != -1 && c1 == c2) {
+			c1 = in1.read();
+			c2 = in2.read();
+		}
+		return in1.read() == -1 && in2.read() == -1;
+	}
+
+	private static Reader buffer(Reader in)
+	{
+		if (in instanceof BufferedReader) {
+			return in;
+		}
+		return new BufferedReader(in);
+	}
+
+	/**
 	 * Returns an {@code Reader} that will only supply characters from the
 	 * given {@code Reader} up to the specified limit. The returned
 	 * {@code Reader} is thread-safe.
