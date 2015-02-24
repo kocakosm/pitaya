@@ -16,6 +16,7 @@
 
 package org.kocakosm.pitaya.io;
 
+import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -88,6 +89,44 @@ public final class ByteStreams
 			len = in.read(buf);
 		}
 		out.flush();
+	}
+
+	/**
+	 * Returns whether the given streams have the same content.
+	 *
+	 * @param in1 the first stream.
+	 * @param in2 the second stream.
+	 *
+	 * @return {@code true} if the streams have the same content.
+	 *
+	 * @throws IOException if an I/O error occurs during the process.
+	 */
+	public static boolean equals(InputStream in1, InputStream in2)
+		throws IOException
+	{
+		if (in1 == in2) {
+			return true;
+		}
+		if (in1 == null || in2 == null) {
+			return false;
+		}
+		in1 = buffer(in1);
+		in2 = buffer(in2);
+		int b1 = in1.read();
+		int b2 = in2.read();
+		while (b1 != -1 && b2 != -1 && b1 == b2) {
+			b1 = in1.read();
+			b2 = in2.read();
+		}
+		return in1.read() == -1 && in2.read() == -1;
+	}
+
+	private static InputStream buffer(InputStream in)
+	{
+		if (in instanceof BufferedInputStream) {
+			return in;
+		}
+		return new BufferedInputStream(in);
 	}
 
 	/**
