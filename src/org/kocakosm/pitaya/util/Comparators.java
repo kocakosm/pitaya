@@ -30,6 +30,25 @@ public final class Comparators
 {
 	/**
 	 * Returns a {@code Comparator} that will call each {@code Comparator}
+	 * in the given array until one of them returns a non-zero result (will
+	 * return {@code 0} if they all return {@code 0}).
+	 *
+	 * @param <T> the parameters type of the returned {@code Comparator}.
+	 * @param comparators the {@code Comparator}s to compose.
+	 *
+	 * @return the composed {@code Comparator}.
+	 *
+	 * @throws NullPointerException if {@code comparators} is {@code null}
+	 *	of if it contains a {@code null} reference.
+	 * @throws IllegalArgumentException if {@code comparators} is empty.
+	 */
+	public static <T> Comparator<T> compose(Comparator<? super T>... comparators)
+	{
+		return compose(Arrays.asList(comparators));
+	}
+
+	/**
+	 * Returns a {@code Comparator} that will call each {@code Comparator}
 	 * in the given {@code Iterable} until one of them returns a non-zero
 	 * result (will return {@code 0} if they all return {@code 0}).
 	 *
@@ -48,25 +67,6 @@ public final class Comparators
 	}
 
 	/**
-	 * Returns a {@code Comparator} that will call each {@code Comparator}
-	 * in the given array until one of them returns a non-zero result (will
-	 * return {@code 0} if they all return {@code 0}).
-	 *
-	 * @param <T> the parameters type of the returned {@code Comparator}.
-	 * @param comparators the {@code Comparator}s to compose.
-	 *
-	 * @return the composed {@code Comparator}.
-	 *
-	 * @throws NullPointerException if {@code comparators} is {@code null}
-	 *	of if it contains a {@code null} reference.
-	 * @throws IllegalArgumentException if {@code comparators} is empty.
-	 */
-	public static <T> Comparator<T> compose(Comparator<? super T>... comparators)
-	{
-		return new CompositeComparator<T>(Arrays.asList(comparators));
-	}
-
-	/**
 	 * Returns a {@code Comparator} that represents the reverse ordering of
 	 * the given one. Namely, the returned {@code Comparator} will return
 	 * a negative value if the original returns a positive value and,
@@ -80,9 +80,17 @@ public final class Comparators
 	 *
 	 * @throws NullPointerException if {@code comparator} is {@code null}.
 	 */
-	public static <T> Comparator<T> invert(Comparator<T> comparator)
+	public static <T> Comparator<T> reverse(final Comparator<T> comparator)
 	{
-		return new InvertedComparator<T>(comparator);
+		Parameters.checkNotNull(comparator);
+		return new Comparator<T>()
+		{
+			@Override
+			public int compare(T o1, T o2)
+			{
+				return -comparator.compare(o1, o2);
+			}
+		};
 	}
 
 	/**
@@ -102,6 +110,62 @@ public final class Comparators
 			public int compare(T o1, T o2)
 			{
 				return o1.compareTo(Parameters.checkNotNull(o2));
+			}
+		};
+	}
+
+	/**
+	 * Returns a new {@code Comparator} that considers {@code null} values
+	 * as less than all other values and compares non-{@code null} values
+	 * with the given {@code Comparator}.
+	 *
+	 * @param <T> the parameters type of the {@code Comparator}.
+	 * @param comparator the non-{@code null} values {@code Comparator}
+	 *
+	 * @return the created {@code Comparator}.
+	 *
+	 * @throws NullPointerException if {@code comparator} is {@code null}.
+	 */
+	public static <T> Comparator<T> withNullsFirst(final Comparator<T> comparator)
+	{
+		Parameters.checkNotNull(comparator);
+		return new Comparator<T>()
+		{
+			@Override
+			public int compare(T o1, T o2)
+			{
+				return o1 == o2 ? 0
+					: o1 == null ? -1
+					: o2 == null ? 1
+					: comparator.compare(o1, o2);
+			}
+		};
+	}
+
+	/**
+	 * Returns a new {@code Comparator} that considers {@code null} values
+	 * as greater than all other values and compares non-{@code null} values
+	 * with the given {@code Comparator}.
+	 *
+	 * @param <T> the parameters type of the {@code Comparator}.
+	 * @param comparator the non-{@code null} values {@code Comparator}.
+	 *
+	 * @return the created {@code Comparator}.
+	 *
+	 * @throws NullPointerException if {@code comparator} is {@code null}.
+	 */
+	public static <T> Comparator<T> withNullsLast(final Comparator<T> comparator)
+	{
+		Parameters.checkNotNull(comparator);
+		return new Comparator<T>()
+		{
+			@Override
+			public int compare(T o1, T o2)
+			{
+				return o1 == o2 ? 0
+					: o1 == null ? 1
+					: o2 == null ? -1
+					: comparator.compare(o1, o2);
 			}
 		};
 	}
@@ -130,23 +194,6 @@ public final class Comparators
 				}
 			}
 			return 0;
-		}
-	}
-
-	private static final class InvertedComparator<T> implements Comparator<T>
-	{
-		private final Comparator<T> comparator;
-
-		InvertedComparator(Comparator<T> comparator)
-		{
-			Parameters.checkNotNull(comparator);
-			this.comparator = comparator;
-		}
-
-		@Override
-		public int compare(T o1, T o2)
-		{
-			return -comparator.compare(o1, o2);
 		}
 	}
 

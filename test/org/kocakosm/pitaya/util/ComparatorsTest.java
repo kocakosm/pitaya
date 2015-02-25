@@ -18,10 +18,8 @@ package org.kocakosm.pitaya.util;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.List;
 
 import org.junit.Test;
 
@@ -38,23 +36,14 @@ public final class ComparatorsTest
 		Comparator<String> nullsLast = new NullsLastStringComparator();
 		Comparator<String> alphabetical = new AlphabeticalStringComparator();
 
-		List<Comparator<? super String>> comparators =
-			new ArrayList<Comparator<? super String>>();
-		comparators.addAll(Arrays.asList(alphabetical, nullsLast));
-		Comparator<String> c1 = Comparators.compose(comparators);
-		Comparator<String> c2 = Comparators.compose(nullsLast, alphabetical);
+		String[] a = new String[] {null, "b", "d", null, "a", null, "c"};
+		Arrays.sort(a, Comparators.compose(nullsLast, alphabetical));
 
-		String[] a = new String[] {null, "d", "c", null, "a", "b", null};
-		String[] b = new String[] {null, "b", "d", null, "a", null, "c"};
-		Arrays.sort(a, c1);
-		Arrays.sort(b, c2);
-
-		assertArrayEquals(a, b);
 		assertArrayEquals(new String[] {"a", "b", "c", "d", null, null, null}, a);
 	}
 
 	@Test
-	public void testInvert()
+	public void testReverse()
 	{
 		Comparator<Long> ascending = new AscendingLongComparator();
 
@@ -62,7 +51,7 @@ public final class ComparatorsTest
 		Arrays.sort(a, ascending);
 		assertArrayEquals(new Long[] {1L, 1L, 2L, 3L, 4L, 5L}, a);
 
-		Comparator<Long> descending = Comparators.invert(ascending);
+		Comparator<Long> descending = Comparators.reverse(ascending);
 		Arrays.sort(a, descending);
 		assertArrayEquals(new Long[] {5L, 4L, 3L, 2L, 1L, 1L}, a);
 	}
@@ -76,6 +65,24 @@ public final class ComparatorsTest
 		Arrays.sort(a, natural);
 
 		assertArrayEquals(new Long[] {1L, 1L, 2L, 3L, 4L, 5L}, a);
+	}
+
+	@Test
+	public void testWithNullsFirst()
+	{
+		Long[] a = new Long[] {null, 5L, 1L, 3L, null, 2L, 4L, null};
+		Arrays.sort(a, Comparators.withNullsFirst(new AscendingLongComparator()));
+
+		assertArrayEquals(new Long[] {null, null, null, 1L, 2L, 3L, 4L, 5L}, a);
+	}
+
+	@Test
+	public void testWithNullsLast()
+	{
+		Long[] a = new Long[] {null, 5L, 1L, 3L, null, 2L, 4L, null};
+		Arrays.sort(a, Comparators.withNullsLast(new AscendingLongComparator()));
+
+		assertArrayEquals(new Long[] {1L, 2L, 3L, 4L, 5L, null, null, null}, a);
 	}
 
 	private static final class AscendingLongComparator implements Comparator<Long>
@@ -92,14 +99,8 @@ public final class ComparatorsTest
 		@Override
 		public int compare(String o1, String o2)
 		{
-			if (o1 == null && o2 == null) {
-				return 0;
-			}
-			if (o1 == null) {
-				return 1;
-			}
-			if (o2 == null) {
-				return -1;
+			if (o1 == null ^ o2 == null) {
+				return o1 == null ? 1 : -1;
 			}
 			return 0;
 		}
