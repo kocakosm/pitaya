@@ -35,7 +35,7 @@ public final class ParametersTest
 		assertTrue(o == checkNotNull(o));
 	}
 
-	@Test(expected=NullPointerException.class)
+	@Test(expected = NullPointerException.class)
 	public void testCheckNotNullFailure()
 	{
 		checkNotNull(null);
@@ -66,7 +66,7 @@ public final class ParametersTest
 		checkCondition(true);
 	}
 
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testCheckConditionFailure()
 	{
 		checkCondition(false);
@@ -97,7 +97,7 @@ public final class ParametersTest
 		assertTrue(str == checkType(str, CharSequence.class));
 	}
 
-	@Test(expected=ClassCastException.class)
+	@Test(expected = ClassCastException.class)
 	public void testCheckTypeFailure()
 	{
 		checkType(new Object(), CharSequence.class);

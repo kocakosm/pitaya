@@ -104,6 +104,7 @@ public final class Parameters
 	 *
 	 * @return the given reference in the expected type.
 	 *
+	 * @throws NullPointerException if {@code type} is {@code null}.
 	 * @throws ClassCastException if the given reference doesn't represent
 	 *	an instance of the expected class.
 	 */
@@ -127,6 +128,7 @@ public final class Parameters
 	 *
 	 * @return the given reference in the expected type.
 	 *
+	 * @throws NullPointerException if {@code type} is {@code null}.
 	 * @throws ClassCastException if the given reference doesn't represent
 	 *	an instance of the given class.
 	 */

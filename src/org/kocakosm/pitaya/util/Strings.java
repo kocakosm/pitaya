@@ -108,7 +108,7 @@ public final class Strings
 	}
 
 	/**
-	 * Abbreviates the given {@link String} using "..." so that the returned
+	 * Abbreviates the given {@code String} using "..." so that the returned
 	 * {@code String}'s length is equal to {@code length}.
 	 *
 	 * @param str the {@code String} to abbreviate.
@@ -125,7 +125,7 @@ public final class Strings
 	}
 
 	/**
-	 * Abbreviates the given {@link String} using the specified ellipsis so
+	 * Abbreviates the given {@code String} using the specified ellipsis so
 	 * that the returned {@code String}'s length is equal to {@code length}.
 	 *
 	 * @param str the {@code String} to abbreviate.
@@ -147,11 +147,11 @@ public final class Strings
 	}
 
 	/**
-	 * Concatenates the given {@link String}s.
+	 * Concatenates the given {@code String}s.
 	 *
-	 * @param strings the {@link String}s to concatenate.
+	 * @param strings the {@code String}s to concatenate.
 	 *
-	 * @return the concatenated {@link String}.
+	 * @return the concatenated {@code String}.
 	 *
 	 * @throws NullPointerException if {@code strings} is {@code null}.
 	 */
@@ -219,12 +219,12 @@ public final class Strings
 	}
 
 	/**
-	 * Returns {@code null} if the given {@link String} is empty, returns
+	 * Returns {@code null} if the given {@code String} is empty, returns
 	 * the (unmodified) parameter otherwise.
 	 *
-	 * @param str the {@link String} to test.
+	 * @param str the {@code String} to test.
 	 *
-	 * @return {@code null} if the given {@link String} is empty.
+	 * @return {@code null} if the given {@code String} is empty.
 	 */
 	public static String emptyToNull(String str)
 	{
@@ -232,12 +232,12 @@ public final class Strings
 	}
 
 	/**
-	 * Returns an empty {@link String} if the given one is {@code null}, or
+	 * Returns an empty {@code String} if the given one is {@code null}, or
 	 * returns the (unmodified) parameter otherwise.
 	 *
-	 * @param str the {@link String} to test.
+	 * @param str the {@code String} to test.
 	 *
-	 * @return an empty {@link String} if the given one is {@code null}.
+	 * @return an empty {@code String} if the given one is {@code null}.
 	 */
 	public static String nullToEmpty(String str)
 	{
@@ -245,13 +245,13 @@ public final class Strings
 	}
 
 	/**
-	 * Returns a pseudo-random {@link String} of the specified size using
+	 * Returns a pseudo-random {@code String} of the specified size using
 	 * characters from the given array.
 	 *
-	 * @param length the length of the {@link String} to produce.
-	 * @param chars the characters to use to build the {@link String}.
+	 * @param length the length of the {@code String} to produce.
+	 * @param chars the characters to use to build the {@code String}.
 	 *
-	 * @return a pseudo-random {@link String}.
+	 * @return a pseudo-random {@code String}.
 	 *
 	 * @throws NullPointerException if {@code chars} is {@code null}.
 	 * @throws IllegalArgumentException if {@code length} is negative or if
@@ -263,16 +263,16 @@ public final class Strings
 	}
 
 	/**
-	 * Returns a random {@link String} using the given characters and the
+	 * Returns a random {@code String} using the given characters and the
 	 * specified source of randomness. All characters have equal likelihood
-	 * to appear in the resulting {@link String} assuming that the source of
+	 * to appear in the resulting {@code String} assuming that the source of
 	 * randomness is fair.
 	 *
-	 * @param length the length of the {@link String} to produce.
+	 * @param length the length of the {@code String} to produce.
 	 * @param rnd the source of randomness to use.
-	 * @param chars the characters to use to build the {@link String}.
+	 * @param chars the characters to use to build the {@code String}.
 	 *
-	 * @return a random {@link String}.
+	 * @return a random {@code String}.
 	 *
 	 * @throws NullPointerException if one of the arguments is {@code null}.
 	 * @throws IllegalArgumentException if {@code length} is negative or if
@@ -290,13 +290,13 @@ public final class Strings
 	}
 
 	/**
-	 * Returns the {@link String} obtained by repeating {@code count} times
-	 * the given {@link String}.
+	 * Returns the {@code String} obtained by repeating {@code count} times
+	 * the given {@code String}.
 	 *
-	 * @param str the {@link String} to repeat.
+	 * @param str the {@code String} to repeat.
 	 * @param count the number of times the {@code str} has to be repeared.
 	 *
-	 * @return the created {@link String}.
+	 * @return the created {@code String}.
 	 *
 	 * @throws IllegalArgumentException if {@code count} is negative.
 	 * @throws NullPointerException if {@code str} is {@code null}.
@@ -312,11 +312,11 @@ public final class Strings
 	}
 
 	/**
-	 * Reverses the given {@link String}.
+	 * Reverses the given {@code String}.
 	 *
-	 * @param str the {@link String} to reverse.
+	 * @param str the {@code String} to reverse.
 	 *
-	 * @return the reversed {@link String}.
+	 * @return the reversed {@code String}.
 	 *
 	 * @throws NullPointerException if {@code str} is {@code null}.
 	 */
@@ -326,14 +326,14 @@ public final class Strings
 	}
 
 	/**
-	 * Randomly permutes the characters from the given {@link String}. This
+	 * Randomly permutes the characters from the given {@code String}. This
 	 * implementation uses the optimized version of the Fisher-Yates shuffle
 	 * algorithm (Fisher, Yates, Durstenfeld, Knuth) and thus runs in linear
 	 * time.
 	 *
-	 * @param str the {@link String} to be shuffled.
+	 * @param str the {@code String} to be shuffled.
 	 *
-	 * @return the shuffled {@link String}.
+	 * @return the shuffled {@code String}.
 	 *
 	 * @throws NullPointerException if {@code str} is {@code null}.
 	 */
@@ -343,17 +343,17 @@ public final class Strings
 	}
 
 	/**
-	 * Randomly permutes the characters from the given {@link String} using
+	 * Randomly permutes the characters from the given {@code String} using
 	 * the specified source of randomness. All permutations occur with equal
 	 * likelihood assuming that the source of randomness is fair. This
 	 * implementation uses the optimized version of the Fisher-Yates shuffle
 	 * algorithm (Fisher, Yates, Durstenfeld, Knuth) and thus runs in linear
 	 * time.
 	 *
-	 * @param str the {@link String} to be shuffled.
+	 * @param str the {@code String} to be shuffled.
 	 * @param rnd the source of randomness to use.
 	 *
-	 * @return the shuffled {@link String}.
+	 * @return the shuffled {@code String}.
 	 *
 	 * @throws NullPointerException if one of the arguments is {@code null}.
 	 */
@@ -363,13 +363,13 @@ public final class Strings
 	}
 
 	/**
-	 * Returns the new {@link String} obtained by stripping the first and
+	 * Returns the new {@code String} obtained by stripping the first and
 	 * last {@code n} characters from the given one.
 	 *
-	 * @param str the {@link String} to be stripped.
+	 * @param str the {@code String} to be stripped.
 	 * @param n the number of characters to strip.
 	 *
-	 * @return the stripped {@link String}.
+	 * @return the stripped {@code String}.
 	 *
 	 * @throws NullPointerException if {@code str} is {@code null}.
 	 * @throws IllegalArgumentException if {@code n} is negative.
@@ -380,13 +380,13 @@ public final class Strings
 	}
 
 	/**
-	 * Returns the new {@link String} obtained by stripping the first
+	 * Returns the new {@code String} obtained by stripping the first
 	 * {@code n} characters from the given one.
 	 *
-	 * @param str the {@link String} to be stripped.
+	 * @param str the {@code String} to be stripped.
 	 * @param n the number of characters to strip.
 	 *
-	 * @return the stripped {@link String}.
+	 * @return the stripped {@code String}.
 	 *
 	 * @throws NullPointerException if {@code str} is {@code null}.
 	 * @throws IllegalArgumentException if {@code n} is negative.
@@ -399,13 +399,13 @@ public final class Strings
 	}
 
 	/**
-	 * Returns the new {@link String} obtained by stripping the last
+	 * Returns the new {@code String} obtained by stripping the last
 	 * {@code n} characters from the given one.
 	 *
-	 * @param str the {@link String} to be stripped.
+	 * @param str the {@code String} to be stripped.
 	 * @param n the number of characters to strip.
 	 *
-	 * @return the stripped {@link String}.
+	 * @return the stripped {@code String}.
 	 *
 	 * @throws NullPointerException if {@code str} is {@code null}.
 	 * @throws IllegalArgumentException if {@code n} is negative.
@@ -418,12 +418,12 @@ public final class Strings
 	}
 
 	/**
-	 * Returns a copy of the given {@link String} with leading and trailing
+	 * Returns a copy of the given {@code String} with leading and trailing
 	 * whitespaces omitted.
 	 *
-	 * @param str the {@link String} to trim.
+	 * @param str the {@code String} to trim.
 	 *
-	 * @return the trimmed {@link String}.
+	 * @return the trimmed {@code String}.
 	 *
 	 * @throws NullPointerException if {@code str} is {@code null}.
 	 */
@@ -433,12 +433,12 @@ public final class Strings
 	}
 
 	/**
-	 * Returns a copy of the given {@link String} with leading whitespaces
+	 * Returns a copy of the given {@code String} with leading whitespaces
 	 * omitted.
 	 *
-	 * @param str the {@link String} to trim.
+	 * @param str the {@code String} to trim.
 	 *
-	 * @return the trimmed {@link String}.
+	 * @return the trimmed {@code String}.
 	 *
 	 * @throws NullPointerException if {@code str} is {@code null}.
 	 */
@@ -455,12 +455,12 @@ public final class Strings
 	}
 
 	/**
-	 * Returns a copy of the given {@link String} with trailing whitespaces
+	 * Returns a copy of the given {@code String} with trailing whitespaces
 	 * omitted.
 	 *
-	 * @param str the {@link String} to trim.
+	 * @param str the {@code String} to trim.
 	 *
-	 * @return the trimmed {@link String}.
+	 * @return the trimmed {@code String}.
 	 *
 	 * @throws NullPointerException if {@code str} is {@code null}.
 	 */
@@ -477,15 +477,15 @@ public final class Strings
 	}
 
 	/**
-	 * Returns a {@link String} of length at least {@code len} created by
+	 * Returns a {@code String} of length at least {@code len} created by
 	 * prepending as many copies of {@code padChar} as necessary to reach
 	 * that length.
 	 *
-	 * @param str the {@link String} to pad.
+	 * @param str the {@code String} to pad.
 	 * @param len the result's minimum length.
 	 * @param padChar the padding character.
 	 *
-	 * @return the padded {@link String}.
+	 * @return the padded {@code String}.
 	 *
 	 * @throws IllegalArgumentException if {@code len} is negative.
 	 * @throws NullPointerException if {@code str} is {@code null}.
@@ -502,15 +502,15 @@ public final class Strings
 	}
 
 	/**
-	 * Returns a {@link String} of length at least {@code len} created by
+	 * Returns a {@code String} of length at least {@code len} created by
 	 * appending as many copies of {@code padChar} as necessary to reach
 	 * that length.
 	 *
-	 * @param str the {@link String} to pad.
+	 * @param str the {@code String} to pad.
 	 * @param len the result's minimum length.
 	 * @param padChar the padding character.
 	 *
-	 * @return the padded {@link String}.
+	 * @return the padded {@code String}.
 	 *
 	 * @throws NullPointerException if {@code str} is {@code null}.
 	 * @throws IllegalArgumentException if {@code len} is negative.

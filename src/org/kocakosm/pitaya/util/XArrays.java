@@ -1810,7 +1810,7 @@ public final class XArrays
 		if (a != null) {
 			long[] p = new long[a.length];
 			for (int i = 0; i < a.length; i++) {
-				p[i] = a[i].longValue();
+				p[i] = a[i];
 			}
 			return p;
 		}
@@ -1833,7 +1833,7 @@ public final class XArrays
 		if (a != null) {
 			int[] p = new int[a.length];
 			for (int i = 0; i < a.length; i++) {
-				p[i] = a[i].intValue();
+				p[i] = a[i];
 			}
 			return p;
 		}
@@ -1856,7 +1856,7 @@ public final class XArrays
 		if (a != null) {
 			short[] p = new short[a.length];
 			for (int i = 0; i < a.length; i++) {
-				p[i] = a[i].shortValue();
+				p[i] = a[i];
 			}
 			return p;
 		}
@@ -1879,7 +1879,7 @@ public final class XArrays
 		if (a != null) {
 			char[] p = new char[a.length];
 			for (int i = 0; i < a.length; i++) {
-				p[i] = a[i].charValue();
+				p[i] = a[i];
 			}
 			return p;
 		}
@@ -1902,7 +1902,7 @@ public final class XArrays
 		if (a != null) {
 			byte[] p = new byte[a.length];
 			for (int i = 0; i < a.length; i++) {
-				p[i] = a[i].byteValue();
+				p[i] = a[i];
 			}
 			return p;
 		}
@@ -1925,7 +1925,7 @@ public final class XArrays
 		if (a != null) {
 			boolean[] p = new boolean[a.length];
 			for (int i = 0; i < a.length; i++) {
-				p[i] = a[i].booleanValue();
+				p[i] = a[i];
 			}
 			return p;
 		}
@@ -1948,7 +1948,7 @@ public final class XArrays
 		if (a != null) {
 			float[] p = new float[a.length];
 			for (int i = 0; i < a.length; i++) {
-				p[i] = a[i].floatValue();
+				p[i] = a[i];
 			}
 			return p;
 		}
@@ -1971,7 +1971,7 @@ public final class XArrays
 		if (a != null) {
 			double[] p = new double[a.length];
 			for (int i = 0; i < a.length; i++) {
-				p[i] = a[i].doubleValue();
+				p[i] = a[i];
 			}
 			return p;
 		}
@@ -1992,7 +1992,7 @@ public final class XArrays
 		if (a != null) {
 			Long[] w = new Long[a.length];
 			for (int i = 0; i < a.length; i++) {
-				w[i] = Long.valueOf(a[i]);
+				w[i] = a[i];
 			}
 			return w;
 		}
@@ -2013,7 +2013,7 @@ public final class XArrays
 		if (a != null) {
 			Integer[] w = new Integer[a.length];
 			for (int i = 0; i < a.length; i++) {
-				w[i] = Integer.valueOf(a[i]);
+				w[i] = a[i];
 			}
 			return w;
 		}
@@ -2034,7 +2034,7 @@ public final class XArrays
 		if (a != null) {
 			Short[] w = new Short[a.length];
 			for (int i = 0; i < a.length; i++) {
-				w[i] = Short.valueOf(a[i]);
+				w[i] = a[i];
 			}
 			return w;
 		}
@@ -2055,7 +2055,7 @@ public final class XArrays
 		if (a != null) {
 			Character[] w = new Character[a.length];
 			for (int i = 0; i < a.length; i++) {
-				w[i] = Character.valueOf(a[i]);
+				w[i] = a[i];
 			}
 			return w;
 		}
@@ -2076,7 +2076,7 @@ public final class XArrays
 		if (a != null) {
 			Byte[] w = new Byte[a.length];
 			for (int i = 0; i < a.length; i++) {
-				w[i] = Byte.valueOf(a[i]);
+				w[i] = a[i];
 			}
 			return w;
 		}
@@ -2097,7 +2097,7 @@ public final class XArrays
 		if (a != null) {
 			Boolean[] w = new Boolean[a.length];
 			for (int i = 0; i < a.length; i++) {
-				w[i] = Boolean.valueOf(a[i]);
+				w[i] = a[i];
 			}
 			return w;
 		}
@@ -2118,7 +2118,7 @@ public final class XArrays
 		if (a != null) {
 			Float[] w = new Float[a.length];
 			for (int i = 0; i < a.length; i++) {
-				w[i] = Float.valueOf(a[i]);
+				w[i] = a[i];
 			}
 			return w;
 		}
@@ -2139,7 +2139,7 @@ public final class XArrays
 		if (a != null) {
 			Double[] w = new Double[a.length];
 			for (int i = 0; i < a.length; i++) {
-				w[i] = Double.valueOf(a[i]);
+				w[i] = a[i];
 			}
 			return w;
 		}

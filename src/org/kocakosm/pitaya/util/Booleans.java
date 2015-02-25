@@ -17,7 +17,7 @@
 package org.kocakosm.pitaya.util;
 
 /**
- * Utility methods that operate on or return boolean values.
+ * Static utility methods that operate on or return boolean values.
  *
  * @author Osman KOCAK
  */

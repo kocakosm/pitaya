@@ -46,7 +46,6 @@ public final class ClassesTest
 	{
 		assertEquals("ClassesTest", getShortName(getClass()));
 		assertEquals("TestClassB", getShortName(TestClassA.TestClassB.class));
-
 	}
 
 	@Test
@@ -54,7 +53,6 @@ public final class ClassesTest
 	{
 		assertEquals("java.lang", getPackageName(String.class));
 		assertEquals("org.junit", getPackageName(Test.class));
-
 	}
 
 	@Test
