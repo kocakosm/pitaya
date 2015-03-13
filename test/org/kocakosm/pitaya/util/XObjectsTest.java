@@ -54,6 +54,7 @@ public final class XObjectsTest
 		char[] d2 = new char[] {1, 2, 3};
 		byte[] e1 = new byte[] {1, 2, 3};
 		byte[] e2 = new byte[] {1, 2, 3};
+		byte[] e3 = new byte[] {1, 2, 3};
 		boolean[] f1 = new boolean[] {false, true, false};
 		boolean[] f2 = new boolean[] {false, true, false};
 		float[] g1 = new float[] {1, 2, 3};
@@ -62,6 +63,12 @@ public final class XObjectsTest
 		double[] h2 = new double[] {1, 2, 3};
 		String[] i1 = new String[] {"Hey", "Jude"};
 		String[] i2 = new String[] {"Hey", "Jude"};
+		String[] i3 = new String[] {"Hey", "Jude"};
+		String[] i4 = new String[] {"Hey", "Jude", "!"};
+		byte[][] j1 = new byte[][] {e1, e2};
+		byte[][] j2 = new byte[][] {e3, e3};
+		String[][] k1 = new String[][] {i1, i2};
+		String[][] k2 = new String[][] {i1, i3};
 
 		assertTrue(XObjects.equals(a1, a2));
 		assertFalse(XObjects.equals(a2, b1));
@@ -80,6 +87,9 @@ public final class XObjectsTest
 		assertTrue(XObjects.equals(h1, h2));
 		assertFalse(XObjects.equals(h2, i1));
 		assertTrue(XObjects.equals(i1, i2));
+		assertFalse(XObjects.equals(i1, i4));
+		assertTrue(XObjects.equals(j1, j2));
+		assertTrue(XObjects.equals(k1, k2));
 	}
 
 	@Test
