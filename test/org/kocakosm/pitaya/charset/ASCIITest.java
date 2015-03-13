@@ -31,13 +31,38 @@ import org.junit.Test;
 public final class ASCIITest
 {
 	@Test
+	public void testCanEncode()
+	{
+		assertTrue(canEncode("The Raven"));
+		assertFalse(canEncode("Spleen et Idéal"));
+		assertTrue(canEncode("Spleen et Idéal", 0, 6));
+		assertFalse(canEncode("Spleen et Idéal", 10, 5));
+	}
+
+	@Test
+	public void testCanDecode()
+	{
+		Charset utf8 = Charset.forName("UTF-8");
+		assertTrue(canDecode("The Raven".getBytes(utf8)));
+		assertFalse(canDecode("Spleen et Idéal".getBytes(utf8)));
+		assertTrue(canDecode("Spleen et Idéal".getBytes(utf8), 0, 6));
+		assertFalse(canDecode("Spleen et Idéal".getBytes(utf8), 10, 5));
+	}
+
+	@Test
 	public void testEncode()
 	{
 		Charset ascii = Charset.forName("US-ASCII");
 		assertArrayEquals(encode(""), new byte[0]);
 		String str = "Hello world!";
-		assertArrayEquals(encode(str), str.getBytes(ascii));
-		assertArrayEquals(encode(str, 2, 5), "llo w".getBytes(ascii));
+		assertArrayEquals(str.getBytes(ascii), encode(str));
+		assertArrayEquals("llo w".getBytes(ascii), encode(str, 2, 5));
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testEncodeInvalidString()
+	{
+		encode("Spleen et Idéal");
 	}
 
 	@Test
@@ -48,6 +73,12 @@ public final class ASCIITest
 		String str = "Hello world!";
 		assertEquals(decode(str.getBytes(ascii)), str);
 		assertEquals(decode(str.getBytes(ascii), 2, 5), "llo w");
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testDecodeInvalidBytes()
+	{
+		decode("Spleen et Idéal".getBytes(Charset.forName("UTF-8")));
 	}
 
 	@Test
