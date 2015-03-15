@@ -161,7 +161,7 @@ public final class UTF8
 	 * @throws IllegalArgumentException if {@code input} doesn't represent
 	 *	valid UTF-8 encoded characters.
 	 */
-	public static String decode(byte[] input)
+	public static String decode(byte... input)
 	{
 		return decode(input, 0, input.length);
 	}

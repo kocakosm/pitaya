@@ -49,9 +49,7 @@ public final class UTF8Test
 		assertTrue(canDecode("您好".getBytes(utf8)));
 		assertTrue(canDecode("Spleen et Idéal".getBytes(utf8), 0, 6));
 		assertTrue(canDecode("Spleen et Idéal".getBytes(utf8), 10, 5));
-		assertFalse(canDecode(new byte[] {
-			(byte) 0xEB, (byte) 0x3A, (byte) 0xC4, (byte) 0x2F
-		}));
+		assertFalse(canDecode((byte) 0xEB, (byte) 0x3A, (byte) 0xC4));
 	}
 
 	@Test
@@ -77,8 +75,6 @@ public final class UTF8Test
 	@Test(expected = IllegalArgumentException.class)
 	public void testDecodeInvalidBytes()
 	{
-		decode(new byte[] {
-			(byte) 0xEB, (byte) 0x3A, (byte) 0xC4, (byte) 0x2F
-		});
+		decode((byte) 0xEB, (byte) 0x3A, (byte) 0xC4);
 	}
 }
