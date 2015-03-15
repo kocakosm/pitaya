@@ -23,9 +23,8 @@ import org.kocakosm.pitaya.util.Parameters;
 
 import java.io.Serializable;
 import java.net.URI;
-import java.nio.ByteBuffer;
-import java.nio.charset.CharacterCodingException;
-import java.nio.charset.CharsetDecoder;
+import java.nio.charset.Charset;
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -111,15 +110,26 @@ public final class URN implements Serializable
 	 */
 	public URN(String nid, String nss) throws URNSyntaxException
 	{
-		this("urn:" + Parameters.checkNotNull(nid) + ":"
-			+ Parameters.checkNotNull(nss));
+		this("urn", nid, nss);
 	}
 
-	private URN(String scheme, String nid, String nss)
+	/**
+	 * Creates a new {@code URN} with the specified scheme, Namespace
+	 * Identifier and Namespace Specific String.
+	 *
+	 * @param scheme the scheme, must be equal to "urn", ignoring the case.
+	 * @param nid the Namespace Identifier.
+	 * @param nss the Namespace Specific String.
+	 *
+	 * @throws NullPointerException if one of the arguments is {@code null}.
+	 * @throws URNSyntaxException if the {@code URN} constructed from the
+	 *	given components violates RFC 2141.
+	 */
+	public URN(String scheme, String nid, String nss) throws URNSyntaxException
 	{
-		this.scheme = scheme;
-		this.nid = nid;
-		this.nss = nss;
+		this(Parameters.checkNotNull(scheme)
+			+ ":" + Parameters.checkNotNull(nid)
+			+ ":" + Parameters.checkNotNull(nss));
 	}
 
 	private void checkNID(String nid) throws URNSyntaxException
@@ -138,31 +148,42 @@ public final class URN implements Serializable
 			if (chars[i] == '%') {
 				sb.append(chars[++i]).append(chars[++i]);
 				if (i == len - 1 || chars[i + 1] != '%') {
-					decodeUTF8(decodeBase16(sb.toString()));
+					checkIsValidUTF8(decodeBase16(sb));
 					sb.setLength(0);
 				}
 			}
 		}
 	}
 
-	private String decodeUTF8(byte[] utf8) throws URNSyntaxException
+	private void checkIsValidUTF8(byte[] bytes) throws URNSyntaxException
 	{
-		CharsetDecoder decoder = Charsets.UTF_8.newDecoder();
-		try {
-			return decoder.decode(ByteBuffer.wrap(utf8)).toString();
-		} catch (CharacterCodingException ex) {
-			throw new URNSyntaxException(ex);
+		Charset utf8 = Charsets.UTF_8;
+		byte[] reencoded = new String(bytes, utf8).getBytes(utf8);
+		if (!Arrays.equals(bytes, reencoded)) {
+			throw new URNSyntaxException(
+				"Invalid NSS: Invalid UTF-8 encoding");
 		}
 	}
 
-	private byte[] decodeBase16(String hex) throws URNSyntaxException
+	private byte[] decodeBase16(CharSequence hex) throws URNSyntaxException
 	{
 		try {
-			return BaseEncoding.BASE_16.decode(hex);
+			return BaseEncoding.BASE_16.decode(hex.toString());
 		} catch (IllegalArgumentException e) {
 			throw new URNSyntaxException(
 				"Invalid NSS: Invalid hex character found", e);
 		}
+	}
+
+	/**
+	 * Returns the scheme part of this {@code URN}, namely it returns "urn"
+	 * modulo the case.
+	 *
+	 * @return this {@code URN}'s scheme.
+	 */
+	public String scheme()
+	{
+		return scheme;
 	}
 
 	/**
@@ -187,14 +208,15 @@ public final class URN implements Serializable
 
 	/**
 	 * Returns the normalized equivalent of this {@code URN}. Normalizing a
-	 * {@code URN} consists in lower-casing its scheme (the leading "urn"),
-	 * NID and percent encoded parts.
+	 * {@code URN} consists in lower-casing its scheme, NID and percent
+	 * encoded parts.
 	 *
 	 * @return the normalized equivalent of this {@code URN}.
 	 */
 	public URN normalized()
 	{
-		return new URN("urn", ASCII.toLowerCase(nid), normalizeNSS(nss));
+		return create("urn:" + ASCII.toLowerCase(nid) + ":"
+			+ normalizeNSS(nss));
 	}
 
 	private String normalizeNSS(String nss)

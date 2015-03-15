@@ -56,6 +56,13 @@ public final class URNTest
 	}
 
 	@Test
+	public void testScheme()
+	{
+		URN urn = URN.create("uRn:nid:nss");
+		assertEquals("uRn", urn.scheme());
+	}
+
+	@Test
 	public void testNID()
 	{
 		URN urn = URN.create("uRn:nid:nss");
@@ -73,6 +80,7 @@ public final class URNTest
 	public void testNormalization()
 	{
 		URN urn = URN.create("uRn:nID:NSS%C3%A7").normalized();
+		assertEquals("urn", urn.scheme());
 		assertEquals("nid", urn.nid());
 		assertEquals("NSS%c3%a7", urn.nss());
 	}
