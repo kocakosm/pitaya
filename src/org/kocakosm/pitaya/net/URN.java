@@ -155,6 +155,11 @@ public final class URN implements Serializable
 		}
 	}
 
+	private byte[] decodeBase16(CharSequence hex)
+	{
+		return BaseEncoding.BASE_16.decode(hex.toString());
+	}
+
 	private void checkIsValidUTF8(byte[] bytes) throws URNSyntaxException
 	{
 		Charset utf8 = Charsets.UTF_8;
@@ -162,16 +167,6 @@ public final class URN implements Serializable
 		if (!Arrays.equals(bytes, reencoded)) {
 			throw new URNSyntaxException(
 				"Invalid NSS: Invalid UTF-8 encoding");
-		}
-	}
-
-	private byte[] decodeBase16(CharSequence hex) throws URNSyntaxException
-	{
-		try {
-			return BaseEncoding.BASE_16.decode(hex.toString());
-		} catch (IllegalArgumentException e) {
-			throw new URNSyntaxException(
-				"Invalid NSS: Invalid hex character found", e);
 		}
 	}
 
