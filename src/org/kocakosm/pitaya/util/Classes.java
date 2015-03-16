@@ -16,8 +16,10 @@
 
 package org.kocakosm.pitaya.util;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -118,21 +120,41 @@ public final class Classes
 	/**
 	 * Returns the {@code Set} of common super types of the given classes,
 	 * that is, all the classes in which any instance of the given classes
-	 * can be all cast into.
+	 * can be cast into.
 	 *
 	 * @param classes the classes.
 	 *
 	 * @return the common super types of the given classes.
 	 *
-	 * @throws NullPointerException if {@code classes} is {@code null}.
+	 * @throws NullPointerException if {@code classes} is {@code null}, or
+	 *	if it contains a {@code null} reference.
 	 * @throws IllegalArgumentException if {@code classes} is empty.
 	 */
 	public static Set<Class<?>> getCommonSuperTypes(Class<?>... classes)
 	{
-		Parameters.checkCondition(classes.length > 0);
-		Set<Class<?>> common = new HashSet<Class<?>>(getSuperTypes(classes[0]));
-		for (int i = 1; i < classes.length; i++) {
-			common.retainAll(getSuperTypes(classes[i]));
+		return getCommonSuperTypes(Arrays.asList(classes));
+	}
+
+	/**
+	 * Returns the {@code Set} of common super types of the given classes,
+	 * that is, all the classes in which any instance of the given classes
+	 * can be cast into.
+	 *
+	 * @param classes the classes.
+	 *
+	 * @return the common super types of the given classes.
+	 *
+	 * @throws NullPointerException if {@code classes} is {@code null}, or
+	 *	if it contains a {@code null} reference.
+	 * @throws IllegalArgumentException if {@code classes} is empty.
+	 */
+	public static Set<Class<?>> getCommonSuperTypes(Iterable<Class<?>> classes)
+	{
+		Iterator<Class<?>> i = classes.iterator();
+		Parameters.checkCondition(i.hasNext());
+		Set<Class<?>> common = new HashSet<Class<?>>(getSuperTypes(i.next()));
+		while (i.hasNext()) {
+			common.retainAll(getSuperTypes(i.next()));
 		}
 		return Collections.unmodifiableSet(common);
 	}
