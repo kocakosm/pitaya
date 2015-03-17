@@ -193,10 +193,10 @@ public final class CharStreams
 		return in1.read() == -1 && in2.read() == -1;
 	}
 
-	private static Reader buffer(Reader in)
+	private static BufferedReader buffer(Reader in)
 	{
 		if (in instanceof BufferedReader) {
-			return in;
+			return (BufferedReader) in;
 		}
 		return new BufferedReader(in);
 	}
@@ -284,7 +284,7 @@ public final class CharStreams
 	 */
 	public static List<String> readLines(Reader in) throws IOException
 	{
-		BufferedReader reader = new BufferedReader(in);
+		BufferedReader reader = buffer(in);
 		List<String> lines = new ArrayList<String>();
 		String line = reader.readLine();
 		while (line != null) {

@@ -99,22 +99,9 @@ public final class XObjects
 			return Arrays.equals((double[]) a, (double[]) b);
 		}
 		if (a instanceof Object[] && b instanceof Object[]) {
-			return arrayEquals((Object[]) a, (Object[]) b);
+			return Arrays.deepEquals((Object[]) a, (Object[]) b);
 		}
 		return false;
-	}
-
-	private static boolean arrayEquals(Object[] a1, Object[] a2)
-	{
-		if (a1.length != a2.length) {
-			return false;
-		}
-		for (int i = 0; i < a1.length; i++) {
-			if (!equals(a1[i], a2[i])) {
-				return false;
-			}
-		}
-		return true;
 	}
 
 	/**
