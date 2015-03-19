@@ -183,7 +183,7 @@ public final class XObjects
 			return Arrays.toString((double[]) array);
 		}
 		if (array instanceof Object[]) {
-			return Arrays.toString((Object[]) array);
+			return Arrays.deepToString((Object[]) array);
 		}
 		return array.toString();
 	}
