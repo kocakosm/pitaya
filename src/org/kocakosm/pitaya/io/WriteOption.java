@@ -19,6 +19,9 @@ package org.kocakosm.pitaya.io;
 /**
  * File write options.
  *
+ * @see XFiles
+ * @see TextFiles
+ *
  * @author Osman KOCAK
  */
 public enum WriteOption

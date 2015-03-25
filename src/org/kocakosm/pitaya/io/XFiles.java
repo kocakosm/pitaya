@@ -40,6 +40,8 @@ import java.util.Set;
 /**
  * {@link File}s utilities.
  *
+ * @see TextFiles
+ *
  * @author Osman KOCAK
  */
 public final class XFiles
