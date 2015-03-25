@@ -24,6 +24,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -365,19 +366,19 @@ public final class FilesTest
 	}
 
 	@Test
-	public void testGetReader() throws Exception
+	public void testNewInputStream() throws Exception
 	{
 		File test = tmp.newFolder();
 		File txt = createFile(test, "hello.txt", ascii("Hello"));
-		assertArrayEquals(ascii("Hello"), read(Files.getReader(txt)));
+		assertArrayEquals(ascii("Hello"), read(Files.newInputStream(txt)));
 	}
 
 	@Test
-	public void testGetWriter() throws Exception
+	public void testNewOutputStream() throws Exception
 	{
 		File test = tmp.newFolder();
 		File txt = createFile(test, "hello.txt", ascii("Hello"));
-		OutputStream out = Files.getWriter(txt);
+		OutputStream out = Files.newOutputStream(txt);
 		out.write(ascii("World"));
 		out.flush();
 		out.close();
@@ -385,11 +386,11 @@ public final class FilesTest
 	}
 
 	@Test
-	public void testGetAppender() throws Exception
+	public void testNewOutputStreamWithAppendOption() throws Exception
 	{
 		File test = tmp.newFolder();
 		File txt = createFile(test, "hello.txt", ascii("Hello"));
-		OutputStream out = Files.getAppender(txt);
+		OutputStream out = Files.newOutputStream(txt, WriteOption.APPEND);
 		out.write(ascii(" "));
 		out.write(ascii("World"));
 		out.flush();
@@ -398,30 +399,83 @@ public final class FilesTest
 	}
 
 	@Test
+	public void testNewOutputStreamWithOverwriteOption() throws Exception
+	{
+		File test = tmp.newFolder();
+		File txt = createFile(test, "hello.txt", ascii("Kello"));
+		OutputStream out = Files.newOutputStream(txt, WriteOption.OVERWRITE);
+		out.write(ascii("H"));
+		out.flush();
+		out.close();
+		assertArrayEquals(ascii("Hello"), read(txt));
+	}
+
+	@Test
+	public void testNewOutputStreamWithCreateOption() throws Exception
+	{
+		File test = tmp.newFolder();
+		File f = new File(test, "hello.txt");
+		OutputStream out = Files.newOutputStream(f, WriteOption.CREATE);
+		out.write(ascii("Hello"));
+		out.flush();
+		out.close();
+		assertArrayEquals(ascii("Hello"), read(f));
+	}
+
+	@Test(expected = IOException.class)
+	public void testNewOutputStreamWithCreateOptionOnExistingFile()
+		throws Exception
+	{
+		File test = tmp.newFolder();
+		File txt = createFile(test, "hello.txt", ascii("Hello"));
+		Files.newOutputStream(txt, WriteOption.CREATE);
+	}
+
+	@Test
+	public void testNewOutputStreamWithUpdateOption() throws Exception
+	{
+		File test = tmp.newFolder();
+		File txt = createFile(test, "hello.txt", ascii("Test"));
+		OutputStream out = Files.newOutputStream(txt, WriteOption.UPDATE);
+		out.write(ascii("Hello"));
+		out.flush();
+		out.close();
+		assertArrayEquals(ascii("Hello"), read(txt));
+	}
+
+	@Test(expected = FileNotFoundException.class)
+	public void testNewOutputStreamWithUpdateOptionOnMissingFile()
+		throws Exception
+	{
+		File test = tmp.newFolder();
+		File f = new File(test, "hello.txt");
+		Files.newOutputStream(f, WriteOption.UPDATE);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testNewOutputStreamWithUpdateAndCreateOptions()
+		throws Exception
+	{
+		File test = tmp.newFolder();
+		File f = new File(test, "hello.txt");
+		Files.newOutputStream(f, WriteOption.UPDATE, WriteOption.CREATE);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testNewOutputStreamWithOverwriteAndAppendOptions()
+		throws Exception
+	{
+		File test = tmp.newFolder();
+		File f = new File(test, "hello.txt");
+		Files.newOutputStream(f, WriteOption.OVERWRITE, WriteOption.APPEND);
+	}
+
+	@Test
 	public void testRead() throws Exception
 	{
 		File test = tmp.newFolder();
 		File txt = createFile(test, "hello.txt", ascii("Hello"));
 		assertArrayEquals(ascii("Hello"), Files.read(txt));
-	}
-
-	@Test
-	public void testWrite() throws Exception
-	{
-		File test = tmp.newFolder();
-		File txt = createFile(test, "hello.txt", ascii("Hello"));
-		Files.write(txt, ascii("World"));
-		assertArrayEquals(ascii("World"), read(txt));
-	}
-
-	@Test
-	public void testAppend() throws Exception
-	{
-		File test = tmp.newFolder();
-		File txt = createFile(test, "hello.txt", ascii("Hello"));
-		Files.append(txt, ascii(" "));
-		Files.append(txt, ascii("World"));
-		assertArrayEquals(ascii("Hello World"), read(txt));
 	}
 
 	private byte[] randomData(int len)

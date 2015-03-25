@@ -16,6 +16,9 @@
 
 package org.kocakosm.pitaya.io;
 
+import static org.kocakosm.pitaya.io.WriteOption.*;
+
+import org.kocakosm.pitaya.collection.ImmutableSet;
 import org.kocakosm.pitaya.util.Parameters;
 import org.kocakosm.pitaya.util.XArrays;
 
@@ -29,7 +32,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.RandomAccessFile;
+import java.nio.channels.Channels;
+import java.nio.channels.FileChannel;
 import java.util.Arrays;
+import java.util.Set;
 
 /**
  * {@link File}s utilities.
@@ -98,8 +104,8 @@ public final class Files
 			InputStream in = null;
 			OutputStream out = null;
 			try {
-				in = getReader(src);
-				out = getWriter(dst);
+				in = newInputStream(src);
+				out = newOutputStream(dst);
 				ByteStreams.copy(in, out);
 			} finally {
 				IO.close(in);
@@ -124,7 +130,7 @@ public final class Files
 	 */
 	public static void cp(File src, OutputStream dst) throws IOException
 	{
-		InputStream in = getReader(src);
+		InputStream in = newInputStream(src);
 		try {
 			ByteStreams.copy(in, dst);
 		} finally {
@@ -148,7 +154,7 @@ public final class Files
 	 */
 	public static void cp(InputStream src, File dst) throws IOException
 	{
-		OutputStream out = getWriter(dst);
+		OutputStream out = newOutputStream(dst);
 		try {
 			ByteStreams.copy(src, out);
 		} finally {
@@ -304,7 +310,7 @@ public final class Files
 	public static byte[] head(File f, int n) throws IOException
 	{
 		Parameters.checkCondition(n >= 0);
-		InputStream in = getReader(f);
+		InputStream in = newInputStream(f);
 		byte[] buf = new byte[n];
 		try {
 			return XArrays.copyOf(buf, 0, in.read(buf));
@@ -438,8 +444,6 @@ public final class Files
 
 	/**
 	 * Returns an {@code InputStream} to read from the given {@code File}.
-	 * Implementation note: the returned {@code InputStream} is an instance
-	 * of {@link BufferedInputStream}.
 	 *
 	 * @param f the file to read from.
 	 *
@@ -452,51 +456,74 @@ public final class Files
 	 * @throws SecurityException if a security manager exists and denies
 	 *	read access to {@code f}.
 	 */
-	public static InputStream getReader(File f) throws FileNotFoundException
+	public static BufferedInputStream newInputStream(File f)
+		throws FileNotFoundException
 	{
 		return new BufferedInputStream(new FileInputStream(f));
 	}
 
 	/**
 	 * Returns an {@code OutputStream} to write to the given {@code File}.
-	 * Implementation note: the returned {@code OutputStream} is an instance
-	 * of {@link BufferedOutputStream}.
 	 *
 	 * @param f the file to write to.
+	 * @param options the write options.
 	 *
 	 * @return an {@code OutputStream} to write to the given {@code File}.
 	 *
-	 * @throws NullPointerException if {@code f} is {@code null}.
+	 * @throws NullPointerException if one of the arguments is {@code null}.
+	 * @throws IllegalArgumentException if incompatible options are given.
 	 * @throws FileNotFoundException if {@code f} exists but is a directory
 	 *	rather than a regular file, or if it does not exist but cannot
 	 *	be created, or if it cannot be opened for any other reason.
+	 * @throws IOException if the {@link WriteOption#CREATE_NEW} option is
+	 *	given and the specified file already exists.
 	 * @throws SecurityException if a security manager exists and denies
 	 *	write access to {@code f}.
 	 */
-	public static OutputStream getWriter(File f) throws FileNotFoundException
+	public static BufferedOutputStream newOutputStream(File f, WriteOption... options)
+		throws IOException
 	{
-		return new BufferedOutputStream(new FileOutputStream(f));
+		Set<WriteOption> opts = ImmutableSet.of(options);
+		checkWriteOptions(opts);
+		checkFileExistence(f, opts);
+		return new BufferedOutputStream(newOutputStream(f, opts));
 	}
 
-	/**
-	 * Returns an {@code OutputStream} to append data to the given {@code File}.
-	 * Implementation note: the returned {@code OutputStream} is an instance
-	 * of {@link BufferedOutputStream}.
-	 *
-	 * @param f the file to append to.
-	 *
-	 * @return an {@code OutputStream} to append to the given {@code File}.
-	 *
-	 * @throws NullPointerException if {@code f} is {@code null}.
-	 * @throws FileNotFoundException if {@code f} exists but is a directory
-	 *	rather than a regular file, or if it does not exist but cannot
-	 *	be created, or if it cannot be opened for any other reason.
-	 * @throws SecurityException if a security manager exists and denies
-	 *	write access to {@code f}.
-	 */
-	public static OutputStream getAppender(File f) throws FileNotFoundException
+	private static void checkWriteOptions(Set<WriteOption> options)
 	{
-		return new BufferedOutputStream(new FileOutputStream(f, true));
+		if ((options.contains(APPEND) && options.contains(OVERWRITE))
+			|| (options.contains(CREATE) && options.size() > 1))
+		{
+			throw new IllegalArgumentException(
+				"Incompatible write options: " + options);
+		}
+	}
+
+	private static void checkFileExistence(File f, Set<WriteOption> options)
+		throws IOException
+	{
+		if (options.contains(CREATE) && f.exists()) {
+			throw new IOException(
+				CREATE + ": " + f + " already exists");
+		}
+		if (options.contains(UPDATE) && !f.exists()) {
+			throw new FileNotFoundException(
+				UPDATE + ": " + f + " dosn't exist");
+		}
+	}
+
+	private static OutputStream newOutputStream(File f, Set<WriteOption> options)
+		throws FileNotFoundException
+	{
+		if (options.contains(APPEND)) {
+			return new FileOutputStream(f, true);
+		}
+		if (options.contains(OVERWRITE)) {
+			RandomAccessFile file = new RandomAccessFile(f, "rw");
+			FileChannel channel = file.getChannel();
+			return Channels.newOutputStream(channel);
+		}
+		return new FileOutputStream(f);
 	}
 
 	/**
@@ -514,57 +541,11 @@ public final class Files
 	 */
 	public static byte[] read(File f) throws IOException
 	{
-		InputStream in = getReader(f);
+		InputStream in = newInputStream(f);
 		try {
 			return ByteStreams.read(in);
 		} finally {
 			IO.close(in);
-		}
-	}
-
-	/**
-	 * Writes the given data to the specified {@code File}.
-	 *
-	 * @param f the file to write to.
-	 * @param data the data to write.
-	 *
-	 * @throws NullPointerException if one of the arguments is {@code null}.
-	 * @throws IOException if {@code f} exists but is a directory rather
-	 *	than a regular file, or if it does not exist but cannot be
-	 *	created, or if an I/O error occurs during the process.
-	 * @throws SecurityException if a security manager exists and denies
-	 *	write access to {@code f}.
-	 */
-	public static void write(File f, byte... data) throws IOException
-	{
-		write(getWriter(f), data);
-	}
-
-	/**
-	 * Appends the given data to the specified {@code File}.
-	 *
-	 * @param f the file to append to.
-	 * @param data the data to append.
-	 *
-	 * @throws NullPointerException if one of the arguments is {@code null}.
-	 * @throws IOException if {@code f} exists but is a directory rather
-	 *	than a regular file, or if it does not exist but cannot be
-	 *	created, or if an I/O error occurs during the process.
-	 * @throws SecurityException if a security manager exists and denies
-	 *	write access to {@code f}.
-	 */
-	public static void append(File f, byte... data) throws IOException
-	{
-		write(getAppender(f), data);
-	}
-
-	private static void write(OutputStream out, byte... data) throws IOException
-	{
-		try {
-			out.write(data);
-		} finally {
-			IO.flush(out);
-			IO.close(out);
 		}
 	}
 
