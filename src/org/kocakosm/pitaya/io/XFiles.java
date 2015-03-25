@@ -34,7 +34,6 @@ import java.io.OutputStream;
 import java.io.RandomAccessFile;
 import java.nio.channels.Channels;
 import java.nio.channels.FileChannel;
-import java.util.Arrays;
 import java.util.Set;
 
 /**
@@ -62,11 +61,13 @@ public final class XFiles
 	 *	neither a regular file nor a directory or if an I/O error occurs
 	 *	during the process.
 	 * @throws SecurityException if a security manager exists and denies
-	 *	read access to the {@code src} or write access to {@code dst}.
+	 *	read access to {@code src} or write access to {@code dst}.
 	 */
 	public static void cp(File src, File dst) throws IOException
 	{
-		checkExists(src);
+		if (!src.exists()) {
+			throw new FileNotFoundException(src + " doesn't exist");
+		}
 		Parameters.checkCondition((!dst.exists() || dst.isDirectory())
 			|| (src.isFile() && dst.isFile()));
 		if (src.isDirectory()) {
@@ -76,13 +77,6 @@ public final class XFiles
 		} else {
 			throw new IOException(
 				src + " is neither a directory nor a regular file");
-		}
-	}
-
-	private static void checkExists(File f) throws FileNotFoundException
-	{
-		if (!f.exists()) {
-			throw new FileNotFoundException(f + " doesn't exist");
 		}
 	}
 
@@ -381,29 +375,43 @@ public final class XFiles
 	 */
 	public static boolean equals(File f1, File f2) throws IOException
 	{
-		if (f1 == null ^ f2 == null) {
+		if (f1 == f2) {
+			return true;
+		}
+		if (f1 == null || f2 == null || !haveSameType(f1, f2)) {
 			return false;
 		}
-		if (f1 != null) {
-			if (f1.equals(f2)) {
-				return true;
+		return f1.equals(f2) ? true : haveSameContent(f1, f2);
+	}
+
+	private static boolean haveSameType(File f1, File f2)
+	{
+		return f1.isFile() == f2.isFile()
+			&& f1.isDirectory() == f2.isDirectory();
+	}
+
+	private static boolean haveSameContent(File f1, File f2)
+		throws IOException
+	{
+		if (f1.isFile()) {
+			InputStream in1 = null;
+			InputStream in2 = null;
+			try {
+				in1 = newInputStream(f1);
+				in2 = newInputStream(f2);
+				return ByteStreams.equals(in1, in2);
+			} finally {
+				IO.close(in1);
+				IO.close(in2);
 			}
-			if (f1.isFile() != f2.isFile()
-				|| f1.isDirectory() != f2.isDirectory())
-			{
+		}
+		File[] files = f1.listFiles();
+		if (files.length != f2.listFiles().length) {
+			return false;
+		}
+		for (File f : files) {
+			if (!equals(f, new File(f2, f.getName()))) {
 				return false;
-			}
-			if (f1.isFile()) {
-				return Arrays.equals(read(f1), read(f2));
-			}
-			File[] files = f1.listFiles();
-			if (files.length != f2.listFiles().length) {
-				return false;
-			}
-			for (File f : files) {
-				if (!equals(f, new File(f2, f.getName()))) {
-					return false;
-				}
 			}
 		}
 		return true;
