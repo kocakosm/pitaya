@@ -42,7 +42,7 @@ import java.util.Set;
  *
  * @author Osman KOCAK
  */
-public final class Files
+public final class XFiles
 {
 	/**
 	 * Copies the contents of {@code src} to {@code dst}. If {@code dst}
@@ -549,7 +549,7 @@ public final class Files
 		}
 	}
 
-	private Files()
+	private XFiles()
 	{
 		/* ... */
 	}

@@ -38,11 +38,11 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 /**
- * {@link Files}' unit tests.
+ * {@link XFiles}' unit tests.
  *
  * @author Osman KOCAK
  */
-public final class FilesTest
+public final class XFilesTest
 {
 	private static final Random PRNG = new Random();
 
@@ -55,7 +55,7 @@ public final class FilesTest
 		File test = tmp.newFolder();
 		File src = createFile(test, "hello.txt", ascii("Hello"));
 		File dst = new File(test, "copy-of-hello.txt");
-		Files.cp(src, dst);
+		XFiles.cp(src, dst);
 		assertEquals(src, dst);
 	}
 
@@ -65,7 +65,7 @@ public final class FilesTest
 		File test = tmp.newFolder();
 		File src = createFile(test, "hello.txt", ascii("Hello"));
 		File dst = createFile(test, "world.txt", ascii("World"));
-		Files.cp(src, dst);
+		XFiles.cp(src, dst);
 		assertEquals(src, dst);
 	}
 
@@ -76,7 +76,7 @@ public final class FilesTest
 		File src = createFile(test, "hello.txt", ascii("Hello"));
 		File dst = new File(test, "out");
 		dst.mkdirs();
-		Files.cp(src, dst);
+		XFiles.cp(src, dst);
 		assertEquals(src, new File(dst, src.getName()));
 	}
 
@@ -89,7 +89,7 @@ public final class FilesTest
 		createFile(src, "hello.txt", ascii("Hello"));
 		createFile(src, "world.txt", ascii("World"));
 		File dst = new File(test, "out");
-		Files.cp(src, dst);
+		XFiles.cp(src, dst);
 		assertEquals(src, dst);
 	}
 
@@ -103,7 +103,7 @@ public final class FilesTest
 		createFile(src, "world.txt", ascii("World"));
 		File dst = new File(test, "out");
 		dst.mkdirs();
-		Files.cp(src, dst);
+		XFiles.cp(src, dst);
 		assertEquals(src, new File(dst, "in"));
 	}
 
@@ -114,7 +114,7 @@ public final class FilesTest
 		byte[] data = ascii("Hello");
 		File src = createFile(test, "hello.txt", data);
 		ByteArrayOutputStream dst = new ByteArrayOutputStream();
-		Files.cp(src, dst);
+		XFiles.cp(src, dst);
 		assertArrayEquals(data, dst.toByteArray());
 	}
 
@@ -124,7 +124,7 @@ public final class FilesTest
 		File test = tmp.newFolder();
 		byte[] data = ascii("Hello");
 		File dst = new File(test, "hello.txt");
-		Files.cp(new ByteArrayInputStream(data), dst);
+		XFiles.cp(new ByteArrayInputStream(data), dst);
 		assertArrayEquals(data, read(dst));
 	}
 
@@ -139,18 +139,18 @@ public final class FilesTest
 		createFile(test2, "f1.txt", data);
 		createFile(test2, "f2.txt", data);
 
-		assertTrue(Files.equals(f1, f1));
-		assertFalse(Files.equals(f1, new File("f1.txt")));
-		assertFalse(Files.equals(new File("f1.txt"), f1));
-		assertFalse(Files.equals(f1, null));
-		assertFalse(Files.equals(null, f1));
-		assertTrue(Files.equals(null, null));
-		assertTrue(Files.equals(f1, f2));
-		assertFalse(Files.equals(f1, test1));
-		assertFalse(Files.equals(test1, f1));
-		assertTrue(Files.equals(test1, test2));
+		assertTrue(XFiles.equals(f1, f1));
+		assertFalse(XFiles.equals(f1, new File("f1.txt")));
+		assertFalse(XFiles.equals(new File("f1.txt"), f1));
+		assertFalse(XFiles.equals(f1, null));
+		assertFalse(XFiles.equals(null, f1));
+		assertTrue(XFiles.equals(null, null));
+		assertTrue(XFiles.equals(f1, f2));
+		assertFalse(XFiles.equals(f1, test1));
+		assertFalse(XFiles.equals(test1, f1));
+		assertTrue(XFiles.equals(test1, test2));
 		createFile(test1, "f3.txt", data);
-		assertFalse(Files.equals(test1, test2));
+		assertFalse(XFiles.equals(test1, test2));
 	}
 
 	@Test
@@ -159,7 +159,7 @@ public final class FilesTest
 		File test = tmp.newFolder();
 		byte[] data = randomData(PRNG.nextInt(512) + 512);
 		File src = createFile(test, "data", data);
-		byte[] head = Files.head(src);
+		byte[] head = XFiles.head(src);
 		assertArrayEquals(Arrays.copyOf(data, 512), head);
 	}
 
@@ -169,7 +169,7 @@ public final class FilesTest
 		File test = tmp.newFolder();
 		File in1 = new File(test, "yellow");
 		File in2 = new File(in1, "submarine");
-		Files.mkdir(in2);
+		XFiles.mkdir(in2);
 		assertTrue(in2.exists());
 		assertTrue(in2.isDirectory());
 		Assert.assertEquals(in2.getParentFile(), in1);
@@ -179,7 +179,7 @@ public final class FilesTest
 	public void testCreateDirectoryOnFile() throws Exception
 	{
 		File test = tmp.newFolder();
-		Files.mkdir(createFile(test, "hello.txt", ascii("Hello")));
+		XFiles.mkdir(createFile(test, "hello.txt", ascii("Hello")));
 	}
 
 	@Test
@@ -188,7 +188,7 @@ public final class FilesTest
 		File test = tmp.newFolder();
 		File src = createFile(test, "hello.txt", ascii("Hello"));
 		File dst = new File(test, "hi.txt");
-		Files.mv(src, dst);
+		XFiles.mv(src, dst);
 		assertFalse(src.exists());
 		assertTrue(dst.exists());
 		src = createFile(test, "hello.txt", ascii("Hello"));
@@ -201,7 +201,7 @@ public final class FilesTest
 		File test = tmp.newFolder();
 		File src = createFile(test, "hello.txt", ascii("Hello"));
 		File dst = createFile(test, "world.txt", ascii("World"));
-		Files.mv(src, dst);
+		XFiles.mv(src, dst);
 		assertFalse(src.exists());
 		assertTrue(dst.exists());
 		src = createFile(test, "hello.txt", ascii("Hello"));
@@ -215,7 +215,7 @@ public final class FilesTest
 		File src = createFile(test, "hello.txt", ascii("Hello"));
 		File dst = new File(test, "out");
 		dst.mkdirs();
-		Files.mv(src, dst);
+		XFiles.mv(src, dst);
 		assertFalse(src.exists());
 		assertTrue(new File(dst, "hello.txt").exists());
 		src = createFile(test, "hello.txt", ascii("Hello"));
@@ -232,7 +232,7 @@ public final class FilesTest
 		createFile(src, "world.txt", ascii("World"));
 		File dst = new File(test, "out");
 
-		Files.mv(src, dst);
+		XFiles.mv(src, dst);
 		assertFalse(src.exists());
 		assertTrue(dst.exists());
 
@@ -252,7 +252,7 @@ public final class FilesTest
 		File dst = new File(test, "out");
 		dst.mkdirs();
 
-		Files.mv(src, dst);
+		XFiles.mv(src, dst);
 		assertFalse(src.exists());
 		assertTrue(new File(dst, "in").exists());
 
@@ -268,7 +268,7 @@ public final class FilesTest
 		File test = tmp.newFolder();
 		File src = createFile(test, "42.txt", ascii("42"));
 		assertTrue(src.exists());
-		Files.rm(src);
+		XFiles.rm(src);
 		assertFalse(src.exists());
 	}
 
@@ -282,7 +282,7 @@ public final class FilesTest
 		createFile(src, "world.txt", ascii("World"));
 		assertTrue(src.exists());
 		assertTrue(src.listFiles().length > 0);
-		Files.rm(src);
+		XFiles.rm(src);
 		assertFalse(src.exists());
 	}
 
@@ -293,7 +293,7 @@ public final class FilesTest
 		byte[] data = randomData(PRNG.nextInt(512) + 512);
 		int len = data.length;
 		File src = createFile(test, "data", data);
-		byte[] tail = Files.tail(src);
+		byte[] tail = XFiles.tail(src);
 		assertArrayEquals(Arrays.copyOfRange(data, len - 512, len), tail);
 	}
 
@@ -303,7 +303,7 @@ public final class FilesTest
 		File test = tmp.newFolder();
 		File f = new File(test, "test");
 		assertFalse(f.exists());
-		Files.touch(f);
+		XFiles.touch(f);
 		assertTrue(f.exists());
 		assertTrue(f.isFile());
 	}
@@ -317,7 +317,7 @@ public final class FilesTest
 		assertTrue(f.exists());
 		assertTrue(f.isFile());
 		Thread.sleep(1001L);
-		Files.touch(f);
+		XFiles.touch(f);
 		assertTrue(f.exists());
 		assertTrue(f.isFile());
 		assertNotEquals(creation, f.lastModified());
@@ -333,7 +333,7 @@ public final class FilesTest
 		Thread.sleep(1001L);
 		assertTrue(src.exists());
 		assertTrue(src.isDirectory());
-		Files.touch(src);
+		XFiles.touch(src);
 		assertTrue(src.exists());
 		assertTrue(src.isDirectory());
 		assertNotEquals(creation, src.lastModified());
@@ -347,10 +347,10 @@ public final class FilesTest
 		File world = createFile(test, "world.txt", ascii("World"));
 		File hi = createFile(test, "hello.xml", ascii("<hello></hello>"));
 		File blob = createFile(test, "blob", randomData(16));
-		Assert.assertEquals("hello", Files.getBaseName(hello));
-		Assert.assertEquals("world", Files.getBaseName(world));
-		Assert.assertEquals("hello", Files.getBaseName(hi));
-		Assert.assertEquals("blob", Files.getBaseName(blob));
+		Assert.assertEquals("hello", XFiles.getBaseName(hello));
+		Assert.assertEquals("world", XFiles.getBaseName(world));
+		Assert.assertEquals("hello", XFiles.getBaseName(hi));
+		Assert.assertEquals("blob", XFiles.getBaseName(blob));
 	}
 
 	@Test
@@ -360,9 +360,9 @@ public final class FilesTest
 		File txt = createFile(test, "hello.txt", ascii("Hello"));
 		File xml = createFile(test, "hello.xml", ascii("<hello></hello>"));
 		File blob = createFile(test, "blob", randomData(16));
-		Assert.assertEquals("txt", Files.getExtension(txt));
-		Assert.assertEquals("xml", Files.getExtension(xml));
-		Assert.assertEquals("", Files.getExtension(blob));
+		Assert.assertEquals("txt", XFiles.getExtension(txt));
+		Assert.assertEquals("xml", XFiles.getExtension(xml));
+		Assert.assertEquals("", XFiles.getExtension(blob));
 	}
 
 	@Test
@@ -370,7 +370,7 @@ public final class FilesTest
 	{
 		File test = tmp.newFolder();
 		File txt = createFile(test, "hello.txt", ascii("Hello"));
-		assertArrayEquals(ascii("Hello"), read(Files.newInputStream(txt)));
+		assertArrayEquals(ascii("Hello"), read(XFiles.newInputStream(txt)));
 	}
 
 	@Test
@@ -378,7 +378,7 @@ public final class FilesTest
 	{
 		File test = tmp.newFolder();
 		File txt = createFile(test, "hello.txt", ascii("Hello"));
-		OutputStream out = Files.newOutputStream(txt);
+		OutputStream out = XFiles.newOutputStream(txt);
 		out.write(ascii("World"));
 		out.flush();
 		out.close();
@@ -390,7 +390,7 @@ public final class FilesTest
 	{
 		File test = tmp.newFolder();
 		File txt = createFile(test, "hello.txt", ascii("Hello"));
-		OutputStream out = Files.newOutputStream(txt, WriteOption.APPEND);
+		OutputStream out = XFiles.newOutputStream(txt, WriteOption.APPEND);
 		out.write(ascii(" "));
 		out.write(ascii("World"));
 		out.flush();
@@ -403,7 +403,7 @@ public final class FilesTest
 	{
 		File test = tmp.newFolder();
 		File txt = createFile(test, "hello.txt", ascii("Kello"));
-		OutputStream out = Files.newOutputStream(txt, WriteOption.OVERWRITE);
+		OutputStream out = XFiles.newOutputStream(txt, WriteOption.OVERWRITE);
 		out.write(ascii("H"));
 		out.flush();
 		out.close();
@@ -415,7 +415,7 @@ public final class FilesTest
 	{
 		File test = tmp.newFolder();
 		File f = new File(test, "hello.txt");
-		OutputStream out = Files.newOutputStream(f, WriteOption.CREATE);
+		OutputStream out = XFiles.newOutputStream(f, WriteOption.CREATE);
 		out.write(ascii("Hello"));
 		out.flush();
 		out.close();
@@ -428,7 +428,7 @@ public final class FilesTest
 	{
 		File test = tmp.newFolder();
 		File txt = createFile(test, "hello.txt", ascii("Hello"));
-		Files.newOutputStream(txt, WriteOption.CREATE);
+		XFiles.newOutputStream(txt, WriteOption.CREATE);
 	}
 
 	@Test
@@ -436,7 +436,7 @@ public final class FilesTest
 	{
 		File test = tmp.newFolder();
 		File txt = createFile(test, "hello.txt", ascii("Test"));
-		OutputStream out = Files.newOutputStream(txt, WriteOption.UPDATE);
+		OutputStream out = XFiles.newOutputStream(txt, WriteOption.UPDATE);
 		out.write(ascii("Hello"));
 		out.flush();
 		out.close();
@@ -449,7 +449,7 @@ public final class FilesTest
 	{
 		File test = tmp.newFolder();
 		File f = new File(test, "hello.txt");
-		Files.newOutputStream(f, WriteOption.UPDATE);
+		XFiles.newOutputStream(f, WriteOption.UPDATE);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -458,7 +458,7 @@ public final class FilesTest
 	{
 		File test = tmp.newFolder();
 		File f = new File(test, "hello.txt");
-		Files.newOutputStream(f, WriteOption.UPDATE, WriteOption.CREATE);
+		XFiles.newOutputStream(f, WriteOption.UPDATE, WriteOption.CREATE);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -467,7 +467,7 @@ public final class FilesTest
 	{
 		File test = tmp.newFolder();
 		File f = new File(test, "hello.txt");
-		Files.newOutputStream(f, WriteOption.OVERWRITE, WriteOption.APPEND);
+		XFiles.newOutputStream(f, WriteOption.OVERWRITE, WriteOption.APPEND);
 	}
 
 	@Test
@@ -475,7 +475,7 @@ public final class FilesTest
 	{
 		File test = tmp.newFolder();
 		File txt = createFile(test, "hello.txt", ascii("Hello"));
-		assertArrayEquals(ascii("Hello"), Files.read(txt));
+		assertArrayEquals(ascii("Hello"), XFiles.read(txt));
 	}
 
 	private byte[] randomData(int len)
