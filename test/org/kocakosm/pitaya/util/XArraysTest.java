@@ -272,6 +272,7 @@ public final class XArraysTest
 		int[] a = new int[] {1, 2, 3, 4, 5};
 		assertArrayEquals(a, copyOf(a));
 	}
+
 	@Test
 	public void testCopyOfShortArray()
 	{
@@ -550,15 +551,15 @@ public final class XArraysTest
 	{
 		assertArrayEquals(new Object[0], rotate(new Object[0], 15));
 
-		Object[] a = new Object[]{"a", "b", "c", "d"};
+		Object[] a = new Object[] {"a", "b", "c", "d"};
 		assertArrayEquals(a, rotate(a, 0));
 		assertArrayEquals(a, rotate(a, -a.length));
 		assertArrayEquals(a, rotate(a, a.length * 5));
-		assertArrayEquals(new Object[]{"d", "a", "b", "c"}, rotate(a, 1));
-		assertArrayEquals(new Object[]{"c", "d", "a", "b"}, rotate(a, 2));
-		assertArrayEquals(new Object[]{"b", "c", "d", "a"}, rotate(a, 3));
-		assertArrayEquals(new Object[]{"d", "a", "b", "c"}, rotate(a, 5));
-		assertArrayEquals(new Object[]{"b", "c", "d", "a"}, rotate(a, -1));
+		assertArrayEquals(new Object[] {"d", "a", "b", "c"}, rotate(a, 1));
+		assertArrayEquals(new Object[] {"c", "d", "a", "b"}, rotate(a, 2));
+		assertArrayEquals(new Object[] {"b", "c", "d", "a"}, rotate(a, 3));
+		assertArrayEquals(new Object[] {"d", "a", "b", "c"}, rotate(a, 5));
+		assertArrayEquals(new Object[] {"b", "c", "d", "a"}, rotate(a, -1));
 	}
 
 	@Test
@@ -700,6 +701,7 @@ public final class XArraysTest
 		assertNotSame(a, sort(a));
 		assertArrayEquals(sorted, sort(a));
 	}
+
 	@Test
 	public void testSortShortArray()
 	{
@@ -773,7 +775,7 @@ public final class XArraysTest
 	}
 
 	@Test
-	public void testToPrimitiveLong()
+	public void testToPrimitiveLongArray()
 	{
 		assertNull(XArrays.toPrimitive((Long[]) null));
 
@@ -783,7 +785,7 @@ public final class XArraysTest
 	}
 
 	@Test
-	public void testToPrimitiveInt()
+	public void testToPrimitiveIntArray()
 	{
 		assertNull(XArrays.toPrimitive((Integer[]) null));
 
@@ -793,7 +795,7 @@ public final class XArraysTest
 	}
 
 	@Test
-	public void testToPrimitiveShort()
+	public void testToPrimitiveShortArray()
 	{
 		assertNull(XArrays.toPrimitive((Short[]) null));
 
@@ -803,7 +805,7 @@ public final class XArraysTest
 	}
 
 	@Test
-	public void testToPrimitiveChar()
+	public void testToPrimitiveCharArray()
 	{
 		assertNull(XArrays.toPrimitive((Character[]) null));
 
@@ -813,7 +815,7 @@ public final class XArraysTest
 	}
 
 	@Test
-	public void testToPrimitiveByte()
+	public void testToPrimitiveByteArray()
 	{
 		assertNull(XArrays.toPrimitive((Byte[]) null));
 
@@ -823,7 +825,7 @@ public final class XArraysTest
 	}
 
 	@Test
-	public void testToPrimitiveBoolean()
+	public void testToPrimitiveBooleanArray()
 	{
 		assertNull(XArrays.toPrimitive((Boolean[]) null));
 
@@ -833,7 +835,7 @@ public final class XArraysTest
 	}
 
 	@Test
-	public void testToPrimitiveFloat()
+	public void testToPrimitiveFloatArray()
 	{
 		assertNull(XArrays.toPrimitive((Float[]) null));
 
@@ -843,7 +845,7 @@ public final class XArraysTest
 	}
 
 	@Test
-	public void testToPrimitiveDouble()
+	public void testToPrimitiveDoubleArray()
 	{
 		assertNull(XArrays.toPrimitive((Double[]) null));
 
@@ -853,83 +855,83 @@ public final class XArraysTest
 	}
 
 	@Test
-	public void testToWrapperLong()
+	public void testToObjectLongArray()
 	{
-		assertNull(XArrays.toWrapper((long[]) null));
+		assertNull(XArrays.toObject((long[]) null));
 
 		long[] p = new long[] {1L, 2L, 3L};
 		Long[] w = new Long[] {1L, 2L, 3L};
-		assertArrayEquals(w, XArrays.toWrapper(p));
+		assertArrayEquals(w, XArrays.toObject(p));
 	}
 
 	@Test
-	public void testToWrapperInt()
+	public void testToObjectIntArray()
 	{
-		assertNull(XArrays.toWrapper((int[]) null));
+		assertNull(XArrays.toObject((int[]) null));
 
 		int[] p = new int[] {1, 2, 3};
 		Integer[] w = new Integer[] {1, 2, 3};
-		assertArrayEquals(w, XArrays.toWrapper(p));
+		assertArrayEquals(w, XArrays.toObject(p));
 	}
 
 	@Test
-	public void testToWrapperShort()
+	public void testToObjectShortArray()
 	{
-		assertNull(XArrays.toWrapper((short[]) null));
+		assertNull(XArrays.toObject((short[]) null));
 
 		short[] p = new short[] {1, 2, 3};
 		Short[] w = new Short[] {1, 2, 3};
-		assertArrayEquals(w, XArrays.toWrapper(p));
+		assertArrayEquals(w, XArrays.toObject(p));
 	}
 
 	@Test
-	public void testToWrapperChar()
+	public void testToObjectCharArray()
 	{
-		assertNull(XArrays.toWrapper((char[]) null));
+		assertNull(XArrays.toObject((char[]) null));
 
 		char[] p = new char[] {'a', 'b', 'c'};
 		Character[] w = new Character[] {'a', 'b', 'c'};
-		assertArrayEquals(w, XArrays.toWrapper(p));
+		assertArrayEquals(w, XArrays.toObject(p));
 	}
 
 	@Test
-	public void testToWrapperByte()
+	public void testToObjectByteArray()
 	{
-		assertNull(XArrays.toWrapper((byte[]) null));
+		assertNull(XArrays.toObject((byte[]) null));
 
 		byte[] p = new byte[] {1, 2, 3};
 		Byte[] w = new Byte[] {1, 2, 3};
-		assertArrayEquals(w, XArrays.toWrapper(p));
+		assertArrayEquals(w, XArrays.toObject(p));
 	}
 
 	@Test
-	public void testToWrapperBoolean()
+	public void testToObjectBooleanArray()
 	{
-		assertNull(XArrays.toWrapper((boolean[]) null));
+		assertNull(XArrays.toObject((boolean[]) null));
 
 		boolean[] p = new boolean[] {true, false, true};
 		Boolean[] w = new Boolean[] {true, false, true};
-		assertTrue(Arrays.equals(w, XArrays.toWrapper(p)));
+		assertTrue(Arrays.equals(w, XArrays.toObject(p)));
 	}
 
 	@Test
-	public void testToWrapperFloat()
+	public void testToObjectFloatArray()
 	{
-		assertNull(XArrays.toWrapper((float[]) null));
+		assertNull(XArrays.toObject((float[]) null));
 
 		float[] p = new float[] {1f, 2f, 3f};
 		Float[] w = new Float[] {1f, 2f, 3f};
-		assertTrue(Arrays.equals(w, XArrays.toWrapper(p)));
+		assertTrue(Arrays.equals(w, XArrays.toObject(p)));
 	}
 
 	@Test
-	public void testToWrapperDouble()
+	public void testToObjectDoubleArray()
 	{
-		assertNull(XArrays.toWrapper((double[]) null));
+		assertNull(XArrays.toObject((double[]) null));
 
 		double[] p = new double[] {1d, 2d, 3d};
 		Double[] w = new Double[] {1d, 2d, 3d};
-		assertTrue(Arrays.equals(w, XArrays.toWrapper(p)));
+		assertTrue(Arrays.equals(w, XArrays.toObject(p)));
 	}
 
 	@Test

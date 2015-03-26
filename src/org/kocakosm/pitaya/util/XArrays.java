@@ -1987,7 +1987,7 @@ public final class XArrays
 	 *
 	 * @return the corresponding {@code Long} array.
 	 */
-	public static Long[] toWrapper(long... a)
+	public static Long[] toObject(long... a)
 	{
 		if (a != null) {
 			Long[] w = new Long[a.length];
@@ -2008,7 +2008,7 @@ public final class XArrays
 	 *
 	 * @return the corresponding {@code Integer} array.
 	 */
-	public static Integer[] toWrapper(int... a)
+	public static Integer[] toObject(int... a)
 	{
 		if (a != null) {
 			Integer[] w = new Integer[a.length];
@@ -2029,7 +2029,7 @@ public final class XArrays
 	 *
 	 * @return the corresponding {@code Short} array.
 	 */
-	public static Short[] toWrapper(short... a)
+	public static Short[] toObject(short... a)
 	{
 		if (a != null) {
 			Short[] w = new Short[a.length];
@@ -2050,7 +2050,7 @@ public final class XArrays
 	 *
 	 * @return the corresponding {@code Character} array.
 	 */
-	public static Character[] toWrapper(char... a)
+	public static Character[] toObject(char... a)
 	{
 		if (a != null) {
 			Character[] w = new Character[a.length];
@@ -2071,7 +2071,7 @@ public final class XArrays
 	 *
 	 * @return the corresponding {@code Byte} array.
 	 */
-	public static Byte[] toWrapper(byte... a)
+	public static Byte[] toObject(byte... a)
 	{
 		if (a != null) {
 			Byte[] w = new Byte[a.length];
@@ -2092,7 +2092,7 @@ public final class XArrays
 	 *
 	 * @return the corresponding {@code Boolean} array.
 	 */
-	public static Boolean[] toWrapper(boolean... a)
+	public static Boolean[] toObject(boolean... a)
 	{
 		if (a != null) {
 			Boolean[] w = new Boolean[a.length];
@@ -2113,7 +2113,7 @@ public final class XArrays
 	 *
 	 * @return the corresponding {@code Short} array.
 	 */
-	public static Float[] toWrapper(float... a)
+	public static Float[] toObject(float... a)
 	{
 		if (a != null) {
 			Float[] w = new Float[a.length];
@@ -2134,7 +2134,7 @@ public final class XArrays
 	 *
 	 * @return the corresponding {@code Double} array.
 	 */
-	public static Double[] toWrapper(double... a)
+	public static Double[] toObject(double... a)
 	{
 		if (a != null) {
 			Double[] w = new Double[a.length];
