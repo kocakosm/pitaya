@@ -127,11 +127,11 @@ public final class ByteBuffer implements Iterable<Byte>, Serializable
 	}
 
 	/**
-	 * Resets this buffer.
+	 * Clears this buffer.
 	 *
 	 * @return this object.
 	 */
-	public ByteBuffer reset()
+	public ByteBuffer clear()
 	{
 		count = 0;
 		buf = new byte[capacity];

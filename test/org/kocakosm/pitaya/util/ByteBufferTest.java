@@ -85,7 +85,7 @@ public final class ByteBufferTest
 	public void testContainsNoDataAfterReset()
 	{
 		ByteBuffer buf = new ByteBuffer((byte) 0xFF, (byte) 0x45);
-		buf.append((byte) 0xD1, (byte) 0xE7).reset();
+		buf.append((byte) 0xD1, (byte) 0xE7).clear();
 		assertEquals(0, buf.size());
 		assertArrayEquals(new byte[0], buf.toByteArray());
 	}
