@@ -64,7 +64,7 @@ public final class LittleEndianTest
 	{
 		byte[] encoded = new byte[] {
 			(byte) 0x90, (byte) 0xB1, (byte) 0x5C, (byte) 0x1D,
-			(byte) 0x76, (byte) 0x7F, (byte) 0x5E, (byte) 0x1A,
+			(byte) 0x76, (byte) 0x7F, (byte) 0x5E, (byte) 0x1A
 		};
 		assertArrayEquals(encoded, encode(1900096238072410512L));
 	}
@@ -74,7 +74,7 @@ public final class LittleEndianTest
 	{
 		byte[] encoded = new byte[] {
 			(byte) 0x90, (byte) 0xB1, (byte) 0x5C, (byte) 0x1D,
-			(byte) 0x76, (byte) 0x7F, (byte) 0x5E, (byte) 0x1A,
+			(byte) 0x76, (byte) 0x7F, (byte) 0x5E, (byte) 0x1A
 		};
 		assertEquals(1900096238072410512L, decodeLong(encoded));
 	}

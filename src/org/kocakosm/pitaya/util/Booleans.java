@@ -24,23 +24,23 @@ package org.kocakosm.pitaya.util;
 public final class Booleans
 {
 	/**
-	 * The {@link Boolean} object corresponding to the primitive value
+	 * The {@code Boolean} object corresponding to the primitive value
 	 * {@code true}.
 	 */
 	public static final Boolean TRUE = Boolean.TRUE;
 
 	/**
-	 * The {@link Boolean} object corresponding to the primitive value
+	 * The {@code Boolean} object corresponding to the primitive value
 	 * {@code false}.
 	 */
 	public static final Boolean FALSE = Boolean.FALSE;
 
 	/**
 	 * Performs a logical "and" on the given values, that is, this method
-	 * returns {@code true} if, and only if, all the given {@link Boolean}
+	 * returns {@code true} if, and only if, all the given {@code Boolean}
 	 * values are {@code true}, and {@code false} in all other cases.
 	 *
-	 * @param bools the {@link Boolean} values.
+	 * @param bools the {@code Boolean} values.
 	 *
 	 * @return the result of the logical "and" on the given values.
 	 *
@@ -51,7 +51,7 @@ public final class Booleans
 	{
 		Parameters.checkCondition(bools.length > 0);
 		for (Boolean bool : bools) {
-			if (!bool.booleanValue()) {
+			if (!bool) {
 				return FALSE;
 			}
 		}
@@ -61,10 +61,10 @@ public final class Booleans
 	/**
 	 * Performs a logical "or" on the given values, that is, this method
 	 * returns {@code true} if, and only if, at least one of the given
-	 * {@link Boolean} values is {@code true}, and {@code false} in all
+	 * {@code Boolean} values is {@code true}, and {@code false} in all
 	 * other cases.
 	 *
-	 * @param bools the {@link Boolean} values.
+	 * @param bools the {@code Boolean} values.
 	 *
 	 * @return the result of the logical "or" on the given values.
 	 *
@@ -75,7 +75,7 @@ public final class Booleans
 	{
 		Parameters.checkCondition(bools.length > 0);
 		for (Boolean bool : bools) {
-			if (bool.booleanValue()) {
+			if (bool) {
 				return TRUE;
 			}
 		}
@@ -83,26 +83,26 @@ public final class Booleans
 	}
 
 	/**
-	 * Returns the negation of the given {@link Boolean}.
+	 * Returns the negation of the given {@code Boolean}.
 	 *
-	 * @param bool the {@link Boolean} to negate.
+	 * @param bool the {@code Boolean} to negate.
 	 *
-	 * @return the negation of the given {@link Boolean}.
+	 * @return the negation of the given {@code Boolean}.
 	 *
 	 * @throws NullPointerException if {@code bool} is {@code null}.
 	 */
 	public static Boolean not(Boolean bool)
 	{
-		return bool.booleanValue() ? FALSE : TRUE;
+		return bool ? FALSE : TRUE;
 	}
 
 	/**
 	 * Performs an "exclusive or" on the given values, that is, this method
 	 * returns {@code true} if, and only if, only one of the given
-	 * {@link Boolean} values is {@code true}, and {@code false} in all
+	 * {@code Boolean} values is {@code true}, and {@code false} in all
 	 * other cases.
 	 *
-	 * @param bools the {@link Boolean} values.
+	 * @param bools the {@code Boolean} values.
 	 *
 	 * @return the result of the "exclusive or" on the given values.
 	 *
@@ -114,7 +114,7 @@ public final class Booleans
 		Parameters.checkCondition(bools.length > 0);
 		boolean xor = false;
 		for (Boolean bool : bools) {
-			if (bool.booleanValue()) {
+			if (bool) {
 				if (xor) {
 					return FALSE;
 				} else {
@@ -126,60 +126,60 @@ public final class Booleans
 	}
 
 	/**
-	 * Returns {@code true} if and only if the given {@link Boolean} object
+	 * Returns {@code true} if and only if the given {@code Boolean} object
 	 * is {@code false}.
 	 *
-	 * @param bool the {@link Boolean} to test, may be {@code null}.
+	 * @param bool the {@code Boolean} to test, may be {@code null}.
 	 *
-	 * @return whether the given {@link Boolean} is {@code false}.
+	 * @return whether the given {@code Boolean} is {@code false}.
 	 */
 	public static boolean isFalse(Boolean bool)
 	{
-		return bool == null ? false : !bool.booleanValue();
+		return bool == null ? false : !bool;
 	}
 
 	/**
-	 * Returns {@code true} if and only if the given {@link Boolean} object
+	 * Returns {@code true} if and only if the given {@code Boolean} object
 	 * is not {@code false}.
 	 *
-	 * @param bool the {@link Boolean} to test, may be {@code null}.
+	 * @param bool the {@code Boolean} to test, may be {@code null}.
 	 *
-	 * @return whether the given {@link Boolean} is not {@code false}.
+	 * @return whether the given {@code Boolean} is not {@code false}.
 	 */
 	public static boolean isNotFalse(Boolean bool)
 	{
-		return bool == null ? true : bool.booleanValue();
+		return bool == null ? true : bool;
 	}
 
 	/**
-	 * Returns {@code true} if and only if the given {@link Boolean} object
+	 * Returns {@code true} if and only if the given {@code Boolean} object
 	 * is {@code true}.
 	 *
-	 * @param bool the {@link Boolean} to test, may be {@code null}.
+	 * @param bool the {@code Boolean} to test, may be {@code null}.
 	 *
-	 * @return whether the given {@link Boolean} is {@code true}.
+	 * @return whether the given {@code Boolean} is {@code true}.
 	 */
 	public static boolean isTrue(Boolean bool)
 	{
-		return bool == null ? false : bool.booleanValue();
+		return bool == null ? false : bool;
 	}
 
 	/**
-	 * Returns {@code true} if and only if the given {@link Boolean} object
+	 * Returns {@code true} if and only if the given {@code Boolean} object
 	 * is not {@code true}.
 	 *
-	 * @param bool the {@link Boolean} to test, may be {@code null}.
+	 * @param bool the {@code Boolean} to test, may be {@code null}.
 	 *
-	 * @return whether the given {@link Boolean} is not {@code true}.
+	 * @return whether the given {@code Boolean} is not {@code true}.
 	 */
 	public static boolean isNotTrue(Boolean bool)
 	{
-		return bool == null ? true : !bool.booleanValue();
+		return bool == null ? true : !bool;
 	}
 
 	/**
-	 * Parses the given {@code String} into a {@link Boolean}. This method
-	 * returns {@code true} if the given {@link String} contains "true",
+	 * Parses the given {@code String} into a {@code Boolean}. This method
+	 * returns {@code true} if the given {@code String} contains "true",
 	 * "yes", "1" or "on".
 	 *
 	 * @param bool the {@code String} to parse.
@@ -199,7 +199,7 @@ public final class Booleans
 	}
 
 	/**
-	 * Converts the given {@code int} into a {@link Boolean} using the
+	 * Converts the given {@code int} into a {@code Boolean} using the
 	 * convention that zero represents {@code false} and all other values
 	 * represent {@code true}.
 	 *
@@ -213,7 +213,7 @@ public final class Booleans
 	}
 
 	/**
-	 * Converts the given {@code Integer} into a {@link Boolean} using the
+	 * Converts the given {@code Integer} into a {@code Boolean} using the
 	 * convention that zero represents {@code false} and all other values
 	 * represent {@code true}.
 	 *
@@ -229,12 +229,12 @@ public final class Booleans
 	}
 
 	/**
-	 * Returns the {@link Boolean} instance representing the given primitive
+	 * Returns the {@code Boolean} instance representing the given primitive
 	 * {@code boolean} value.
 	 *
 	 * @param bool the {@code boolean} value to convert.
 	 *
-	 * @return the {@link Boolean} instance representing the given value.
+	 * @return the {@code Boolean} instance representing the given value.
 	 */
 	public static Boolean valueOf(boolean bool)
 	{
@@ -250,7 +250,7 @@ public final class Booleans
 	 */
 	public static Integer toInteger(boolean bool)
 	{
-		return bool ? Integer.valueOf(1) : Integer.valueOf(0);
+		return bool ? 1 : 0;
 	}
 
 	/**
@@ -268,11 +268,11 @@ public final class Booleans
 	}
 
 	/**
-	 * Returns the given {@code boolean}'s {@link String} representation.
+	 * Returns the given {@code boolean}'s {@code String} representation.
 	 *
 	 * @param bool the {@code boolean} value to convert.
 	 *
-	 * @return {@code bool}'s {@link String} representation.
+	 * @return {@code bool}'s {@code String} representation.
 	 */
 	public static String toString(boolean bool)
 	{
