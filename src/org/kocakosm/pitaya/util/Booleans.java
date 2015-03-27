@@ -44,7 +44,8 @@ public final class Booleans
 	 *
 	 * @return the result of the logical "and" on the given values.
 	 *
-	 * @throws NullPointerException if {@code bools} is {@code null}.
+	 * @throws NullPointerException if {@code bools} is {@code null} or if
+	 *	it contains a {@code null} reference.
 	 * @throws IllegalArgumentException if {@code bools} is empty.
 	 */
 	public static Boolean and(Boolean... bools)
@@ -68,7 +69,8 @@ public final class Booleans
 	 *
 	 * @return the result of the logical "or" on the given values.
 	 *
-	 * @throws NullPointerException if {@code bools} is {@code null}.
+	 * @throws NullPointerException if {@code bools} is {@code null} or if
+	 *	it contains a {@code null} reference.
 	 * @throws IllegalArgumentException if {@code bools} is empty.
 	 */
 	public static Boolean or(Boolean... bools)
@@ -106,7 +108,8 @@ public final class Booleans
 	 *
 	 * @return the result of the "exclusive or" on the given values.
 	 *
-	 * @throws NullPointerException if {@code bools} is {@code null}.
+	 * @throws NullPointerException if {@code bools} is {@code null} or if
+	 *	it contains a {@code null} reference.
 	 * @throws IllegalArgumentException if {@code bools} is empty.
 	 */
 	public static Boolean xor(Boolean... bools)
