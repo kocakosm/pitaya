@@ -32,8 +32,8 @@ import java.util.List;
  */
 final class ConcatInputStream extends InputStream
 {
-	private final List<InputStream> streams;
 	private int index;
+	private final List<InputStream> streams;
 
 	/**
 	 * Creates a new {@code ConcatInputStream}.
@@ -58,13 +58,13 @@ final class ConcatInputStream extends InputStream
 	 *	if it contains a {@code null} reference.
 	 * @throws IllegalArgumentException if {@code streams} is empty.
 	 */
-	ConcatInputStream(List<? extends InputStream> streams)
+	ConcatInputStream(Iterable<? extends InputStream> streams)
 	{
-		this.streams = new ArrayList<InputStream>(streams);
-		Parameters.checkCondition(!this.streams.isEmpty());
-		for (InputStream stream : this.streams) {
-			Parameters.checkNotNull(stream);
+		this.streams = new ArrayList<InputStream>();
+		for (InputStream stream : streams) {
+			this.streams.add(Parameters.checkNotNull(stream));
 		}
+		Parameters.checkCondition(!this.streams.isEmpty());
 	}
 
 	@Override

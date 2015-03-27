@@ -72,13 +72,13 @@ public final class ChainMap<K, V> extends AbstractMap<K, V> implements Serializa
 	 *	contains a {@code null} reference.
 	 * @throws IllegalArgumentException if {@code maps} is empty.
 	 */
-	public ChainMap(List<Map<K, V>> maps)
+	public ChainMap(Iterable<? extends Map<K, V>> maps)
 	{
-		Parameters.checkCondition(!maps.isEmpty());
 		this.maps = ImmutableList.copyOf(maps);
 		for (Map<K, V> map : this.maps) {
 			Parameters.checkNotNull(map);
 		}
+		Parameters.checkCondition(!this.maps.isEmpty());
 	}
 
 	@Override

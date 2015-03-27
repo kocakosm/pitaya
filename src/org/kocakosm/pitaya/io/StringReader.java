@@ -20,7 +20,6 @@ import org.kocakosm.pitaya.util.Parameters;
 
 import java.io.Reader;
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * A {@code Reader} whose source are {@link String}s. Instances of this class
@@ -31,10 +30,9 @@ import java.util.List;
  */
 public final class StringReader extends Reader
 {
-	private final StringBuilder in;
-
 	private int index;
 	private int mark;
+	private final StringBuilder in;
 
 	/**
 	 * Creates a new {@code StringReader}.
@@ -57,9 +55,9 @@ public final class StringReader extends Reader
 	 * @throws NullPointerException if {@code strings} is {@code null} or if
 	 *	it contains a {@code null} reference.
 	 */
-	public StringReader(List<String> strings)
+	public StringReader(Iterable<String> strings)
 	{
-		this.in = new StringBuilder(strings.size() * 10);
+		this.in = new StringBuilder();
 		for (String str : strings) {
 			Parameters.checkNotNull(str);
 			this.in.append(str);

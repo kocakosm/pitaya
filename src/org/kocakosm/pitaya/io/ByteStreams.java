@@ -21,7 +21,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.List;
 
 /**
  * Byte streams utilities.
@@ -65,7 +64,7 @@ public final class ByteStreams
 	 *	if it contains a {@code null} reference.
 	 * @throws IllegalArgumentException if {@code streams} is empty.
 	 */
-	public static InputStream concat(List<? extends InputStream> streams)
+	public static InputStream concat(Iterable<? extends InputStream> streams)
 	{
 		return new ConcatInputStream(streams);
 	}

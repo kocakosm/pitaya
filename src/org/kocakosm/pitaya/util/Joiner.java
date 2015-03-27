@@ -17,7 +17,6 @@
 package org.kocakosm.pitaya.util;
 
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * Joins multiple {@code Strings} into a single one. Instances of this class are
@@ -197,7 +196,7 @@ public final class Joiner
 	 *
 	 * @throws NullPointerException if {@code parts} is {@code null}.
 	 */
-	public String join(List<?> parts)
+	public String join(Iterable<?> parts)
 	{
 		boolean first = true;
 		StringBuilder sb = new StringBuilder(prefix);

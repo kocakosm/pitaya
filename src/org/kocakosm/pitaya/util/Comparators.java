@@ -61,7 +61,7 @@ public final class Comparators
 	 *	of if it contains a {@code null} reference.
 	 * @throws IllegalArgumentException if {@code comparators} is empty.
 	 */
-	public static <T> Comparator<T> compose(List<Comparator<? super T>> comparators)
+	public static <T> Comparator<T> compose(Iterable<? extends Comparator<? super T>> comparators)
 	{
 		return new CompositeComparator<T>(comparators);
 	}
@@ -174,7 +174,7 @@ public final class Comparators
 	{
 		private final List<Comparator<? super T>> comparators;
 
-		CompositeComparator(List<Comparator<? super T>> comparators)
+		CompositeComparator(Iterable<? extends Comparator<? super T>> comparators)
 		{
 			this.comparators = new ArrayList<Comparator<? super T>>();
 			for (Comparator<? super T> comparator : comparators) {

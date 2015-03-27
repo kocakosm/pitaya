@@ -74,7 +74,7 @@ public final class CharStreams
 	 *	if it contains a {@code null} reference.
 	 * @throws IllegalArgumentException if {@code streams} is empty.
 	 */
-	public static Reader concat(List<? extends Reader> streams)
+	public static Reader concat(Iterable<? extends Reader> streams)
 	{
 		return new ConcatReader(streams);
 	}
