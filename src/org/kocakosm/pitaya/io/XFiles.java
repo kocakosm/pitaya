@@ -518,7 +518,7 @@ public final class XFiles
 		}
 		if (options.contains(UPDATE) && !f.exists()) {
 			throw new FileNotFoundException(
-				UPDATE + ": " + f + " dosn't exist");
+				UPDATE + ": " + f + " doesn't exist");
 		}
 	}
 
