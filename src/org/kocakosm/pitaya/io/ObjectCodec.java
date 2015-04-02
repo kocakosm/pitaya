@@ -107,7 +107,7 @@ public final class ObjectCodec
 		}
 	}
 
-	/** Meant to be thrown on serialization error. */
+	/** Thrown on serialization error. */
 	public static final class EncodingException extends RuntimeException
 	{
 		private static final long serialVersionUID = 27396917846938764L;
@@ -118,7 +118,7 @@ public final class ObjectCodec
 		}
 	}
 
-	/** Meant to be thrown on deserialization error. */
+	/** Thrown on deserialization error. */
 	public static final class DecodingException extends RuntimeException
 	{
 		private static final long serialVersionUID = 39875873692107851L;
