@@ -302,8 +302,8 @@ public final class TextFiles
 	 * @throws FileNotFoundException if {@code f} exists but is a directory
 	 *	rather than a regular file, or if it does not exist but cannot
 	 *	be created, or if it cannot be opened for any other reason.
-	 * @throws IOException if the {@link WriteOption#CREATE_NEW} option is
-	 *	given and the specified file already exists.
+	 * @throws IOException if the {@link WriteOption#CREATE} option is given
+	 *	and the specified file already exists.
 	 * @throws SecurityException if a security manager exists and denies
 	 *	write access to {@code f}.
 	 */
@@ -328,8 +328,8 @@ public final class TextFiles
 	 * @throws FileNotFoundException if {@code f} exists but is a directory
 	 *	rather than a regular file, or if it does not exist but cannot
 	 *	be created, or if it cannot be opened for any other reason.
-	 * @throws IOException if the {@link WriteOption#CREATE_NEW} option is
-	 *	given and the specified file already exists.
+	 * @throws IOException if the {@link WriteOption#CREATE} option is given
+	 *	and the specified file already exists.
 	 * @throws SecurityException if a security manager exists and denies
 	 *	write access to {@code f}.
 	 */

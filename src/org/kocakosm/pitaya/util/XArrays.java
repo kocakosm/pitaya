@@ -1785,7 +1785,7 @@ public final class XArrays
 	 * @throws ClassCastException if the array contains elements that are
 	 *	not mutually comparable (for example, Strings and Integers).
 	 *
-	 * @see Arrays#sort(T[], java.util.Comparator)
+	 * @see Arrays#sort(java.lang.Object[], java.util.Comparator)
 	 */
 	public static <T> T[] sort(T[] a, Comparator<? super T> c)
 	{

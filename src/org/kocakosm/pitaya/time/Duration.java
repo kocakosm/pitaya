@@ -60,9 +60,9 @@ public final class Duration implements Comparable<Duration>, Serializable
 	/**
 	 * Parses the given duration's {@code String} representation into a
 	 * {@code Duration} instance. The given {@code String} must be a list
-	 * of value/unit pairs separated by ' ', '+', '-', '\n', '\t', '\r', '&'
-	 * or ',' characters or by the "and" {@code String}. Values must be
-	 * integer (either positive or negative) values. Valid units are:
+	 * of value/unit pairs separated by ' ', '+', '-', '\n', '\t', '\r',
+	 * {@code '&'} or ',' characters or by the "and" {@code String}. Values
+	 * must be integer (either positive or negative) values. Valid units are:
 	 * "milliseconds", "millisecond", "millis" and "ms" for milliseconds,
 	 * "seconds", "second", "sec", "secs" and "s" for seconds, "minutes",
 	 * "minute", "min", "mins" and "m" for minutes, "hours", "hour" and "h"
