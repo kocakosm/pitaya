@@ -98,11 +98,17 @@ public final class Base32HexTest
 	}
 
 	@Test
-	public void testDecodeWithWhitespaces()
+	public void testIgnoreUnknownCharacters()
 	{
-		BaseEncoding e = BaseEncoding.BASE_32_HEX;
-		assertArrayEquals(ascii(""), e.decode(" \t  \r\n"));
-		assertArrayEquals(ascii("hello"), e.decode("\nD1\t  IMOR3F\r"));
+		BaseEncoding e = BaseEncoding.BASE_32_HEX.ignoreUnknownCharacters();
+		assertArrayEquals(ascii(""), e.decode(" \t Z \rW"));
+		assertArrayEquals(ascii("hello"), e.decode("\nD1z IMORw3F\r"));
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testDecodeWithInvalidCharacter()
+	{
+		BaseEncoding.BASE_32_HEX.decode("MAXB8===");
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -111,10 +117,18 @@ public final class Base32HexTest
 		BaseEncoding.BASE_32_HEX.decode("abcd");
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testDecodeWithInvalidCharacter()
+	@Test
+	public void testEncodeWithSeparator()
 	{
-		BaseEncoding.BASE_32_HEX.decode("MAXB8===");
+		BaseEncoding e = BaseEncoding.BASE_32_HEX.withSeparator("\n", 3);
+		assertEquals("CPN\nMU=\n==", e.encode(ascii("foo")));
+	}
+
+	@Test
+	public void testDecodeWithSeparator()
+	{
+		BaseEncoding e = BaseEncoding.BASE_32_HEX.withSeparator("\n", 3);
+		assertArrayEquals(ascii("foo"), e.decode("CPN\nMU=\n=="));
 	}
 
 	private byte[] ascii(String str)

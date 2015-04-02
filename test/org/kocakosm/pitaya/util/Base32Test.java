@@ -98,11 +98,17 @@ public final class Base32Test
 	}
 
 	@Test
-	public void testDecodeWithWhitespaces()
+	public void testIgnoreUnknownCharacters()
 	{
-		BaseEncoding e = BaseEncoding.BASE_32;
-		assertArrayEquals(ascii(""), e.decode(" \t  \r\n"));
-		assertArrayEquals(ascii("hello"), e.decode("\nNB\t SWY3\rDP "));
+		BaseEncoding e = BaseEncoding.BASE_32.ignoreUnknownCharacters();
+		assertArrayEquals(ascii(""), e.decode(" \t 8 \r0"));
+		assertArrayEquals(ascii("hello"), e.decode("\nNB0 SWY3\rDP "));
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testDecodeWithInvalidCharacter()
+	{
+		BaseEncoding.BASE_32.decode("MZXW8===");
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -111,10 +117,18 @@ public final class Base32Test
 		BaseEncoding.BASE_32.decode("mzxq");
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testDecodeWithInvalidCharacter()
+	@Test
+	public void testEncodeWithSeparator()
 	{
-		BaseEncoding.BASE_32.decode("MZXW8===");
+		BaseEncoding e = BaseEncoding.BASE_32.withSeparator("\n", 3);
+		assertEquals("MZX\nW6=\n==", e.encode(ascii("foo")));
+	}
+
+	@Test
+	public void testDecodeWithSeparator()
+	{
+		BaseEncoding e = BaseEncoding.BASE_32.withSeparator("\n", 3);
+		assertArrayEquals(ascii("foo"), e.decode("MZX\nW6=\n=="));
 	}
 
 	private byte[] ascii(String str)

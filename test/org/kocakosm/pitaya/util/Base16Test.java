@@ -66,11 +66,17 @@ public final class Base16Test
 	}
 
 	@Test
-	public void testDecodeWithWhitespaces()
+	public void testIgnoreUnknownCharacters()
 	{
-		BaseEncoding e = BaseEncoding.BASE_16;
-		assertArrayEquals(ascii(""), e.decode(" \t  \r\n"));
-		assertArrayEquals(ascii("hello"), e.decode("\t68 656C\r6C\n6F"));
+		BaseEncoding e = BaseEncoding.BASE_16.ignoreUnknownCharacters();
+		assertArrayEquals(ascii(""), e.decode(" \t j \rL"));
+		assertArrayEquals(ascii("hello"), e.decode("\t68 656C\r6CY6F"));
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testDecodeWithInvalidCharacter()
+	{
+		BaseEncoding.BASE_16.decode(" \t j \rL");
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -79,17 +85,18 @@ public final class Base16Test
 		BaseEncoding.BASE_16.decode("E1F0C");
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testDecodeWithInvalidCharacter()
+	@Test
+	public void testEncodeWithSeparator()
 	{
-		BaseEncoding.BASE_16.decode("E1F0HA");
+		BaseEncoding e = BaseEncoding.BASE_16.withSeparator("\n", 3);
+		assertEquals("666\nF6F\n626\n172", e.encode(ascii("foobar")));
 	}
 
 	@Test
-	public void testPadding()
+	public void testDecodeWithSeparator()
 	{
-		BaseEncoding e = BaseEncoding.BASE_16;
-		assertSame(e, e.withoutPadding());
+		BaseEncoding e = BaseEncoding.BASE_16.withSeparator("\n", 3);
+		assertArrayEquals(ascii("foobar"), e.decode("666\nF6F\n626\n172"));
 	}
 
 	private byte[] ascii(String str)

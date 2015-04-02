@@ -98,11 +98,17 @@ public final class Base64URLTest
 	}
 
 	@Test
-	public void testDecodeWithWhitespaces()
+	public void testIgnoreUnknownCharacters()
 	{
-		BaseEncoding e = BaseEncoding.BASE_64_URL;
-		assertArrayEquals(ascii(""), e.decode(" \t  \r\n"));
-		assertArrayEquals(ascii("hello"), e.decode(" a\nGV\ts \rbG8="));
+		BaseEncoding e = BaseEncoding.BASE_64_URL.ignoreUnknownCharacters();
+		assertArrayEquals(ascii(""), e.decode("/\t  +\r\n"));
+		assertArrayEquals(ascii("hello"), e.decode("/a\nGV+s \rbG8="));
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testDecodeWithInvalidCharacter()
+	{
+		BaseEncoding.BASE_64_URL.decode("Zm9v+mFy");
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -111,10 +117,18 @@ public final class Base64URLTest
 		BaseEncoding.BASE_64_URL.decode("Zg");
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testDecodeWithInvalidCharacter()
+	@Test
+	public void testEncodeWithSeparator()
 	{
-		BaseEncoding.BASE_64_URL.decode("Zm9v+mFy");
+		BaseEncoding e = BaseEncoding.BASE_64_URL.withSeparator("\n", 3);
+		assertEquals("Zm9\nvYm\nFy", e.encode(ascii("foobar")));
+	}
+
+	@Test
+	public void testDecodeWithSeparator()
+	{
+		BaseEncoding e = BaseEncoding.BASE_64_URL.withSeparator("\n", 3);
+		assertArrayEquals(ascii("foobar"), e.decode("Zm9\nvYm\nFy"));
 	}
 
 	private byte[] ascii(String str)

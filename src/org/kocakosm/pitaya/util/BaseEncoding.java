@@ -27,41 +27,68 @@ package org.kocakosm.pitaya.util;
 public interface BaseEncoding
 {
 	/** Base64 encoding scheme. */
-	BaseEncoding BASE_64 = new Base64();
+	BaseEncoding BASE_64 = new DefaultBaseEncoding(Alphabet.BASE_64);
 
 	/** Base64 encoding scheme with URL and filename safe alphabet. */
-	BaseEncoding BASE_64_URL = new Base64(
-		'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
-		'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
-		'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
-		'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-		'0', '1', '2', '3', '4','5', '6', '7', '8', '9', '-', '_'
-	);
+	BaseEncoding BASE_64_URL = new DefaultBaseEncoding(Alphabet.BASE_64_URL);
 
 	/** Base32 encoding scheme. */
-	BaseEncoding BASE_32 = new Base32();
+	BaseEncoding BASE_32 = new DefaultBaseEncoding(Alphabet.BASE_32);
 
 	/** Base32 encoding scheme with extended Hex alphabet. */
-	BaseEncoding BASE_32_HEX = new Base32(
-		'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C',
-		'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
-		'Q', 'R', 'S', 'T', 'U', 'V'
-	);
+	BaseEncoding BASE_32_HEX = new DefaultBaseEncoding(Alphabet.BASE_32_HEX);
 
 	/** Base16 encoding scheme. */
-	BaseEncoding BASE_16 = new Base16();
+	BaseEncoding BASE_16 = new DefaultBaseEncoding(Alphabet.BASE_16);
 
 	/**
-	 * Returns a {@code BaseEncoding} that will behave as this one except
-	 * that it won't add padding when encoding data and will accept unpadded
-	 * encoded {@code String}s.
+	 * Returns a {@code BaseEncoding} that behaves as this one except that
+	 * it adds the specified separator after every {@code n} characters when
+	 * encodind data and ignores any occurence of the specified separator
+	 * when decoding encoded data.
+	 *
+	 * See <a href="http://tools.ietf.org/html/rfc4648#section-3.1">RFC 4648
+	 * section 3.1</a> for more details.
+	 *
+	 * @param separator the separator to use.
+	 * @param n the number of characters between two successive separators.
+	 *
+	 * @return a {@code BaseEncoding} with the desired configuration.
+	 *
+	 * @throws NullPointerException if {@code separator} is {@code null}.
+	 * @throws IllegalArgumentException if {@code separator} contains any
+	 *	alphabet or padding characters or if {@code n <= 0}.
+	 */
+	BaseEncoding withSeparator(String separator, int n);
+
+	/**
+	 * Returns a {@code BaseEncoding} that behaves as this one except that
+	 * it doesn't append padding when encoding data and treats any padding
+	 * character as an unknown character when decoding encoded data. Also,
+	 * note that since Base16 encoding scheme does not need padding, it is
+	 * not affected by this method call.
+	 *
+	 * See <a href="http://tools.ietf.org/html/rfc4648#section-3.2">RFC 4648
+	 * section 3.2</a> for more details.
 	 *
 	 * @return a {@code BaseEncoding} with the desired configuration.
 	 */
 	BaseEncoding withoutPadding();
 
 	/**
-	 * Encodes the given data bytes.
+	 * Returns a {@code BaseEncoding} that behaves as this one except that
+	 * it ignores any unknown character when decoding encoded data.
+	 *
+	 * See <a href="http://tools.ietf.org/html/rfc4648#section-3.3">RFC 4648
+	 * section 3.3</a> for more details.
+	 *
+	 * @return a {@code BaseEncoding} with the desired configuration.
+	 */
+	BaseEncoding ignoreUnknownCharacters();
+
+	/**
+	 * Encodes the given data bytes according to this {@code BaseEncoding}'s
+	 * configuration.
 	 *
 	 * @param in the data bytes to encode.
 	 *
@@ -72,7 +99,8 @@ public interface BaseEncoding
 	String encode(byte... in);
 
 	/**
-	 * Encodes the given data bytes.
+	 * Encodes the given data bytes according to this {@code BaseEncoding}'s
+	 * configuration.
 	 *
 	 * @param in the input buffer.
 	 * @param off the input offset.
@@ -88,9 +116,8 @@ public interface BaseEncoding
 	String encode(byte[] in, int off, int len);
 
 	/**
-	 * Decodes the given encoded {@code String}. Decoding is stopped at the
-	 * first padding character found (if applicable). Whitespace characters,
-	 * namely {@code '\t', ' ', '\n'} and {@code '\r'}, are ignored.
+	 * Decodes the given encoded {@code String} according to this
+	 * {@code BaseEncoding}'s configuration.
 	 *
 	 * @param in the input {@code String}.
 	 *
@@ -98,15 +125,14 @@ public interface BaseEncoding
 	 *
 	 * @throws NullPointerException if {@code in} is {@code null}.
 	 * @throws IllegalArgumentException if {@code in} is not a valid
-	 *	base-encoded {@code String}.
+	 *	base-encoded {@code String} according to this
+	 *	{@code BaseEncoding}'s configuration.
 	 */
 	byte[] decode(String in);
 
 	/**
-	 * Decodes the specified range from the given encoded {@code String}.
-	 * Decoding is stopped at the first padding character found (if
-	 * applicable). Whitespace characters, namely {@code '\t', ' ', '\n'}
-	 * and {@code '\r'}, are ignored.
+	 * Decodes the specified range from the given encoded {@code String}
+	 * according to this {@code BaseEncoding}'s configuration.
 	 *
 	 * @param in the input {@code String}.
 	 * @param off the input offset.
@@ -119,7 +145,8 @@ public interface BaseEncoding
 	 *	negative or if {@code off + len} is greater than {@code in}'s
 	 *	length.
 	 * @throws IllegalArgumentException if the specified character range in
-	 *	{@code in} is not a valid base-encoded {@code String}.
+	 *	{@code in} is not a valid base-encoded {@code String} according
+	 *	to this {@code BaseEncoding}'s configuration.
 	 */
 	byte[] decode(String in, int off, int len);
 }
