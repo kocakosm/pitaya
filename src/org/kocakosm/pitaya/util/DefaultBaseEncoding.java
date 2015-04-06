@@ -53,7 +53,8 @@ final class DefaultBaseEncoding implements BaseEncoding
 		Parameters.checkCondition(n > 0);
 		for (char c : separator.toCharArray()) {
 			if (c == PADDING_CHAR || alphabet.decode(c) != -1) {
-				throw new IllegalArgumentException();
+				throw new IllegalArgumentException(
+					"Invalid separator character: '" + c + "'");
 			}
 		}
 		return new DefaultBaseEncoding(alphabet, omitPadding,
@@ -146,7 +147,7 @@ final class DefaultBaseEncoding implements BaseEncoding
 		int decoded = 0;
 		for (int i = 0; i < encoded.length(); i++) {
 			char c = encoded.charAt(i);
-			if (c == PADDING_CHAR && !omitPadding) {
+			if (isPaddingChar(c) && !omitPadding) {
 				break;
 			}
 			int v = decode(c);
@@ -174,6 +175,11 @@ final class DefaultBaseEncoding implements BaseEncoding
 			* (l / alphabet.charsPerBlock() + 1);
 	}
 
+	private boolean isPaddingChar(char c)
+	{
+		return c == PADDING_CHAR && alphabet.requiresPadding();
+	}
+
 	private int decode(char c)
 	{
 		int decoded = alphabet.decode(c);
@@ -193,8 +199,9 @@ final class DefaultBaseEncoding implements BaseEncoding
 		int count = 1;
 		while (++i < in.length()) {
 			char c = in.charAt(i);
-			if (alphabet.decode(c) != -1 || c != PADDING_CHAR) {
-				throw new IllegalArgumentException(""+c);
+			if (c != PADDING_CHAR && (alphabet.decode(c) != -1 || !ignoreUnknownChars)) {
+				throw new IllegalArgumentException(
+					"Invalid padding character: '" + c + "'");
 			}
 			count++;
 		}
