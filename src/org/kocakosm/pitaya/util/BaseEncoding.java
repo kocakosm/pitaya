@@ -117,7 +117,8 @@ public interface BaseEncoding
 
 	/**
 	 * Decodes the given encoded {@code String} according to this
-	 * {@code BaseEncoding}'s configuration.
+	 * {@code BaseEncoding}'s configuration. Decoding is not case-sensitive
+	 * when possible (namely for Base16, Base32 and Base32Hex schemes).
 	 *
 	 * @param in the input {@code String}.
 	 *
@@ -132,7 +133,9 @@ public interface BaseEncoding
 
 	/**
 	 * Decodes the specified range from the given encoded {@code String}
-	 * according to this {@code BaseEncoding}'s configuration.
+	 * according to this {@code BaseEncoding}'s configuration. Decoding is
+	 * not case-sensitive when possible (namely for Base16, Base32 and
+	 * Base32Hex schemes).
 	 *
 	 * @param in the input {@code String}.
 	 * @param off the input offset.
