@@ -85,6 +85,18 @@ public final class Base16Test
 		BaseEncoding.BASE_16.decode("E1F0C");
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void testDecodeWithPaddingCharacter()
+	{
+		BaseEncoding.BASE_16.decode("E1F0C=");
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testInvalidSeparator()
+	{
+		BaseEncoding.BASE_16.withSeparator("=", 5);
+	}
+
 	@Test
 	public void testEncodeWithSeparator()
 	{
@@ -97,6 +109,13 @@ public final class Base16Test
 	{
 		BaseEncoding e = BaseEncoding.BASE_16.withSeparator("\n", 3);
 		assertArrayEquals(ascii("foobar"), e.decode("666\nF6F\n626\n172"));
+	}
+
+	@Test
+	public void testDecodeRange()
+	{
+		BaseEncoding e = BaseEncoding.BASE_16;
+		assertArrayEquals(ascii("foo"), e.decode("666F6F666F6F", 0, 6));
 	}
 
 	private byte[] ascii(String str)

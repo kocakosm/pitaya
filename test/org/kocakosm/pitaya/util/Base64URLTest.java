@@ -117,6 +117,18 @@ public final class Base64URLTest
 		BaseEncoding.BASE_64_URL.decode("Zg");
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void testDecodeWithInvalidPadding()
+	{
+		BaseEncoding.BASE_64_URL.decode("Zg==g");
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testInvalidSeparator()
+	{
+		BaseEncoding.BASE_64_URL.withSeparator("=", 5);
+	}
+
 	@Test
 	public void testEncodeWithSeparator()
 	{
@@ -129,6 +141,13 @@ public final class Base64URLTest
 	{
 		BaseEncoding e = BaseEncoding.BASE_64_URL.withSeparator("\n", 3);
 		assertArrayEquals(ascii("foobar"), e.decode("Zm9\nvYm\nFy"));
+	}
+
+	@Test
+	public void testDecodeRange()
+	{
+		BaseEncoding e = BaseEncoding.BASE_64_URL;
+		assertArrayEquals(ascii("foo"), e.decode("Zm9v", 0, 4));
 	}
 
 	private byte[] ascii(String str)

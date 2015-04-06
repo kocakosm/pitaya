@@ -117,6 +117,18 @@ public final class Base32HexTest
 		BaseEncoding.BASE_32_HEX.decode("abcd");
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void testDecodeWithInvalidPadding()
+	{
+		BaseEncoding.BASE_32_HEX.decode("MAXB8==M=");
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testInvalidSeparator()
+	{
+		BaseEncoding.BASE_32_HEX.withSeparator("c", 5);
+	}
+
 	@Test
 	public void testEncodeWithSeparator()
 	{
@@ -129,6 +141,13 @@ public final class Base32HexTest
 	{
 		BaseEncoding e = BaseEncoding.BASE_32_HEX.withSeparator("\n", 3);
 		assertArrayEquals(ascii("foo"), e.decode("CPN\nMU=\n=="));
+	}
+
+	@Test
+	public void testDecodeRange()
+	{
+		BaseEncoding e = BaseEncoding.BASE_32_HEX;
+		assertArrayEquals(ascii("foo"), e.decode("CPNMU===", 0, 8));
 	}
 
 	private byte[] ascii(String str)

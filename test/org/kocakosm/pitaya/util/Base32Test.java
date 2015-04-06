@@ -117,6 +117,18 @@ public final class Base32Test
 		BaseEncoding.BASE_32.decode("mzxq");
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void testDecodeWithInvalidPadding()
+	{
+		BaseEncoding.BASE_32.decode("MZXW8==m=");
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testInvalidSeparator()
+	{
+		BaseEncoding.BASE_32.withSeparator("m", 5);
+	}
+
 	@Test
 	public void testEncodeWithSeparator()
 	{
@@ -129,6 +141,13 @@ public final class Base32Test
 	{
 		BaseEncoding e = BaseEncoding.BASE_32.withSeparator("\n", 3);
 		assertArrayEquals(ascii("foo"), e.decode("MZX\nW6=\n=="));
+	}
+
+	@Test
+	public void testDecodeRange()
+	{
+		BaseEncoding e = BaseEncoding.BASE_32;
+		assertArrayEquals(ascii("foo"), e.decode("MZXW6===", 0, 8));
 	}
 
 	private byte[] ascii(String str)
