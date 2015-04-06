@@ -17,29 +17,51 @@
 package org.kocakosm.pitaya.util;
 
 /**
- * RFC 4648 encoding scheme. Provided implementations of this interface are all
- * immutable.
+ * RFC 4648 encoding scheme. Instances of this class are immutable.
  *
  * @see <a href="https://www.ietf.org/rfc/rfc4648.txt">RFC 4648</a>
  *
  * @author Osman KOCAK
  */
-public interface BaseEncoding
+public final class BaseEncoding
 {
 	/** Base64 encoding scheme. */
-	BaseEncoding BASE_64 = new DefaultBaseEncoding(Alphabet.BASE_64);
+	public static final BaseEncoding BASE_64 = new BaseEncoding(Alphabet.BASE_64);
 
 	/** Base64 encoding scheme with URL and filename safe alphabet. */
-	BaseEncoding BASE_64_URL = new DefaultBaseEncoding(Alphabet.BASE_64_URL);
+	public static final BaseEncoding BASE_64_URL = new BaseEncoding(Alphabet.BASE_64_URL);
 
 	/** Base32 encoding scheme. */
-	BaseEncoding BASE_32 = new DefaultBaseEncoding(Alphabet.BASE_32);
+	public static final BaseEncoding BASE_32 = new BaseEncoding(Alphabet.BASE_32);
 
 	/** Base32 encoding scheme with extended Hex alphabet. */
-	BaseEncoding BASE_32_HEX = new DefaultBaseEncoding(Alphabet.BASE_32_HEX);
+	public static final BaseEncoding BASE_32_HEX = new BaseEncoding(Alphabet.BASE_32_HEX);
 
 	/** Base16 encoding scheme. */
-	BaseEncoding BASE_16 = new DefaultBaseEncoding(Alphabet.BASE_16);
+	public static final BaseEncoding BASE_16 = new BaseEncoding(Alphabet.BASE_16);
+
+	private static final char PADDING_CHAR = '=';
+
+	private final int n;
+	private final String separator;
+	private final Alphabet alphabet;
+	private final boolean omitPadding;
+	private final boolean ignoreUnknownChars;
+
+	private BaseEncoding(Alphabet alphabet)
+	{
+		this(alphabet, "", -1, !alphabet.requiresPadding(), false);
+	}
+
+	private BaseEncoding(Alphabet alphabet, String separator, int n,
+		boolean omitPadding, boolean ignoreUnknownChars)
+	{
+		this.alphabet = alphabet;
+		this.omitPadding = omitPadding;
+		this.ignoreUnknownChars = ignoreUnknownChars;
+		this.separator = separator;
+		this.n = n;
+	}
 
 	/**
 	 * Returns a {@code BaseEncoding} that behaves as this one except that
@@ -59,7 +81,18 @@ public interface BaseEncoding
 	 * @throws IllegalArgumentException if {@code separator} contains any
 	 *	alphabet or padding characters or if {@code n <= 0}.
 	 */
-	BaseEncoding withSeparator(String separator, int n);
+	public BaseEncoding withSeparator(String separator, int n)
+	{
+		Parameters.checkCondition(n > 0);
+		for (char c : separator.toCharArray()) {
+			if (c == PADDING_CHAR || alphabet.decode(c) != -1) {
+				throw new IllegalArgumentException(
+					"Invalid separator character: '" + c + "'");
+			}
+		}
+		return new BaseEncoding(alphabet, separator, n, omitPadding,
+			ignoreUnknownChars);
+	}
 
 	/**
 	 * Returns a {@code BaseEncoding} that behaves as this one except that
@@ -73,7 +106,11 @@ public interface BaseEncoding
 	 *
 	 * @return a {@code BaseEncoding} with the desired configuration.
 	 */
-	BaseEncoding withoutPadding();
+	public BaseEncoding withoutPadding()
+	{
+		return new BaseEncoding(alphabet, separator, n, true,
+			ignoreUnknownChars);
+	}
 
 	/**
 	 * Returns a {@code BaseEncoding} that behaves as this one except that
@@ -84,7 +121,10 @@ public interface BaseEncoding
 	 *
 	 * @return a {@code BaseEncoding} with the desired configuration.
 	 */
-	BaseEncoding ignoreUnknownCharacters();
+	public BaseEncoding ignoreUnknownCharacters()
+	{
+		return new BaseEncoding(alphabet, separator, n, omitPadding, true);
+	}
 
 	/**
 	 * Encodes the given data bytes according to this {@code BaseEncoding}'s
@@ -96,7 +136,10 @@ public interface BaseEncoding
 	 *
 	 * @throws NullPointerException if {@code in} is {@code null}.
 	 */
-	String encode(byte... in);
+	public String encode(byte... in)
+	{
+		return encode(in, 0, in.length);
+	}
 
 	/**
 	 * Encodes the given data bytes according to this {@code BaseEncoding}'s
@@ -113,7 +156,60 @@ public interface BaseEncoding
 	 *	negative or if {@code off + len} is greater than {@code in}'s
 	 *	length.
 	 */
-	String encode(byte[] in, int off, int len);
+	public String encode(byte[] in, int off, int len)
+	{
+		checkBounds(in, off, len);
+		StringBuilder sb = new StringBuilder(maxEncodedLength(len));
+		int accu = 0;
+		int count = 0;
+		int b = alphabet.bitsPerChar();
+		for (int i = off; i < off + len; i++) {
+			accu = (accu << 8) | (in[i] & 0xFF);
+			count += 8;
+			while (count >= b) {
+				count -= b;
+				sb.append(alphabet.encode(accu >>> count));
+			}
+		}
+		if (count > 0) {
+			accu = (accu & (0xFF >>> (8 - count))) << (b - count);
+			sb.append(alphabet.encode(accu));
+			if (!omitPadding) {
+				int c = alphabet.charsPerBlock();
+				int pad = c - (sb.length() % c);
+				for (int i = 0; i < pad; i++) {
+					sb.append(PADDING_CHAR);
+				}
+			}
+		}
+		insertSeparators(sb);
+		return sb.toString();
+	}
+
+	private void checkBounds(byte[] in, int off, int len)
+	{
+		if (off < 0 || len < 0 || off + len > in.length) {
+			throw new IndexOutOfBoundsException();
+		}
+	}
+
+	private int maxEncodedLength(int l)
+	{
+		return alphabet.charsPerBlock()
+			* (l / alphabet.bytesPerBlock() + 1)
+			+ alphabet.maxPaddingLength()
+			+ (n > 0 ? (l / n) * separator.length() : 0);
+	}
+
+	private void insertSeparators(StringBuilder sb)
+	{
+		if (n > 0) {
+			int len = sb.length();
+			for (int i = n; i < len; i += n + separator.length()) {
+				sb.insert(i, separator);
+			}
+		}
+	}
 
 	/**
 	 * Decodes the given encoded {@code String} according to this
@@ -129,7 +225,75 @@ public interface BaseEncoding
 	 *	base-encoded {@code String} according to this
 	 *	{@code BaseEncoding}'s configuration.
 	 */
-	byte[] decode(String in);
+	public byte[] decode(String in)
+	{
+		String encoded = n > 0 ? in.replace(separator, "") : in;
+		ByteBuffer buf = new ByteBuffer(maxDecodedLength(encoded.length()));
+		int accu = 0;
+		int count = 0;
+		int decoded = 0;
+		for (int i = 0; i < encoded.length(); i++) {
+			char c = encoded.charAt(i);
+			if (isPaddingChar(c) && !omitPadding) {
+				break;
+			}
+			int v = decode(c);
+			if (v != -1) {
+				decoded++;
+				accu = (accu << alphabet.bitsPerChar()) | v;
+				count += alphabet.bitsPerChar();
+				while (count >= 8) {
+					count -= 8;
+					buf.append((byte) (accu >>> count));
+				}
+			}
+		}
+		if (!omitPadding || !alphabet.requiresPadding()) {
+			decoded += getPaddingLength(encoded);
+			int blockSize = alphabet.charsPerBlock();
+			Parameters.checkCondition(decoded % blockSize == 0);
+		}
+		return buf.toByteArray();
+	}
+
+	private int maxDecodedLength(int l)
+	{
+		return alphabet.bytesPerBlock()
+			* (l / alphabet.charsPerBlock() + 1);
+	}
+
+	private boolean isPaddingChar(char c)
+	{
+		return c == PADDING_CHAR && alphabet.requiresPadding();
+	}
+
+	private int decode(char c)
+	{
+		int decoded = alphabet.decode(c);
+		if (decoded == -1 && !ignoreUnknownChars) {
+			throw new IllegalArgumentException(
+				"Unknown character: '" + c + "'");
+		}
+		return decoded;
+	}
+
+	private int getPaddingLength(String in)
+	{
+		int i = in.indexOf(PADDING_CHAR);
+		if (i < 0) {
+			return 0;
+		}
+		int count = 1;
+		while (++i < in.length()) {
+			char c = in.charAt(i);
+			if (c != PADDING_CHAR && (alphabet.decode(c) != -1 || !ignoreUnknownChars)) {
+				throw new IllegalArgumentException(
+					"Invalid padding character: '" + c + "'");
+			}
+			count++;
+		}
+		return count;
+	}
 
 	/**
 	 * Decodes the specified range from the given encoded {@code String}
@@ -151,5 +315,8 @@ public interface BaseEncoding
 	 *	{@code in} is not a valid base-encoded {@code String} according
 	 *	to this {@code BaseEncoding}'s configuration.
 	 */
-	byte[] decode(String in, int off, int len);
+	public byte[] decode(String in, int off, int len)
+	{
+		return decode(in.substring(off, off + len));
+	}
 }
