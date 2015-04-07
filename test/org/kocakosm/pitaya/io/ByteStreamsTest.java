@@ -67,23 +67,23 @@ public final class ByteStreamsTest
 	}
 
 	@Test
-	public void testEquals() throws Exception
+	public void testEqual() throws Exception
 	{
 		InputStream in1 = new ByteArrayInputStream(DATA);
 		InputStream in2 = new ByteArrayInputStream(DATA);
-		assertFalse(ByteStreams.equals(in1, null));
-		assertFalse(ByteStreams.equals(null, in2));
-		assertTrue(ByteStreams.equals(null, null));
-		assertTrue(ByteStreams.equals(in1, in2));
-		assertTrue(ByteStreams.equals(in1, in2));
+		assertFalse(ByteStreams.equal(in1, null));
+		assertFalse(ByteStreams.equal(null, in2));
+		assertTrue(ByteStreams.equal(null, null));
+		assertTrue(ByteStreams.equal(in1, in2));
+		assertTrue(ByteStreams.equal(in1, in2));
 
 		in1 = new ByteArrayInputStream(DATA, 0, 5);
 		in2 = new ByteArrayInputStream(DATA, 0, 3);
-		assertFalse(ByteStreams.equals(in1, in2));
+		assertFalse(ByteStreams.equal(in1, in2));
 
 		in1 = new ByteArrayInputStream(DATA, 0, 3);
 		in2 = new ByteArrayInputStream(DATA, 0, 5);
-		assertFalse(ByteStreams.equals(in1, in2));
+		assertFalse(ByteStreams.equal(in1, in2));
 	}
 
 	@Test

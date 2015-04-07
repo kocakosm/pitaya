@@ -55,7 +55,7 @@ public final class XObjects
 	 *
 	 * @return whether the given possibly {@code null} objects are equal.
 	 */
-	public static boolean equals(Object a, Object b)
+	public static boolean equal(Object a, Object b)
 	{
 		if (a == b) {
 			return true;

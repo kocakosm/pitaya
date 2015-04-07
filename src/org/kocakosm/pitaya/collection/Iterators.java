@@ -133,7 +133,7 @@ public final class Iterators
 	 *
 	 * @return whether the given {@code Iterator} have the same content.
 	 */
-	public static boolean equals(Iterator<?> i1, Iterator<?> i2)
+	public static boolean equal(Iterator<?> i1, Iterator<?> i2)
 	{
 		if (i1 == i2) {
 			return true;
@@ -142,7 +142,7 @@ public final class Iterators
 			return false;
 		}
 		while (i1.hasNext() && i2.hasNext()) {
-			if (!XObjects.equals(i1.next(), i2.next())) {
+			if (!XObjects.equal(i1.next(), i2.next())) {
 				return false;
 			}
 		}

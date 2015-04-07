@@ -373,7 +373,7 @@ public final class XFiles
 	 *
 	 * @throws IOException if the content of the {@code File}s can't be read.
 	 */
-	public static boolean equals(File f1, File f2) throws IOException
+	public static boolean equal(File f1, File f2) throws IOException
 	{
 		if (f1 == f2) {
 			return true;
@@ -399,7 +399,7 @@ public final class XFiles
 			try {
 				in1 = newInputStream(f1);
 				in2 = newInputStream(f2);
-				return ByteStreams.equals(in1, in2);
+				return ByteStreams.equal(in1, in2);
 			} finally {
 				IO.close(in1);
 				IO.close(in2);
@@ -410,7 +410,7 @@ public final class XFiles
 			return false;
 		}
 		for (File f : files) {
-			if (!equals(f, new File(f2, f.getName()))) {
+			if (!equal(f, new File(f2, f.getName()))) {
 				return false;
 			}
 		}

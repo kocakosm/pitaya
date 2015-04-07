@@ -100,18 +100,18 @@ public final class IteratorsTest
 	}
 
 	@Test
-	public void testEquals()
+	public void testEqual()
 	{
 		Iterator<Long> i1 = Arrays.asList(1L, 2L, 3L).iterator();
 		Iterator<Long> i2 = Arrays.asList(1L, 2L, 3L).iterator();
 		Iterator<Long> i3 = Arrays.asList(1L, 2L, 3L, 4L).iterator();
-		assertTrue(Iterators.equals(i1, i1));
-		assertTrue(Iterators.equals(i1, i2));
-		assertFalse(Iterators.equals(i1, i3));
-		assertFalse(Iterators.equals(i3, i2));
-		assertTrue(Iterators.equals(null, null));
-		assertFalse(Iterators.equals(i1, null));
-		assertFalse(Iterators.equals(null, i1));
+		assertTrue(Iterators.equal(i1, i1));
+		assertTrue(Iterators.equal(i1, i2));
+		assertFalse(Iterators.equal(i1, i3));
+		assertFalse(Iterators.equal(i3, i2));
+		assertTrue(Iterators.equal(null, null));
+		assertFalse(Iterators.equal(i1, null));
+		assertFalse(Iterators.equal(null, i1));
 	}
 
 	@Test

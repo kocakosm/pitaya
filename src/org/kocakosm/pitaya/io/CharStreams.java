@@ -174,7 +174,7 @@ public final class CharStreams
 	 *
 	 * @throws IOException if an I/O error occurs during the process.
 	 */
-	public static boolean equals(Reader in1, Reader in2) throws IOException
+	public static boolean equal(Reader in1, Reader in2) throws IOException
 	{
 		if (in1 == in2) {
 			return true;

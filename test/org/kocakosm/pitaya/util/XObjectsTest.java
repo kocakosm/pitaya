@@ -37,12 +37,12 @@ public final class XObjectsTest
 	}
 
 	@Test
-	public void testEquals()
+	public void testEqual()
 	{
-		assertTrue(XObjects.equals(null, null));
-		assertTrue(XObjects.equals("Hey", "Hey"));
-		assertFalse(XObjects.equals(null, "Hey"));
-		assertFalse(XObjects.equals("Hey", null));
+		assertTrue(XObjects.equal(null, null));
+		assertTrue(XObjects.equal("Hey", "Hey"));
+		assertFalse(XObjects.equal(null, "Hey"));
+		assertFalse(XObjects.equal("Hey", null));
 
 		long[] a1 = new long[] {1, 2, 3};
 		long[] a2 = new long[] {1, 2, 3};
@@ -70,26 +70,26 @@ public final class XObjectsTest
 		String[][] k1 = new String[][] {i1, i2};
 		String[][] k2 = new String[][] {i1, i3};
 
-		assertTrue(XObjects.equals(a1, a2));
-		assertFalse(XObjects.equals(a2, b1));
-		assertTrue(XObjects.equals(b1, b2));
-		assertFalse(XObjects.equals(b2, c1));
-		assertTrue(XObjects.equals(c1, c2));
-		assertFalse(XObjects.equals(c2, d1));
-		assertTrue(XObjects.equals(d1, d2));
-		assertFalse(XObjects.equals(d2, e1));
-		assertTrue(XObjects.equals(e1, e2));
-		assertFalse(XObjects.equals(e2, f1));
-		assertTrue(XObjects.equals(f1, f2));
-		assertFalse(XObjects.equals(f2, g1));
-		assertTrue(XObjects.equals(g1, g2));
-		assertFalse(XObjects.equals(g2, h1));
-		assertTrue(XObjects.equals(h1, h2));
-		assertFalse(XObjects.equals(h2, i1));
-		assertTrue(XObjects.equals(i1, i2));
-		assertFalse(XObjects.equals(i1, i4));
-		assertTrue(XObjects.equals(j1, j2));
-		assertTrue(XObjects.equals(k1, k2));
+		assertTrue(XObjects.equal(a1, a2));
+		assertFalse(XObjects.equal(a2, b1));
+		assertTrue(XObjects.equal(b1, b2));
+		assertFalse(XObjects.equal(b2, c1));
+		assertTrue(XObjects.equal(c1, c2));
+		assertFalse(XObjects.equal(c2, d1));
+		assertTrue(XObjects.equal(d1, d2));
+		assertFalse(XObjects.equal(d2, e1));
+		assertTrue(XObjects.equal(e1, e2));
+		assertFalse(XObjects.equal(e2, f1));
+		assertTrue(XObjects.equal(f1, f2));
+		assertFalse(XObjects.equal(f2, g1));
+		assertTrue(XObjects.equal(g1, g2));
+		assertFalse(XObjects.equal(g2, h1));
+		assertTrue(XObjects.equal(h1, h2));
+		assertFalse(XObjects.equal(h2, i1));
+		assertTrue(XObjects.equal(i1, i2));
+		assertFalse(XObjects.equal(i1, i4));
+		assertTrue(XObjects.equal(j1, j2));
+		assertTrue(XObjects.equal(k1, k2));
 	}
 
 	@Test

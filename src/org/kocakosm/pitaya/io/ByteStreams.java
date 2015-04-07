@@ -100,7 +100,7 @@ public final class ByteStreams
 	 *
 	 * @throws IOException if an I/O error occurs during the process.
 	 */
-	public static boolean equals(InputStream in1, InputStream in2)
+	public static boolean equal(InputStream in1, InputStream in2)
 		throws IOException
 	{
 		if (in1 == in2) {

@@ -135,7 +135,7 @@ public final class Iterables
 	 *
 	 * @return whether the given {@code Iterables} have the same content.
 	 */
-	public static boolean equals(Iterable<?> i1, Iterable<?> i2)
+	public static boolean equal(Iterable<?> i1, Iterable<?> i2)
 	{
 		if (i1 == i2) {
 			return true;
@@ -143,7 +143,7 @@ public final class Iterables
 		if (i1 == null || i2 == null) {
 			return false;
 		}
-		return Iterators.equals(i1.iterator(), i2.iterator());
+		return Iterators.equal(i1.iterator(), i2.iterator());
 	}
 
 	/**

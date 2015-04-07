@@ -129,7 +129,7 @@ public final class XFilesTest
 	}
 
 	@Test
-	public void testEquals() throws Exception
+	public void testEqual() throws Exception
 	{
 		byte[] data = ascii("Hello");
 		File test1 = tmp.newFolder();
@@ -139,18 +139,18 @@ public final class XFilesTest
 		createFile(test2, "f1.txt", data);
 		createFile(test2, "f2.txt", data);
 
-		assertTrue(XFiles.equals(f1, f1));
-		assertFalse(XFiles.equals(f1, new File("f1.txt")));
-		assertFalse(XFiles.equals(new File("f1.txt"), f1));
-		assertFalse(XFiles.equals(f1, null));
-		assertFalse(XFiles.equals(null, f1));
-		assertTrue(XFiles.equals(null, null));
-		assertTrue(XFiles.equals(f1, f2));
-		assertFalse(XFiles.equals(f1, test1));
-		assertFalse(XFiles.equals(test1, f1));
-		assertTrue(XFiles.equals(test1, test2));
+		assertTrue(XFiles.equal(f1, f1));
+		assertFalse(XFiles.equal(f1, new File("f1.txt")));
+		assertFalse(XFiles.equal(new File("f1.txt"), f1));
+		assertFalse(XFiles.equal(f1, null));
+		assertFalse(XFiles.equal(null, f1));
+		assertTrue(XFiles.equal(null, null));
+		assertTrue(XFiles.equal(f1, f2));
+		assertFalse(XFiles.equal(f1, test1));
+		assertFalse(XFiles.equal(test1, f1));
+		assertTrue(XFiles.equal(test1, test2));
 		createFile(test1, "f3.txt", data);
-		assertFalse(XFiles.equals(test1, test2));
+		assertFalse(XFiles.equal(test1, test2));
 	}
 
 	@Test
