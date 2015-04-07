@@ -194,10 +194,10 @@ public final class Booleans
 	public static Boolean valueOf(String bool)
 	{
 		String s = bool.replaceAll("\\s", "");
-		boolean b = s.equalsIgnoreCase("true")
-			|| s.equalsIgnoreCase("yes")
-			|| s.equalsIgnoreCase("on")
-			|| s.equalsIgnoreCase("1");
+		boolean b = "true".equalsIgnoreCase(s)
+			|| "yes".equalsIgnoreCase(s)
+			|| "on".equalsIgnoreCase(s)
+			|| "1".equalsIgnoreCase(s);
 		return b ? TRUE : FALSE;
 	}
 

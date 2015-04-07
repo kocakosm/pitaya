@@ -24,6 +24,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -38,7 +39,7 @@ public final class ConcurrentHashBag<E> extends AbstractBag<E> implements Serial
 {
 	private static final long serialVersionUID = 7336345430492192446L;
 
-	private final ConcurrentHashMap<E, CopyOnWriteArrayList<E>> entries;
+	private final ConcurrentMap<E, CopyOnWriteArrayList<E>> entries;
 
 	/** Creates a new empty {@code ConcurrentHashBag}. */
 	public ConcurrentHashBag()
