@@ -38,7 +38,7 @@
 
   <scm>
     <connection>scm:hg:https://bitbucket.org/kocakosm/pitaya</connection>
-    <developerConnection>scm:hg:https://bitbucket.org/kocakosm/pitaya</developerConnection>
+    <developerConnection>scm:hg:ssh://hg@bitbucket.org/kocakosm/pitaya</developerConnection>
     <url>https://bitbucket.org/kocakosm/pitaya</url>
   </scm>
 
