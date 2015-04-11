@@ -4,31 +4,45 @@ Pitaya
 [![Build Status](https://secure.travis-ci.org/kocakosm/pitaya.png?branch=master)](http://travis-ci.org/kocakosm/pitaya) [![Coverage Status](https://coveralls.io/repos/kocakosm/pitaya/badge.png)](https://coveralls.io/r/kocakosm/pitaya)
 
 
-Overview
---------
-
-Pitaya is a simple Java utility library.
-
-
-Requirements
-------------
-
-In order to build Pitaya you will need a JDK 6 (or newer) and Apache Maven 2
-(or newer).
-To use the library you will need a JRE 6 (or newer).
-
-
-Building Pitaya
+Getting started
 ---------------
 
-Run the following command to compile the library and package it as a jar:
+Pitaya binaries are available from Maven central repositories.
+Download the [latest JAR][1] or get it from your favorite build tool:
 
-> mvn clean package
+Maven
+```xml
+<dependency>
+    <groupId>org.kocakosm</groupId>
+    <artifactId>pitaya</artifactId>
+    <version>0.1</version>
+</dependency>
+```
 
-Or, you can also directly install it in your Maven local repository by running
-the following command:
+Gradle
+```groovy
+compile 'org.kocakosm:pitaya:0.1'
+```
 
-> mvn clean install
+
+Usage
+-----
+
+Browse the [API docs][2].
+
+
+Contributing
+------------
+
+If you would like to contribute code, fork the [repository][3] and send a pull
+request. When submitting code, please make sure to follow existing conventions
+and style in order to keep the code as readable as possible.
+
+Reporting errors or possible improvements is also a great way to help. Be sure
+to not duplicate an existing issue by first browsing the [issue tracker][4].
+
+_The [Github repository][5] is only used as a source code mirror, development
+happens on Bitbucket._
 
 
 License
@@ -46,4 +60,13 @@ PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
 Contact
 -------
 
-For any question, feel free to contact me at kocakosm[@]gmail.com
+For any question, feel free to contact me at kocakosm[@]gmail[dot]com or ping
+me on [twitter][6].
+
+
+ [1]: https://search.maven.org/remote_content?g=org.kocakosm&a=pitaya&v=LATEST
+ [2]: http://kocakosm.github.io/projects/pitaya/apidocs/
+ [3]: https://bitbucket.org/kocakosm/pitaya
+ [4]: https://bitbucket.org/kocakosm/pitaya/issues
+ [5]: https://github.com/kocakosm/pitaya
+ [6]: https://twitter.com/kocakosm
