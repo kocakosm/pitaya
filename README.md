@@ -8,27 +8,27 @@ Getting started
 ---------------
 
 Pitaya binaries are available from Maven central repositories.
-Download the [latest JAR][1] or get it from your favorite build tool:
+Download the [latest JAR][1] or get it directly from your favorite build tool:
 
 Maven
 ```xml
-<dependency>
+  <dependency>
     <groupId>org.kocakosm</groupId>
     <artifactId>pitaya</artifactId>
     <version>0.1</version>
-</dependency>
+  </dependency>
 ```
 
 Gradle
 ```groovy
-compile 'org.kocakosm:pitaya:0.1'
+  compile 'org.kocakosm:pitaya:0.1'
 ```
 
 
 Usage
 -----
 
-Browse the [API docs][2].
+Browse [API docs][2] for the most recent release.
 
 
 Contributing
@@ -52,21 +52,23 @@ This program is free software: you can redistribute it and/or modify it under
 the terms of the GNU Lesser General Public License as published by the Free
 Software Foundation, either version 3 of the License, or (at your option) any
 later version.
-This program is distributed in the hope that it will be useful, but WITHOUT ANY
-WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+This program is distributed in the hope that it will be useful, but _without any
+warranty;_ without even the implied warranty of _merchantability_ or _fitness
+for a particular purpose_. See the [GNU Lesser General Public License][6] for
+more details.
 
 
 Contact
 -------
 
-For any question, feel free to contact me at kocakosm[@]gmail[dot]com or ping
-me on [twitter][6].
+If you have any question, feel free to send me an e-mail at kocakosm[@]gmail[dot]com
+or ping me on [twitter][7].
 
 
  [1]: https://search.maven.org/remote_content?g=org.kocakosm&a=pitaya&v=LATEST
- [2]: http://kocakosm.github.io/projects/pitaya/apidocs/
+ [2]: http://kocakosm.org/projects/pitaya/apidocs/
  [3]: https://bitbucket.org/kocakosm/pitaya
  [4]: https://bitbucket.org/kocakosm/pitaya/issues
  [5]: https://github.com/kocakosm/pitaya
- [6]: https://twitter.com/kocakosm
+ [6]: http://www.gnu.org/licenses/lgpl-3.0-standalone.html
+ [7]: https://twitter.com/kocakosm
