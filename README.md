@@ -41,9 +41,6 @@ and style in order to keep the code as readable as possible.
 Reporting errors or possible improvements is also a great way to help. Be sure
 to not duplicate an existing issue by first browsing the [issue tracker][4].
 
-_The [Github repository][5] is only used as a source code mirror, development
-happens on Bitbucket._
-
 
 License
 -------
@@ -54,7 +51,7 @@ Software Foundation, either version 3 of the License, or (at your option) any
 later version.
 This program is distributed in the hope that it will be useful, but _without any
 warranty;_ without even the implied warranty of _merchantability_ or _fitness
-for a particular purpose_. See the [GNU Lesser General Public License][6] for
+for a particular purpose_. See the [GNU Lesser General Public License][5] for
 more details.
 
 
@@ -62,13 +59,12 @@ Contact
 -------
 
 If you have any question, feel free to send me an e-mail at kocakosm[@]gmail[dot]com
-or ping me on [twitter][7].
+or ping me on [twitter][6].
 
 
  [1]: https://search.maven.org/remote_content?g=org.kocakosm&a=pitaya&v=LATEST
  [2]: http://kocakosm.org/projects/pitaya/apidocs/
  [3]: https://bitbucket.org/kocakosm/pitaya
  [4]: https://bitbucket.org/kocakosm/pitaya/issues
- [5]: https://github.com/kocakosm/pitaya
- [6]: http://www.gnu.org/licenses/lgpl-3.0-standalone.html
- [7]: https://twitter.com/kocakosm
+ [5]: http://www.gnu.org/licenses/lgpl-3.0-standalone.html
+ [6]: https://twitter.com/kocakosm
