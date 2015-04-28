@@ -134,6 +134,9 @@ public final class Base64Test
 	{
 		BaseEncoding e = BaseEncoding.BASE_64.withSeparator("\n", 3);
 		assertEquals("Zm9\nvYm\nFy", e.encode(ascii("foobar")));
+
+		e = BaseEncoding.BASE_64.withSeparator("  ", 1);
+		assertEquals("Z  m  9  v", e.encode(ascii("foo")));
 	}
 
 	@Test
@@ -141,6 +144,9 @@ public final class Base64Test
 	{
 		BaseEncoding e = BaseEncoding.BASE_64.withSeparator("\n", 3);
 		assertArrayEquals(ascii("foobar"), e.decode("Zm9\nvYm\nFy"));
+
+		e = BaseEncoding.BASE_64.withSeparator("  ", 1);
+		assertArrayEquals(ascii("foo"), e.decode("Z  m  9  v"));
 	}
 
 	@Test

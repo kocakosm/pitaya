@@ -134,6 +134,9 @@ public final class Base32Test
 	{
 		BaseEncoding e = BaseEncoding.BASE_32.withSeparator("\n", 3);
 		assertEquals("MZX\nW6=\n==", e.encode(ascii("foo")));
+
+		e = BaseEncoding.BASE_32.withSeparator("  ", 1);
+		assertEquals("M  Z  X  W  6  =  =  =", e.encode(ascii("foo")));
 	}
 
 	@Test
@@ -141,6 +144,9 @@ public final class Base32Test
 	{
 		BaseEncoding e = BaseEncoding.BASE_32.withSeparator("\n", 3);
 		assertArrayEquals(ascii("foo"), e.decode("MZX\nW6=\n=="));
+
+		e = BaseEncoding.BASE_32.withSeparator("  ", 1);
+		assertArrayEquals(ascii("foo"), e.decode("M  Z  X  W  6  =  =  ="));
 	}
 
 	@Test

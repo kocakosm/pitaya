@@ -207,6 +207,7 @@ public final class BaseEncoding
 			int len = sb.length();
 			for (int i = n; i < len; i += n + separator.length()) {
 				sb.insert(i, separator);
+				len += separator.length();
 			}
 		}
 	}

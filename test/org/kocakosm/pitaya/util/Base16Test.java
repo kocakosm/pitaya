@@ -102,6 +102,9 @@ public final class Base16Test
 	{
 		BaseEncoding e = BaseEncoding.BASE_16.withSeparator("\n", 3);
 		assertEquals("666\nF6F\n626\n172", e.encode(ascii("foobar")));
+
+		e = BaseEncoding.BASE_16.withSeparator("  ", 1);
+		assertEquals("6  6  6  F  6  F", e.encode(ascii("foo")));
 	}
 
 	@Test
@@ -109,6 +112,9 @@ public final class Base16Test
 	{
 		BaseEncoding e = BaseEncoding.BASE_16.withSeparator("\n", 3);
 		assertArrayEquals(ascii("foobar"), e.decode("666\nF6F\n626\n172"));
+
+		e = BaseEncoding.BASE_16.withSeparator("  ", 1);
+		assertArrayEquals(ascii("foo"), e.decode("6  6  6  F  6  F"));
 	}
 
 	@Test

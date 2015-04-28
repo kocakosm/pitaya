@@ -134,6 +134,9 @@ public final class Base32HexTest
 	{
 		BaseEncoding e = BaseEncoding.BASE_32_HEX.withSeparator("\n", 3);
 		assertEquals("CPN\nMU=\n==", e.encode(ascii("foo")));
+
+		e = BaseEncoding.BASE_32_HEX.withSeparator("  ", 1);
+		assertEquals("C  P  N  M  U  =  =  =", e.encode(ascii("foo")));
 	}
 
 	@Test
@@ -141,6 +144,9 @@ public final class Base32HexTest
 	{
 		BaseEncoding e = BaseEncoding.BASE_32_HEX.withSeparator("\n", 3);
 		assertArrayEquals(ascii("foo"), e.decode("CPN\nMU=\n=="));
+
+		e = BaseEncoding.BASE_32_HEX.withSeparator("  ", 1);
+		assertArrayEquals(ascii("foo"), e.decode("C  P  N  M  U  =  =  ="));
 	}
 
 	@Test
