@@ -66,7 +66,7 @@ public final class BaseEncoding
 	/**
 	 * Returns a {@code BaseEncoding} that behaves as this one except that
 	 * it adds the specified separator after every {@code n} characters when
-	 * encodind data and ignores any occurence of the specified separator
+	 * encoding data and ignores any occurence of the specified separator
 	 * when decoding encoded data.
 	 *
 	 * See <a href="http://tools.ietf.org/html/rfc4648#section-3.1">RFC 4648
