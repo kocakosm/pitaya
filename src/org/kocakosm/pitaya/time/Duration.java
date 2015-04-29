@@ -83,7 +83,7 @@ public final class Duration implements Comparable<Duration>, Serializable
 	{
 		String[] tokens = duration.toLowerCase().replace("and", "")
 			.replaceAll("[,&\\+]", "").replaceAll("-\\s+", "-")
-			.replace("--", "").replaceAll("[\n\t\r]", "").trim()
+			.replace("--", "").replaceAll("[\n\t\r]", " ").trim()
 			.replaceAll("\\s+", " ").split("\\s");
 		Parameters.checkCondition(tokens.length % 2 == 0);
 		long ms = 0L;
