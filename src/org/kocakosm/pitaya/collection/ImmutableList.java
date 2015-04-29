@@ -37,7 +37,8 @@ import java.util.RandomAccess;
  *
  * @author Osman KOCAK
  */
-public final class ImmutableList<E> extends AbstractList<E> implements RandomAccess, Serializable
+public final class ImmutableList<E>
+	extends AbstractList<E> implements RandomAccess, Serializable
 {
 	private static final long serialVersionUID = 5355899738233743694L;
 

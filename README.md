@@ -1,6 +1,8 @@
 Pitaya ![Build Status][1] ![Coverage][2]
 ========================================
 
+A simple general-purpose utility library for Java 6+.
+
 
 Getting started
 ---------------

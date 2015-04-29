@@ -180,11 +180,8 @@ public final class HMAC
 
 		Engine(byte[] key, Digest digest, int blockSize)
 		{
-			if (key.length > blockSize) {
-				this.key = Arrays.copyOf(digest.digest(key), blockSize);
-			} else {
-				this.key = Arrays.copyOf(key, blockSize);
-			}
+			byte[] k = key.length > blockSize ? digest.digest(key) : key;
+			this.key = Arrays.copyOf(k, blockSize);
 			this.digest = digest;
 			reset();
 		}

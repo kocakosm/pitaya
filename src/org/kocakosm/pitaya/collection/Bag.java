@@ -41,7 +41,7 @@ public interface Bag<E> extends Collection<E>
 	 *
 	 * @param e the object to count.
 	 *
-	 * @return the number of occurrences of the {@code e} in this bag.
+	 * @return the number of occurrences of {@code e} in this bag.
 	 */
 	int count(E e);
 }
