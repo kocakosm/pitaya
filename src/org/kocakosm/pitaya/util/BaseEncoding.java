@@ -85,7 +85,7 @@ public final class BaseEncoding
 	{
 		Parameters.checkCondition(n > 0);
 		for (char c : separator.toCharArray()) {
-			if (c == PADDING_CHAR || alphabet.decode(c) != -1) {
+			if (isPaddingChar(c) || alphabet.decode(c) != -1) {
 				throw new IllegalArgumentException(
 					"Invalid separator character: '" + c + "'");
 			}

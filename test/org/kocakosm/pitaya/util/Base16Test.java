@@ -94,7 +94,7 @@ public final class Base16Test
 	@Test(expected = IllegalArgumentException.class)
 	public void testInvalidSeparator()
 	{
-		BaseEncoding.BASE_16.withSeparator("=", 5);
+		BaseEncoding.BASE_16.withSeparator("f", 5);
 	}
 
 	@Test
