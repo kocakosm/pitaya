@@ -85,7 +85,7 @@ public final class BaseEncoding
 	{
 		Parameters.checkCondition(n > 0);
 		for (char c : separator.toCharArray()) {
-			if (isPaddingChar(c) || alphabet.decode(c) != -1) {
+			if (isPaddingChar(c) || isInAlphabet(c)) {
 				throw new IllegalArgumentException(
 					"Invalid separator character: '" + c + "'");
 			}
@@ -268,6 +268,11 @@ public final class BaseEncoding
 		return c == PADDING_CHAR && alphabet.requiresPadding();
 	}
 
+	private boolean isInAlphabet(char c)
+	{
+		return alphabet.decode(c) != -1;
+	}
+
 	private int decode(char c)
 	{
 		int decoded = alphabet.decode(c);
@@ -289,7 +294,7 @@ public final class BaseEncoding
 			char c = in.charAt(i);
 			if (c == PADDING_CHAR) {
 				count++;
-			} else if (alphabet.decode(c) != -1 || !ignoreUnknownChars) {
+			} else if (isInAlphabet(c) || !ignoreUnknownChars) {
 				throw new IllegalArgumentException(
 					"Invalid padding character: '" + c + "'");
 			}
