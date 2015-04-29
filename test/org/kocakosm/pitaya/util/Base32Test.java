@@ -103,6 +103,7 @@ public final class Base32Test
 		BaseEncoding e = BaseEncoding.BASE_32.ignoreUnknownCharacters();
 		assertArrayEquals(ascii(""), e.decode(" \t 8 \r0"));
 		assertArrayEquals(ascii("hello"), e.decode("\nNB0 SWY3\rDP "));
+		assertArrayEquals(ascii("foo"), e.decode("MZ\nXW6==\t="));
 	}
 
 	@Test(expected = IllegalArgumentException.class)

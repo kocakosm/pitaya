@@ -287,11 +287,12 @@ public final class BaseEncoding
 		int count = 1;
 		while (++i < in.length()) {
 			char c = in.charAt(i);
-			if (c != PADDING_CHAR && (alphabet.decode(c) != -1 || !ignoreUnknownChars)) {
+			if (c == PADDING_CHAR) {
+				count++;
+			} else if (alphabet.decode(c) != -1 || !ignoreUnknownChars) {
 				throw new IllegalArgumentException(
 					"Invalid padding character: '" + c + "'");
 			}
-			count++;
 		}
 		return count;
 	}

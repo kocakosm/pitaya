@@ -103,6 +103,7 @@ public final class Base64URLTest
 		BaseEncoding e = BaseEncoding.BASE_64_URL.ignoreUnknownCharacters();
 		assertArrayEquals(ascii(""), e.decode("/\t  +\r\n"));
 		assertArrayEquals(ascii("hello"), e.decode("/a\nGV+s \rbG8="));
+		assertArrayEquals(ascii("f"), e.decode("Z\ng=\t="));
 	}
 
 	@Test(expected = IllegalArgumentException.class)

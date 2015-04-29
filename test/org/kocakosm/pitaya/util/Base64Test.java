@@ -103,6 +103,7 @@ public final class Base64Test
 		BaseEncoding e = BaseEncoding.BASE_64.ignoreUnknownCharacters();
 		assertArrayEquals(ascii(""), e.decode("-\t  \r_"));
 		assertArrayEquals(ascii("hello"), e.decode("_a\nGV\ts -bG8="));
+		assertArrayEquals(ascii("f"), e.decode("Z\ng=\t="));
 	}
 
 	@Test(expected = IllegalArgumentException.class)

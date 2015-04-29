@@ -103,6 +103,7 @@ public final class Base32HexTest
 		BaseEncoding e = BaseEncoding.BASE_32_HEX.ignoreUnknownCharacters();
 		assertArrayEquals(ascii(""), e.decode(" \t Z \rW"));
 		assertArrayEquals(ascii("hello"), e.decode("\nD1z IMORw3F\r"));
+		assertArrayEquals(ascii("foo"), e.decode("CPN\nMU==\t="));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
