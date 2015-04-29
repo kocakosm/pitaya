@@ -176,7 +176,7 @@ public final class Splitter
 	public Splitter replaceEmptyStringWith(String forEmpty)
 	{
 		return new Splitter(limit, trim, pattern, prefix, suffix,
-			forEmpty, ignoreEmptyStrings);
+			forEmpty, false);
 	}
 
 	/**
