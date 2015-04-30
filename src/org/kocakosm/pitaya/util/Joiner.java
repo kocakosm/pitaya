@@ -221,9 +221,6 @@ public final class Joiner
 		}
 		String s = XObjects.toString(o, forNull);
 		s = trim ? s.trim() : s;
-		if (s.isEmpty()) {
-			return ignoreEmpty ? null : forEmpty;
-		}
-		return s;
+		return s.isEmpty() ? (ignoreEmpty ? null : forEmpty) : s;
 	}
 }
