@@ -69,6 +69,6 @@ or ping me on [twitter][8].
  [3]: https://search.maven.org/remote_content?g=org.kocakosm&a=pitaya&v=LATEST
  [4]: http://kocakosm.org/projects/pitaya/apidocs/
  [5]: https://bitbucket.org/kocakosm/pitaya
- [6]: https://bitbucket.org/kocakosm/pitaya/issues
+ [6]: https://bitbucket.org/kocakosm/pitaya/issues?status=new&status=open
  [7]: http://www.gnu.org/licenses/lgpl-3.0-standalone.html
  [8]: https://twitter.com/kocakosm
