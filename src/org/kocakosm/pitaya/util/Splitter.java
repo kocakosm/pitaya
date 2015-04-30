@@ -77,7 +77,6 @@ public final class Splitter
 		String suffix, String forEmpty, boolean ignoreEmptyStrings)
 	{
 		Parameters.checkNotNull(pattern);
-		Parameters.checkNotNull(forEmpty);
 		this.limit = limit;
 		this.trim = trim;
 		this.pattern = pattern;
@@ -170,8 +169,6 @@ public final class Splitter
 	 * @param forEmpty the value to use for empty {@code String}s.
 	 *
 	 * @return a new {@code Splitter} with the desired configuration.
-	 *
-	 * @throws NullPointerException if {@code forEmpty} is {@code null}.
 	 */
 	public Splitter replaceEmptyStringWith(String forEmpty)
 	{
@@ -191,31 +188,24 @@ public final class Splitter
 	 */
 	public List<String> split(String s)
 	{
-		String[] parts = pattern.split(formatInput(s), limit);
+		String[] parts = pattern.split(removePrefixAndSuffix(s), limit);
 		List<String> results = new ArrayList<String>(parts.length);
 		for (String part : parts) {
-			String str = formatOutput(part);
-			if (str != null) {
+			String str = trim ? part.trim() : part;
+			if (!str.isEmpty()) {
 				results.add(str);
+			} else if (!ignoreEmptyStrings) {
+				results.add(forEmpty);
 			}
 		}
 		return Collections.unmodifiableList(results);
 	}
 
-	private String formatInput(String input)
+	private String removePrefixAndSuffix(String input)
 	{
 		String s = prefix != null && input.startsWith(prefix)
 			? input.substring(prefix.length()) : input;
 		return suffix != null && s.endsWith(suffix)
 			? s.substring(0, s.length() - suffix.length()) : s;
-	}
-
-	private String formatOutput(String part)
-	{
-		String s = trim ? part.trim() : part;
-		if (s.isEmpty()) {
-			return ignoreEmptyStrings ? null : forEmpty;
-		}
-		return s;
 	}
 }

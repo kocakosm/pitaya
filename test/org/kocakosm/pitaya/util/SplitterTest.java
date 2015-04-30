@@ -52,6 +52,9 @@ public final class SplitterTest
 		Splitter splitter = Splitter.on(",").ignoreEmptyStrings();
 		splitter = splitter.replaceEmptyStringWith("X");
 		assertEquals(asList("1", "X", "3"), splitter.split("1,,3"));
+
+		splitter = splitter.replaceEmptyStringWith(null);
+		assertEquals(asList("1", null, "3"), splitter.split("1,,3"));
 	}
 
 	@Test
