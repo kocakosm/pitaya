@@ -29,13 +29,13 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * A thread-safe variant of {@link HashBag} based on {@link ConcurrentHashMap}.
- * This class does not accept {@code null} elements.
  *
  * @param <E> the type of the elements in the bag.
  *
  * @author Osman KOCAK
  */
-public final class ConcurrentHashBag<E> extends AbstractBag<E> implements Serializable
+public final class ConcurrentHashBag<E>
+	extends AbstractBag<E> implements ConcurrentBag<E>, Serializable
 {
 	private static final long serialVersionUID = 7336345430492192446L;
 
@@ -130,17 +130,7 @@ public final class ConcurrentHashBag<E> extends AbstractBag<E> implements Serial
 		return getEntry(e).add(e);
 	}
 
-	/**
-	 * Adds all of the elements in the specified collection that are not
-	 * already contained in this bag.
-	 *
-	 * @param c the collection containing elements to be added to this bag.
-	 *
-	 * @return the number of elements added.
-	 *
-	 * @throws NullPointerException if the given collection is {@code null}
-	 *	or if it contains a {@code null} reference.
-	 */
+	@Override
 	public int addAllAbsent(Collection<? extends E> c)
 	{
 		int count = 0;
@@ -152,15 +142,7 @@ public final class ConcurrentHashBag<E> extends AbstractBag<E> implements Serial
 		return count;
 	}
 
-	/**
-	 * Adds the given element to this bag if not already present.
-	 *
-	 * @param e the element to be added to this bag, if absent.
-	 *
-	 * @return {@code true} if the element was added.
-	 *
-	 * @throws NullPointerException if {@code e} is {@code null}.
-	 */
+	@Override
 	public boolean addIfAbsent(E e)
 	{
 		return getEntry(e).addIfAbsent(e);

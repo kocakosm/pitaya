@@ -92,7 +92,7 @@ public final class ConcurrentHashBagTest
 	@Test
 	public void testAddAllAbsent()
 	{
-		ConcurrentHashBag<Long> bag = new ConcurrentHashBag<Long>(1L, 2L);
+		ConcurrentBag<Long> bag = new ConcurrentHashBag<Long>(1L, 2L);
 		assertEquals(bag.addAllAbsent(Arrays.asList(1L, 2L, 3L, 4L)), 2);
 		assertEquals(bag.count(1L), 1);
 		assertEquals(bag.count(2L), 1);
@@ -103,7 +103,7 @@ public final class ConcurrentHashBagTest
 	@Test
 	public void testAddIfAbsent()
 	{
-		ConcurrentHashBag<Long> bag = new ConcurrentHashBag<Long>(1L, 2L);
+		ConcurrentBag<Long> bag = new ConcurrentHashBag<Long>(1L, 2L);
 		assertFalse(bag.addIfAbsent(1L));
 		assertFalse(bag.addIfAbsent(2L));
 		assertTrue(bag.addIfAbsent(3L));
