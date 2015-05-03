@@ -2268,18 +2268,18 @@ public final class XArrays
 
 	/**
 	 * Returns a {@code String} representation of the contents of the given
-	 * array. Returns {@code "null"} if {@code a} is {@code null}.
+	 * array. Accepts multidimensional arrays. Returns {@code "null"} if
+	 * {@code a} is {@code null}.
 	 *
 	 * @param a the array whose {@code String} representation to return.
 	 *
 	 * @return a {@code String} representation of {@code a}.
 	 *
-	 * @see Arrays#toString(java.lang.Object[])
 	 * @see Arrays#deepToString(java.lang.Object[])
 	 */
 	public static String toString(Object[] a)
 	{
-		return Arrays.toString(a);
+		return Arrays.deepToString(a);
 	}
 
 	private static <T> T[] newArray(Class<?> componentType, int len)

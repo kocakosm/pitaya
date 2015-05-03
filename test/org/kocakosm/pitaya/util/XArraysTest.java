@@ -996,4 +996,19 @@ public final class XArraysTest
 		String[] a = new String[] {"a", "b", "c", "d"};
 		assertEquals(Arrays.toString(a), XArrays.toString(a));
 	}
+
+	@Test
+	public void testToStringNullArray()
+	{
+		Object[] a = null;
+		assertEquals("null", XArrays.toString(a));
+	}
+
+	@Test
+	public void testToStringMultidimensionalArray()
+	{
+		String[] a = new String[] {"a", "b"};
+		String[][] b = new String[][] {a, a};
+		assertEquals("[[a, b], [a, b]]", XArrays.toString(b));
+	}
 }
