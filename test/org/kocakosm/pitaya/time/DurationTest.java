@@ -41,6 +41,7 @@ public final class DurationTest
 		assertEquals(999, valueOf("1000 millis - 1 ms").toMilliseconds());
 		assertEquals(1000, valueOf("1 s").toMilliseconds());
 		assertEquals(1000, valueOf("1 second").toMilliseconds());
+		assertEquals(1001, valueOf("1 s,1 ms").toMilliseconds());
 		assertEquals(1001, valueOf("1 s + 1 ms").toMilliseconds());
 		assertEquals(10000, valueOf(" -   - 10 sec").toMilliseconds());
 		assertEquals(-10000, valueOf(" - - - 10 sec").toMilliseconds());
@@ -51,7 +52,7 @@ public final class DurationTest
 		assertEquals(86400000, valueOf("1 d").toMilliseconds());
 		assertEquals(86400000, valueOf("1 day").toMilliseconds());
 		assertEquals(86400000, valueOf("1\nday").toMilliseconds());
-		assertEquals(93784005, valueOf("1, d \n, 2 h, \t3 MIN 4 S AnD 5 mS &").toMilliseconds());
+		assertEquals(93784005, valueOf("1,d \n, 2 h, \t3 MIN 4 S AnD 5 mS &").toMilliseconds());
 	}
 
 	@Test

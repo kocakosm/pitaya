@@ -82,7 +82,7 @@ public final class Duration implements Comparable<Duration>, Serializable
 	public static Duration valueOf(String duration)
 	{
 		String[] tokens = duration.toLowerCase().replace("and", "")
-			.replaceAll("[,&\\+]", "").replaceAll("-\\s+", "-")
+			.replaceAll("[,&\\+]", " ").replaceAll("-\\s+", "-")
 			.replace("--", "").replaceAll("[\n\t\r]", " ").trim()
 			.replaceAll("\\s+", " ").split("\\s");
 		Parameters.checkCondition(tokens.length % 2 == 0);
