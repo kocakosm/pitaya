@@ -214,14 +214,14 @@ public final class DurationTest
 	@Test
 	public void testToString()
 	{
-		assertEquals(ZERO.toString(), "0 millisecond");
-		assertEquals(ONE_MILLISECOND.toString(), "1 millisecond");
-		assertEquals(ONE_MILLISECOND.multipliedBy(10).toString(), "10 milliseconds");
-		assertEquals(ONE_SECOND.toString(), "1 second");
-		assertEquals(ONE_SECOND.negated().toString(), "-1 second");
-		assertEquals(ONE_MINUTE.multipliedBy(70).negated().toString(), "-1 hour, -10 minutes");
-		assertEquals(ONE_HOUR.plus(ONE_SECOND).toString(), "1 hour, 1 second");
-		assertEquals(ONE_WEEK.plus(ONE_HOUR).plus(ONE_HOUR).toString(), "7 days, 2 hours");
+		assertEquals("0 millisecond", ZERO.toString());
+		assertEquals("1 millisecond", ONE_MILLISECOND.toString());
+		assertEquals("10 milliseconds", ONE_MILLISECOND.multipliedBy(10).toString());
+		assertEquals("1 second", ONE_SECOND.toString());
+		assertEquals("-1 second", ONE_SECOND.negated().toString());
+		assertEquals("-1 hour, -10 minutes", ONE_MINUTE.multipliedBy(70).negated().toString());
+		assertEquals("1 hour, 1 second", ONE_HOUR.plus(ONE_SECOND).toString());
+		assertEquals("7 days, 2 hours", ONE_WEEK.plus(ONE_HOUR).plus(ONE_HOUR).toString());
 	}
 
 	@Test
