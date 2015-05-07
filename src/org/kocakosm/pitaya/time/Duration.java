@@ -415,7 +415,7 @@ public final class Duration implements Comparable<Duration>, Serializable
 			return "0 millisecond";
 		}
 		StringBuilder sb = new StringBuilder();
-		long time = safeAbs(milliseconds);
+		long time = milliseconds;
 		long days = MILLISECONDS.toDays(time);
 		time -= DAYS.toMillis(days);
 		append(sb, days, "day");
@@ -429,21 +429,17 @@ public final class Duration implements Comparable<Duration>, Serializable
 		time -= SECONDS.toMillis(seconds);
 		append(sb, seconds, "second");
 		append(sb, time, "millisecond");
-		if (milliseconds < 0L) {
-			sb.insert(0, "-(");
-			sb.append(")");
-		}
 		return sb.toString();
 	}
 
 	private void append(StringBuilder sb, long value, String unit)
 	{
-		if (value > 0L) {
+		if (value != 0L) {
 			if (sb.length() > 0) {
 				sb.append(", ");
 			}
 			sb.append(value).append(' ').append(unit);
-			if (value > 1L) {
+			if (value != 1L && value != -1L) {
 				sb.append('s');
 			}
 		}

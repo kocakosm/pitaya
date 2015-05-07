@@ -218,7 +218,8 @@ public final class DurationTest
 		assertEquals(ONE_MILLISECOND.toString(), "1 millisecond");
 		assertEquals(ONE_MILLISECOND.multipliedBy(10).toString(), "10 milliseconds");
 		assertEquals(ONE_SECOND.toString(), "1 second");
-		assertEquals(ONE_SECOND.negated().toString(), "-(1 second)");
+		assertEquals(ONE_SECOND.negated().toString(), "-1 second");
+		assertEquals(ONE_MINUTE.multipliedBy(70).negated().toString(), "-1 hour, -10 minutes");
 		assertEquals(ONE_HOUR.plus(ONE_SECOND).toString(), "1 hour, 1 second");
 		assertEquals(ONE_WEEK.plus(ONE_HOUR).plus(ONE_HOUR).toString(), "7 days, 2 hours");
 	}
