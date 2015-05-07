@@ -82,6 +82,17 @@ public final class ASCIITest
 	}
 
 	@Test
+	public void testIsPrintable()
+	{
+		assertTrue(isPrintable(' '));
+		assertTrue(isPrintable('='));
+		assertTrue(isPrintable('~'));
+		assertFalse(isPrintable((char) 0));
+		assertFalse(isPrintable((char) 31));
+		assertFalse(isPrintable((char) 127));
+	}
+
+	@Test
 	public void testIsDigit()
 	{
 		assertTrue(isDigit('0'));

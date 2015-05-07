@@ -199,6 +199,21 @@ public final class ASCII
 	}
 
 	/**
+	 * Returns whether the given character is one of the 95 printable ASCII
+	 * characters.
+	 *
+	 * @param c the character to test.
+	 *
+	 * @return whether the given character is printable.
+	 *
+	 * @since 0.2
+	 */
+	public static boolean isPrintable(char c)
+	{
+		return c > 31 && c < 127;
+	}
+
+	/**
 	 * Returns whether the given character represents a digit.
 	 *
 	 * @param c the character to test.
