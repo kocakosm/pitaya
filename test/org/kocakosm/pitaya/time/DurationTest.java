@@ -51,7 +51,7 @@ public final class DurationTest
 		assertEquals(86400000, valueOf("1 d").toMilliseconds());
 		assertEquals(86400000, valueOf("1 day").toMilliseconds());
 		assertEquals(86400000, valueOf("1\nday").toMilliseconds());
-		assertEquals(93784005, valueOf(", 1 Day , \n, 2 hours,  \t3 MIN, 4  S AnD 5  mS and ").toMilliseconds());
+		assertEquals(93784005, valueOf("1, d \n, 2 h, \t3 MIN 4 S AnD 5 mS &").toMilliseconds());
 	}
 
 	@Test

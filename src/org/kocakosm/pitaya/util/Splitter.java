@@ -43,11 +43,7 @@ public final class Splitter
 	 */
 	public static Splitter on(String separator)
 	{
-		StringBuilder sb = new StringBuilder(separator.length() * 2);
-		for (char c : separator.toCharArray()) {
-			sb.append('\\').append(c);
-		}
-		return on(Pattern.compile(sb.toString()));
+		return on(Pattern.compile(Pattern.quote(separator)));
 	}
 
 	/**
