@@ -16,10 +16,13 @@
 
 package org.kocakosm.pitaya.security;
 
-import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.*;
 
 import org.kocakosm.pitaya.charset.ASCII;
 import org.kocakosm.pitaya.util.BaseEncoding;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 
 import org.junit.Test;
 
@@ -68,6 +71,17 @@ public final class KDFsTest
 			hex("567C46E015DFCC5F2A14096DC1A851E5196C06EF"),
 			scrypt.deriveKey(ascii("password"), ascii("salt"))
 		);
+	}
+
+	@Test
+	public void testConstructor() throws Exception
+	{
+		Class<KDFs> c = KDFs.class;
+		assertEquals(1, c.getDeclaredConstructors().length);
+		Constructor<KDFs> constructor = c.getDeclaredConstructor();
+		assertTrue(Modifier.isPrivate(constructor.getModifiers()));
+		constructor.setAccessible(true);
+		constructor.newInstance();
 	}
 
 	private byte[] hex(String hex)

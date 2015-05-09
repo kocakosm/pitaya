@@ -19,6 +19,8 @@ package org.kocakosm.pitaya.util;
 import static org.kocakosm.pitaya.util.Classes.*;
 import static org.junit.Assert.*;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -75,6 +77,17 @@ public final class ClassesTest
 		assertEquals(asSet(), getCommonSuperTypes(A.class, I.class));
 		assertEquals(asSet(A.class), getCommonSuperTypes(C.class, E.class, I.class));
 		assertEquals(asSet(A.class, D.class), getCommonSuperTypes(E.class, I.class));
+	}
+
+	@Test
+	public void testConstructor() throws Exception
+	{
+		Class<Classes> c = Classes.class;
+		assertEquals(1, c.getDeclaredConstructors().length);
+		Constructor<Classes> constructor = c.getDeclaredConstructor();
+		assertTrue(Modifier.isPrivate(constructor.getModifiers()));
+		constructor.setAccessible(true);
+		constructor.newInstance();
 	}
 
 	private <T> Set<T> asSet(T... objects)

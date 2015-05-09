@@ -19,6 +19,8 @@ package org.kocakosm.pitaya.charset;
 import static org.kocakosm.pitaya.charset.UTF8.*;
 import static org.junit.Assert.*;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 import java.nio.charset.Charset;
 
 import org.junit.Test;
@@ -76,5 +78,16 @@ public final class UTF8Test
 	public void testDecodeInvalidBytes()
 	{
 		decode((byte) 0xEB, (byte) 0x3A, (byte) 0xC4);
+	}
+
+	@Test
+	public void testConstructor() throws Exception
+	{
+		Class<UTF8> c = UTF8.class;
+		assertEquals(1, c.getDeclaredConstructors().length);
+		Constructor<UTF8> constructor = c.getDeclaredConstructor();
+		assertTrue(Modifier.isPrivate(constructor.getModifiers()));
+		constructor.setAccessible(true);
+		constructor.newInstance();
 	}
 }

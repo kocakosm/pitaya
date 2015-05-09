@@ -19,6 +19,8 @@ package org.kocakosm.pitaya.util;
 import static org.kocakosm.pitaya.util.Strings.*;
 import static org.junit.Assert.*;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
 
 import org.junit.Test;
@@ -267,5 +269,16 @@ public final class StringsTest
 		assertEquals(3, countOccurrences("abcegiabmosuab", "ab"));
 		assertEquals(7, countOccurrences("ababababababab", "ab"));
 		assertEquals(1, countOccurrences("hello", "hello"));
+	}
+
+	@Test
+	public void testConstructor() throws Exception
+	{
+		Class<Strings> c = Strings.class;
+		assertEquals(1, c.getDeclaredConstructors().length);
+		Constructor<Strings> constructor = c.getDeclaredConstructor();
+		assertTrue(Modifier.isPrivate(constructor.getModifiers()));
+		constructor.setAccessible(true);
+		constructor.newInstance();
 	}
 }

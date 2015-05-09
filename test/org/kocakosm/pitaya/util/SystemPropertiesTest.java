@@ -17,8 +17,11 @@
 package org.kocakosm.pitaya.util;
 
 import static org.kocakosm.pitaya.util.SystemProperties.*;
+import static org.junit.Assert.*;
 
 import java.io.File;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -129,6 +132,17 @@ public final class SystemPropertiesTest
 	public void testJavaExtensionProperties()
 	{
 		assertPropertyEquals("java.ext.dirs", JAVA_EXT_DIRS);
+	}
+
+	@Test
+	public void testConstructor() throws Exception
+	{
+		Class<SystemProperties> c = SystemProperties.class;
+		assertEquals(1, c.getDeclaredConstructors().length);
+		Constructor<SystemProperties> constructor = c.getDeclaredConstructor();
+		assertTrue(Modifier.isPrivate(constructor.getModifiers()));
+		constructor.setAccessible(true);
+		constructor.newInstance();
 	}
 
 	private void assertPropertyEquals(String key, String value)

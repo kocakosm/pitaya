@@ -28,6 +28,8 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.List;
@@ -206,6 +208,17 @@ public final class CharStreamsTest
 		assertEquals(data, out1.toString());
 		assertEquals(data, out2.toString());
 		assertEquals(data, out2.toString());
+	}
+
+	@Test
+	public void testConstructor() throws Exception
+	{
+		Class<CharStreams> c = CharStreams.class;
+		assertEquals(1, c.getDeclaredConstructors().length);
+		Constructor<CharStreams> constructor = c.getDeclaredConstructor();
+		assertTrue(Modifier.isPrivate(constructor.getModifiers()));
+		constructor.setAccessible(true);
+		constructor.newInstance();
 	}
 
 	private String read(Reader in) throws Exception

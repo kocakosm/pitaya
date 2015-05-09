@@ -16,10 +16,13 @@
 
 package org.kocakosm.pitaya.security;
 
-import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.*;
 
 import org.kocakosm.pitaya.charset.ASCII;
 import org.kocakosm.pitaya.util.BaseEncoding;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 
 import org.junit.Test;
 
@@ -203,6 +206,17 @@ public final class HMACTest
 				+ "a9a7a9d852312a743bef0a55148e5a1b8a"),
 			hmac.digest(ascii(PANGRAM))
 		);
+	}
+
+	@Test
+	public void testConstructor() throws Exception
+	{
+		Class<HMAC> c = HMAC.class;
+		assertEquals(1, c.getDeclaredConstructors().length);
+		Constructor<HMAC> constructor = c.getDeclaredConstructor();
+		assertTrue(Modifier.isPrivate(constructor.getModifiers()));
+		constructor.setAccessible(true);
+		constructor.newInstance();
 	}
 
 	private byte[] hex(String hex)

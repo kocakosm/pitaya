@@ -18,6 +18,8 @@ package org.kocakosm.pitaya.util;
 
 import static org.junit.Assert.*;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -83,6 +85,17 @@ public final class ComparatorsTest
 		Arrays.sort(a, Comparators.withNullsLast(new AscendingLongComparator()));
 
 		assertArrayEquals(new Long[] {1L, 2L, 3L, 4L, 5L, null, null, null}, a);
+	}
+
+	@Test
+	public void testConstructor() throws Exception
+	{
+		Class<Comparators> c = Comparators.class;
+		assertEquals(1, c.getDeclaredConstructors().length);
+		Constructor<Comparators> constructor = c.getDeclaredConstructor();
+		assertTrue(Modifier.isPrivate(constructor.getModifiers()));
+		constructor.setAccessible(true);
+		constructor.newInstance();
 	}
 
 	private static final class AscendingLongComparator implements Comparator<Long>

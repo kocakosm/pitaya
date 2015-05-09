@@ -16,8 +16,10 @@
 
 package org.kocakosm.pitaya.net;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 import java.net.URL;
 
 import org.junit.Test;
@@ -57,6 +59,17 @@ public final class URLsTest
 		String path = "/hello/world";
 		URL resolved = toURL("http://localhost/hello/world");
 		assertEquals(resolved, URLs.resolve(base, path));
+	}
+
+	@Test
+	public void testConstructor() throws Exception
+	{
+		Class<URLs> c = URLs.class;
+		assertEquals(1, c.getDeclaredConstructors().length);
+		Constructor<URLs> constructor = c.getDeclaredConstructor();
+		assertTrue(Modifier.isPrivate(constructor.getModifiers()));
+		constructor.setAccessible(true);
+		constructor.newInstance();
 	}
 
 	private URL toURL(String url) throws Exception

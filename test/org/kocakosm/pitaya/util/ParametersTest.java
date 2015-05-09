@@ -19,6 +19,9 @@ package org.kocakosm.pitaya.util;
 import static org.kocakosm.pitaya.util.Parameters.*;
 import static org.junit.Assert.*;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
+
 import org.junit.Test;
 
 /**
@@ -121,5 +124,16 @@ public final class ParametersTest
 			msg = e.getMessage();
 		}
 		assertEquals("Hello world !!", msg);
+	}
+
+	@Test
+	public void testConstructor() throws Exception
+	{
+		Class<Parameters> c = Parameters.class;
+		assertEquals(1, c.getDeclaredConstructors().length);
+		Constructor<Parameters> constructor = c.getDeclaredConstructor();
+		assertTrue(Modifier.isPrivate(constructor.getModifiers()));
+		constructor.setAccessible(true);
+		constructor.newInstance();
 	}
 }

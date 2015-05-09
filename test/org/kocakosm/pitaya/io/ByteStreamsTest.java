@@ -21,6 +21,8 @@ import static org.junit.Assert.*;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.List;
 
@@ -124,6 +126,17 @@ public final class ByteStreamsTest
 		assertArrayEquals(DATA, out1.toByteArray());
 		assertArrayEquals(DATA, out2.toByteArray());
 		assertArrayEquals(DATA, out2.toByteArray());
+	}
+
+	@Test
+	public void testConstructor() throws Exception
+	{
+		Class<ByteStreams> c = ByteStreams.class;
+		assertEquals(1, c.getDeclaredConstructors().length);
+		Constructor<ByteStreams> constructor = c.getDeclaredConstructor();
+		assertTrue(Modifier.isPrivate(constructor.getModifiers()));
+		constructor.setAccessible(true);
+		constructor.newInstance();
 	}
 
 	private byte[] read(InputStream in) throws Exception

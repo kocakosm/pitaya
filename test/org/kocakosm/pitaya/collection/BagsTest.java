@@ -14,77 +14,30 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.       *
  *----------------------------------------------------------------------------*/
 
-package org.kocakosm.pitaya.io;
+package org.kocakosm.pitaya.collection;
 
 import static org.junit.Assert.*;
 
-import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 
 import org.junit.Test;
 
 /**
- * {@link ObjectCodec}'s unit tests.
+ * {@link Bags}' tests.
  *
  * @author Osman KOCAK
  */
-public final class ObjectCodecTest
+public final class BagsTest
 {
-	@Test
-	public void testSerializationRoundTrip()
-	{
-		SerializableClass original = new SerializableClass(42, "Hello");
-		byte[] serialized = ObjectCodec.encode(original);
-		assertEquals(original, ObjectCodec.decode(serialized));
-	}
-
-	@Test(expected = ClassCastException.class)
-	public void testDeserializationWithInvalidClass()
-	{
-		SerializableClass original = new SerializableClass(42, "Hello");
-		byte[] serialized = ObjectCodec.encode(original);
-		ObjectCodec.decode(serialized, String.class);
-	}
-
 	@Test
 	public void testConstructor() throws Exception
 	{
-		Class<ObjectCodec> c = ObjectCodec.class;
+		Class<Bags> c = Bags.class;
 		assertEquals(1, c.getDeclaredConstructors().length);
-		Constructor<ObjectCodec> constructor = c.getDeclaredConstructor();
+		Constructor<Bags> constructor = c.getDeclaredConstructor();
 		assertTrue(Modifier.isPrivate(constructor.getModifiers()));
 		constructor.setAccessible(true);
 		constructor.newInstance();
-	}
-
-	private static final class SerializableClass implements Serializable
-	{
-		private static final long serialVersionUID = 1L;
-
-		private final int a;
-		private final String b;
-
-		SerializableClass(int a, String b)
-		{
-			this.a = a;
-			this.b = b;
-		}
-
-		@Override
-		public int hashCode()
-		{
-			return b.hashCode();
-		}
-
-		@Override
-		public boolean equals(Object o)
-		{
-			if (!(o instanceof SerializableClass)) {
-				return false;
-			}
-			final SerializableClass s = (SerializableClass) o;
-			return a == s.a && b.equals(s.b);
-		}
 	}
 }

@@ -20,6 +20,8 @@ import static org.junit.Assert.*;
 
 import java.io.IOError;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.List;
 
@@ -89,5 +91,16 @@ public final class ThrowablesTest
 	public void testPropagateCheckedException()
 	{
 		Throwables.propagate(new IOException());
+	}
+
+	@Test
+	public void testConstructor() throws Exception
+	{
+		Class<Throwables> c = Throwables.class;
+		assertEquals(1, c.getDeclaredConstructors().length);
+		Constructor<Throwables> constructor = c.getDeclaredConstructor();
+		assertTrue(Modifier.isPrivate(constructor.getModifiers()));
+		constructor.setAccessible(true);
+		constructor.newInstance();
 	}
 }

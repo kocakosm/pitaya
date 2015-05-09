@@ -16,7 +16,7 @@
 
 package org.kocakosm.pitaya.io;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.kocakosm.pitaya.util.Strings;
 
@@ -27,6 +27,8 @@ import java.io.OutputStreamWriter;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 import java.io.Writer;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
@@ -155,6 +157,17 @@ public final class ScanfTest
 		BigDecimal n = BigDecimal.valueOf(Math.random() * 1000);
 		write(n.toString());
 		assertEquals(n, Scanf.readBigDecimal());
+	}
+
+	@Test
+	public void testConstructor() throws Exception
+	{
+		Class<Scanf> c = Scanf.class;
+		assertEquals(1, c.getDeclaredConstructors().length);
+		Constructor<Scanf> constructor = c.getDeclaredConstructor();
+		assertTrue(Modifier.isPrivate(constructor.getModifiers()));
+		constructor.setAccessible(true);
+		constructor.newInstance();
 	}
 
 	private void write(String str) throws IOException

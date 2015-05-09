@@ -19,6 +19,9 @@ package org.kocakosm.pitaya.util;
 import static org.kocakosm.pitaya.util.Booleans.*;
 import static org.junit.Assert.*;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
+
 import org.junit.Test;
 
 /**
@@ -138,5 +141,16 @@ public final class BooleansTest
 	{
 		assertEquals("true", Booleans.toString(true));
 		assertEquals("false", Booleans.toString(false));
+	}
+
+	@Test
+	public void testConstructor() throws Exception
+	{
+		Class<Booleans> c = Booleans.class;
+		assertEquals(1, c.getDeclaredConstructors().length);
+		Constructor<Booleans> constructor = c.getDeclaredConstructor();
+		assertTrue(Modifier.isPrivate(constructor.getModifiers()));
+		constructor.setAccessible(true);
+		constructor.newInstance();
 	}
 }

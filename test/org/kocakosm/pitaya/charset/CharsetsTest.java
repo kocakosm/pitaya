@@ -17,7 +17,10 @@
 package org.kocakosm.pitaya.charset;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 import java.nio.charset.Charset;
 
 import org.junit.Test;
@@ -69,5 +72,16 @@ public final class CharsetsTest
 	public void testUTF16LE()
 	{
 		assertEquals("UTF-16LE", Charsets.UTF_16LE.toString());
+	}
+
+	@Test
+	public void testConstructor() throws Exception
+	{
+		Class<Charsets> c = Charsets.class;
+		assertEquals(1, c.getDeclaredConstructors().length);
+		Constructor<Charsets> constructor = c.getDeclaredConstructor();
+		assertTrue(Modifier.isPrivate(constructor.getModifiers()));
+		constructor.setAccessible(true);
+		constructor.newInstance();
 	}
 }

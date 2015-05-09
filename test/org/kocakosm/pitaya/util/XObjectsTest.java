@@ -18,6 +18,8 @@ package org.kocakosm.pitaya.util;
 
 import static org.junit.Assert.*;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
 
 import org.junit.Test;
@@ -169,5 +171,16 @@ public final class XObjectsTest
 		assertEquals("Test ([1, 2, 3])",
 			XObjects.toStringBuilder("Test")
 				.append(new int[] {1, 2, 3}).toString());
+	}
+
+	@Test
+	public void testConstructor() throws Exception
+	{
+		Class<XObjects> c = XObjects.class;
+		assertEquals(1, c.getDeclaredConstructors().length);
+		Constructor<XObjects> constructor = c.getDeclaredConstructor();
+		assertTrue(Modifier.isPrivate(constructor.getModifiers()));
+		constructor.setAccessible(true);
+		constructor.newInstance();
 	}
 }

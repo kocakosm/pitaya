@@ -29,6 +29,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -476,6 +478,17 @@ public final class XFilesTest
 		File test = tmp.newFolder();
 		File txt = createFile(test, "hello.txt", ascii("Hello"));
 		assertArrayEquals(ascii("Hello"), XFiles.read(txt));
+	}
+
+	@Test
+	public void testConstructor() throws Exception
+	{
+		Class<XFiles> c = XFiles.class;
+		Assert.assertEquals(1, c.getDeclaredConstructors().length);
+		Constructor<XFiles> constructor = c.getDeclaredConstructor();
+		assertTrue(Modifier.isPrivate(constructor.getModifiers()));
+		constructor.setAccessible(true);
+		constructor.newInstance();
 	}
 
 	private byte[] randomData(int len)

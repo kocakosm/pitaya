@@ -18,6 +18,9 @@ package org.kocakosm.pitaya.math;
 
 import static org.junit.Assert.*;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
+
 import org.junit.Test;
 
 /**
@@ -552,5 +555,16 @@ public final class NumbersTest
 	public void testSafeLongToIntUnderflow()
 	{
 		Numbers.safeToInt(Integer.MIN_VALUE - 1L);
+	}
+
+	@Test
+	public void testConstructor() throws Exception
+	{
+		Class<Numbers> c = Numbers.class;
+		assertEquals(1, c.getDeclaredConstructors().length);
+		Constructor<Numbers> constructor = c.getDeclaredConstructor();
+		assertTrue(Modifier.isPrivate(constructor.getModifiers()));
+		constructor.setAccessible(true);
+		constructor.newInstance();
 	}
 }

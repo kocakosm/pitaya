@@ -21,6 +21,9 @@ import static org.junit.Assert.*;
 import org.kocakosm.pitaya.charset.ASCII;
 import org.kocakosm.pitaya.util.BaseEncoding;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
+
 import org.junit.Test;
 
 /**
@@ -173,6 +176,17 @@ public final class DigestsTest
 				+ "c449ea94d0a8f05f62130fda612da53c79659f609");
 		assertEquals(64, keccak512.length());
 		assertEquals("Keccak-512", keccak512.toString());
+	}
+
+	@Test
+	public void testConstructor() throws Exception
+	{
+		Class<Digests> c = Digests.class;
+		assertEquals(1, c.getDeclaredConstructors().length);
+		Constructor<Digests> constructor = c.getDeclaredConstructor();
+		assertTrue(Modifier.isPrivate(constructor.getModifiers()));
+		constructor.setAccessible(true);
+		constructor.newInstance();
 	}
 
 	private static Input assertThat(String input)

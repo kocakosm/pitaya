@@ -19,6 +19,8 @@ package org.kocakosm.pitaya.collection;
 import static org.kocakosm.pitaya.collection.Iterators.*;
 import static org.junit.Assert.*;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -171,6 +173,17 @@ public final class IteratorsTest
 	{
 		assertEquals("[]", Iterators.toString(iterator()));
 		assertEquals("[1, 2, 3]", Iterators.toString(iterator(1L, 2L, 3L)));
+	}
+
+	@Test
+	public void testConstructor() throws Exception
+	{
+		Class<Iterables> c = Iterables.class;
+		assertEquals(1, c.getDeclaredConstructors().length);
+		Constructor<Iterables> constructor = c.getDeclaredConstructor();
+		assertTrue(Modifier.isPrivate(constructor.getModifiers()));
+		constructor.setAccessible(true);
+		constructor.newInstance();
 	}
 
 	private <E> Iterator<E> iterator(E... elements)

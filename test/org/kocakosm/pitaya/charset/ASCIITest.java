@@ -19,6 +19,8 @@ package org.kocakosm.pitaya.charset;
 import static org.kocakosm.pitaya.charset.ASCII.*;
 import static org.junit.Assert.*;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 import java.nio.charset.Charset;
 
 import org.junit.Test;
@@ -205,5 +207,16 @@ public final class ASCIITest
 		assertEquals("5AbC", capitalize("5AbC"));
 		assertEquals("   AbC", capitalize("   AbC"));
 		assertEquals("Hello", capitalize("hello"));
+	}
+
+	@Test
+	public void testConstructor() throws Exception
+	{
+		Class<ASCII> c = ASCII.class;
+		assertEquals(1, c.getDeclaredConstructors().length);
+		Constructor<ASCII> constructor = c.getDeclaredConstructor();
+		assertTrue(Modifier.isPrivate(constructor.getModifiers()));
+		constructor.setAccessible(true);
+		constructor.newInstance();
 	}
 }

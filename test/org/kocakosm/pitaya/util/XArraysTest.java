@@ -19,6 +19,8 @@ package org.kocakosm.pitaya.util;
 import static org.kocakosm.pitaya.util.XArrays.*;
 import static org.junit.Assert.*;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Random;
@@ -1010,5 +1012,16 @@ public final class XArraysTest
 		String[] a = new String[] {"a", "b"};
 		String[][] b = new String[][] {a, a};
 		assertEquals("[[a, b], [a, b]]", XArrays.toString(b));
+	}
+
+	@Test
+	public void testConstructor() throws Exception
+	{
+		Class<XArrays> c = XArrays.class;
+		assertEquals(1, c.getDeclaredConstructors().length);
+		Constructor<XArrays> constructor = c.getDeclaredConstructor();
+		assertTrue(Modifier.isPrivate(constructor.getModifiers()));
+		constructor.setAccessible(true);
+		constructor.newInstance();
 	}
 }

@@ -20,6 +20,9 @@ import static org.junit.Assert.*;
 
 import org.kocakosm.pitaya.charset.ASCII;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
+
 import org.junit.Test;
 
 /**
@@ -50,5 +53,16 @@ public final class PasswordsTest
 		byte[] hash = Passwords.hash("password");
 		assertFalse(Passwords.verify("Password", hash));
 		assertFalse(Passwords.verify("Password", new byte[0]));
+	}
+
+	@Test
+	public void testConstructor() throws Exception
+	{
+		Class<Passwords> c = Passwords.class;
+		assertEquals(1, c.getDeclaredConstructors().length);
+		Constructor<Passwords> constructor = c.getDeclaredConstructor();
+		assertTrue(Modifier.isPrivate(constructor.getModifiers()));
+		constructor.setAccessible(true);
+		constructor.newInstance();
 	}
 }

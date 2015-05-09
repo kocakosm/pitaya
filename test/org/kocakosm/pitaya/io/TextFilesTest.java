@@ -32,6 +32,8 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.List;
 
@@ -207,6 +209,17 @@ public final class TextFilesTest
 		File test = tmp.newFolder();
 		File txt = createFile(test, "hello.txt", "Hello", "World");
 		assertEquals(Arrays.asList("Hello", "World"), TextFiles.readLines(txt));
+	}
+
+	@Test
+	public void testConstructor() throws Exception
+	{
+		Class<TextFiles> c = TextFiles.class;
+		assertEquals(1, c.getDeclaredConstructors().length);
+		Constructor<TextFiles> constructor = c.getDeclaredConstructor();
+		assertTrue(Modifier.isPrivate(constructor.getModifiers()));
+		constructor.setAccessible(true);
+		constructor.newInstance();
 	}
 
 	private String[] randomStrings(int count)

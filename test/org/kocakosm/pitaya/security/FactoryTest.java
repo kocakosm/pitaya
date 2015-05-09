@@ -17,6 +17,10 @@
 package org.kocakosm.pitaya.security;
 
 import static org.kocakosm.pitaya.security.Algorithm.*;
+import static org.junit.Assert.assertTrue;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -57,6 +61,17 @@ public final class FactoryTest
 		assertEquals(HMAC_KECCAK256, Factory.newMAC(HMAC_KECCAK256, key));
 		assertEquals(HMAC_KECCAK384, Factory.newMAC(HMAC_KECCAK384, key));
 		assertEquals(HMAC_KECCAK512, Factory.newMAC(HMAC_KECCAK512, key));
+	}
+
+	@Test
+	public void testConstructor() throws Exception
+	{
+		Class<Factory> c = Factory.class;
+		Assert.assertEquals(1, c.getDeclaredConstructors().length);
+		Constructor<Factory> constructor = c.getDeclaredConstructor();
+		assertTrue(Modifier.isPrivate(constructor.getModifiers()));
+		constructor.setAccessible(true);
+		constructor.newInstance();
 	}
 
 	private void assertEquals(Algorithm algo, Object o)

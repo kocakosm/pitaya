@@ -16,10 +16,13 @@
 
 package org.kocakosm.pitaya.io;
 
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 
 import org.junit.Test;
 
@@ -60,5 +63,16 @@ public final class IOTest
 		doThrow(new IOException()).when(out).flush();
 		IO.flush(out);
 		verify(out).flush();
+	}
+
+	@Test
+	public void testConstructor() throws Exception
+	{
+		Class<IO> c = IO.class;
+		assertEquals(1, c.getDeclaredConstructors().length);
+		Constructor<IO> constructor = c.getDeclaredConstructor();
+		assertTrue(Modifier.isPrivate(constructor.getModifiers()));
+		constructor.setAccessible(true);
+		constructor.newInstance();
 	}
 }

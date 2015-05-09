@@ -18,6 +18,8 @@ package org.kocakosm.pitaya.time;
 
 import static org.junit.Assert.*;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -149,6 +151,17 @@ public final class DatesTest
 	{
 		Date d = new Date();
 		assertEquals(d, Dates.toCalendar(d).getTime());
+	}
+
+	@Test
+	public void testConstructor() throws Exception
+	{
+		Class<Dates> c = Dates.class;
+		assertEquals(1, c.getDeclaredConstructors().length);
+		Constructor<Dates> constructor = c.getDeclaredConstructor();
+		assertTrue(Modifier.isPrivate(constructor.getModifiers()));
+		constructor.setAccessible(true);
+		constructor.newInstance();
 	}
 
 	private Calendar toCalendar(Date date)
