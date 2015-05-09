@@ -31,6 +31,15 @@ Usage
 Browse [API docs][10] for the most recent release.
 
 
+Warnings
+--------
+
+- Pitaya is developed and tested exclusively with OpenJDK 7 on GNU/Linux
+  systems. Some features may not work properly in other environments.
+- Pitaya is not designed to protect against a malicious caller. Don't use it
+  for communication between trusted and untrusted code.
+
+
 Contributing
 ------------
 
