@@ -1,4 +1,17 @@
 [CHANGELOG]
 
-##  0.1
+##  0.2  (2015-05-11)
+  - [#1] BaseEncoding: missing separators
+  - [#2] Splitter: 'replaceEmptyStringWith' is ignored when called after 'ignoreEmptyStrings'
+  - [#3] BaseEncoding: Base16 must accept '=' as separator
+  - [#4] Duration: IllegalArgumentException while parsing "1\nday"
+  - [#5] BaseEncoding: unknown chars in padding are never ignored
+  - [#6] Splitter: accept null as empty Strings replacement
+  - [#7] ConcurrentHashBag: additional methods should be specified in an interface
+  - [#8] XArrays: toString(Object[]) should accept multidimensional arrays
+  - [#9] Duration: IllegalArgumentException while parsing "1 s,1 ms"
+  - [#10] Duration: toString's output can't be parsed by valueOf
+  - [#11] ASCII: add a method to check whether a character is printable
+
+##  0.1  (2015-04-11)
   - Initial release
