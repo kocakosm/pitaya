@@ -48,9 +48,7 @@ final class Alphabet
 
 	private Alphabet(String alphabet, boolean caseSensitive)
 	{
-		Parameters.checkCondition(ASCII.canEncode(alphabet));
-		this.alphabet = caseSensitive ? alphabet.toCharArray()
-			: ASCII.toUpperCase(alphabet).toCharArray();
+		this.alphabet = alphabet.toCharArray();
 		this.caseSensitive = caseSensitive;
 		this.bitsPerChar = round(Math.log(alphabet.length()) / Math.log(2));
 		int gcd = gcd(8, bitsPerChar);
