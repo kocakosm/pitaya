@@ -19,13 +19,16 @@ package org.kocakosm.pitaya.collection;
 import java.io.Serializable;
 import java.util.AbstractMap;
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
 /**
- * Immutable {@link Map} implementation. Permits {@code null} values and the
- * {@code null} key.
+ * Immutable {@link Map}. This implementation provides a predictable iteration
+ * order by remembering the order in which keys were inserted into the
+ * {@code Map} (insertion-order). Note that insertion order is not affected if
+ * a key is re-inserted into the {@code Map}. Accepts {@code null} values and
+ * the {@code null} key.
  *
  * @param <K> the type of the {@code Map}'s keys.
  * @param <V> the type of the {@code Map}'s values.
@@ -44,7 +47,7 @@ public final class ImmutableMap<K, V> extends AbstractMap<K, V> implements Seria
 	 */
 	public static final class Builder<K, V>
 	{
-		private final Map<K, V> inner = new HashMap<K, V>();
+		private final Map<K, V> inner = new LinkedHashMap<K, V>();
 
 		/**
 		 * Associates the specified value with the specified key in the
@@ -101,7 +104,7 @@ public final class ImmutableMap<K, V> extends AbstractMap<K, V> implements Seria
 	 */
 	public static <K, V> Map<K, V> copyOf(Map<? extends K, ? extends V> map)
 	{
-		return new ImmutableMap<K, V>(new HashMap<K, V>(map));
+		return new ImmutableMap<K, V>(new LinkedHashMap<K, V>(map));
 	}
 
 	private final Map<K, V> inner;

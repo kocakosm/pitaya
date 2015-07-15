@@ -18,11 +18,10 @@ package org.kocakosm.pitaya.collection;
 
 import static org.junit.Assert.*;
 
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 import org.junit.Test;
 
@@ -162,11 +161,7 @@ public final class ImmutableMapTest
 		Map<Long, Long> in = new HashMap<Long, Long>();
 		in.put(1L, 10L);
 		in.put(2L, 20L);
-		assertEquals(asSet(in.values()), asSet(ImmutableMap.copyOf(in).values()));
-	}
-
-	private <T> Set<T> asSet(Collection<T> values)
-	{
-		return new HashSet<T>();
+		Map<Long, Long> copy = ImmutableMap.copyOf(in);
+		assertEquals(Arrays.asList(10L, 20L), new ArrayList<Long>(copy.values()));
 	}
 }
