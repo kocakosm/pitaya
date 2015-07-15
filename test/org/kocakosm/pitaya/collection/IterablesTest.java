@@ -148,7 +148,9 @@ public final class IterablesTest
 	@Test
 	public void testToSet()
 	{
-		assertEquals(set(1L, 2L, 3L), toSet(Arrays.asList(1L, 2L, 3L)));
+		Iterable<Long> iterable = Arrays.asList(1L, 2L, 3L);
+		assertEquals(set(1L, 2L, 3L), toSet(iterable));
+		assertEquals(iterable, new ArrayList<Long>(toSet(iterable)));
 		assertEquals(Collections.emptySet(), toSet(Collections.emptyList()));
 	}
 

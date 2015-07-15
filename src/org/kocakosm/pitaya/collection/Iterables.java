@@ -20,8 +20,8 @@ import org.kocakosm.pitaya.util.Parameters;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -208,7 +208,8 @@ public final class Iterables
 
 	/**
 	 * Returns a {@code Set} containing all the given {@code Iterable}'s
-	 * elements.
+	 * elements. The returned {@code Set} has the same iteration order as
+	 * the source {@code Iterable}.
 	 *
 	 * @param <T> the type of the returned {@code Set}'s elements.
 	 * @param iterable the source {@code Iterable}.
@@ -219,7 +220,7 @@ public final class Iterables
 	 */
 	public static <T> Set<T> toSet(Iterable<? extends T> iterable)
 	{
-		Set<T> set = new HashSet<T>();
+		Set<T> set = new LinkedHashSet<T>();
 		for (T e : iterable) {
 			set.add(e);
 		}
