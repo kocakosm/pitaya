@@ -155,8 +155,8 @@ public final class IteratorsTest
 	@Test
 	public void testToSet()
 	{
-		Iterator<Long> iterator = iterator(1L, 2L, 3L, 3L, 2L, 1L);
-		assertEquals(set(1L, 2L, 3L), toSet(iterator));
+		assertEquals(set(1L, 2L, 3L), toSet(iterator(1L, 2L, 3L)));
+		assertEquals(Arrays.asList(1L, 2L, 3L), new ArrayList<Long>(toSet(iterator(1L, 2L, 3L))));
 		assertEquals(Collections.emptySet(), toSet(iterator()));
 	}
 

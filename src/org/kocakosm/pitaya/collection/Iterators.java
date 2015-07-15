@@ -21,8 +21,8 @@ import org.kocakosm.pitaya.util.XObjects;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
@@ -214,7 +214,9 @@ public final class Iterators
 
 	/**
 	 * Returns a {@code Set} containing all the given {@code Iterator}'s
-	 * elements. This method consumes entirely the input {@code Iterator}.
+	 * elements. The returned {@code Set} has the same iteration order as
+	 * the given {@code Iterator}. This method consumes entirely the input
+	 * {@code Iterator}.
 	 *
 	 * @param <E> the type of the returned {@code Set}'s elements.
 	 * @param iterator the {@code Iterator} to consume.
@@ -225,7 +227,7 @@ public final class Iterators
 	 */
 	public static <E> Set<E> toSet(Iterator<? extends E> iterator)
 	{
-		Set<E> set = new HashSet<E>();
+		Set<E> set = new LinkedHashSet<E>();
 		while (iterator.hasNext()) {
 			set.add(iterator.next());
 		}
