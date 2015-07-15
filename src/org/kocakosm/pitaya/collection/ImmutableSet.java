@@ -20,12 +20,15 @@ import java.io.Serializable;
 import java.util.AbstractSet;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
- * Immutable {@link Set} implementation. Accepts {@code null} values.
+ * Immutable {@link Set}. This implementation provides a predictable iteration
+ * order by remembering the order in which elements were inserted into the
+ * {@code Set} (insertion-order). Note that insertion order is not affected if
+ * an element is re-inserted into the {@code Set}. Accepts {@code null} values.
  *
  * @param <E> the type of the {@code Set}'s elements.
  *
@@ -42,7 +45,7 @@ public final class ImmutableSet<E> extends AbstractSet<E> implements Serializabl
 	 */
 	public static final class Builder<E>
 	{
-		private final Set<E> inner = new HashSet<E>();
+		private final Set<E> inner = new LinkedHashSet<E>();
 
 		/**
 		 * Adds the given values to the {@code Set} being built.
@@ -118,7 +121,7 @@ public final class ImmutableSet<E> extends AbstractSet<E> implements Serializabl
 	 */
 	public static <E> Set<E> copyOf(Collection<? extends E> c)
 	{
-		return new ImmutableSet<E>(new HashSet<E>(c));
+		return new ImmutableSet<E>(new LinkedHashSet<E>(c));
 	}
 
 	/**
@@ -163,7 +166,7 @@ public final class ImmutableSet<E> extends AbstractSet<E> implements Serializabl
 	 */
 	public static <E> Set<E> copyOf(E[] values)
 	{
-		return new ImmutableSet<E>(new HashSet<E>(Arrays.asList(values)));
+		return new ImmutableSet<E>(new LinkedHashSet<E>(Arrays.asList(values)));
 	}
 
 	/**
@@ -178,7 +181,7 @@ public final class ImmutableSet<E> extends AbstractSet<E> implements Serializabl
 	 */
 	public static <E> Set<E> of(E... values)
 	{
-		return new ImmutableSet<E>(new HashSet<E>(Arrays.asList(values)));
+		return new ImmutableSet<E>(new LinkedHashSet<E>(Arrays.asList(values)));
 	}
 
 	private final Set<E> inner;

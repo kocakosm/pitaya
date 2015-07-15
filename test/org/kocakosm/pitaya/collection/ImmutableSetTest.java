@@ -18,11 +18,9 @@ package org.kocakosm.pitaya.collection;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -131,13 +129,10 @@ public final class ImmutableSetTest
 	public void testIterator()
 	{
 		assertFalse(ImmutableSet.of().iterator().hasNext());
-		Set<Long> set = ImmutableSet.of(1L, 2L, 1L, 2L, 3L);
-		List<Long> result = new ArrayList<Long>();
-		Iterator<Long> iterator = set.iterator();
-		while (iterator.hasNext()) {
-			result.add(iterator.next());
-		}
-		assertTrue(result.containsAll(set));
+		List<Long> in = Arrays.asList(1L, 2L, 3L);
+		Set<Long> set = ImmutableSet.copyOf(in);
+		List<Long> out = Iterators.toList(set.iterator());
+		assertEquals(in, out);
 	}
 
 	@Test(expected = UnsupportedOperationException.class)
@@ -172,7 +167,6 @@ public final class ImmutableSetTest
 		assertEquals(0, ImmutableSet.of().toArray().length);
 		String[] in = new String[]{"Hello", "World"};
 		String[] out = ImmutableSet.copyOf(in).toArray(new String[0]);
-		Arrays.sort(out);
 		assertArrayEquals(in, out);
 	}
 
