@@ -29,6 +29,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * A thread-safe variant of {@link HashBag} based on {@link ConcurrentHashMap}.
+ * This implementation does not accept {@code null} elements.
  *
  * @param <E> the type of the elements in the bag.
  *

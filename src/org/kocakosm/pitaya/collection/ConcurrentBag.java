@@ -36,7 +36,8 @@ public interface ConcurrentBag<E> extends Bag<E>
 	 * @return the number of elements added.
 	 *
 	 * @throws NullPointerException if the given collection is {@code null}
-	 *	or if it contains a {@code null} reference.
+	 *	or if it contains a {@code null} reference and this bag does not
+	 *	accept {@code null} elements.
 	 */
 	int addAllAbsent(Collection<? extends E> c);
 
@@ -47,7 +48,8 @@ public interface ConcurrentBag<E> extends Bag<E>
 	 *
 	 * @return {@code true} if the element has been added.
 	 *
-	 * @throws NullPointerException if {@code e} is {@code null}.
+	 * @throws NullPointerException if {@code e} is {@code null} and this
+	 *	bag does not accept {@code null} elements.
 	 */
 	boolean addIfAbsent(E e);
 }
