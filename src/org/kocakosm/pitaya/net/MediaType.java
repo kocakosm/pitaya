@@ -48,9 +48,9 @@ import java.util.regex.Pattern;
  * parameter which is normalised to uppercase. Instances of this class are
  * immutable.
  *
- * @see http://www.ietf.org/rfc/rfc2045.txt
- * @see http://www.ietf.org/rfc/rfc2046.txt
- * @see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1
+ * @see <a href="http://www.ietf.org/rfc/rfc2045.txt">RFC 2045</a>
+ * @see <a href="http://www.ietf.org/rfc/rfc2046.txt">RFC 2046</a>
+ * @see <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1">RFC 2616 (§ 14.1)</a>
  *
  * @since 0.3
  *

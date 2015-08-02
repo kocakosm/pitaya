@@ -30,6 +30,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
  *
  * @param <E> the type of the elements in the bag.
  *
+ * @since 0.3
+ *
  * @author Osman KOCAK
  */
 public final class CopyOnWriteArrayBag<E>
