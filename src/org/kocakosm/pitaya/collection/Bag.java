@@ -27,8 +27,10 @@ import java.util.Set;
  *
  * @see Collection
  * @see AbstractBag
+ * @see ArrayBag
  * @see HashBag
  * @see ConcurrentHashBag
+ * @see CopyOnWriteArrayBag
  * @see ImmutableBag
  * @see Bags
  *

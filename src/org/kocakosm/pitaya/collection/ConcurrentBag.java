@@ -23,6 +23,9 @@ import java.util.Collection;
  *
  * @param <E> the type of the elements in the bag.
  *
+ * @see ConcurrentHashBag
+ * @see CopyOnWriteArrayBag
+ *
  * @author Osman KOCAK
  */
 public interface ConcurrentBag<E> extends Bag<E>
