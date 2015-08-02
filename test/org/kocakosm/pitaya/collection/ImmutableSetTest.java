@@ -131,8 +131,7 @@ public final class ImmutableSetTest
 		assertFalse(ImmutableSet.of().iterator().hasNext());
 		List<Long> in = Arrays.asList(1L, 2L, 3L);
 		Set<Long> set = ImmutableSet.copyOf(in);
-		List<Long> out = Iterators.toList(set.iterator());
-		assertEquals(in, out);
+		assertEquals(in, Iterables.toList(set));
 	}
 
 	@Test(expected = UnsupportedOperationException.class)
