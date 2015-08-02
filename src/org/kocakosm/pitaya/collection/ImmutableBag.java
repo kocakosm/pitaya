@@ -39,7 +39,7 @@ public final class ImmutableBag<E> extends AbstractBag<E> implements Serializabl
 	 */
 	public static final class Builder<E>
 	{
-		private final Bag<E> inner = new HashBag<E>();
+		private final Bag<E> inner = new ArrayBag<E>();
 
 		/**
 		 * Adds the given values to the {@code Bag} being built.
@@ -115,7 +115,7 @@ public final class ImmutableBag<E> extends AbstractBag<E> implements Serializabl
 	 */
 	public static <E> Bag<E> copyOf(Collection<? extends E> c)
 	{
-		return new ImmutableBag<E>(new HashBag<E>(c));
+		return new ImmutableBag<E>(new ArrayBag<E>(c));
 	}
 
 	/**
@@ -130,7 +130,7 @@ public final class ImmutableBag<E> extends AbstractBag<E> implements Serializabl
 	 */
 	public static <E> Bag<E> copyOf(Iterable<? extends E> i)
 	{
-		return new ImmutableBag<E>(new HashBag<E>(i));
+		return new ImmutableBag<E>(new ArrayBag<E>(i));
 	}
 
 	/**
@@ -145,7 +145,7 @@ public final class ImmutableBag<E> extends AbstractBag<E> implements Serializabl
 	 */
 	public static <E> Bag<E> copyOf(Iterator<? extends E> i)
 	{
-		return new ImmutableBag<E>(new HashBag<E>(i));
+		return new ImmutableBag<E>(new ArrayBag<E>(i));
 	}
 
 	/**
@@ -160,7 +160,7 @@ public final class ImmutableBag<E> extends AbstractBag<E> implements Serializabl
 	 */
 	public static <E> Bag<E> copyOf(E[] values)
 	{
-		return new ImmutableBag<E>(new HashBag<E>(values));
+		return new ImmutableBag<E>(new ArrayBag<E>(values));
 	}
 
 	/**
@@ -175,7 +175,7 @@ public final class ImmutableBag<E> extends AbstractBag<E> implements Serializabl
 	 */
 	public static <E> Bag<E> of(E... values)
 	{
-		return new ImmutableBag<E>(new HashBag<E>(values));
+		return new ImmutableBag<E>(new ArrayBag<E>(values));
 	}
 
 	private final Bag<E> inner;

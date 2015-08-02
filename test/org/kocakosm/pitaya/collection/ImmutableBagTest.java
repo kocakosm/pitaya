@@ -143,13 +143,9 @@ public final class ImmutableBagTest
 	public void testIterator()
 	{
 		assertFalse(ImmutableBag.of().iterator().hasNext());
-		Bag<Long> bag = ImmutableBag.of(1L, 2L, 1L, 2L, 3L);
-		List<Long> result = new ArrayList<Long>();
-		Iterator<Long> iterator = bag.iterator();
-		while (iterator.hasNext()) {
-			result.add(iterator.next());
-		}
-		assertTrue(result.containsAll(bag));
+		List<Long> in = Arrays.asList(1L, 2L, 3L);
+		Bag<Long> bag = ImmutableBag.copyOf(in);
+		assertEquals(in, Iterables.toList(bag));
 	}
 
 	@Test(expected = UnsupportedOperationException.class)
@@ -184,7 +180,6 @@ public final class ImmutableBagTest
 		assertEquals(0, ImmutableBag.of().toArray().length);
 		String[] in = new String[]{"Hello", "World"};
 		String[] out = ImmutableBag.copyOf(in).toArray(new String[0]);
-		Arrays.sort(out);
 		assertArrayEquals(in, out);
 	}
 }
