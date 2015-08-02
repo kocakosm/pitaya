@@ -236,7 +236,9 @@ public final class Iterators
 
 	/**
 	 * Returns a {@code Bag} containing all the given {@code Iterator}'s
-	 * elements. This method consumes entirely the input {@code Iterator}.
+	 * elements. The returned {@code Bag} has the same iteration order as
+	 * the given {@code Iterator}. This method consumes entirely the input
+	 * {@code Iterator}.
 	 *
 	 * @param <E> the type of the returned {@code Bag}'s elements.
 	 * @param iterator the {@code Iterator} to consume.
@@ -247,7 +249,7 @@ public final class Iterators
 	 */
 	public static <E> Bag<E> toBag(Iterator<? extends E> iterator)
 	{
-		return new HashBag<E>(iterator);
+		return new ArrayBag<E>(iterator);
 	}
 
 	/**

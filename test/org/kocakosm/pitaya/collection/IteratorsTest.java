@@ -155,16 +155,18 @@ public final class IteratorsTest
 	@Test
 	public void testToSet()
 	{
-		assertEquals(set(1L, 2L, 3L), toSet(iterator(1L, 2L, 3L)));
-		assertEquals(Arrays.asList(1L, 2L, 3L), new ArrayList<Long>(toSet(iterator(1L, 2L, 3L))));
+		List<Long> in = Arrays.asList(1L, 2L, 3L);
+		assertEquals(set(1L, 2L, 3L), toSet(in.iterator()));
+		assertEquals(in, new ArrayList<Long>(toSet(in.iterator())));
 		assertEquals(Collections.emptySet(), toSet(iterator()));
 	}
 
 	@Test
 	public void testToBag()
 	{
-		Iterator<Long> iterator = iterator(1L, 2L, 3L);
-		assertEquals(bag(3L, 2L, 1L), toBag(iterator));
+		List<Long> in = Arrays.asList(1L, 2L, 3L);
+		assertEquals(bag(1L, 2L, 3L), toBag(in.iterator()));
+		assertEquals(in, new ArrayList<Long>(toBag(in.iterator())));
 		assertEquals(Bags.emptyBag(), toBag(iterator()));
 	}
 
