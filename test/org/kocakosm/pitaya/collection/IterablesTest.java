@@ -157,7 +157,9 @@ public final class IterablesTest
 	@Test
 	public void testToBag()
 	{
-		assertEquals(bag(3L, 2L, 1L), toBag(Arrays.asList(1L, 2L, 3L)));
+		Iterable<Long> iterable = Arrays.asList(1L, 2L, 3L);
+		assertEquals(bag(1L, 2L, 3L), toBag(iterable));
+		assertEquals(iterable, new ArrayList<Long>(toBag(iterable)));
 		assertEquals(Bags.emptyBag(), toBag(Collections.emptyList()));
 	}
 

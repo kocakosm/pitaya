@@ -229,7 +229,8 @@ public final class Iterables
 
 	/**
 	 * Returns a {@code Bag} containing all the given {@code Iterable}'s
-	 * elements.
+	 * elements. The returned {@code Bag} has the same iteration order as
+	 * the source {@code Iterable}.
 	 *
 	 * @param <T> the type of the returned {@code Bag}'s elements.
 	 * @param iterable the source {@code Iterable}.
@@ -240,7 +241,7 @@ public final class Iterables
 	 */
 	public static <T> Bag<T> toBag(Iterable<? extends T> iterable)
 	{
-		return new HashBag<T>(iterable);
+		return new ArrayBag<T>(iterable);
 	}
 
 	/**
