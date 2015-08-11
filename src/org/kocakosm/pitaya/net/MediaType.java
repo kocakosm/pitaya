@@ -50,7 +50,7 @@ import java.util.regex.Pattern;
  *
  * @see <a href="http://www.ietf.org/rfc/rfc2045.txt">RFC 2045</a>
  * @see <a href="http://www.ietf.org/rfc/rfc2046.txt">RFC 2046</a>
- * @see <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1">RFC 2616 (§ 14.1)</a>
+ * @see <a href="http://tools.ietf.org/html/rfc2616#section-14.1">RFC 2616 (§ 14.1)</a>
  *
  * @since 0.3
  *
@@ -61,15 +61,13 @@ public final class MediaType implements Serializable
 	private static final long serialVersionUID = 30386013071308392L;
 	private static final String CHARSET;
 	private static final String WILDCARD;
-	private static final Joiner PARAMETERS_JOINER;
-	private static final Joiner ATTRIBUTE_VALUE_JOINER;
+	private static final Joiner PARAMS_JOINER;
 	private static final Pattern TOKEN_PATTERN;
 	private static final Pattern MEDIA_TYPE_PATTERN;
 	static {
 		WILDCARD = "*";
 		CHARSET = "charset";
-		ATTRIBUTE_VALUE_JOINER = Joiner.on("=");
-		PARAMETERS_JOINER = Joiner.on("; ").withPrefix("; ");
+		PARAMS_JOINER = Joiner.on("; ").withPrefix("; ");
 		String token = "[\\p{ASCII}&&[^\\p{Cntrl}\\s\\(\\)<>@,;:\"/\\[\\]\\?=\\\\]]+";
 		TOKEN_PATTERN = Pattern.compile(token);
 		String quotedString = "\"([\\p{ASCII}&&[^\"\\\\]]|\\\\\\p{ASCII})*\"";
@@ -78,73 +76,49 @@ public final class MediaType implements Serializable
 		MEDIA_TYPE_PATTERN = Pattern.compile(regex);
 	}
 
-	/**
-	 * Range that matches all media types.
-	 *
-	 * @see #is(MediaType)
-	 */
+	/** <code>*&#47;*</code> */
 	public static final MediaType ANY_TYPE = new MediaType(WILDCARD, WILDCARD);
 
-	/**
-	 * Range that matches all text types.
-	 *
-	 * @see #is(MediaType)
-	 */
+	/** {@code text/*} */
 	public static final MediaType ANY_TEXT_TYPE = new MediaType("text", WILDCARD);
 
-	/**
-	 * Range that matches all image types.
-	 *
-	 * @see #is(MediaType)
-	 */
+	/** {@code image/*} */
 	public static final MediaType ANY_IMAGE_TYPE = new MediaType("image", WILDCARD);
 
-	/**
-	 * Range that matches all audio types.
-	 *
-	 * @see #is(MediaType)
-	 */
+	/** {@code audio/*} */
 	public static final MediaType ANY_AUDIO_TYPE = new MediaType("audio", WILDCARD);
 
-	/**
-	 * Range that matches all video types.
-	 *
-	 * @see #is(MediaType)
-	 */
+	/** {@code video/*} */
 	public static final MediaType ANY_VIDEO_TYPE = new MediaType("video", WILDCARD);
 
-	/**
-	 * Range that matches all application types.
-	 *
-	 * @see #is(MediaType)
-	 */
+	/** {@code application/*} */
 	public static final MediaType ANY_APPLICATION_TYPE = new MediaType("application", WILDCARD);
 
-	/** Image/jpeg. */
+	/** {@code image/jpeg} */
 	public static final MediaType JPEG = new MediaType("image", "jpeg");
 
-	/** Image/png. */
+	/** {@code image/png} */
 	public static final MediaType PNG = new MediaType("image", "png");
 
-	/** Image/gif. */
+	/** {@code image/gif} */
 	public static final MediaType GIF = new MediaType("image", "gif");
 
-	/** Text/css. */
+	/** {@code text/css} */
 	public static final MediaType CSS = new MediaType("text", "css");
 
-	/** Text/html. */
+	/** {@code text/html} */
 	public static final MediaType HTML = new MediaType("text", "html");
 
-	/** Text/plain. */
+	/** {@code text/plain} */
 	public static final MediaType PLAIN_TEXT = new MediaType("text", "plain");
 
-	/** Application/json. */
+	/** {@code application/json} */
 	public static final MediaType JSON = new MediaType("application", "json");
 
-	/** Application/xml. */
+	/** {@code application/xml} */
 	public static final MediaType XML = new MediaType("application", "xml");
 
-	/** Application/octet-stream. */
+	/** {@code application/octet-stream} */
 	public static final MediaType OCTET_STREAM = new MediaType("application", "octet-stream");
 
 	/**
@@ -310,7 +284,7 @@ public final class MediaType implements Serializable
 
 	/**
 	 * Returns a new {@code MediaType} instance similar to this one but with
-	 * the specified parameter set to the to the given value.
+	 * the specified parameter set to the given value.
 	 *
 	 * @param attribute the attribute of the parameter to add.
 	 * @param value the value of the parameter to add.
@@ -383,10 +357,10 @@ public final class MediaType implements Serializable
 	/**
 	 * Returns whether this media type is within the specified media range.
 	 * Namely, it returns {@code true} if the type of {@code range} is the
-	 * wildcard or is equal to the type of this instance, and, if the subtype
-	 * of {@code range} is the wildcard or is equal to the subtype of this
-	 * instance, and, if all the parameters present in {@code range} are
-	 * also present in this instance.
+	 * wildcard or is equal to the type of this instance, and, if the
+	 * subtype of {@code range} is the wildcard or is equal to the subtype
+	 * of this instance, and, if all the parameters present in {@code range}
+	 * are also present in this instance.
 	 *
 	 * @param range the range to check this media type against.
 	 *
@@ -435,9 +409,9 @@ public final class MediaType implements Serializable
 			if (!TOKEN_PATTERN.matcher(value).matches()) {
 				value = escapeAndQuote(value);
 			}
-			params.add(ATTRIBUTE_VALUE_JOINER.join(attribute, value));
+			params.add(attribute + "=" + value);
 		}
-		return Strings.concat(type, "/", subtype, PARAMETERS_JOINER.join(params));
+		return Strings.concat(type, "/", subtype, PARAMS_JOINER.join(params));
 	}
 
 	private String escapeAndQuote(String value)
@@ -488,6 +462,7 @@ public final class MediaType implements Serializable
 				if (c == '\\' && !escaped) {
 					escaped = true;
 				} else {
+					escaped = false;
 					value.append(c);
 				}
 				if (index == params.length() - 1) {
@@ -495,8 +470,10 @@ public final class MediaType implements Serializable
 				}
 				c = params.charAt(++index);
 			}
-			boolean quoted = value.charAt(0) == '"';
-			return quoted ? value.substring(1, value.length() - 1) : value.toString();
+			if (value.charAt(0) == '"') {
+				return value.substring(1, value.length() - 1);
+			}
+			return value.toString();
 		}
 	}
 }

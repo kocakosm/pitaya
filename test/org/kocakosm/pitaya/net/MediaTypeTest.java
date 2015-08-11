@@ -52,10 +52,10 @@ public final class MediaTypeTest
 		assertEquals("atom+xml", m2.subtype());
 		assertEquals(PARAMS, m2.parameters());
 
-		MediaType m3 = parse("application/vnd.net-fpx;a.B-c=\"?\\\\?D\"");
+		MediaType m3 = parse("application/vnd.net-fpx;a.B-c=\"?\\\\?\\\"D\"");
 		assertEquals("application", m3.type());
 		assertEquals("vnd.net-fpx", m3.subtype());
-		assertEquals(m3.parameters().get("a.b-c"), "?\\?D");
+		assertEquals("?\\?\"D", m3.parameters().get("a.b-c"));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
