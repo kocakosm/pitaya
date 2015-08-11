@@ -79,7 +79,7 @@ public final class Duration implements Comparable<Duration>, Serializable
 	 * @throws ArithmeticException if the total duration value overflows the
 	 *	storage capacity of this class.
 	 */
-	public static Duration valueOf(String duration)
+	public static Duration parse(String duration)
 	{
 		String[] tokens = duration.toLowerCase().replace("and", "")
 			.replaceAll("[,&\\+]", " ").replaceAll("-\\s+", "-")

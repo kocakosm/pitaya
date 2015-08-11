@@ -32,27 +32,27 @@ import org.junit.Test;
 public final class DurationTest
 {
 	@Test
-	public void testValueOf()
+	public void testParse()
 	{
-		assertEquals(0, valueOf("0 ms").toMilliseconds());
-		assertEquals(0, valueOf("-0 ms").toMilliseconds());
-		assertEquals(100, valueOf("100 ms").toMilliseconds());
-		assertEquals(100, valueOf("100 milliseconds").toMilliseconds());
-		assertEquals(999, valueOf("1000 millis - 1 ms").toMilliseconds());
-		assertEquals(1000, valueOf("1 s").toMilliseconds());
-		assertEquals(1000, valueOf("1 second").toMilliseconds());
-		assertEquals(1001, valueOf("1 s,1 ms").toMilliseconds());
-		assertEquals(1001, valueOf("1 s + 1 ms").toMilliseconds());
-		assertEquals(10000, valueOf(" -   - 10 sec").toMilliseconds());
-		assertEquals(-10000, valueOf(" - - - 10 sec").toMilliseconds());
-		assertEquals(60000, valueOf("1 min").toMilliseconds());
-		assertEquals(60000, valueOf("1 minute").toMilliseconds());
-		assertEquals(3600000, valueOf("1 h").toMilliseconds());
-		assertEquals(3600000, valueOf("1 hour").toMilliseconds());
-		assertEquals(86400000, valueOf("1 d").toMilliseconds());
-		assertEquals(86400000, valueOf("1 day").toMilliseconds());
-		assertEquals(86400000, valueOf("1\nday").toMilliseconds());
-		assertEquals(93784005, valueOf("1,d \n, 2 h, \t3 MIN 4 S AnD 5 mS &").toMilliseconds());
+		assertEquals(0, parse("0 ms").toMilliseconds());
+		assertEquals(0, parse("-0 ms").toMilliseconds());
+		assertEquals(100, parse("100 ms").toMilliseconds());
+		assertEquals(100, parse("100 milliseconds").toMilliseconds());
+		assertEquals(999, parse("1000 millis - 1 ms").toMilliseconds());
+		assertEquals(1000, parse("1 s").toMilliseconds());
+		assertEquals(1000, parse("1 second").toMilliseconds());
+		assertEquals(1001, parse("1 s,1 ms").toMilliseconds());
+		assertEquals(1001, parse("1 s + 1 ms").toMilliseconds());
+		assertEquals(10000, parse(" -   - 10 sec").toMilliseconds());
+		assertEquals(-10000, parse(" - - - 10 sec").toMilliseconds());
+		assertEquals(60000, parse("1 min").toMilliseconds());
+		assertEquals(60000, parse("1 minute").toMilliseconds());
+		assertEquals(3600000, parse("1 h").toMilliseconds());
+		assertEquals(3600000, parse("1 hour").toMilliseconds());
+		assertEquals(86400000, parse("1 d").toMilliseconds());
+		assertEquals(86400000, parse("1 day").toMilliseconds());
+		assertEquals(86400000, parse("1\nday").toMilliseconds());
+		assertEquals(93784005, parse("1,d \n, 2 h, \t3 MIN 4 S AnD 5 mS &").toMilliseconds());
 	}
 
 	@Test
@@ -207,8 +207,8 @@ public final class DurationTest
 		assertEquals(0, ONE_DAY.compareTo(ONE_DAY));
 		assertTrue(ONE_DAY.compareTo(ONE_HOUR) > 0);
 		assertTrue(ONE_HOUR.compareTo(ONE_DAY) < 0);
-		assertTrue(ONE_DAY.compareTo(valueOf("9223372036854775807 ms").negated()) > 0);
-		assertTrue(valueOf("9223372036854775807 ms").negated().compareTo(ONE_DAY) < 0);
+		assertTrue(ONE_DAY.compareTo(parse("9223372036854775807 ms").negated()) > 0);
+		assertTrue(parse("9223372036854775807 ms").negated().compareTo(ONE_DAY) < 0);
 	}
 
 	@Test
