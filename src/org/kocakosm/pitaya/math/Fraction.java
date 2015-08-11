@@ -107,7 +107,7 @@ public final class Fraction extends Number implements Comparable<Fraction>
 	 * @throws IllegalArgumentException if {@code str} doesn't represent a
 	 *	{@code Fraction} or if its denominator equals zero.
 	 */
-	public static Fraction valueOf(String str)
+	public static Fraction parse(String str)
 	{
 		String fraction = str.replaceAll("\\s", "");
 		int index = fraction.indexOf('/');

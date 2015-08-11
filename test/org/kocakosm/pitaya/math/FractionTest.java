@@ -54,13 +54,13 @@ public final class FractionTest
 	}
 
 	@Test
-	public void testValueOfString()
+	public void testParse()
 	{
-		assertEquals(ONE, valueOf(" + 1 "));
-		assertEquals(ONE, valueOf("   1 "));
-		assertEquals(ONE_THIRD, valueOf("1/+3"));
-		assertEquals(ONE_THIRD, valueOf("  -1   /   -3"));
-		assertEquals(ONE_THIRD.negated(), valueOf("1/-3"));
+		assertEquals(ONE, parse(" + 1 "));
+		assertEquals(ONE, parse("   1 "));
+		assertEquals(ONE_THIRD, parse("1/+3"));
+		assertEquals(ONE_THIRD, parse("  -1   /   -3"));
+		assertEquals(ONE_THIRD.negated(), parse("1/-3"));
 	}
 
 	@Test
@@ -117,7 +117,7 @@ public final class FractionTest
 	public void testPower()
 	{
 		assertEquals(ONE_QUARTER, ONE_HALF.power(2));
-		assertEquals(valueOf("1/27"), ONE_THIRD.power(3));
+		assertEquals(parse("1/27"), ONE_THIRD.power(3));
 		assertEquals(ONE_QUARTER, ONE_HALF.negated().power(2));
 	}
 
@@ -130,9 +130,9 @@ public final class FractionTest
 	@Test
 	public void testAbsoluteValue()
 	{
-		assertEquals(ONE_HALF, valueOf("-1/2").absoluteValue());
-		assertEquals(ONE_HALF, valueOf("1/-2").absoluteValue());
-		assertEquals(ONE_HALF, valueOf("1/2").absoluteValue());
+		assertEquals(ONE_HALF, parse("-1/2").absoluteValue());
+		assertEquals(ONE_HALF, parse("1/-2").absoluteValue());
+		assertEquals(ONE_HALF, parse("1/2").absoluteValue());
 	}
 
 	@Test
@@ -145,8 +145,8 @@ public final class FractionTest
 	@Test
 	public void testNegated()
 	{
-		assertEquals(valueOf("-1/3"), ONE_THIRD.negated());
-		assertEquals(ONE_THIRD, valueOf("1/-3").negated());
+		assertEquals(parse("-1/3"), ONE_THIRD.negated());
+		assertEquals(ONE_THIRD, parse("1/-3").negated());
 	}
 
 	@Test
@@ -167,14 +167,14 @@ public final class FractionTest
 	@Test
 	public void testNumerator()
 	{
-		Fraction f = valueOf("42 / 16");
+		Fraction f = parse("42 / 16");
 		assertEquals(42, f.numerator().intValue());
 	}
 
 	@Test
 	public void testDenominator()
 	{
-		Fraction f = valueOf("42 / 16");
+		Fraction f = parse("42 / 16");
 		assertEquals(16, f.denominator().intValue());
 	}
 
