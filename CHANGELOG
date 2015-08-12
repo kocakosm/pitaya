@@ -1,5 +1,18 @@
 [CHANGELOG]
 
+##  0.3  (2015-08-12)
+  - [#12] ImmutableMap: iteration order of the original Map should be maintained
+  - [#13] ImmutableSet: insertion order should be used for iteration order
+  - [#14] Iterables: 'toSet' should keep source Iterable's iteration order
+  - [#15] Iterators: 'toSet' should keep source Iterator's iteration order
+  - [#16] ImmutableBag: insertion order should be used for iteration order
+  - [#17] Iterators: 'toBag' should keep source Iterator's iteration order
+  - [#18] Iterables: 'toBag' should keep source Iterator's iteration order
+  - [#19] Add Bag implementations having predictable iteration order
+  - [#20] Add a MediaType class
+  - [#21] Rename 'Duration#valueOf(String)' to 'Duration#parse(String)'
+  - [#22] Rename 'Fraction#valueOf(String)' to 'Fraction#parse(String)'
+
 ##  0.2  (2015-05-11)
   - [#1] BaseEncoding: missing separators
   - [#2] Splitter: 'replaceEmptyStringWith' is ignored when called after 'ignoreEmptyStrings'

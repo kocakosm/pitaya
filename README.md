@@ -15,13 +15,13 @@ Maven
   <dependency>
     <groupId>org.kocakosm</groupId>
     <artifactId>pitaya</artifactId>
-    <version>0.2</version>
+    <version>0.3</version>
   </dependency>
 ```
 
 Gradle
 ```groovy
-  compile 'org.kocakosm:pitaya:0.2'
+  compile 'org.kocakosm:pitaya:0.3'
 ```
 
 
@@ -80,7 +80,7 @@ or ping me on [twitter][14].
  [4]: https://coveralls.io/r/kocakosm/pitaya
  [5]: https://img.shields.io/maven-central/v/org.kocakosm/pitaya.svg
  [6]: https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.kocakosm%22%20AND%20a%3A%22pitaya%22
- [7]: https://img.shields.io/badge/license-LGPL_v3-blue.svg
+ [7]: https://img.shields.io/badge/license-LGPL_v3-3333EE.svg
  [8]: https://www.gnu.org/licenses/lgpl.txt
  [9]: https://search.maven.org/remote_content?g=org.kocakosm&a=pitaya&v=LATEST
  [10]: http://kocakosm.org/projects/pitaya/apidocs/
