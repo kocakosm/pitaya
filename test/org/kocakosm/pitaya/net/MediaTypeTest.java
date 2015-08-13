@@ -56,6 +56,12 @@ public final class MediaTypeTest
 		assertEquals("application", m3.type());
 		assertEquals("vnd.net-fpx", m3.subtype());
 		assertEquals("?\\?\"D", m3.parameters().get("a.b-c"));
+
+		MediaType m4 = parse("Text/XML;  A=\"()<>@\\\\,;: \\\"/[]?=\";B=c");
+		assertEquals("text", m4.type());
+		assertEquals("xml", m4.subtype());
+		assertEquals("()<>@\\,;: \"/[]?=", m4.parameters().get("a"));
+		assertEquals("c", m4.parameters().get("b"));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -286,8 +292,8 @@ public final class MediaTypeTest
 	@Test
 	public void testToString()
 	{
-		assertEquals("text/plain", create("text", "plain").toString());
-		MediaType test = create("text", "plain").withParameter("a", "!@#$%\" ^&*()");
+		assertEquals("text/plain", create("Text", "Plain").toString());
+		MediaType test = PLAIN_TEXT.withParameter("a", "!@#$%\" ^&*()");
 		assertEquals("text/plain; a=\"!@#$%\\\" ^&*()\"", test.toString());
 	}
 }

@@ -77,49 +77,49 @@ public final class MediaType implements Serializable
 	}
 
 	/** <code>*&#47;*</code> */
-	public static final MediaType ANY_TYPE = new MediaType(WILDCARD, WILDCARD);
+	public static final MediaType ANY_TYPE = create(WILDCARD, WILDCARD);
 
 	/** {@code text/*} */
-	public static final MediaType ANY_TEXT_TYPE = new MediaType("text", WILDCARD);
+	public static final MediaType ANY_TEXT_TYPE = create("text", WILDCARD);
 
 	/** {@code image/*} */
-	public static final MediaType ANY_IMAGE_TYPE = new MediaType("image", WILDCARD);
+	public static final MediaType ANY_IMAGE_TYPE = create("image", WILDCARD);
 
 	/** {@code audio/*} */
-	public static final MediaType ANY_AUDIO_TYPE = new MediaType("audio", WILDCARD);
+	public static final MediaType ANY_AUDIO_TYPE = create("audio", WILDCARD);
 
 	/** {@code video/*} */
-	public static final MediaType ANY_VIDEO_TYPE = new MediaType("video", WILDCARD);
+	public static final MediaType ANY_VIDEO_TYPE = create("video", WILDCARD);
 
 	/** {@code application/*} */
-	public static final MediaType ANY_APPLICATION_TYPE = new MediaType("application", WILDCARD);
+	public static final MediaType ANY_APPLICATION_TYPE = create("application", WILDCARD);
 
 	/** {@code image/jpeg} */
-	public static final MediaType JPEG = new MediaType("image", "jpeg");
+	public static final MediaType JPEG = create("image", "jpeg");
 
 	/** {@code image/png} */
-	public static final MediaType PNG = new MediaType("image", "png");
+	public static final MediaType PNG = create("image", "png");
 
 	/** {@code image/gif} */
-	public static final MediaType GIF = new MediaType("image", "gif");
+	public static final MediaType GIF = create("image", "gif");
 
 	/** {@code text/css} */
-	public static final MediaType CSS = new MediaType("text", "css");
+	public static final MediaType CSS = create("text", "css");
 
 	/** {@code text/html} */
-	public static final MediaType HTML = new MediaType("text", "html");
+	public static final MediaType HTML = create("text", "html");
 
 	/** {@code text/plain} */
-	public static final MediaType PLAIN_TEXT = new MediaType("text", "plain");
+	public static final MediaType PLAIN_TEXT = create("text", "plain");
 
 	/** {@code application/json} */
-	public static final MediaType JSON = new MediaType("application", "json");
+	public static final MediaType JSON = create("application", "json");
 
 	/** {@code application/xml} */
-	public static final MediaType XML = new MediaType("application", "xml");
+	public static final MediaType XML = create("application", "xml");
 
 	/** {@code application/octet-stream} */
-	public static final MediaType OCTET_STREAM = new MediaType("application", "octet-stream");
+	public static final MediaType OCTET_STREAM = create("application", "octet-stream");
 
 	/**
 	 * Parses a {@code MediaType} from its {@code String} representation.
@@ -195,11 +195,6 @@ public final class MediaType implements Serializable
 	private final String type;
 	private final String subtype;
 	private final Map<String, String> parameters;
-
-	private MediaType(String type, String subtype)
-	{
-		this(type, subtype, Collections.<String, String>emptyMap());
-	}
 
 	private MediaType(String type, String subtype, Map<String, String> parameters)
 	{
@@ -351,7 +346,8 @@ public final class MediaType implements Serializable
 	 */
 	public MediaType withoutParameters()
 	{
-		return new MediaType(type, subtype);
+		Map<String, String> params = Collections.emptyMap();
+		return new MediaType(type, subtype, params);
 	}
 
 	/**
@@ -455,10 +451,12 @@ public final class MediaType implements Serializable
 
 		private String readValue()
 		{
-			StringBuilder value = new StringBuilder();
-			boolean escaped = false;
 			char c = params.charAt(++index);
-			while (c != ';' || escaped) {
+			boolean quoted = c == '"';
+			c = quoted ? params.charAt(++index) : c;
+			boolean escaped = false;
+			StringBuilder value = new StringBuilder();
+			while ((c != ';' || quoted) && (c != '"' || escaped)) {
 				if (c == '\\' && !escaped) {
 					escaped = true;
 				} else {
@@ -470,9 +468,7 @@ public final class MediaType implements Serializable
 				}
 				c = params.charAt(++index);
 			}
-			if (value.charAt(0) == '"') {
-				return value.substring(1, value.length() - 1);
-			}
+			index += quoted ? 1 : 0;
 			return value.toString();
 		}
 	}
