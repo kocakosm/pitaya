@@ -204,10 +204,9 @@ public final class BaseEncoding
 	private void insertSeparators(StringBuilder sb)
 	{
 		if (n > 0) {
-			int len = sb.length();
-			for (int i = n; i < len; i += n + separator.length()) {
+			int step = n + separator.length();
+			for (int i = n; i < sb.length(); i += step) {
 				sb.insert(i, separator);
-				len += separator.length();
 			}
 		}
 	}
