@@ -80,10 +80,10 @@ or ping me on [twitter][14].
  [4]: https://coveralls.io/r/kocakosm/pitaya
  [5]: https://img.shields.io/maven-central/v/org.kocakosm/pitaya.svg
  [6]: https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.kocakosm%22%20AND%20a%3A%22pitaya%22
- [7]: https://img.shields.io/badge/license-LGPL_v3-276efd.svg
+ [7]: https://img.shields.io/badge/license-LGPL_v3-4383c3.svg
  [8]: https://www.gnu.org/licenses/lgpl.txt
  [9]: https://search.maven.org/remote_content?g=org.kocakosm&a=pitaya&v=LATEST
- [10]: http://kocakosm.org/projects/pitaya/apidocs/
+ [10]: http://www.javadoc.io/doc/org.kocakosm/pitaya
  [11]: https://bitbucket.org/kocakosm/pitaya
  [12]: https://bitbucket.org/kocakosm/pitaya/issues?status=new&status=open
  [13]: http://www.gnu.org/licenses/lgpl-3.0-standalone.html
