@@ -243,6 +243,8 @@ public final class Numbers
 	 *
 	 * @throws NullPointerException if {@code values} is {@code null}.
 	 * @throws IllegalArgumentException if {@code values} is empty.
+	 * @throws NumberFormatException if {@code values} contains a NaN or an
+	 *	infinite value.
 	 */
 	public static double mean(double... values)
 	{
@@ -264,6 +266,8 @@ public final class Numbers
 	 *
 	 * @throws NullPointerException if {@code values} is {@code null}.
 	 * @throws IllegalArgumentException if {@code values} is empty.
+	 * @throws NumberFormatException if {@code values} contains a NaN or an
+	 *	infinite value.
 	 */
 	public static double mean(float... values)
 	{
