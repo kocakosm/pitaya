@@ -1,5 +1,8 @@
 [CHANGELOG]
 
+##  0.4  (2016-08-21)
+  - [#23] MediaType: media types having a ';' in a parameter value can't be parsed
+
 ##  0.3  (2015-08-12)
   - [#12] ImmutableMap: iteration order of the original Map should be maintained
   - [#13] ImmutableSet: insertion order should be used for iteration order

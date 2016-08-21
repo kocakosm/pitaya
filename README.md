@@ -15,13 +15,13 @@ Maven
   <dependency>
     <groupId>org.kocakosm</groupId>
     <artifactId>pitaya</artifactId>
-    <version>0.3</version>
+    <version>0.4</version>
   </dependency>
 ```
 
 Gradle
 ```groovy
-  compile 'org.kocakosm:pitaya:0.3'
+  compile 'org.kocakosm:pitaya:0.4'
 ```
 
 
