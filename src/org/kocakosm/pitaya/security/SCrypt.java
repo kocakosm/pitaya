@@ -24,9 +24,8 @@ import org.kocakosm.pitaya.util.XObjects;
 import java.util.Arrays;
 
 /**
- * SCrypt Key Derivation Function as specified by the Internet Engineering Task
- * Force (http://tools.ietf.org/html/draft-josefsson-scrypt-kdf-01). Instances
- * of this class are immutable.
+ * SCrypt Key Derivation Function (RFC 7914). Instances of this class are
+ * immutable.
  *
  * @author Osman KOCAK
  */
@@ -55,7 +54,7 @@ final class SCrypt implements KDF
 		Parameters.checkCondition(r > 0 && p > 0 && dkLen > 0);
 		Parameters.checkCondition(n > 1 && (n & (n - 1)) == 0);
 		Parameters.checkCondition(r == 1 ? n < (1 << 16) : true);
-		Parameters.checkCondition(p * r < (1 << 30));
+		Parameters.checkCondition((long) p * r < (1 << 30));
 		this.r = r;
 		this.n = n;
 		this.p = p;
