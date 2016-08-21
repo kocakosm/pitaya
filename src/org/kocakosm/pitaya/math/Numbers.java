@@ -669,7 +669,12 @@ public final class Numbers
 	public static long gcd(long a, long b)
 	{
 		if (a < 0L || b < 0L) {
-			return gcd(safeAbs(a), safeAbs(b));
+			try {
+				return gcd(safeAbs(a), safeAbs(b));
+			} catch (ArithmeticException e) {
+				throw new ArithmeticException(
+					"Long overflow: gcd(" + a + ", " + b + ")");
+			}
 		}
 		if (a == 0L) {
 			return b;
@@ -721,10 +726,15 @@ public final class Numbers
 	 */
 	public static int gcd(int a, int b)
 	{
-		if (a < 0 || b < 0) {
-			return gcd(safeAbs(a), safeAbs(b));
+		try {
+			if (a < 0 || b < 0) {
+				return gcd(safeAbs(a), safeAbs(b));
+			}
+			return (int) gcd((long) a, (long) b);
+		} catch (ArithmeticException e) {
+			throw new ArithmeticException(
+				"Int overflow: gcd(" + a + ", " + b + ")");
 		}
-		return (int) gcd((long) a, (long) b);
 	}
 
 	/**
