@@ -34,11 +34,11 @@ import java.util.Arrays;
 public final class HMAC
 {
 	/**
-	 * Returns a new MD2 HMAC engine.
+	 * Returns a new HMAC-MD2 engine.
 	 *
 	 * @param key the HMAC's secret key.
 	 *
-	 * @return a new MD2 HMAC engine.
+	 * @return a new HMAC-MD2 engine.
 	 *
 	 * @throws NullPointerException if {@code key} is {@code null}.
 	 */
@@ -62,11 +62,11 @@ public final class HMAC
 	}
 
 	/**
-	 * Returns a new MD5 HMAC engine.
+	 * Returns a new HMAC-MD5 engine.
 	 *
 	 * @param key the HMAC's secret key.
 	 *
-	 * @return a new MD5 HMAC engine.
+	 * @return a new HMAC-MD5 engine.
 	 *
 	 * @throws NullPointerException if {@code key} is {@code null}.
 	 */
@@ -76,11 +76,11 @@ public final class HMAC
 	}
 
 	/**
-	 * Returns a new SHA1 HMAC engine.
+	 * Returns a new HMAC-SHA1 engine.
 	 *
 	 * @param key the HMAC's secret key.
 	 *
-	 * @return a new SHA1 HMAC engine.
+	 * @return a new HMAC-SHA1 engine.
 	 *
 	 * @throws NullPointerException if {@code key} is {@code null}.
 	 */
@@ -90,11 +90,11 @@ public final class HMAC
 	}
 
 	/**
-	 * Returns a new SHA-256 HMAC engine.
+	 * Returns a new HMAC-SHA-256 engine.
 	 *
 	 * @param key the HMAC's secret key.
 	 *
-	 * @return a new SHA-256 HMAC engine.
+	 * @return a new HMAC-SHA-256 engine.
 	 *
 	 * @throws NullPointerException if {@code key} is {@code null}.
 	 */
@@ -104,11 +104,11 @@ public final class HMAC
 	}
 
 	/**
-	 * Returns a new SHA-512 HMAC engine.
+	 * Returns a new HMAC-SHA-512 engine.
 	 *
 	 * @param key the HMAC's secret key.
 	 *
-	 * @return a new SHA-512 HMAC engine.
+	 * @return a new HMAC-SHA-512 engine.
 	 *
 	 * @throws NullPointerException if {@code key} is {@code null}.
 	 */
@@ -118,11 +118,11 @@ public final class HMAC
 	}
 
 	/**
-	 * Returns a new Keccak-224 HMAC engine.
+	 * Returns a new HMAC-Keccak-224 engine.
 	 *
 	 * @param key the HMAC's secret key.
 	 *
-	 * @return a new Keccak-224 HMAC engine.
+	 * @return a new HMAC-Keccak-224 engine.
 	 *
 	 * @throws NullPointerException if {@code key} is {@code null}.
 	 */
@@ -132,11 +132,11 @@ public final class HMAC
 	}
 
 	/**
-	 * Returns a new Keccak-256 HMAC engine.
+	 * Returns a new HMAC-Keccak-256 engine.
 	 *
 	 * @param key the HMAC's secret key.
 	 *
-	 * @return a new Keccak-256 HMAC engine.
+	 * @return a new HMAC-Keccak-256 engine.
 	 *
 	 * @throws NullPointerException if {@code key} is {@code null}.
 	 */
@@ -146,11 +146,11 @@ public final class HMAC
 	}
 
 	/**
-	 * Returns a new Keccak-384 HMAC engine.
+	 * Returns a new HMAC-Keccak-384 engine.
 	 *
 	 * @param key the HMAC's secret key.
 	 *
-	 * @return a new Keccak-384 HMAC engine.
+	 * @return a new HMAC-Keccak-384 engine.
 	 *
 	 * @throws NullPointerException if {@code key} is {@code null}.
 	 */
@@ -160,11 +160,11 @@ public final class HMAC
 	}
 
 	/**
-	 * Returns a new Keccak-512 HMAC engine.
+	 * Returns a new HMAC-Keccak-512 engine.
 	 *
 	 * @param key the HMAC's secret key.
 	 *
-	 * @return a new Keccak-512 HMAC engine.
+	 * @return a new HMAC-Keccak-512 engine.
 	 *
 	 * @throws NullPointerException if {@code key} is {@code null}.
 	 */

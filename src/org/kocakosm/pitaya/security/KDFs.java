@@ -88,9 +88,7 @@ public final class KDFs
 
 	/**
 	 * Creates and returns a new immutable {@code KDF} instance implementing
-	 * the SCrypt algorithm as specified by the Internet Engineering Task
-	 * Force. See http://tools.ietf.org/html/draft-josefsson-scrypt-kdf-01
-	 * for more information.
+	 * the SCrypt algorithm (RFC 7914).
 	 *
 	 * @param r the block size parameter.
 	 * @param n the CPU/Memory cost parameter.
