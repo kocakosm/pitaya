@@ -125,9 +125,9 @@ final class Keccak extends AbstractDigest
 	private void addPadding()
 	{
 		if (bufferLen + 1 == buffer.length) {
-			buffer[bufferLen] = (byte) 0x81;
+			buffer[bufferLen] = (byte) 0x80;
 		} else {
-			buffer[bufferLen] = (byte) 0x01;
+			buffer[bufferLen] = (byte) 0x06;
 			for (int i = bufferLen + 1; i < buffer.length - 1; i++) {
 				buffer[i] = 0;
 			}
