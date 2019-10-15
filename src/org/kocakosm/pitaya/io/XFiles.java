@@ -352,10 +352,14 @@ public final class XFiles
 	public static byte[] tail(File f, int n) throws IOException
 	{
 		Parameters.checkCondition(n >= 0);
-		RandomAccessFile file = new RandomAccessFile(f, "r");
-		file.seek(file.length() - n);
 		byte[] data = new byte[n];
-		file.read(data);
+		RandomAccessFile file = new RandomAccessFile(f, "r");
+		try {
+			file.seek(file.length() - n);
+			file.read(data);
+		} finally {
+			IO.close(file);
+		}
 		return data;
 	}
 
