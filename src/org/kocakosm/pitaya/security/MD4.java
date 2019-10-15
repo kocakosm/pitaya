@@ -29,10 +29,10 @@ final class MD4 extends AbstractDigest
 	private static final int BLOCK_LENGTH = 64;
 
 	/** Number of bytes processed so far. */
-	private long counter;
+	private long count;
 
 	/** Current digest value (4 32-bit words). */
-	private final int[] value;
+	private final int[] state;
 
 	/** Input buffer (16 32-bit words). */
 	private final byte[] buffer;
@@ -44,7 +44,7 @@ final class MD4 extends AbstractDigest
 	MD4()
 	{
 		super("MD4", DIGEST_LENGTH);
-		this.value = new int[4];
+		this.state = new int[4];
 		this.buffer = new byte[BLOCK_LENGTH];
 		reset();
 	}
@@ -52,20 +52,20 @@ final class MD4 extends AbstractDigest
 	@Override
 	public Digest reset()
 	{
-		counter = 0L;
-		value[0] = 0x67452301;
-		value[1] = 0xEFCDAB89;
-		value[2] = 0x98BADCFE;
-		value[3] = 0x10325476;
+		count = 0L;
 		bufferLen = 0;
+		state[0] = 0x67452301;
+		state[1] = 0xEFCDAB89;
+		state[2] = 0x98BADCFE;
+		state[3] = 0x10325476;
 		return this;
 	}
 
 	@Override
 	public Digest update(byte input)
 	{
-		buffer[bufferLen] = input;
-		if (++bufferLen == BLOCK_LENGTH) {
+		buffer[bufferLen++] = input;
+		if (bufferLen == BLOCK_LENGTH) {
 			processBuffer();
 		}
 		return this;
@@ -74,12 +74,14 @@ final class MD4 extends AbstractDigest
 	@Override
 	public Digest update(byte[] input, int off, int len)
 	{
-		while (len > 0) {
-			int cpLen = Math.min(BLOCK_LENGTH - bufferLen, len);
-			System.arraycopy(input, off, buffer, bufferLen, cpLen);
+		int index = off;
+		int remaining = len;
+		while (remaining > 0) {
+			int cpLen = Math.min(BLOCK_LENGTH - bufferLen, remaining);
+			System.arraycopy(input, index, buffer, bufferLen, cpLen);
+			remaining -= cpLen;
 			bufferLen += cpLen;
-			off += cpLen;
-			len -= cpLen;
+			index += cpLen;
 			if (bufferLen == BLOCK_LENGTH) {
 				processBuffer();
 			}
@@ -91,13 +93,13 @@ final class MD4 extends AbstractDigest
 	public byte[] digest()
 	{
 		addPadding();
-		byte[] res = new byte[DIGEST_LENGTH];
-		LittleEndian.encode(value[0], res, 0);
-		LittleEndian.encode(value[1], res, 4);
-		LittleEndian.encode(value[2], res, 8);
-		LittleEndian.encode(value[3], res, 12);
+		byte[] hash = new byte[DIGEST_LENGTH];
+		LittleEndian.encode(state[0], hash, 0);
+		LittleEndian.encode(state[1], hash, 4);
+		LittleEndian.encode(state[2], hash, 8);
+		LittleEndian.encode(state[3], hash, 12);
 		reset();
-		return res;
+		return hash;
 	}
 
 	/** Adds the padding bits and the message length to the input data. */
@@ -107,22 +109,22 @@ final class MD4 extends AbstractDigest
 		if (len < 9) {
 			len += BLOCK_LENGTH;
 		}
-		byte[] buf = new byte[len];
-		buf[0] = (byte) 0x80;
-		for (int i = 1; i < len - 8; i++) {
-			buf[i] = (byte) 0x00;
-		}
-		counter = (counter + (long) bufferLen) * 8L;
-		LittleEndian.encode(counter, buf, len - 8);
-		update(buf);
+		byte[] padding = new byte[len];
+		padding[0] = (byte) 0x80;
+		long bits = (count + bufferLen) << 3;
+		LittleEndian.encode(bits, padding, len - 8);
+		update(padding);
 	}
 
 	private void processBuffer()
 	{
-		int A = value[0];
-		int B = value[1];
-		int C = value[2];
-		int D = value[3];
+		bufferLen = 0;
+		count += BLOCK_LENGTH;
+
+		int A = state[0];
+		int B = state[1];
+		int C = state[2];
+		int D = state[3];
 
 		int[] X = new int[16];
 		for (int i = 0; i < 16; i++) {
@@ -183,13 +185,10 @@ final class MD4 extends AbstractDigest
 		C = HH(C, D, A, B, X[ 7], 11);
 		B = HH(B, C, D, A, X[15], 15);
 
-		value[0] += A;
-		value[1] += B;
-		value[2] += C;
-		value[3] += D;
-
-		counter += 64L;
-		bufferLen = 0;
+		state[0] += A;
+		state[1] += B;
+		state[2] += C;
+		state[3] += D;
 	}
 
 	private int FF(int a, int b, int c, int d, int x, int s)

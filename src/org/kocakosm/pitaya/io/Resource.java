@@ -69,7 +69,7 @@ public final class Resource
 	 *
 	 * @return the requested resource.
 	 *
-	 * @throws NullPointerException if {@code name} is {@code null}.
+	 * @throws NullPointerException if one of the arguments is {@code null}.
 	 * @throws NotFoundException if the resource can't be found.
 	 */
 	public static Resource find(String name, Class<?> contextClass)

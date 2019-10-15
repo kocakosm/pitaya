@@ -583,11 +583,7 @@ public final class Strings
 		int n = 0;
 		if (!sub.isEmpty()) {
 			int start = 0;
-			while (true) {
-				start = str.indexOf(sub, start);
-				if (start == -1) {
-					break;
-				}
+			while ((start = str.indexOf(sub, start)) != -1) {
 				start += sub.length();
 				n++;
 			}

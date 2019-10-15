@@ -96,12 +96,14 @@ final class Keccak extends AbstractDigest
 	@Override
 	public Digest update(byte[] input, int off, int len)
 	{
-		while (len > 0) {
-			int cpLen = Math.min(blockLen - bufferLen, len);
-			System.arraycopy(input, off, buffer, bufferLen, cpLen);
+		int index = off;
+		int remaining = len;
+		while (remaining > 0) {
+			int cpLen = Math.min(blockLen - bufferLen, remaining);
+			System.arraycopy(input, index, buffer, bufferLen, cpLen);
 			bufferLen += cpLen;
-			off += cpLen;
-			len -= cpLen;
+			remaining -= cpLen;
+			index += cpLen;
 			if (bufferLen == blockLen) {
 				processBuffer();
 			}
@@ -158,7 +160,7 @@ final class Keccak extends AbstractDigest
 				^ A[index(x, 3)] ^ A[index(x, 4)];
 		}
 		for (int x = 0; x < 5; x++) {
-			D[x] = C[index(x - 1)] ^ rot(C[index(x + 1)], 1);
+			D[x] = C[index(x + 4)] ^ rot(C[index(x + 1)], 1);
 			for (int y = 0; y < 5; y++) {
 				A[index(x, y)] ^= D[x];
 			}
@@ -185,7 +187,7 @@ final class Keccak extends AbstractDigest
 
 	private int index(int x)
 	{
-		return x < 0 ? index(x + 5) : x % 5;
+		return x % 5;
 	}
 
 	private int index(int x, int y)

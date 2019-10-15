@@ -162,7 +162,7 @@ public final class Duration implements Comparable<Duration>, Serializable
 	public static Duration of(Duration... durations)
 	{
 		if (durations.length == 0) {
-			return new Duration(0L);
+			return ZERO;
 		}
 		long ms = durations[0].milliseconds;
 		for (int i = 1; i < durations.length; i++) {

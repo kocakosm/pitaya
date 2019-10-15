@@ -65,13 +65,13 @@ public final class Scanf
 		try {
 			return reader.readLine();
 		} finally {
-			reader.close();
+			IO.close(reader);
 		}
 	}
 
 	/**
 	 * Reads the next line from the standard input and parses it into a
-	 * {@code boolean} value. The strings "true", "on", "yes" (ignoring
+	 * {@code boolean} value. The strings "true", "on", "yes", "1" (ignoring
 	 * spaces and case) return {@code true}, all other strings will return
 	 * {@code false}.
 	 *

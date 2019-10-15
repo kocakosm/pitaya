@@ -23,34 +23,26 @@ import org.kocakosm.pitaya.charset.ASCII;
  *
  * @author Osman KOCAK
  */
-final class Alphabet
+enum Alphabet
 {
-	static final Alphabet BASE_64 = new Alphabet("ABCDEFGHIJKLMNOPQRSTUVWXY"
-		+ "Zabcdefghijklmnopqrstuvwxyz0123456789+/", true);
+	BASE_16("0123456789ABCDEF", false),
+	BASE_32("ABCDEFGHIJKLMNOPQRSTUVWXYZ234567", false),
+	BASE_32_HEX("0123456789ABCDEFGHIJKLMNOPQRSTUV", false),
+	BASE_64("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/", true),
+	BASE_64_URL("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_", true);
 
-	static final Alphabet BASE_64_URL = new Alphabet("ABCDEFGHIJKLMNOPQRSTU"
-		+ "VWXYZabcdefghijklmnopqrstuvwxyz0123456789-_", true);
-
-	static final Alphabet BASE_32 = new Alphabet("ABCDEFGHIJKLMNOPQRSTUVWXY"
-		+ "Z234567", false);
-
-	static final Alphabet BASE_32_HEX = new Alphabet("0123456789ABCDEFGHIJK"
-		+ "LMNOPQRSTUV", false);
-
-	static final Alphabet BASE_16 = new Alphabet("0123456789ABCDEF", false);
-
-	private final char[] alphabet;
-	private final boolean caseSensitive;
+	private final char[] chars;
 	private final int bitsPerChar;
 	private final int charsPerBlock;
 	private final int bytesPerBlock;
 	private final int maxPaddingLength;
+	private final boolean caseSensitive;
 
 	private Alphabet(String alphabet, boolean caseSensitive)
 	{
-		this.alphabet = alphabet.toCharArray();
+		this.chars = alphabet.toCharArray();
 		this.caseSensitive = caseSensitive;
-		this.bitsPerChar = round(Math.log(alphabet.length()) / Math.log(2));
+		this.bitsPerChar = round(Math.log(chars.length) / Math.log(2));
 		int gcd = gcd(8, bitsPerChar);
 		this.charsPerBlock = 8 / gcd;
 		this.bytesPerBlock = bitsPerChar / gcd;
@@ -75,8 +67,8 @@ final class Alphabet
 	int decode(char c)
 	{
 		char encoded = caseSensitive ? c : ASCII.toUpperCase(c);
-		for (int i = 0; i < alphabet.length; i++) {
-			if (encoded == alphabet[i]) {
+		for (int i = 0; i < chars.length; i++) {
+			if (encoded == chars[i]) {
 				return i;
 			}
 		}
@@ -85,7 +77,7 @@ final class Alphabet
 
 	char encode(int value)
 	{
-		return alphabet[value & (alphabet.length - 1)];
+		return chars[value & (chars.length - 1)];
 	}
 
 	int bitsPerChar()

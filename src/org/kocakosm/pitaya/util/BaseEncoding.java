@@ -25,11 +25,8 @@ package org.kocakosm.pitaya.util;
  */
 public final class BaseEncoding
 {
-	/** Base64 encoding scheme. */
-	public static final BaseEncoding BASE_64 = new BaseEncoding(Alphabet.BASE_64);
-
-	/** Base64 encoding scheme with URL and filename safe alphabet. */
-	public static final BaseEncoding BASE_64_URL = new BaseEncoding(Alphabet.BASE_64_URL);
+	/** Base16 encoding scheme. */
+	public static final BaseEncoding BASE_16 = new BaseEncoding(Alphabet.BASE_16);
 
 	/** Base32 encoding scheme. */
 	public static final BaseEncoding BASE_32 = new BaseEncoding(Alphabet.BASE_32);
@@ -37,8 +34,11 @@ public final class BaseEncoding
 	/** Base32 encoding scheme with extended Hex alphabet. */
 	public static final BaseEncoding BASE_32_HEX = new BaseEncoding(Alphabet.BASE_32_HEX);
 
-	/** Base16 encoding scheme. */
-	public static final BaseEncoding BASE_16 = new BaseEncoding(Alphabet.BASE_16);
+	/** Base64 encoding scheme. */
+	public static final BaseEncoding BASE_64 = new BaseEncoding(Alphabet.BASE_64);
+
+	/** Base64 encoding scheme with URL and filename safe alphabet. */
+	public static final BaseEncoding BASE_64_URL = new BaseEncoding(Alphabet.BASE_64_URL);
 
 	private static final char PADDING_CHAR = '=';
 
