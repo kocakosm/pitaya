@@ -393,25 +393,6 @@ public final class ASCII
 		return sb.toString();
 	}
 
-	/**
-	 * Returns a {@code String} built from the given one by upper-casing its
-	 * first character (other characters are copied unchanged).
-	 *
-	 * @param str the {@code String} to capitalize.
-	 *
-	 * @return the capitalized {@code String}.
-	 *
-	 * @throws NullPointerException if {@code str} is {@code null}.
-	 */
-	public static String capitalize(String str)
-	{
-		StringBuilder sb = new StringBuilder(str.length());
-		for (char c : str.toCharArray()) {
-			sb.append(sb.length() > 0 ? c : toUpperCase(c));
-		}
-		return sb.toString();
-	}
-
 	private ASCII()
 	{
 		/* ... */

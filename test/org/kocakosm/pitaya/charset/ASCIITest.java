@@ -198,18 +198,6 @@ public final class ASCIITest
 	}
 
 	@Test
-	public void testCapitalize()
-	{
-		assertEquals("", capitalize(""));
-		assertEquals("A", capitalize("a"));
-		assertEquals("Z", capitalize("Z"));
-		assertEquals("5", capitalize("5"));
-		assertEquals("5AbC", capitalize("5AbC"));
-		assertEquals("   AbC", capitalize("   AbC"));
-		assertEquals("Hello", capitalize("hello"));
-	}
-
-	@Test
 	public void testConstructor() throws Exception
 	{
 		Class<ASCII> c = ASCII.class;

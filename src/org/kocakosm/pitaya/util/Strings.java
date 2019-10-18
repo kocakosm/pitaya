@@ -147,6 +147,26 @@ public final class Strings
 	}
 
 	/**
+	 * Returns a {@code String} built from the given one by upper-casing its
+	 * first character (other characters are copied unchanged).
+	 *
+	 * @param str the {@code String} to capitalize.
+	 *
+	 * @return the capitalized {@code String}.
+	 *
+	 * @throws NullPointerException if {@code str} is {@code null}.
+	 */
+	public static String capitalize(String str)
+	{
+		if (str.isEmpty()) {
+			return str;
+		}
+		char[] chars = str.toCharArray();
+		chars[0] = Character.toTitleCase(chars[0]);
+		return new String(chars);
+	}
+
+	/**
 	 * Concatenates the given {@code String}s.
 	 *
 	 * @param strings the {@code String}s to concatenate.

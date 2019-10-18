@@ -106,6 +106,18 @@ public final class StringsTest
 	}
 
 	@Test
+	public void testCapitalize()
+	{
+		assertEquals("", capitalize(""));
+		assertEquals("A", capitalize("a"));
+		assertEquals("Z", capitalize("Z"));
+		assertEquals("5", capitalize("5"));
+		assertEquals("5AbC", capitalize("5AbC"));
+		assertEquals("   abC", capitalize("   abC"));
+		assertEquals("Hello", capitalize("hello"));
+	}
+
+	@Test
 	public void testConcat()
 	{
 		assertEquals("", concat());
