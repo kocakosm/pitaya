@@ -24,6 +24,8 @@ Gradle
   compile 'org.kocakosm:pitaya:0.4'
 ```
 
+*Note: module name for the Java Module System is `org.kocakosm.pitaya`.*
+
 
 Usage
 -----
