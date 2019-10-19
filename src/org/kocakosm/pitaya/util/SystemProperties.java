@@ -63,9 +63,6 @@ public final class SystemProperties
 	/** Java installation directory. */
 	public static final File JAVA_HOME = toFile(System.getProperty("java.home"));
 
-	/** Name of JIT compiler to use. */
-	public static final String JAVA_COMPILER = System.getProperty("java.compiler");
-
 	/** Java Runtime Environment vendor name. */
 	public static final String JAVA_VENDOR = System.getProperty("java.vendor");
 
@@ -110,9 +107,6 @@ public final class SystemProperties
 
 	/** Default temp file path. */
 	public static final File JAVA_IO_TMP_DIR = toFile(System.getProperty("java.io.tmpdir"));
-
-	/** Path of extension directory or directories. */
-	public static final List<File> JAVA_EXT_DIRS = toFiles(System.getProperty("java.ext.dirs"));
 
 	private static URL toURL(String url)
 	{

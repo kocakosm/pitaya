@@ -26,7 +26,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -75,7 +74,6 @@ public final class SystemPropertiesTest
 	{
 		assertPropertyEquals("java.home", JAVA_HOME);
 		assertPropertyEquals("java.version", JAVA_VERSION);
-		assertPropertyEquals("java.compiler", JAVA_COMPILER);
 	}
 
 	@Test
@@ -129,12 +127,6 @@ public final class SystemPropertiesTest
 	}
 
 	@Test
-	public void testJavaExtensionProperties()
-	{
-		assertPropertyEquals("java.ext.dirs", JAVA_EXT_DIRS);
-	}
-
-	@Test
 	public void testConstructor() throws Exception
 	{
 		Class<SystemProperties> c = SystemProperties.class;
@@ -147,17 +139,17 @@ public final class SystemPropertiesTest
 
 	private void assertPropertyEquals(String key, String value)
 	{
-		Assert.assertEquals(System.getProperty(key), value);
+		assertEquals(System.getProperty(key), value);
 	}
 
 	private void assertPropertyEquals(String key, URL value) throws Exception
 	{
-		Assert.assertEquals(new URL(System.getProperty(key)), value);
+		assertEquals(new URL(System.getProperty(key)), value);
 	}
 
 	private void assertPropertyEquals(String key, File value)
 	{
-		Assert.assertEquals(new File(System.getProperty(key)), value);
+		assertEquals(new File(System.getProperty(key)), value);
 	}
 
 	private void assertPropertyEquals(String key, List<File> values)
@@ -166,6 +158,6 @@ public final class SystemPropertiesTest
 		for (String path : System.getProperty(key).split(PATH_SEPARATOR)) {
 			files.add(new File(path));
 		}
-		Assert.assertEquals(files, values);
+		assertEquals(files, values);
 	}
 }
