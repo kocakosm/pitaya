@@ -36,7 +36,7 @@ Browse [API docs][12] for the most recent release.
 Warnings
 --------
 
-Pitaya is developed and tested exclusively with OpenJDK 7 on GNU/Linux systems.
+Pitaya is developed and tested exclusively with OpenJDK 11 on GNU/Linux systems.
 Some features may not work properly in other environments.
 
 Pitaya is not designed to protect against a malicious caller. Don't use it for
@@ -87,8 +87,8 @@ or ping me on [twitter][16].
  [9]: https://img.shields.io/badge/license-LGPL_v3-4383c3.svg
  [10]: https://www.gnu.org/licenses/lgpl.txt
  [11]: https://search.maven.org/remote_content?g=org.kocakosm&a=pitaya&v=LATEST
- [12]: http://www.javadoc.io/doc/org.kocakosm/pitaya
+ [12]: https://www.javadoc.io/doc/org.kocakosm/pitaya
  [13]: https://bitbucket.org/kocakosm/pitaya
  [14]: https://bitbucket.org/kocakosm/pitaya/issues?status=new&status=open
- [15]: http://www.gnu.org/licenses/lgpl-3.0-standalone.html
+ [15]: https://www.gnu.org/licenses/lgpl-3.0-standalone.html
  [16]: https://twitter.com/kocakosm
