@@ -18,7 +18,6 @@ package org.kocakosm.pitaya.security;
 
 import org.kocakosm.pitaya.charset.UTF8;
 import org.kocakosm.pitaya.util.ByteBuffer;
-import org.kocakosm.pitaya.util.Strings;
 
 import java.security.SecureRandom;
 import java.util.Arrays;
@@ -53,9 +52,13 @@ public final class Passwords
 	 *
 	 * @return a pseudo-random password.
 	 */
-	public static String generate()
+	public static char[] generate()
 	{
-		return Strings.random(10, PRNG, ALPHABET);
+		char[] password = new char[10];
+		for (int i = 0; i < password.length; i++) {
+			password[i] = ALPHABET[PRNG.nextInt(ALPHABET.length)];
+		}
+		return password;
 	}
 
 	/**
@@ -68,7 +71,7 @@ public final class Passwords
 	 *
 	 * @throws NullPointerException if {@code password} is {@code null}.
 	 */
-	public static byte[] hash(String password)
+	public static byte[] hash(char[] password)
 	{
 		return hash(password, salt(), R, N, P);
 	}
@@ -83,28 +86,21 @@ public final class Passwords
 	 *
 	 * @throws NullPointerException if one of the arguments is {@code null}.
 	 */
-	public static boolean verify(String password, byte[] hash)
+	public static boolean verify(char[] password, byte[] hash)
 	{
 		byte[] h = Arrays.copyOf(hash, HASH_LENGTH + SALT_LENGTH + 3);
 		int n = 1 << (h[HASH_LENGTH + SALT_LENGTH] & 0xFF);
 		int r = h[HASH_LENGTH + SALT_LENGTH + 1] & 0xFF;
 		int p = h[HASH_LENGTH + SALT_LENGTH + 2] & 0xFF;
 		if (n > N || n < N_MIN || r > R || r < R_MIN || p > P || p < P_MIN) {
-			n = N;
-			r = R;
-			p = P;
+			return false;
 		}
 		byte[] salt = new byte[SALT_LENGTH];
 		System.arraycopy(h, HASH_LENGTH, salt, 0, SALT_LENGTH);
-		byte[] expected = hash(password, salt, r, n, p);
-		int result = 0;
-		for (int i = 0; i < h.length; i++) {
-			result |= h[i] ^ expected[i];
-		}
-		return result == 0;
+		return areEqual(h, hash(password, salt, r, n, p));
 	}
 
-	private static byte[] hash(String password, byte[] salt, int r, int n, int p)
+	private static byte[] hash(char[] password, byte[] salt, int r, int n, int p)
 	{
 		KDF scrypt = KDFs.scrypt(r, n, p, HASH_LENGTH);
 		ByteBuffer buf = new ByteBuffer(HASH_LENGTH + SALT_LENGTH + 3);
@@ -120,6 +116,19 @@ public final class Passwords
 		byte[] salt = new byte[SALT_LENGTH];
 		PRNG.nextBytes(salt);
 		return salt;
+	}
+
+	/* Compares the given byte arrays for equality in constant-time. */
+	private static boolean areEqual(byte[] a, byte[] b)
+	{
+		if (a.length != b.length) {
+			return false;
+		}
+		int result = 0;
+		for (int i = 0; i < a.length; i++) {
+			result |= a[i] ^ b[i];
+		}
+		return result == 0;
 	}
 
 	private Passwords()

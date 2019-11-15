@@ -35,14 +35,15 @@ public final class PasswordsTest
 	@Test
 	public void testGenerate()
 	{
-		assertTrue(ASCII.isAlphaNumeric(Passwords.generate()));
-		assertEquals(10, Passwords.generate().length());
+		char[] password = Passwords.generate();
+		assertTrue(ASCII.isAlphaNumeric(password));
+		assertEquals(10, password.length);
 	}
 
 	@Test
 	public void testValidPassword()
 	{
-		String password = "password";
+		char[] password = "password".toCharArray();
 		byte[] hash = Passwords.hash(password);
 		assertTrue(Passwords.verify(password, hash));
 	}
@@ -50,9 +51,9 @@ public final class PasswordsTest
 	@Test
 	public void testInvalidPassword()
 	{
-		byte[] hash = Passwords.hash("password");
-		assertFalse(Passwords.verify("Password", hash));
-		assertFalse(Passwords.verify("Password", new byte[0]));
+		byte[] hash = Passwords.hash("password".toCharArray());
+		assertFalse(Passwords.verify("Password".toCharArray(), hash));
+		assertFalse(Passwords.verify("Password".toCharArray(), new byte[0]));
 	}
 
 	@Test
