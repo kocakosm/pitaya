@@ -40,6 +40,12 @@ public final class UTF8Test
 		assertTrue(canEncode("您好"));
 		assertTrue(canEncode("Spleen et Idéal", 0, 6));
 		assertTrue(canEncode("Spleen et Idéal", 10, 5));
+
+		assertTrue(canEncode("The Raven".toCharArray()));
+		assertTrue(canEncode("Spleen et Idéal".toCharArray()));
+		assertTrue(canEncode("您好".toCharArray()));
+		assertTrue(canEncode("Spleen et Idéal".toCharArray(), 0, 6));
+		assertTrue(canEncode("Spleen et Idéal".toCharArray(), 10, 5));
 	}
 
 	@Test
@@ -58,10 +64,17 @@ public final class UTF8Test
 	public void testEncode()
 	{
 		Charset utf8 = Charset.forName("UTF-8");
-		assertArrayEquals(encode(""), new byte[0]);
 		String str = "您好 Hallå Hello";
+
+		assertArrayEquals(encode(""), new byte[0]);
 		assertArrayEquals(encode(str), str.getBytes(utf8));
+		assertArrayEquals(encode(str, 3, 5), "Hallå".getBytes(utf8));
 		assertArrayEquals(encode(str, 0, 8), "您好 Hallå".getBytes(utf8));
+
+		assertArrayEquals(encode(new char[0]), new byte[0]);
+		assertArrayEquals(encode(str.toCharArray()), str.getBytes(utf8));
+		assertArrayEquals(encode(str.toCharArray(), 3, 5), "Hallå".getBytes(utf8));
+		assertArrayEquals(encode(str.toCharArray(), 0, 8), "您好 Hallå".getBytes(utf8));
 	}
 
 	@Test
@@ -74,7 +87,7 @@ public final class UTF8Test
 		assertEquals(decode(str.getBytes(utf8), 0, 13), "您好 Hallå");
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = UncheckedCharacterCodingException.class)
 	public void testDecodeInvalidBytes()
 	{
 		decode((byte) 0xEB, (byte) 0x3A, (byte) 0xC4);

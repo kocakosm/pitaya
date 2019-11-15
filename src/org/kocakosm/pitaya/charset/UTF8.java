@@ -23,45 +23,86 @@ import java.nio.charset.CharsetDecoder;
 import java.nio.charset.CharsetEncoder;
 
 /**
- * Static utility methods to encode and decode UTF-8 {@code String}s.
+ * Static utility methods to encode and decode UTF-8 characters.
  *
  * @author Osman KOCAK
  */
 public final class UTF8
 {
 	/**
-	 * Returns whether the given {@code String} can be encoded into UTF-8.
+	 * Returns whether the given {@code CharSequence} can be encoded into
+	 * UTF-8.
 	 *
-	 * @param str the {@code String} to test.
+	 * @param chars the {@code CharSequence} to test.
 	 *
-	 * @return whether {@code str} can be encoded into UTF-8.
+	 * @return whether {@code chars} can be encoded into UTF-8.
 	 *
-	 * @throws NullPointerException if {@code str} is {@code null}.
+	 * @throws NullPointerException if {@code chars} is {@code null}.
 	 */
-	public static boolean canEncode(String str)
+	public static boolean canEncode(CharSequence chars)
 	{
-		return Charsets.UTF_8.newEncoder().canEncode(str);
+		return canEncode(chars, 0, chars.length());
 	}
 
 	/**
-	 * Returns whether the specified range in the given {@code String} can
-	 * be encoded into UTF-8.
+	 * Returns whether the given characters can be encoded into UTF-8.
 	 *
-	 * @param str the input {@code String}.
+	 * @param chars the characters to test.
+	 *
+	 * @return whether {@code chars} can be encoded into UTF-8.
+	 *
+	 * @throws NullPointerException if {@code chars} is {@code null}.
+	 */
+	public static boolean canEncode(char... chars)
+	{
+		return canEncode(chars, 0, chars.length);
+	}
+
+	/**
+	 * Returns whether the specified range in the given {@code CharSequence}
+	 * can be encoded into UTF-8.
+	 *
+	 * @param chars the input {@code CharSequence}.
 	 * @param off the start index, inclusive.
 	 * @param len the number of characters to test.
 	 *
-	 * @return whether the specified range in {@code str} can be encoded
+	 * @return whether the specified range in {@code chars} can be encoded
 	 *	into UTF-8.
 	 *
-	 * @throws NullPointerException if {@code str} is {@code null}.
+	 * @throws NullPointerException if {@code chars} is {@code null}.
 	 * @throws IndexOutOfBoundsException if {@code off} or {@code len} is
-	 *	negative or if {@code off + len} is greater than {@code str}'s
+	 *	negative or if {@code off + len} is greater than {@code chars}'
 	 *	length.
 	 */
-	public static boolean canEncode(String str, int off, int len)
+	public static boolean canEncode(CharSequence chars, int off, int len)
 	{
-		return canEncode(str.substring(off, off + len));
+		return canEncode(CharBuffer.wrap(chars, off, off + len));
+	}
+
+	/**
+	 * Returns whether the specified range in the given array of
+	 * {@code char}s can be encoded into UTF-8.
+	 *
+	 * @param chars the input array of {@code char}s.
+	 * @param off the start index, inclusive.
+	 * @param len the number of characters to test.
+	 *
+	 * @return whether the specified range in {@code chars} can be encoded
+	 *	into UTF-8.
+	 *
+	 * @throws NullPointerException if {@code chars} is {@code null}.
+	 * @throws IndexOutOfBoundsException if {@code off} or {@code len} is
+	 *	negative or if {@code off + len} is greater than {@code chars}'
+	 *	length.
+	 */
+	public static boolean canEncode(char[] chars, int off, int len)
+	{
+		return canEncode(CharBuffer.wrap(chars, off, len));
+	}
+
+	private static boolean canEncode(CharBuffer buffer)
+	{
+		return Charsets.UTF_8.newEncoder().canEncode(buffer);
 	}
 
 	/**
@@ -80,8 +121,8 @@ public final class UTF8
 	}
 
 	/**
-	 * Returns whether the specified range in the given byte array represents
-	 * valid UTF-8 encoded characters.
+	 * Returns whether the specified range in the given byte array
+	 * represents valid UTF-8 encoded characters.
 	 *
 	 * @param input the input buffer.
 	 * @param off the start index, inclusive.
@@ -99,55 +140,99 @@ public final class UTF8
 	{
 		try {
 			decode(input, off, len);
-		} catch (IllegalArgumentException ex) {
+		} catch (UncheckedCharacterCodingException ex) {
 			return false;
 		}
 		return true;
 	}
 
 	/**
-	 * Returns the UTF-8 encoding of the given {@code String}.
+	 * Returns the UTF-8 encoding of the given {@code CharSequence}.
 	 *
-	 * @param str the {@code String} to encode.
+	 * @param chars the {@code CharSequence} to encode.
 	 *
-	 * @return the UTF-8 encoding of the given {@code String}.
+	 * @return the UTF-8 encoding of the given {@code CharSequence}.
 	 *
-	 * @throws NullPointerException if {@code str} is {@code null}.
-	 * @throws IllegalArgumentException if {@code str} can't be encoded into
-	 *	UTF-8.
+	 * @throws NullPointerException if {@code chars} is {@code null}.
+	 * @throws UncheckedCharacterCodingException if {@code chars} can't be
+	 * 	encoded into UTF-8.
 	 */
-	public static byte[] encode(String str)
+	public static byte[] encode(CharSequence chars)
 	{
-		CharsetEncoder encoder = Charsets.UTF_8.newEncoder();
-		try {
-			ByteBuffer out = encoder.encode(CharBuffer.wrap(str));
-			byte[] bytes = new byte[out.limit()];
-			out.get(bytes);
-			return bytes;
-		} catch (CharacterCodingException ex) {
-			throw new IllegalArgumentException(ex);
-		}
+		return encode(chars, 0, chars.length());
 	}
 
 	/**
-	 * Returns the UTF-8 encoding of the specified character sequence.
+	 * Returns the UTF-8 encoding of the given characters.
 	 *
-	 * @param str the input {@code String}.
+	 * @param chars the characters to encode.
+	 *
+	 * @return the UTF-8 encoding of the given characters.
+	 *
+	 * @throws NullPointerException if {@code chars} is {@code null}.
+	 * @throws UncheckedCharacterCodingException if {@code chars} can't be
+	 * 	encoded into UTF-8.
+	 */
+	public static byte[] encode(char... chars)
+	{
+		return encode(chars, 0, chars.length);
+	}
+
+	/**
+	 * Returns the UTF-8 encoding of the specified range in the given
+	 * {@code CharSequence}.
+	 *
+	 * @param chars the input {@code CharSequence}.
 	 * @param off the start index, inclusive.
 	 * @param len the number of characters to encode.
 	 *
 	 * @return the UTF-8 encoding of the specified characters.
 	 *
-	 * @throws NullPointerException if {@code str} is {@code null}.
+	 * @throws NullPointerException if {@code chars} is {@code null}.
 	 * @throws IndexOutOfBoundsException if {@code off} or {@code len} is
-	 *	negative or if {@code off + len} is greater than {@code str}'s
+	 *	negative or if {@code off + len} is greater than {@code chars}'
 	 *	length.
-	 * @throws IllegalArgumentException if {@code str} can't be encoded into
-	 *	UTF-8.
+	 * @throws UncheckedCharacterCodingException if {@code chars} can't be
+	 * 	encoded into UTF-8.
 	 */
-	public static byte[] encode(String str, int off, int len)
+	public static byte[] encode(CharSequence chars, int off, int len)
 	{
-		return encode(str.substring(off, off + len));
+		return encode(CharBuffer.wrap(chars, off, off + len));
+	}
+
+	/**
+	 * Returns the UTF-8 encoding of the specified range in the given array
+	 * of {@code char}s.
+	 *
+	 * @param chars the input array of {@code char}s.
+	 * @param off the start index, inclusive.
+	 * @param len the number of characters to encode.
+	 *
+	 * @return the UTF-8 encoding of the specified characters.
+	 *
+	 * @throws NullPointerException if {@code chars} is {@code null}.
+	 * @throws IndexOutOfBoundsException if {@code off} or {@code len} is
+	 *	negative or if {@code off + len} is greater than {@code chars}'
+	 *	length.
+	 * @throws UncheckedCharacterCodingException if {@code chars} can't be
+	 * 	encoded into UTF-8.
+	 */
+	public static byte[] encode(char[] chars, int off, int len)
+	{
+		return encode(CharBuffer.wrap(chars, off, len));
+	}
+
+	private static byte[] encode(CharBuffer buffer)
+	{
+		CharsetEncoder encoder = Charsets.UTF_8.newEncoder();
+		try {
+			ByteBuffer out = encoder.encode(buffer);
+			byte[] bytes = new byte[out.limit()];
+			out.get(bytes);
+			return bytes;
+		} catch (CharacterCodingException ex) {
+			throw new UncheckedCharacterCodingException(ex);
+		}
 	}
 
 	/**
@@ -158,8 +243,8 @@ public final class UTF8
 	 * @return the decoded characters.
 	 *
 	 * @throws NullPointerException if {@code input} is {@code null}.
-	 * @throws IllegalArgumentException if {@code input} doesn't represent
-	 *	valid UTF-8 encoded characters.
+	 * @throws UncheckedCharacterCodingException if {@code input} doesn't
+	 * 	represent valid UTF-8 encoded characters.
 	 */
 	public static String decode(byte... input)
 	{
@@ -180,8 +265,8 @@ public final class UTF8
 	 * @throws IndexOutOfBoundsException if {@code off} or {@code len} is
 	 *	negative or if {@code off + len} is greater than {@code input}'s
 	 *	length.
-	 * @throws IllegalArgumentException if {@code input} doesn't represent
-	 *	valid UTF-8 encoded characters.
+	 * @throws UncheckedCharacterCodingException if {@code input} doesn't
+	 * 	represent valid UTF-8 encoded characters.
 	 */
 	public static String decode(byte[] input, int off, int len)
 	{
@@ -193,7 +278,7 @@ public final class UTF8
 			out.get(chars);
 			return new String(chars);
 		} catch (CharacterCodingException ex) {
-			throw new IllegalArgumentException(ex);
+			throw new UncheckedCharacterCodingException(ex);
 		}
 	}
 

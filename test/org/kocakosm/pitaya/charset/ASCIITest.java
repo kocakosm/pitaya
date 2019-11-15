@@ -39,6 +39,11 @@ public final class ASCIITest
 		assertFalse(canEncode("Spleen et Idéal"));
 		assertTrue(canEncode("Spleen et Idéal", 0, 6));
 		assertFalse(canEncode("Spleen et Idéal", 10, 5));
+
+		assertTrue(canEncode("The Raven".toCharArray()));
+		assertFalse(canEncode("Spleen et Idéal".toCharArray()));
+		assertTrue(canEncode("Spleen et Idéal".toCharArray(), 0, 6));
+		assertFalse(canEncode("Spleen et Idéal".toCharArray(), 10, 5));
 	}
 
 	@Test
@@ -55,13 +60,18 @@ public final class ASCIITest
 	public void testEncode()
 	{
 		Charset ascii = Charset.forName("US-ASCII");
-		assertArrayEquals(encode(""), new byte[0]);
 		String str = "Hello world!";
+
+		assertArrayEquals(new byte[0], encode(""));
 		assertArrayEquals(str.getBytes(ascii), encode(str));
 		assertArrayEquals("llo w".getBytes(ascii), encode(str, 2, 5));
+
+		assertArrayEquals(new byte[0], encode(new char[0]));
+		assertArrayEquals(str.getBytes(ascii), encode(str.toCharArray()));
+		assertArrayEquals("llo w".getBytes(ascii), encode(str.toCharArray(), 2, 5));
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = UncheckedCharacterCodingException.class)
 	public void testEncodeInvalidString()
 	{
 		encode("Spleen et Idéal");
@@ -73,11 +83,11 @@ public final class ASCIITest
 		Charset ascii = Charset.forName("US-ASCII");
 		assertEquals(decode(new byte[0]), "");
 		String str = "Hello world!";
-		assertEquals(decode(str.getBytes(ascii)), str);
-		assertEquals(decode(str.getBytes(ascii), 2, 5), "llo w");
+		assertEquals(str, decode(str.getBytes(ascii)));
+		assertEquals("llo w", decode(str.getBytes(ascii), 2, 5));
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = UncheckedCharacterCodingException.class)
 	public void testDecodeInvalidBytes()
 	{
 		decode("Spleen et Idéal".getBytes(Charset.forName("UTF-8")));

@@ -23,46 +23,86 @@ import java.nio.charset.CharsetDecoder;
 import java.nio.charset.CharsetEncoder;
 
 /**
- * Static utility methods that operate on or return ASCII {@code char}s and
- * {@code String}s.
+ * Static utility methods that operate on or return ASCII characters.
  *
  * @author Osman KOCAK
  */
 public final class ASCII
 {
 	/**
-	 * Returns whether the given {@code String} can be encoded into ASCII.
+	 * Returns whether the given {@code CharSequence} can be encoded into
+	 * ASCII.
 	 *
-	 * @param str the {@code String} to test.
+	 * @param chars the {@code CharSequence} to test.
 	 *
-	 * @return whether {@code str} can be encoded into ASCII.
+	 * @return whether {@code chars} can be encoded into ASCII.
 	 *
-	 * @throws NullPointerException if {@code str} is {@code null}.
+	 * @throws NullPointerException if {@code chars} is {@code null}.
 	 */
-	public static boolean canEncode(String str)
+	public static boolean canEncode(CharSequence chars)
 	{
-		return Charsets.US_ASCII.newEncoder().canEncode(str);
+		return canEncode(chars, 0, chars.length());
 	}
 
 	/**
-	 * Returns whether the specified range in the given {@code String} can
-	 * be encoded into ASCII.
+	 * Returns whether the given characters can be encoded into ASCII.
 	 *
-	 * @param str the input {@code String}.
+	 * @param chars the characters to test.
+	 *
+	 * @return whether {@code chars} can be encoded into ASCII.
+	 *
+	 * @throws NullPointerException if {@code chars} is {@code null}.
+	 */
+	public static boolean canEncode(char... chars)
+	{
+		return canEncode(chars, 0, chars.length);
+	}
+
+	/**
+	 * Returns whether the specified range in the given {@code CharSequence}
+	 * can be encoded into ASCII.
+	 *
+	 * @param chars the input {@code CharSequence}.
 	 * @param off the start index, inclusive.
 	 * @param len the number of characters to test.
 	 *
-	 * @return whether the specified range in {@code str} can be encoded
+	 * @return whether the specified range in {@code chars} can be encoded
 	 *	into ASCII.
 	 *
-	 * @throws NullPointerException if {@code str} is {@code null}.
+	 * @throws NullPointerException if {@code chars} is {@code null}.
 	 * @throws IndexOutOfBoundsException if {@code off} or {@code len} is
-	 *	negative or if {@code off + len} is greater than {@code str}'s
+	 *	negative or if {@code off + len} is greater than {@code chars}'
 	 *	length.
 	 */
-	public static boolean canEncode(String str, int off, int len)
+	public static boolean canEncode(CharSequence chars, int off, int len)
 	{
-		return canEncode(str.substring(off, off + len));
+		return canEncode(CharBuffer.wrap(chars, off, off + len));
+	}
+
+	/**
+	 * Returns whether the specified range in the given array of
+	 * {@code char}s can be encoded into ASCII.
+	 *
+	 * @param chars the input array of {@code char}s.
+	 * @param off the start index, inclusive.
+	 * @param len the number of characters to test.
+	 *
+	 * @return whether the specified range in {@code chars} can be encoded
+	 *	into ASCII.
+	 *
+	 * @throws NullPointerException if {@code chars} is {@code null}.
+	 * @throws IndexOutOfBoundsException if {@code off} or {@code len} is
+	 *	negative or if {@code off + len} is greater than {@code chars}'
+	 *	length.
+	 */
+	public static boolean canEncode(char[] chars, int off, int len)
+	{
+		return canEncode(CharBuffer.wrap(chars, off, len));
+	}
+
+	private static boolean canEncode(CharBuffer buffer)
+	{
+		return Charsets.US_ASCII.newEncoder().canEncode(buffer);
 	}
 
 	/**
@@ -81,8 +121,8 @@ public final class ASCII
 	}
 
 	/**
-	 * Returns whether the specified range in the given byte array represents
-	 * valid ASCII encoded characters.
+	 * Returns whether the specified range in the given byte array
+	 * represents valid ASCII encoded characters.
 	 *
 	 * @param input the input buffer.
 	 * @param off the start index, inclusive.
@@ -100,55 +140,99 @@ public final class ASCII
 	{
 		try {
 			decode(input, off, len);
-		} catch (IllegalArgumentException ex) {
+		} catch (UncheckedCharacterCodingException ex) {
 			return false;
 		}
 		return true;
 	}
 
 	/**
-	 * Returns the ASCII encoding of the given {@code String}.
+	 * Returns the ASCII encoding of the given {@code CharSequence}.
 	 *
-	 * @param str the {@code String} to encode.
+	 * @param chars the {@code CharSequence} to encode.
 	 *
-	 * @return the ASCII encoding of the given {@code String}.
+	 * @return the ASCII encoding of the given {@code CharSequence}.
 	 *
-	 * @throws NullPointerException if {@code str} is {@code null}.
-	 * @throws IllegalArgumentException if {@code str} can't be encoded into
-	 *	ASCII.
+	 * @throws NullPointerException if {@code chars} is {@code null}.
+	 * @throws UncheckedCharacterCodingException if {@code chars} can't be
+	 * 	encoded into ASCII.
 	 */
-	public static byte[] encode(String str)
+	public static byte[] encode(CharSequence chars)
 	{
-		CharsetEncoder encoder = Charsets.US_ASCII.newEncoder();
-		try {
-			ByteBuffer out = encoder.encode(CharBuffer.wrap(str));
-			byte[] bytes = new byte[out.limit()];
-			out.get(bytes);
-			return bytes;
-		} catch (CharacterCodingException ex) {
-			throw new IllegalArgumentException(ex);
-		}
+		return encode(chars, 0, chars.length());
 	}
 
 	/**
-	 * Returns the ASCII encoding of the specified character sequence.
+	 * Returns the ASCII encoding of the given characters.
 	 *
-	 * @param str the input {@code String}.
+	 * @param chars the characters to encode.
+	 *
+	 * @return the ASCII encoding of the given characters.
+	 *
+	 * @throws NullPointerException if {@code chars} is {@code null}.
+	 * @throws UncheckedCharacterCodingException if {@code chars} can't be
+	 * 	encoded into ASCII.
+	 */
+	public static byte[] encode(char... chars)
+	{
+		return encode(chars, 0, chars.length);
+	}
+
+	/**
+	 * Returns the ASCII encoding of the specified range in the given
+	 * {@code CharSequence}.
+	 *
+	 * @param chars the input {@code CharSequence}.
 	 * @param off the start index, inclusive.
 	 * @param len the number of characters to encode.
 	 *
 	 * @return the ASCII encoding of the specified characters.
 	 *
-	 * @throws NullPointerException if {@code str} is {@code null}.
+	 * @throws NullPointerException if {@code chars} is {@code null}.
 	 * @throws IndexOutOfBoundsException if {@code off} or {@code len} is
-	 *	negative or if {@code off + len} is greater than {@code str}'s
+	 *	negative or if {@code off + len} is greater than {@code chars}'
 	 *	length.
-	 * @throws IllegalArgumentException if the specified characters can't be
-	 *	encoded into ASCII.
+	 * @throws UncheckedCharacterCodingException if {@code chars} can't be
+	 * 	encoded into ASCII.
 	 */
-	public static byte[] encode(String str, int off, int len)
+	public static byte[] encode(CharSequence chars, int off, int len)
 	{
-		return encode(str.substring(off, off + len));
+		return encode(CharBuffer.wrap(chars, off, off + len));
+	}
+
+	/**
+	 * Returns the ASCII encoding of the specified range in the given array
+	 * of {@code char}s.
+	 *
+	 * @param chars the input array of {@code char}s.
+	 * @param off the start index, inclusive.
+	 * @param len the number of characters to encode.
+	 *
+	 * @return the ASCII encoding of the specified characters.
+	 *
+	 * @throws NullPointerException if {@code chars} is {@code null}.
+	 * @throws IndexOutOfBoundsException if {@code off} or {@code len} is
+	 *	negative or if {@code off + len} is greater than {@code chars}'
+	 *	length.
+	 * @throws UncheckedCharacterCodingException if {@code chars} can't be
+	 * 	encoded into ASCII.
+	 */
+	public static byte[] encode(char[] chars, int off, int len)
+	{
+		return encode(CharBuffer.wrap(chars, off, len));
+	}
+
+	private static byte[] encode(CharBuffer buffer)
+	{
+		CharsetEncoder encoder = Charsets.US_ASCII.newEncoder();
+		try {
+			ByteBuffer out = encoder.encode(buffer);
+			byte[] bytes = new byte[out.limit()];
+			out.get(bytes);
+			return bytes;
+		} catch (CharacterCodingException ex) {
+			throw new UncheckedCharacterCodingException(ex);
+		}
 	}
 
 	/**
@@ -159,8 +243,8 @@ public final class ASCII
 	 * @return the decoded characters.
 	 *
 	 * @throws NullPointerException if {@code input} is {@code null}.
-	 * @throws IllegalArgumentException if {@code input} doesn't represent
-	 *	valid ASCII encoded characters.
+	 * @throws UncheckedCharacterCodingException if {@code input} doesn't
+	 * 	represent valid ASCII encoded characters.
 	 */
 	public static String decode(byte... input)
 	{
@@ -181,8 +265,8 @@ public final class ASCII
 	 * @throws IndexOutOfBoundsException if {@code off} or {@code len} is
 	 *	negative or if {@code off + len} is greater than {@code input}'s
 	 *	length.
-	 * @throws IllegalArgumentException if the specified bytes do not
-	 *	represent valid ASCII encoded characters.
+	 * @throws UncheckedCharacterCodingException if the specified bytes do
+	 * 	not represent valid ASCII encoded characters.
 	 */
 	public static String decode(byte[] input, int off, int len)
 	{
@@ -194,7 +278,7 @@ public final class ASCII
 			out.get(chars);
 			return new String(chars);
 		} catch (CharacterCodingException ex) {
-			throw new IllegalArgumentException(ex);
+			throw new UncheckedCharacterCodingException(ex);
 		}
 	}
 
@@ -214,11 +298,11 @@ public final class ASCII
 	}
 
 	/**
-	 * Returns whether the given character represents a digit.
+	 * Returns whether the given character represents an ASCII digit.
 	 *
 	 * @param c the character to test.
 	 *
-	 * @return whether the given character represents a digit.
+	 * @return whether the given character represents an ASCII digit.
 	 */
 	public static boolean isDigit(char c)
 	{
@@ -226,11 +310,11 @@ public final class ASCII
 	}
 
 	/**
-	 * Returns whether the given character is a letter.
+	 * Returns whether the given character is an ASCII letter.
 	 *
 	 * @param c the character to test.
 	 *
-	 * @return whether the given character is a letter.
+	 * @return whether the given character is an ASCII letter.
 	 */
 	public static boolean isLetter(char c)
 	{
@@ -238,19 +322,19 @@ public final class ASCII
 	}
 
 	/**
-	 * Returns whether the given {@code String} is an alphabetic sequence,
-	 * that is, a sequence which only contains letters.
+	 * Returns whether the given {@code CharSequence} is an alphabetic ASCII
+	 * sequence, that is, a sequence which only contains ASCII letters.
 	 *
-	 * @param str the {@code String} to test.
+	 * @param chars the {@code CharSequence} to test.
 	 *
-	 * @return whether the given {@code String} is an alphabetic sequence.
+	 * @return whether {@code chars} only contains ASCII letters.
 	 *
-	 * @throws NullPointerException if {@code str} is {@code null}.
+	 * @throws NullPointerException if {@code chars} is {@code null}.
 	 */
-	public static boolean isAlphabetic(String str)
+	public static boolean isAlphabetic(CharSequence chars)
 	{
-		for (char c : str.toCharArray()) {
-			if (!isLetter(c)) {
+		for (int i = 0; i < chars.length(); i++) {
+			if (!isLetter(chars.charAt(i))) {
 				return false;
 			}
 		}
@@ -258,28 +342,49 @@ public final class ASCII
 	}
 
 	/**
-	 * Returns whether the given {@code String} is a numeric sequence, that
-	 * is, a sequence which only contains digits.
+	 * Returns whether the given array of {@code char}s only contains ASCII
+	 * letters.
 	 *
-	 * @param str the {@code String} to test.
+	 * @param chars the array of {@code char}s to test.
 	 *
-	 * @return whether the given {@code String} is a numeric sequence.
+	 * @return whether {@code chars} only contains ASCII letters.
+	 *
+	 * @throws NullPointerException if {@code chars} is {@code null}.
+	 */
+	public static boolean isAlphabetic(char... chars)
+	{
+		return isAlphabetic(CharBuffer.wrap(chars));
+	}
+
+	/**
+	 * Returns whether the given {@code String} is a numeric ASCII sequence,
+	 * that is, a sequence which only contains ASCII digits.
+	 *
+	 * @param chars the {@code String} to test.
+	 *
+	 * @return whether the given {@code String} is a numeric ASCII sequence.
 	 *
 	 * @throws NullPointerException if {@code str} is {@code null}.
 	 */
-	public static boolean isNumeric(String str)
+	public static boolean isNumeric(CharSequence chars)
 	{
-		for (char c : str.toCharArray()) {
-			if (!isDigit(c)) {
+		for (int i = 0; i < chars.length(); i++) {
+			if (!isDigit(chars.charAt(i))) {
 				return false;
 			}
 		}
 		return true;
 	}
 
+	public static boolean isNumeric(char... chars)
+	{
+		return isNumeric(CharBuffer.wrap(chars));
+	}
+
 	/**
-	 * Returns whether the given {@code String} is an alphanumeric sequence,
-	 * that is, a sequence which only contains letters and digits.
+	 * Returns whether the given {@code String} is an ASCII alphanumeric
+	 * sequence, that is, a sequence which only contains ASCII letters and
+	 * digits.
 	 *
 	 * @param str the {@code String} to test.
 	 *
@@ -289,7 +394,12 @@ public final class ASCII
 	 */
 	public static boolean isAlphaNumeric(String str)
 	{
-		for (char c : str.toCharArray()) {
+		return isAlphaNumeric(str.toCharArray());
+	}
+
+	public static boolean isAlphaNumeric(char... chars)
+	{
+		for (char c : chars) {
 			if (!isDigit(c) && !isLetter(c)) {
 				return false;
 			}
@@ -303,7 +413,7 @@ public final class ASCII
 	 *
 	 * @param c the character to test.
 	 *
-	 * @return whether the given character is a lowercase character.
+	 * @return whether the given character is a lowercase ASCII character.
 	 */
 	public static boolean isLowerCase(char c)
 	{
@@ -316,7 +426,7 @@ public final class ASCII
 	 *
 	 * @param c the character to test.
 	 *
-	 * @return whether the given character is a uppercase character.
+	 * @return whether the given character is an uppercase ASCII character.
 	 */
 	public static boolean isUpperCase(char c)
 	{
@@ -366,11 +476,16 @@ public final class ASCII
 	 */
 	public static String toLowerCase(String str)
 	{
-		StringBuilder sb = new StringBuilder(str.length());
-		for (char c : str.toCharArray()) {
+		return new String(toLowerCase(str.toCharArray()));
+	}
+
+	public static char[] toLowerCase(char... chars)
+	{
+		StringBuilder sb = new StringBuilder(chars.length);
+		for (char c : chars) {
 			sb.append(toLowerCase(c));
 		}
-		return sb.toString();
+		return sb.toString().toCharArray();
 	}
 
 	/**
@@ -386,11 +501,16 @@ public final class ASCII
 	 */
 	public static String toUpperCase(String str)
 	{
-		StringBuilder sb = new StringBuilder(str.length());
-		for (char c : str.toCharArray()) {
+		return new String(toUpperCase(str.toCharArray()));
+	}
+
+	public static char[] toUpperCase(char... chars)
+	{
+		StringBuilder sb = new StringBuilder(chars.length);
+		for (char c : chars) {
 			sb.append(toUpperCase(c));
 		}
-		return sb.toString();
+		return sb.toString().toCharArray();
 	}
 
 	private ASCII()
