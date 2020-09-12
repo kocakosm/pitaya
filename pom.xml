@@ -33,15 +33,15 @@
   </developers>
 
   <scm>
-    <connection>scm:hg:https://bitbucket.org/kocakosm/pitaya</connection>
-    <developerConnection>scm:hg:ssh://hg@bitbucket.org/kocakosm/pitaya</developerConnection>
-    <url>https://bitbucket.org/kocakosm/pitaya</url>
+    <url>https://github.com/kocakosm/pitaya</url>
+    <connection>scm:git:https://github.com/kocakosm/pitaya.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/kocakosm/pitaya.git</developerConnection>
     <tag>HEAD</tag>
   </scm>
 
   <issueManagement>
-    <system>Bitbucket</system>
-    <url>https://bitbucket.org/kocakosm/pitaya/issues</url>
+    <system>Github</system>
+    <url>https://github.com/kocakosm/pitaya/issues</url>
   </issueManagement>
 
   <distributionManagement>

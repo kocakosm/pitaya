@@ -88,7 +88,7 @@ or ping me on [twitter][16].
  [10]: https://www.gnu.org/licenses/lgpl.txt
  [11]: https://search.maven.org/remote_content?g=org.kocakosm&a=pitaya&v=LATEST
  [12]: https://www.javadoc.io/doc/org.kocakosm/pitaya
- [13]: https://bitbucket.org/kocakosm/pitaya
- [14]: https://bitbucket.org/kocakosm/pitaya/issues?status=new&status=open
+ [13]: https://github.com/kocakosm/pitaya
+ [14]: https://github.com/kocakosm/pitaya/issues
  [15]: https://www.gnu.org/licenses/lgpl-3.0-standalone.html
  [16]: https://twitter.com/kocakosm
